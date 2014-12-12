@@ -4,13 +4,13 @@
 
 build/
 
-
 ######################
 # Java
 ######################
 
 *.ear
-
+*.class
+*.properties
 
 ######################
 # Eclipse
@@ -30,3 +30,4 @@ local.properties
 .classpath
 .settings/
 .loadpath
+
