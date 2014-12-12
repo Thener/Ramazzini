@@ -1,0 +1,25 @@
+body {
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	padding: 0px;
+	margin: 0px;
+}
+
+#container {
+
+}
+
+#cabecalho {
+    background-color: powderblue;
+    display: block;
+    min-height: 50px;	
+}
+
+#content {
+
+}
+
+#menu {
+    background-color: skyblue;
+    display: block;
+    min-height: 50px;	
+}

@@ -28,8 +28,15 @@
       <jta-data-source>java:jboss/datasources/ramazziniDS</jta-data-source>
       <properties>
          <!-- Properties for Hibernate -->
-         <property name="hibernate.hbm2ddl.auto" value="create-drop" />
-         <property name="hibernate.show_sql" value="false" />
+         <!-- 
+         	Valores para: hibernate.hbm2ddl.auto
+				validate: validate the schema, makes no changes to the database.
+				update: update the schema.
+				create: creates the schema, destroying previous data.
+				create-drop: drop the schema at the end of the session.
+		-->         
+         <property name="hibernate.hbm2ddl.auto" value="validate" />
+         <property name="hibernate.show_sql" value="true" />
       </properties>
    </persistence-unit>
 </persistence>
