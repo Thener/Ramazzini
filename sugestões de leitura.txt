@@ -1,0 +1,3 @@
+http://uaihebert.com/aplicacao-web-completa-tomcat-jsf-primefaces-jpa-hibernate/
+http://uaihebert.com/aplicacao-web-completa-jsf-ejb-jpa-jaas/2/
+http://uaihebert.com/validacao-de-login-de-usuario-com-jsf-e-jaas/
