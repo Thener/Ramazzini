@@ -17,5 +17,5 @@ Jboss (jboss-as-7.1.1.Final)
 - Ajuste o module.xml do postgre no jboss (jboss-as-7.1.1.Final\modules\org\postgresql\main) copiando o arquivo "postgresql-9.3-1102-jdbc41.jar" e acertando o xml.
 - Ajuste o standalone.xml em (jboss-as-7.1.1.Final\standalone\configuration), acrescentado as configurações do driver do postgresql. 
 - Abra o pgAdmin e crie a base do sistema (ramazzini)
-- rode o projeto para criação das tabelas. 
+- rode o projeto para criação das tabelas (caso o banco não seja criado, verifique o arquivo persistence.xml, a opção: <property name="hibernate.hbm2ddl.auto" value="validate" />
 

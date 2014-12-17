@@ -1,0 +1,3 @@
+-- Este link me auxiliou na implantação do spring security sem uso de xml:
+http://docs.spring.io/autorepo/docs/spring-security/3.2.x/guides/helloworld.html
+
