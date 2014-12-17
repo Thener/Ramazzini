@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package br.com.ramazzini.data;
+package br.com.ramazzini.dao;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;

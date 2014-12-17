@@ -40,7 +40,7 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import br.com.ramazzini.data.MemberRepository;
+import br.com.ramazzini.dao.MemberRepository;
 import br.com.ramazzini.model.Member;
 import br.com.ramazzini.service.MemberRegistration;
 
