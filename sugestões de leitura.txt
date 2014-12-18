@@ -1,4 +1,3 @@
--- JAAS:
-http://uaihebert.com/validacao-de-login-de-usuario-com-jsf-e-jaas/
+
 
 
