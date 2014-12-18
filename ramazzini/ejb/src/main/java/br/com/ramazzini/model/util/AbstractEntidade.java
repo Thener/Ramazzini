@@ -25,47 +25,25 @@ public abstract class AbstractEntidade implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * <p>
-	 * Data de inclusão do registro no Banco de Dados.
-	 * </p>
-	 * <p>
-	 * Sempre utilizar a data Real e não a do sistema.
-	 * </p>
-	 */
+
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "ts_inclusao", columnDefinition = "Date")
 	@Basic(fetch = FetchType.LAZY)
 	private Date dataInclusao;
 
-	/**
-	 * <p>
-	 * Data de alteração do registro no Banco de Dados.
-	 * </p>
-	 * <p>
-	 * Sempre utilizar a data Real e não a do sistema.
-	 * </p>
-	 */
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "ts_alteracao", columnDefinition = "Date")
 	@Basic(fetch = FetchType.LAZY)
 	private Date dataAlteracao;
 
-	/**
-	 * <p>
-	 * Usuário que fez a inclusão do registro no Banco de Dados.
-	 * </p>
-	 */
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cd_usuario_inclusao")
 	private Usuario usuarioInclusao;
 
-	/**
-	 * <p>
-	 * Usuário que fez a alteração do registro no Banco de Dados.
-	 * </p>
-	 */
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cd_usuario_alteracao")
 	private Usuario usuarioAlteracao;
@@ -79,21 +57,10 @@ public abstract class AbstractEntidade implements Serializable {
 		return dataInclusao;
 	}
 
-	/**
-	 * <p>
-	 * Toda entidade herda AbstractEntidade e obrigatoriamente possui id.
-	 * </p>
-	 *
-	 * <p>
-	 * Todo id obrigatoriamente deve possuir a coluna no banco de dados NotNull.
-	 * </p>
-	 *
-	 * @return Long - Id da entidade
-	 */
+
 	public abstract Long getId();
 	
 	
-
 	public Usuario getUsuarioAlteracao() {
 		return usuarioAlteracao;
 	}

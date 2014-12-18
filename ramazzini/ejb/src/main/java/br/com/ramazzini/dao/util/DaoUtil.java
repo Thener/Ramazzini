@@ -21,7 +21,7 @@ public class DaoUtil {
 	 * @param entidade
 	 *            entidade
 	 */
-	public static final void remover(EntityManager entityManager, Object entidade) {
+	public static void remover(EntityManager entityManager, Object entidade) {
 		entityManager.remove(entidade);
 		entityManager.flush();
 	}
@@ -45,7 +45,7 @@ public class DaoUtil {
 	 * @return entidade
 	 */
 	@SuppressWarnings("unchecked")
-	public static final Object recuperarPorId(EntityManager entityManager, Class classePersistente, Long id) {
+	public static Object recuperarPorId(EntityManager entityManager, Class classePersistente, Long id) {
 		return entityManager.find(classePersistente, id);
 	}
 
@@ -58,7 +58,7 @@ public class DaoUtil {
 	 * @return Object
 	 */
 	@SuppressWarnings("unchecked")
-	public static final Object recuperarPorIdForUpdate(EntityManager entityManager, Class classePersistente, Long id) {
+	public static Object recuperarPorIdForUpdate(EntityManager entityManager, Class classePersistente, Long id) {
 		final Object object = entityManager.find(classePersistente, id);
 		entityManager.lock(object, LockModeType.READ);
 

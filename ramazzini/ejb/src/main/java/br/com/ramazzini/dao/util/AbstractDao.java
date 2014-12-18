@@ -24,7 +24,6 @@ import br.com.ramazzini.model.util.AbstractEntidade;
 @Stateless
 public abstract class AbstractDao<T extends AbstractEntidade> {
 		
-	@Inject
 	private EntityManager entityManager;
 	
 	@Inject
@@ -32,22 +31,22 @@ public abstract class AbstractDao<T extends AbstractEntidade> {
 
 	private Class<T> classePersistente = null;	
 	
-	public final void remover(T entidade) {
+	public void remover(T entidade) {
 		DaoUtil.remover(entityManager, entidade);
 	}
 
 	@SuppressWarnings("unchecked")
-	public final T salvar(T entidade, Usuario usuarioLogado) {
+	public T salvar(T entidade, Usuario usuarioLogado) {
 		return (T) DaoUtil.salvar(entityManager, entidade, usuarioLogado);
 	}
 
 	@SuppressWarnings("unchecked")
-	public final T recuperarPorId(Long id) {
+	public T recuperarPorId(Long id) {
 		return (T) DaoUtil.recuperarPorId(entityManager, getClassePersistente(), id);
 	}
 	
 	@SuppressWarnings("unchecked")
-	public final T recuperarPorIdForUpdate(Long id) {
+	public T recuperarPorIdForUpdate(Long id) {
 		return (T) DaoUtil.recuperarPorIdForUpdate(entityManager, getClassePersistente(), id);
 	}
 	
@@ -149,5 +148,15 @@ public abstract class AbstractDao<T extends AbstractEntidade> {
 		closeStatement(ps);
 		closeConnection(conn);
 	}
+
+	public EntityManager getEntityManager() {
+		return entityManager;
+	}
+
+	public void setEntityManager(EntityManager entityManager) {
+		this.entityManager = entityManager;
+	}
+	
+	
 	
 }

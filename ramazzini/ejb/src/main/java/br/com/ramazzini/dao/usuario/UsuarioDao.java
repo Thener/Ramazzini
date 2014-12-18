@@ -1,5 +1,6 @@
 package br.com.ramazzini.dao.usuario;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import br.com.ramazzini.dao.util.AbstractDao;
@@ -15,10 +16,13 @@ public class UsuarioDao extends AbstractDao<Usuario> {
 	 * @param login
 	 * @return Usuario
 	 */
-	@SuppressWarnings("unchecked")
 	public Usuario recuperarPorLogin(String login) {
 		Query query = createNamedQuery(QUERY_RECUPERAR_POR_LOGIN);
 		query.setParameter("login", login);
-		return (Usuario) query.getSingleResult();
+		try {
+			return (Usuario) query.getSingleResult();
+		} catch (NoResultException nr) {
+			return null;
+		}
 	}
 }
