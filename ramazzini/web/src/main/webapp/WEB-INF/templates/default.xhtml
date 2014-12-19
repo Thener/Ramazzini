@@ -18,14 +18,7 @@
 		<div id="cabecalho">Cabecalho</div>
 
 		<div id="menu">
-			<div style="float: left;">
-				<ui:include src="/WEB-INF/menus/administrador.xhtml" />
-			</div>
-			<div style="float: right;">
-				<h:form id="logout">
-					<h:commandLink action="#{loginController.logout()}" value="Logout" />
-				</h:form>
-			</div>
+			<ui:include src="/WEB-INF/menus/menu.xhtml" />
 		</div>
 
 		<div id="content">
