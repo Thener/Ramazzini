@@ -19,6 +19,7 @@
    xmlns:ui="http://java.sun.com/jsf/facelets"
    xmlns:f="http://java.sun.com/jsf/core"
    xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui"
    template="/WEB-INF/templates/default.xhtml">
    <ui:define name="content">
    
@@ -76,5 +77,22 @@
             REST URL for all members: <a href="#{request.contextPath}/rest/members">/rest/members</a>
          </f:facet>
       </h:dataTable>
-   </ui:define>
+		<p:dataTable var="u" value="#{members}">
+			<p:column headerText="Id">
+				<h:outputText value="#{u.id}" />
+			</p:column>
+
+			<p:column headerText="Nome">
+				<h:outputText value="#{u.name}" />
+			</p:column>
+
+			<p:column headerText="Email">
+				<h:outputText value="#{u.email}" />
+			</p:column>
+
+			<p:column headerText="Telefone">
+				<h:outputText value="#{u.phoneNumber}" />
+			</p:column>
+		</p:dataTable>
+	</ui:define>
 </ui:composition>

@@ -1,5 +1,7 @@
 package br.com.ramazzini.service.util;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import br.com.ramazzini.dao.util.AbstractDao;
@@ -14,7 +16,6 @@ import br.com.ramazzini.util.ReflectionUtil;
  * 
  * @param <T>
  *            T extends AbstractEntidade
- * @author samuelmd
  * 
  */
 public abstract class AbstractServiceImpl<T extends AbstractEntidade>
@@ -80,23 +81,50 @@ public abstract class AbstractServiceImpl<T extends AbstractEntidade>
 	 * {@inheritDoc}
 	 */
 	public T salvar(T entidade, Usuario usuarioLogado) {
-		validar(entidade);
-
 		return getDao().salvar(entidade, usuarioLogado);
 	}
 
 
-	@Override
+	
 	public void clear() {
 		getDao().clear();
 	}
 
 	
-	@Override
+	
 	public void refresh(AbstractEntidade entidade) {
 		getDao().refresh(entidade);
 	}
 	
+	
+	public List<T> recuperarTodos(String... orderBy) {
+		return getDao().recuperarTodosOrdenados(orderBy);
+	}
+	
+	public List<T> recuperarTodos() {
+		// TODO Auto-generated method stub
+		return null;
+	}	
 
+	
+	public void initTransaction() {
+		// TODO Auto-generated method stub
+		
+	}
 
+	
+	public void endTransaction() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+	public void evict(AbstractEntidade entidade) {
+		// TODO Auto-generated method stub
+		
+	}
+	public List<T> salvarLista(List<T> listaEntidade,
+			Usuario usuarioLogado) {
+		return null;
+	}
 }

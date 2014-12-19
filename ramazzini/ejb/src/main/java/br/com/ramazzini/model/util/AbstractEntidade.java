@@ -26,7 +26,6 @@ public abstract class AbstractEntidade implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 
-	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "ts_inclusao", columnDefinition = "Date")
 	@Basic(fetch = FetchType.LAZY)

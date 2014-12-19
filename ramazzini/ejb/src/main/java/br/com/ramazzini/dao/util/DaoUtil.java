@@ -31,7 +31,7 @@ public class DaoUtil {
 	 */
 	public static final AbstractEntidade salvar(EntityManager entityManager, AbstractEntidade entidade, Usuario usuarioLogado) {
 		if (entidade.getId() == null) {
-			entidade.setUsuarioInclusao(usuarioLogado);
+			//entidade.setUsuarioInclusao(usuarioLogado);
 			entityManager.persist(entidade);
 		} else {
 			entidade.setUsuarioAlteracao(usuarioLogado);

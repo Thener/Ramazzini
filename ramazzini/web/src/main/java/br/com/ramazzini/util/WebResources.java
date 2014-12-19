@@ -16,15 +16,14 @@
  */
 package br.com.ramazzini.util;
 
-import java.util.logging.Logger;
-
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
-import javax.enterprise.inject.spi.InjectionPoint;
 import javax.faces.context.FacesContext;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpSession;
+
+import br.com.ramazzini.model.usuario.Usuario;
+import javax.enterprise.inject.New;
+import javax.inject.Named;
 
 /**
  * This class uses CDI to alias Java EE resources, such as the persistence context, to CDI beans
@@ -51,6 +50,14 @@ public class WebResources {
     public HttpSession session() {
 		HttpSession session = (HttpSession) produceFacesContext().getExternalContext().getSession(false);
     	return session;    	
+    }
+    
+    @Named
+    @Produces
+    @RequestScoped
+    public Usuario usuarioLogado(){
+    	
+    	return (Usuario)session().getAttribute("usuario");
     }
 
 }

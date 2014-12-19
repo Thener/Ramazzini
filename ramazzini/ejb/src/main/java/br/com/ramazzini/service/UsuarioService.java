@@ -16,7 +16,6 @@
  */
 package br.com.ramazzini.service;
 
-import java.util.List;
 import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
@@ -24,7 +23,6 @@ import javax.inject.Inject;
 
 import br.com.ramazzini.dao.usuario.UsuarioDao;
 import br.com.ramazzini.model.usuario.Usuario;
-import br.com.ramazzini.model.util.AbstractEntidade;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
 
 // The @Stateless annotation eliminates the need for manual transaction demarcation
@@ -34,12 +32,6 @@ public class UsuarioService extends AbstractServiceImpl<Usuario> {
     @Inject
     private Logger log;
 
-    //@Inject
-    //private EntityManager em;
-
-    //@Inject
-    //private Event<Member> memberEventSrc;
-
     public Usuario recuperarPorLogin(String login) {
         
     	log.info("Verificando " + login);
@@ -48,41 +40,4 @@ public class UsuarioService extends AbstractServiceImpl<Usuario> {
     	
         return dao.recuperarPorLogin(login);
     }
-
-	@Override
-	public List<Usuario> recuperarTodos() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Usuario> recuperarTodos(String... orderBy) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void initTransaction() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void endTransaction() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void evict(AbstractEntidade entidade) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public List<Usuario> salvarLista(List<Usuario> listaEntidades,
-			Usuario usuarioLogado) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

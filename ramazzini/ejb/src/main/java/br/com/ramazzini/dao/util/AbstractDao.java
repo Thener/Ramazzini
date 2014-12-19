@@ -5,13 +5,18 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
+import br.com.ramazzini.model.Member;
 import br.com.ramazzini.model.usuario.Usuario;
 import br.com.ramazzini.model.util.AbstractEntidade;
 
@@ -157,6 +162,37 @@ public abstract class AbstractDao<T extends AbstractEntidade> {
 		this.entityManager = entityManager;
 	}
 	
-	
+	/**
+	 * Recupera todas as entidade do tipo T.
+	 * 
+	 * @return entidade
+	 */
+	@SuppressWarnings("unchecked")
+	public List<T> recuperarTodosOrdenados(String... ordenacoes) {
+		List<T> retorno = null;
+		Query q =
+				entityManager.createQuery("SELECT c FROM " + getClassePersistente().getSimpleName() + " c "
+						+ adicionaOrderByHql(ordenacoes));
+		retorno = q.getResultList();
+		return retorno;
+	}
+	/**
+	 * Adiciona o orderBy no final da query a ser utilizada.
+	 * 
+	 * @param ordenacoes a serem utilizadas para a busca
+	 * @return string com o orderBy
+	 */
+	protected static final String adicionaOrderByHql(String... ordenacoes) {
+		StringBuilder builder = new StringBuilder();
+		if (ordenacoes != null && ordenacoes.length > 0) {
+			builder.append(" order by ");
+			for (int i = 0; i < ordenacoes.length - 1; i++) {
+				builder.append(ordenacoes[i].toString());
+				builder.append(", ");
+			}
+			builder.append(ordenacoes[ordenacoes.length - 1]);
+		}
+		return builder.toString();
+	}
 	
 }

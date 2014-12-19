@@ -1,5 +1,7 @@
 package br.com.ramazzini.dao.usuario;
 
+import java.util.Collection;
+
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
@@ -24,5 +26,8 @@ public class UsuarioDao extends AbstractDao<Usuario> {
 		} catch (NoResultException nr) {
 			return null;
 		}
+	}
+	public Collection<Usuario> recuperarTodosOrdenadosPorNome() {
+		return super.recuperarTodosOrdenados("nome");
 	}
 }
