@@ -42,7 +42,7 @@ public class LoginController implements Serializable {
 		
 		if (usuarioBd != null && usuarioBd.getSenha().equals(usuario.getSenha())) {
 			session.setAttribute("usuario", usuarioBd);
-			return "/pages/home/home.xhtml";
+			return "/pages/home/home.jsf";
 		}
 		
 		return ""; // Sem argumentos para voltar para a página de login
@@ -51,7 +51,7 @@ public class LoginController implements Serializable {
 	public String logout() {
 		
 		session.invalidate();
-		return "/pages/login/login.xhtml";
+		return "/index.jsf";
 	}
 
 	public Usuario getUsuario() {

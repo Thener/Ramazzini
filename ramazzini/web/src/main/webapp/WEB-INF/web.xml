@@ -41,7 +41,7 @@
 	</filter>
     <filter-mapping>
         <filter-name>AcessoFilter</filter-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/pages/*</url-pattern>
     </filter-mapping>	
 
 </web-app>
