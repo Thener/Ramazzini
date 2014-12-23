@@ -22,3 +22,6 @@ body {
     display: block;
     min-height: 50px;	
 }
+.semBorda tr, .semBorda td {
+	border: none !important;
+}

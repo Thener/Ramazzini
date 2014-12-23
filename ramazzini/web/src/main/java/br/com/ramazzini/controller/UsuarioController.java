@@ -1,12 +1,11 @@
 package br.com.ramazzini.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.ConversationScoped;
-import javax.enterprise.event.Observes;
-import javax.enterprise.event.Reception;
+import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Produces;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -17,7 +16,7 @@ import br.com.ramazzini.model.usuario.Usuario;
 import br.com.ramazzini.service.UsuarioService;
 
 @Named
-@ConversationScoped
+@SessionScoped
 public class UsuarioController implements Serializable {
     /**
 	 * 
@@ -36,22 +35,22 @@ public class UsuarioController implements Serializable {
     private Usuario usuarioLogado;
     
     private List<Usuario> usuarios;
-
     
-    @Produces
+    private String loginPesquisa;
+    private String gridMsg;
+    
+	@Produces
     public List<Usuario> getUsuarios() {
         return usuarios;
     }
-
-    public void onMemberListChanged(@Observes(notifyObserver = Reception.IF_EXISTS) final Usuario usuario) {
-    	usuarios = usuarioService.recuperarTodos("nome");
-    }
-
-    @PostConstruct
+   
+    @PostConstruct     
     public void init() {
-    	usuarios = usuarioService.recuperarTodos("nome");
-    	usuarioNovo = new Usuario();
+    	usuarios = new ArrayList<Usuario>();
+    	usuarioNovo = new Usuario();  
+    	gridMsg = "";
     }
+    
     @Produces
     public Usuario getNovoUsuario() {
         return usuarioNovo;
@@ -62,14 +61,28 @@ public class UsuarioController implements Serializable {
             usuarioService.salvar(usuarioNovo, usuarioLogado);
             facesContext.addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_INFO, "Registrado!", "Usuario cadastrado com sucesso!"));
-            usuarioNovo = new Usuario();
+            init();
         } catch (Exception e) {
-            String errorMessage = getRootErrorMessage(e);
+            String errorMessage = getRaizErro(e);
             FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMessage, "Usuario não cadastrado!");
             facesContext.addMessage(null, m);
         }
     }  
-    private String getRootErrorMessage(Exception e) {
+    public void pesquisar() throws Exception {
+		if (loginPesquisa.isEmpty()){
+			usuarios = usuarioService.recuperarTodos("nome");        		
+		} else {
+			List<Usuario> usuariosRecuperados = usuarioService.recuperarPorTrechoLogin(loginPesquisa);
+			if (!usuariosRecuperados.isEmpty()) {
+				usuarios=usuariosRecuperados;
+			} else {
+				init();
+				gridMsg = "Login informado não cadastrado.";
+			}
+		}      
+    }  
+    
+    private String getRaizErro(Exception e) {
         String errorMessage = "Registro falhou. Veja o log do servidor para mais informações.";
         if (e == null) {
             // Se não houver uma Exception, retorna a mensagem padrão
@@ -82,4 +95,20 @@ public class UsuarioController implements Serializable {
         }
         return errorMessage;
     }
+
+	public String getLoginPesquisa() {
+		return loginPesquisa;
+	}
+
+	public void setLoginPesquisa(String loginPesquisa) {
+		this.loginPesquisa = loginPesquisa;
+	} 
+
+	public String getGridMsg() {
+		return gridMsg;
+	}
+
+	public void setGridMsg(String gridMsg) {
+		this.gridMsg = gridMsg;
+	}
 }

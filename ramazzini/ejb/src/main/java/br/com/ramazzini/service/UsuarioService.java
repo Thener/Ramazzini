@@ -16,6 +16,7 @@
  */
 package br.com.ramazzini.service;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
@@ -39,5 +40,13 @@ public class UsuarioService extends AbstractServiceImpl<Usuario> {
     	UsuarioDao dao = ((UsuarioDao) getDao());
     	
         return dao.recuperarPorLogin(login);
+    }
+    public List<Usuario> recuperarPorTrechoLogin(String login) {
+        
+    	log.info("recuerando usuario pelo login: " + login);
+    	
+    	UsuarioDao dao = ((UsuarioDao) getDao());
+    	
+        return dao.recuperarPorTrechoLogin(login);
     }
 }
