@@ -43,7 +43,9 @@ public class AcessoFilter implements Filter {
 		
 		HttpSession session = request.getSession();
 		
-		if (request.getRequestURI().endsWith("/login.jsf")) {
+		String uri = request.getRequestURI();
+		
+		if (uri.endsWith("/login.jsf")) {
 			chain.doFilter(req, res);
 			return;
 		}
@@ -53,6 +55,9 @@ public class AcessoFilter implements Filter {
 			response.sendRedirect(request.getContextPath() + "/pages/login/login.jsf");
 		} else {
 			
+			String partes[] = uri.split("/");
+			String pagina = partes[ partes.length - 1 ];
+			String modulo = partes[ partes.length - 2 ];
 			chain.doFilter(req, res);
 		}
 	}

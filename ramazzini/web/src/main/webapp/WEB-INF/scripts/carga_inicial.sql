@@ -13,22 +13,22 @@ values (2, null, current_timestamp, true, 'home', true, null, null);
 -------- CARGA DA TABELA: TELA
 
 insert into tela (cd_tela, ts_alteracao, ts_inclusao, ic_ativo, nm_tela, ic_publico, cd_usuario_alteracao, cd_usuario_inclusao, cd_modulo)
-values (1, null, current_timestamp, true, 'pesquisarUsuario', false, null, null, (select cd_modulo from modulo where nm_modulo = 'usuario') );
+values (1, null, current_timestamp, true, 'pesquisarUsuario.jsf', false, null, null, (select cd_modulo from modulo where nm_modulo = 'usuario') );
 
 insert into tela (cd_tela, ts_alteracao, ts_inclusao, ic_ativo, nm_tela, ic_publico, cd_usuario_alteracao, cd_usuario_inclusao, cd_modulo)
-values (2, null, current_timestamp, true, 'visualizarUsuario', false, null, null, (select cd_modulo from modulo where nm_modulo = 'usuario') );
+values (2, null, current_timestamp, true, 'visualizarUsuario.jsf', false, null, null, (select cd_modulo from modulo where nm_modulo = 'usuario') );
 
 insert into tela (cd_tela, ts_alteracao, ts_inclusao, ic_ativo, nm_tela, ic_publico, cd_usuario_alteracao, cd_usuario_inclusao, cd_modulo)
-values (3, null, current_timestamp, true, 'incluirUsuario', false, null, null, (select cd_modulo from modulo where nm_modulo = 'usuario') );
+values (3, null, current_timestamp, true, 'incluirUsuario.jsf', false, null, null, (select cd_modulo from modulo where nm_modulo = 'usuario') );
 
 insert into tela (cd_tela, ts_alteracao, ts_inclusao, ic_ativo, nm_tela, ic_publico, cd_usuario_alteracao, cd_usuario_inclusao, cd_modulo)
-values (4, null, current_timestamp, true, 'alterarUsuario', false, null, null, (select cd_modulo from modulo where nm_modulo = 'usuario') );
+values (4, null, current_timestamp, true, 'alterarUsuario.jsf', false, null, null, (select cd_modulo from modulo where nm_modulo = 'usuario') );
 
 insert into tela (cd_tela, ts_alteracao, ts_inclusao, ic_ativo, nm_tela, ic_publico, cd_usuario_alteracao, cd_usuario_inclusao, cd_modulo)
-values (5, null, current_timestamp, true, 'excluirUsuario', false, null, null, (select cd_modulo from modulo where nm_modulo = 'usuario') );
+values (5, null, current_timestamp, true, 'excluirUsuario.jsf', false, null, null, (select cd_modulo from modulo where nm_modulo = 'usuario') );
 
 insert into tela (cd_tela, ts_alteracao, ts_inclusao, ic_ativo, nm_tela, ic_publico, cd_usuario_alteracao, cd_usuario_inclusao, cd_modulo)
-values (6, null, current_timestamp, true, 'home', false, null, null, (select cd_modulo from modulo where nm_modulo = 'home') );
+values (6, null, current_timestamp, true, 'home.jsf', false, null, null, (select cd_modulo from modulo where nm_modulo = 'home') );
 
 -------- CARGA DA TABELA: ACAO
 
@@ -56,6 +56,11 @@ values (2, null, current_timestamp, true, 'atendimento', null, null);
 -------- CARGA DA TABELA: PERFIL_TELA
 
 --> Perfil "administrador" não precisará ter permissões nas tabelas.
+
+--> Autorizando perfil: ATENDIMENTO
+
+insert into perfil_tela (cd_perfil, cd_tela) 
+values ( (select cd_perfil from perfil where nm_perfil = 'atendimento'), (select cd_tela from tela where nm_tela = 'home' and cd_modulo = (select cd_modulo from modulo where nm_modulo = 'home') ) );
 
 -------- CARGA DA TABELA: USUARIO
 
