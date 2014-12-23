@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui"
+   template="/WEB-INF/templates/default.xhtml">
+   <ui:define name="content">
+   
+      <h:form id="frmUsuario">			
+		<p:panel id="panelPesquisa" header="Filtros" style="margin-bottom:20px">
+			<h:panelGrid columns="3" cellpadding="10">
+				<p:outputLabel for="login" value="Login:" />
+				<p:inputText id="login" 
+					value="#{usuarioController.loginPesquisa}" required="false"/>
+				<p:commandButton action="#{usuarioController.pesquisar()}"
+					id="botaoPesquisa" update="frmUsuario" icon="ui-icon-search"
+					title="Pesquisa" >
+					<f:ajax execute="login" render="gridUsuarios"/>
+				</p:commandButton>
+			</h:panelGrid>
+		</p:panel>
+
+			<p:dataTable var="usuario" value="#{usuarioController.usuarios}"
+				id="gridUsuarios" emptyMessage="#{usuarioController.gridMsg}"
+				paginator="true" paginatorPosition="bottom" rows="5">
+				<f:facet name="header"> Usuários </f:facet>
+				<p:column headerText="Id" sortBy="#{usuario.id}">
+					<h:outputText value="#{usuario.id}" />
+				</p:column>
+
+				<p:column headerText="Nome" sortBy="#{usuario.nome}">
+					<h:outputText value="#{usuario.nome}" />
+				</p:column>
+
+				<p:column headerText="Login" sortBy="#{usuario.login}">
+					<h:outputText value="#{usuario.login}" />
+				</p:column>
+
+				<p:column headerText="Ativo">
+					<p:selectBooleanCheckbox value="#{usuario.ativo}" disabled="true" />
+				</p:column>
+
+				<p:column headerText="Ações" style="white-space: nowrap;" >
+					<h:panelGrid columns="3" styleClass="semBorda">					  
+						<p:commandLink title="vizualizar"
+							styleClass="ui-icon ui-icon-search" />
+						<p:commandLink title="editar"
+							styleClass="ui-icon ui-icon-pencil" />
+						<p:commandLink title="remover"
+							styleClass="ui-icon ui-icon-closethick" />
+					</h:panelGrid>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
