@@ -1,0 +1,2 @@
+Programa utilizado para geração dos diagramas:
+DBDesigner4.0.5.6_Setup
