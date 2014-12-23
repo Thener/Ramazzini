@@ -40,4 +40,27 @@ public class UsuarioService extends AbstractServiceImpl<Usuario> {
     	
         return dao.recuperarPorLogin(login);
     }
+    
+    public Usuario autenticar(String login, String senha) {
+    	
+    	Usuario usuario = recuperarPorLogin(login);
+    	
+    	if (usuario == null) {
+    		log.info("Usuário " + login + " não encontrado.");
+    		return null;
+    	}
+    	
+    	if (!usuario.getSenha().equals(senha)) {
+    		log.info("Senha do usuário " + login + " não confere.");
+    		return null;
+    	}
+    	
+    	if (!usuario.isAtivo()) {
+    		log.info("Usuário " + login + " não está ativo no Sistema.");
+    		return null;    		
+    	}
+    	
+    	log.info("Usuário " + login + " autenticado com sucesso.");
+    	return usuario;
+    }
 }

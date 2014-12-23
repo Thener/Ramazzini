@@ -1,79 +1,61 @@
-package br.com.ramazzini.model.usuario;
+package br.com.ramazzini.autorizacao;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
-
-import br.com.ramazzini.autorizacao.Perfil;
 import br.com.ramazzini.model.util.AbstractEntidade;
 
 @Entity
 @XmlRootElement
-@Table(name = "usuario", uniqueConstraints = @UniqueConstraint(columnNames = "nm_login"))
-public class Usuario extends AbstractEntidade implements Serializable {
+@Table(name = "tela", uniqueConstraints = @UniqueConstraint(columnNames = "nm_tela"))
+public class Tela extends AbstractEntidade implements Serializable {
     
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "cd_usuario")
+    @Column(name = "cd_tela")
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     
-    /**
-     * Nome do usuário.
-     */
-    @Column(name = "nm_usuario")
+    @Column(name = "nm_tela")
     @NotNull
     @Size(min = 1, max = 50)
     private String nome;
     
-    /**
-	 * Login do usuário.
-	 */
-    @Column(name = "nm_login")
-    @NotNull
-    @NotEmpty
-    @Email
-    private String login;
-    
-    /**
-	 * Senha do usuario.
-	 */
-	@Column(name = "nm_senha", length = 200)
-	@NotNull
-	private String senha;
-	
-	/**
-	 * Indica se o usuário está ativo/inativo.
-	 */
 	@Column(name = "ic_ativo")
 	@NotNull
 	private boolean ativo = true;
 	
-	@ManyToMany
-	@JoinTable(
-	name="usuario_perfil",
-	joinColumns={@JoinColumn(name="cd_usuario")},
-	inverseJoinColumns={@JoinColumn(name="cd_perfil")})
-	private List<Perfil> perfis = new ArrayList<Perfil>();
-	  
+	@Column(name = "ic_publico")
+	@NotNull
+	private boolean publico = true;
+	
+	@ManyToMany(mappedBy="telas")
+	private List<Perfil> perfis;
+	
+	@OneToMany(mappedBy="tela")
+	private List<Acao> acoes;	
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="cd_modulo")
+	private Modulo modulo;	
+	
 	public Long getId() {
 		return id;
 	}
@@ -90,28 +72,20 @@ public class Usuario extends AbstractEntidade implements Serializable {
 		this.nome = nome;
 	}
 
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
 	public boolean isAtivo() {
 		return ativo;
 	}
 
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
+	}
+
+	public boolean isPublico() {
+		return publico;
+	}
+
+	public void setPublico(boolean publico) {
+		this.publico = publico;
 	}
 
 	public List<Perfil> getPerfis() {
@@ -121,5 +95,5 @@ public class Usuario extends AbstractEntidade implements Serializable {
 	public void setPerfis(List<Perfil> perfis) {
 		this.perfis = perfis;
 	}
-	
+
 }
