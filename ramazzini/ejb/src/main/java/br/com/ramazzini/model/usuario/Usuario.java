@@ -1,12 +1,17 @@
 package br.com.ramazzini.model.usuario;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -16,6 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import br.com.ramazzini.autorizacao.Perfil;
 import br.com.ramazzini.model.util.AbstractEntidade;
 
 @Entity
@@ -60,7 +66,14 @@ public class Usuario extends AbstractEntidade implements Serializable {
 	@Column(name = "ic_ativo")
 	@NotNull
 	private boolean ativo = true;
-
+	
+	@ManyToMany
+	@JoinTable(
+	name="usuario_perfil",
+	joinColumns={@JoinColumn(name="cd_usuario")},
+	inverseJoinColumns={@JoinColumn(name="cd_perfil")})
+	private List<Perfil> perfis = new ArrayList<Perfil>();
+	  
 	public Long getId() {
 		return id;
 	}
@@ -99,5 +112,14 @@ public class Usuario extends AbstractEntidade implements Serializable {
 
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
-	}	
+	}
+
+	public List<Perfil> getPerfis() {
+		return perfis;
+	}
+
+	public void setPerfis(List<Perfil> perfis) {
+		this.perfis = perfis;
+	}
+	
 }
