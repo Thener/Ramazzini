@@ -24,6 +24,7 @@ import javax.inject.Inject;
 import br.com.ramazzini.dao.usuario.UsuarioDao;
 import br.com.ramazzini.model.usuario.Usuario;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
+import br.com.ramazzini.util.Md5;
 
 // The @Stateless annotation eliminates the need for manual transaction demarcation
 @Stateless
@@ -50,7 +51,7 @@ public class UsuarioService extends AbstractServiceImpl<Usuario> {
     		return null;
     	}
     	
-    	if (!usuario.getSenha().equals(senha)) {
+    	if (!usuario.getSenha().equals(Md5.hashMd5(senha))) {
     		log.info("Senha do usuário " + login + " não confere.");
     		return null;
     	}
