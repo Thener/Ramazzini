@@ -16,13 +16,16 @@
  */
 package br.com.ramazzini.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import br.com.ramazzini.dao.usuario.UsuarioDao;
+import br.com.ramazzini.model.perfil.Perfil;
 import br.com.ramazzini.model.usuario.Usuario;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
 import br.com.ramazzini.util.Md5;
@@ -33,6 +36,9 @@ public class UsuarioService extends AbstractServiceImpl<Usuario> {
 
     @Inject
     private Logger log;
+    
+    @Inject
+    private HttpSession session;    
 
     public Usuario recuperarPorLogin(String login) {
         
@@ -43,28 +49,47 @@ public class UsuarioService extends AbstractServiceImpl<Usuario> {
         return dao.recuperarPorLogin(login);
     }
     
-    public Usuario autenticar(String login, String senha) {
+    public boolean autenticar(String login, String senha) {
     	
     	Usuario usuario = recuperarPorLogin(login);
     	
     	if (usuario == null) {
     		log.info("Usuário " + login + " não encontrado.");
-    		return null;
+    		return false;
     	}
     	
     	if (!usuario.getSenha().equals(Md5.hashMd5(senha))) {
     		log.info("Senha do usuário " + login + " não confere.");
-    		return null;
+    		return false;
     	}
     	
     	if (!usuario.isAtivo()) {
     		log.info("Usuário " + login + " não está ativo no Sistema.");
-    		return null;    		
+    		return false;    		
     	}
     	
+    	//----- Autenticação Ok. Gravando informações na sessão:
+    	
+    	// Em AcessoFilter, ao tentar acessar as telas do perfil, gera um
+    	// LazyInitializationException, então carrego as telas por aqui. 
+    	
+    	List<Perfil> perfis = new ArrayList<Perfil>();
+    	
+    	for (Perfil p : usuario.getPerfis()) {
+    		Perfil perfil = new Perfil();
+    		perfil = p;
+    		perfil.setTelas(p.getTelas());
+    		perfis.add(perfil);
+    	}
+
+    	session.setAttribute("usuario", usuario);
+    	session.setAttribute("usuarioPerfis", perfis);
+    	
     	log.info("Usuário " + login + " autenticado com sucesso.");
-    	return usuario;
+    	
+    	return true;
     }
+    
     public List<Usuario> recuperarPorTrechoLogin(String login) {
         
     	log.info("recuerando usuario pelo login: " + login);

@@ -4,11 +4,11 @@ CARGA INICIAL DO SISTEMA
 
 -------- CARGA DA TABELA: MODULO
 
-insert into modulo (cd_modulo, ts_alteracao, ts_inclusao, ic_ativo, nm_modulo, ic_publico, cd_usuario_alteracao, cd_usuario_inclusao) 
-values (1, null, current_timestamp, true, 'usuario', false, null, null);
+insert into modulo (cd_modulo, ts_alteracao, ts_inclusao, ic_ativo, nm_modulo, cd_usuario_alteracao, cd_usuario_inclusao) 
+values (1, null, current_timestamp, true, 'usuario', null, null);
 
-insert into modulo (cd_modulo, ts_alteracao, ts_inclusao, ic_ativo, nm_modulo, ic_publico, cd_usuario_alteracao, cd_usuario_inclusao) 
-values (2, null, current_timestamp, true, 'home', true, null, null);
+insert into modulo (cd_modulo, ts_alteracao, ts_inclusao, ic_ativo, nm_modulo, cd_usuario_alteracao, cd_usuario_inclusao) 
+values (2, null, current_timestamp, true, 'home', null, null);
 
 -------- CARGA DA TABELA: TELA
 
@@ -28,7 +28,10 @@ insert into tela (cd_tela, ts_alteracao, ts_inclusao, ic_ativo, nm_tela, ic_publ
 values (5, null, current_timestamp, true, 'excluirUsuario.jsf', false, null, null, (select cd_modulo from modulo where nm_modulo = 'usuario') );
 
 insert into tela (cd_tela, ts_alteracao, ts_inclusao, ic_ativo, nm_tela, ic_publico, cd_usuario_alteracao, cd_usuario_inclusao, cd_modulo)
-values (6, null, current_timestamp, true, 'home.jsf', false, null, null, (select cd_modulo from modulo where nm_modulo = 'home') );
+values (6, null, current_timestamp, true, 'home.jsf', true, null, null, (select cd_modulo from modulo where nm_modulo = 'home') );
+
+insert into tela (cd_tela, ts_alteracao, ts_inclusao, ic_ativo, nm_tela, ic_publico, cd_usuario_alteracao, cd_usuario_inclusao, cd_modulo)
+values (7, null, current_timestamp, true, 'acessoNaoAutorizado.jsf', true, null, null, (select cd_modulo from modulo where nm_modulo = 'home') );
 
 -------- CARGA DA TABELA: ACAO
 
@@ -55,12 +58,13 @@ values (2, null, current_timestamp, true, 'atendimento', null, null);
 
 -------- CARGA DA TABELA: PERFIL_TELA
 
---> Perfil "administrador" não precisará ter permissões nas tabelas.
+-- Obs 1: Telas públicas não precisam ser associadas a perfis
+-- Obs 2: Perfil "administrador" não precisa ter permissões inseridas
 
 --> Autorizando perfil: ATENDIMENTO
 
-insert into perfil_tela (cd_perfil, cd_tela) 
-values ( (select cd_perfil from perfil where nm_perfil = 'atendimento'), (select cd_tela from tela where nm_tela = 'home' and cd_modulo = (select cd_modulo from modulo where nm_modulo = 'home') ) );
+--insert into perfil_tela (cd_perfil, cd_tela) 
+--values ( (select cd_perfil from perfil where nm_perfil = 'atendimento'), (select cd_tela from tela where nm_tela = 'home.jsf' and cd_modulo = (select cd_modulo from modulo where nm_modulo = 'home') ) );
 
 -------- CARGA DA TABELA: USUARIO
 

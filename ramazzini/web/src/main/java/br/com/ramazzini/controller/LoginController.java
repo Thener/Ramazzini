@@ -38,10 +38,7 @@ public class LoginController implements Serializable {
 	
 	public String login() {
 
-		Usuario usuarioBd = usuarioService.autenticar(usuario.getLogin(), usuario.getSenha());
-		
-		if (usuarioBd != null) {
-			session.setAttribute("usuario", usuarioBd);
+		if (usuarioService.autenticar(usuario.getLogin(), usuario.getSenha())) {
 			return "/pages/home/home.jsf";			
 		}
 

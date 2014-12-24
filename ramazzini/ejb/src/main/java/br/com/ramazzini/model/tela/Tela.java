@@ -1,4 +1,4 @@
-package br.com.ramazzini.autorizacao;
+package br.com.ramazzini.model.tela;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,6 +19,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import br.com.ramazzini.model.acao.Acao;
+import br.com.ramazzini.model.modulo.Modulo;
+import br.com.ramazzini.model.perfil.Perfil;
 import br.com.ramazzini.model.util.AbstractEntidade;
 
 @Entity
@@ -52,7 +55,7 @@ public class Tela extends AbstractEntidade implements Serializable {
 	@OneToMany(mappedBy="tela")
 	private List<Acao> acoes;	
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="cd_modulo")
 	private Modulo modulo;	
 	
@@ -94,6 +97,22 @@ public class Tela extends AbstractEntidade implements Serializable {
 
 	public void setPerfis(List<Perfil> perfis) {
 		this.perfis = perfis;
+	}
+
+	public List<Acao> getAcoes() {
+		return acoes;
+	}
+
+	public void setAcoes(List<Acao> acoes) {
+		this.acoes = acoes;
+	}
+
+	public Modulo getModulo() {
+		return modulo;
+	}
+
+	public void setModulo(Modulo modulo) {
+		this.modulo = modulo;
 	}
 
 }

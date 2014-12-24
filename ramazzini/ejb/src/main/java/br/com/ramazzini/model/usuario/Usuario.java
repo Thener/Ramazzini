@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import br.com.ramazzini.autorizacao.Perfil;
+import br.com.ramazzini.model.perfil.Perfil;
 import br.com.ramazzini.model.util.AbstractEntidade;
 
 @Entity
@@ -67,7 +68,7 @@ public class Usuario extends AbstractEntidade implements Serializable {
 	@NotNull
 	private boolean ativo = true;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 	name="usuario_perfil",
 	joinColumns={@JoinColumn(name="cd_usuario")},
