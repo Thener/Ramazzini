@@ -51,7 +51,7 @@ public class AcessoFilter implements Filter {
 		Usuario usuario = (Usuario) session.getAttribute("usuario");
 
 		if (usuario == null) {
-			response.sendRedirect(request.getContextPath() + "/pages/login/login.jsf");
+			response.sendRedirect(request.getContextPath() + "/index.jsf");
 		} else {
 			if (telaAcessoPublico(uri) || isAutorizado(uri, session)) {
 				chain.doFilter(req, res);

@@ -1,13 +1,34 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-   xmlns:h="http://java.sun.com/jsf/html"
-   xmlns:ui="http://java.sun.com/jsf/facelets">
-   
-<h:body>
-	<h:form>
-		<a href="#{request.contextPath}/pages/login/login.jsf">Login</a>	
-	</h:form>
-</h:body>
+<?xml version="1.0" encoding="UTF-8"?>
 
-</html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/login.xhtml">
+	<ui:define name="content">
+
+		<h:form id="login">
+
+			<p:dialog header="Bem-vindo" height="148" width="355" visible="true"
+				resizable="false" closable="false">
+				
+				<p:panelGrid columns="2">
+					<p:outputLabel value="Usuário" for="inputUsuario" />
+					<p:inputText id="inputUsuario"
+						value="#{loginController.usuario.login}" />
+
+					<p:outputLabel value="Senha" for="inputSenha" />
+					<p:password id="inputSenha"
+						value="#{loginController.usuario.senha}" />
+
+					<f:facet name="footer">
+						<p:commandButton action="#{loginController.login()}" value="Login" icon="ui-icon-check" ajax="false"/>
+					</f:facet>
+				</p:panelGrid>
+			</p:dialog>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>
