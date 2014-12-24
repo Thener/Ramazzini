@@ -1,6 +1,5 @@
 package br.com.ramazzini.dao.usuario;
 
-import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.NoResultException;

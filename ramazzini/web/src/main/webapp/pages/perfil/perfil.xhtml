@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui"
+   template="/WEB-INF/templates/default.xhtml">
+   <ui:define name="content">
+   
+   <p:orderList value="#{perfilController.perfis}" var="perfil" controlsLocation="none" itemLabel="#{perfil.nome}" itemValue="#{perfil}" />
+  
+    <p:pickList id="pickList" value="#{perfilController.telas}" var="telas" itemLabel="#{telas}" itemValue="#{telas}" />
+ 
+ <!-- 
+    <p:commandButton id="citySubmit" value="Submit" update="displayCities" oncomplete="PF('cityDialog').show()" style="margin-top:5px" />
+       -->
+   </ui:define>
+</ui:composition>
