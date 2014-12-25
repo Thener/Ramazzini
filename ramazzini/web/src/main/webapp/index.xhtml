@@ -8,11 +8,11 @@
 	template="/WEB-INF/templates/login.xhtml">
 	<ui:define name="content">
 
-		<h:form id="login">
+		<p:dialog header="Bem-vindo" height="148" width="355" visible="true"
+			resizable="false" closable="false">
 
-			<p:dialog header="Bem-vindo" height="148" width="355" visible="true"
-				resizable="false" closable="false">
-				
+			<h:form id="login">
+
 				<p:panelGrid columns="2">
 					<p:outputLabel value="Usuário" for="inputUsuario" />
 					<p:inputText id="inputUsuario"
@@ -23,12 +23,14 @@
 						value="#{loginController.usuario.senha}" />
 
 					<f:facet name="footer">
-						<p:commandButton action="#{loginController.login()}" value="Login" icon="ui-icon-check" ajax="false"/>
+						<p:commandButton action="#{loginController.login()}" value="Login"
+							icon="ui-icon-check" ajax="false" />
 					</f:facet>
 				</p:panelGrid>
-			</p:dialog>
 
-		</h:form>
+			</h:form>
+
+		</p:dialog>
 
 	</ui:define>
 </ui:composition>

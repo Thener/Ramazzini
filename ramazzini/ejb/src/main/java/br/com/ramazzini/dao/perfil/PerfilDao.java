@@ -6,5 +6,6 @@ import br.com.ramazzini.model.perfil.Perfil;
 
 public class PerfilDao extends AbstractDao<Perfil> {
 
+	
 
 }

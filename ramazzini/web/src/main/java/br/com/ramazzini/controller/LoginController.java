@@ -39,7 +39,7 @@ public class LoginController implements Serializable {
 	public String login() {
 
 		if (usuarioService.autenticar(usuario.getLogin(), usuario.getSenha())) {
-			return "/pages/home/home.jsf";			
+			return "/pages/home/home.jsf";
 		}
 
 		return ""; // Sem argumentos para voltar para a página de login

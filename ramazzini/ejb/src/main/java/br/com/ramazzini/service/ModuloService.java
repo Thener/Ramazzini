@@ -20,15 +20,18 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 
-import br.com.ramazzini.dao.perfil.PerfilDao;
+import br.com.ramazzini.dao.modulo.ModuloDao;
 import br.com.ramazzini.model.modulo.Modulo;
 import br.com.ramazzini.model.perfil.Perfil;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
 
 // The @Stateless annotation eliminates the need for manual transaction demarcation
 @Stateless
-public class PerfilService extends AbstractServiceImpl<Perfil> {
+public class ModuloService extends AbstractServiceImpl<Modulo> {
 
-
+    public List<Modulo> recuperarPorPerfil(Perfil perfil) {
+        
+        return ((ModuloDao) getDao()).recuperarPorPerfil(perfil);
+    }
     
 }

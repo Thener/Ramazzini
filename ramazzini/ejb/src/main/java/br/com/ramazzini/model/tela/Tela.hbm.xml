@@ -9,5 +9,13 @@
              where t.nome = :nomeTela
              and t.modulo.nome = :nomeModulo
 		]]>
-	</query>		
+	</query>
+	<query name="Tela.recuperarTelasNaoPublicas">
+		<![CDATA[
+            select t
+              from Tela t
+             where t.publico = false
+             order by :order
+		]]>
+	</query>
 </hibernate-mapping>
