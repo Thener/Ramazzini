@@ -8,9 +8,24 @@
 	template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
 
-	<p:panel header="Alterando Perfil: #{perfilController.perfilSelecionado.nome}">
+	<h:form>
+		<p:panel header="Alterando Perfil: #{perfilController.perfilSelecionado.nome}">
+		
+	        <p:outputLabel for="modulo" value="Módulo: " />
+	        <p:selectOneMenu id="modulo" value="#{perfilController.moduloSelecionado}">
+	        	<p:ajax listener="#{perfilController.perfilChange}" update="tela" />
+	            <f:selectItem itemLabel="Selecione o módulo" itemValue="" noSelectionOption="true" />
+	            <f:selectItems value="#{perfilController.modulos}" var="modulo" itemValue="#{modulo}" itemLabel="#{modulo.nome}" />
+	        </p:selectOneMenu>
+	        
+	        <p:outputLabel for="tela" value="Tela: " />
+	        <p:selectOneMenu id="tela" value="#{perfilController.telaSelecionada}">
+	            <f:selectItem itemLabel="Selecione a tela" itemValue="" />
+	            <f:selectItems value="#{perfilController.telas}" var="tela" itemLabel="#{tela.nome}" />
+	        </p:selectOneMenu>
+		
+		</p:panel>
+	</h:form>
 	
-	</p:panel>
-
 	</ui:define>
 </ui:composition>

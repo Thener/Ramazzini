@@ -118,10 +118,11 @@ public abstract class AbstractEntidade implements Serializable {
 
 	@Override
 	public String toString() {
-		Long id = getId();
-		StringBuilder s = new StringBuilder();
-		s.append(getClass().getName()).append("[id = ").append(id).append(" ]");
-		return s.toString();
+		//Long id = getId();
+		//StringBuilder s = new StringBuilder();
+		//s.append(getClass().getName()).append("[id = ").append(id).append(" ]");
+		//return s.toString();
+		return getId().toString();
 	}
 
 	/**
@@ -134,4 +135,6 @@ public abstract class AbstractEntidade implements Serializable {
 	public static boolean equals(final Object o1, final Object o2) {
 		return o1 == null ? o2 == null : o1.equals(o2);
 	}	
+	
+	
 }
