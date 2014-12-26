@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -18,6 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import br.com.ramazzini.model.tela.Tela;
 import br.com.ramazzini.model.util.AbstractEntidade;
 
+@SequenceGenerator(name = "seq_modulo", sequenceName = "seq_modulo", allocationSize = 1)
 @Entity
 @XmlRootElement
 @Table(name = "modulo", uniqueConstraints = @UniqueConstraint(columnNames = "nm_modulo"))
@@ -27,7 +29,7 @@ public class Modulo extends AbstractEntidade implements Serializable {
 
     @Id
     @Column(name = "cd_modulo")
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "seq_modulo")
     private Long id;
     
     @Column(name = "nm_modulo")

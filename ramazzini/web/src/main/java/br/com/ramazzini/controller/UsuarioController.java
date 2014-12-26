@@ -65,7 +65,8 @@ public class UsuarioController implements Serializable {
         } catch (Exception e) {
             String errorMessage = getRaizErro(e);
             FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMessage, "Usuario não cadastrado!");
-            facesContext.addMessage(null, m);
+            init();
+            facesContext.addMessage(null, m);            
         }
     }  
     public void pesquisar() throws Exception {
