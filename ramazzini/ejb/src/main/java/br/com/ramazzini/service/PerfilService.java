@@ -16,12 +16,8 @@
  */
 package br.com.ramazzini.service;
 
-import java.util.List;
-
 import javax.ejb.Stateless;
 
-import br.com.ramazzini.dao.perfil.PerfilDao;
-import br.com.ramazzini.model.modulo.Modulo;
 import br.com.ramazzini.model.perfil.Perfil;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
 

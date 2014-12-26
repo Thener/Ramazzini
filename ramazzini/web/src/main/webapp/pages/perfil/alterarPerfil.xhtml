@@ -12,10 +12,10 @@
 		<p:panel header="Alterando Perfil: #{perfilController.perfilSelecionado.nome}">
 		
 	        <p:outputLabel for="modulo" value="Módulo: " />
-	        <p:selectOneMenu id="modulo" value="#{perfilController.moduloSelecionado}">
+	        <p:selectOneMenu id="modulo" value="#{perfilController.moduloSelecionado}" converter="entityConverter">
 	        	<p:ajax listener="#{perfilController.perfilChange}" update="tela" />
 	            <f:selectItem itemLabel="Selecione o módulo" itemValue="" noSelectionOption="true" />
-	            <f:selectItems value="#{perfilController.modulos}" var="modulo" itemValue="#{modulo}" itemLabel="#{modulo.nome}" />
+	            <f:selectItems value="#{perfilController.modulos}" var="modulo" itemLabel="#{modulo.nome}" />
 	        </p:selectOneMenu>
 	        
 	        <p:outputLabel for="tela" value="Tela: " />

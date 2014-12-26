@@ -21,6 +21,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 
 import br.com.ramazzini.dao.tela.TelaDao;
+import br.com.ramazzini.model.modulo.Modulo;
 import br.com.ramazzini.model.tela.Tela;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
 
@@ -39,4 +40,7 @@ public class TelaService extends AbstractServiceImpl<Tela> {
     	return ((TelaDao) getDao()).recuperarTelasNaoPublicas(orderBy);
     }
     
+    public List<Tela> recuperarPorModulo(Modulo modulo, boolean publico, String orderBy) {
+    	return ((TelaDao) getDao()).recuperarPorModulo(modulo, publico, orderBy);
+    }    
 }

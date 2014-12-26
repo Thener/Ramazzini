@@ -2,6 +2,15 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
+	<query name="Tela.recuperarPorModulo">
+		<![CDATA[
+            select t
+              from Tela t
+             where t.modulo = :modulo
+             and t.publico = :publico
+             order by t.nome
+		]]>
+	</query>
 	<query name="Tela.recuperarPorModuloTela">
 		<![CDATA[
             select t

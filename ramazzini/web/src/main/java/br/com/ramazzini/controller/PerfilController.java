@@ -3,10 +3,11 @@ package br.com.ramazzini.controller;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ViewScoped;
+import javax.enterprise.context.Conversation;
+import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import br.com.ramazzini.model.modulo.Modulo;
 import br.com.ramazzini.model.perfil.Perfil;
@@ -15,11 +16,13 @@ import br.com.ramazzini.service.ModuloService;
 import br.com.ramazzini.service.PerfilService;
 import br.com.ramazzini.service.TelaService;
 
-@ManagedBean
-@ViewScoped
+@Named
+@ConversationScoped
 public class PerfilController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+
+	private @Inject Conversation conversation;
 
 	@Inject
 	private PerfilService perfilService;
@@ -47,8 +50,10 @@ public class PerfilController implements Serializable {
 
 		perfis = perfilService.recuperarTodos("nome");
 		setModulos(moduloService.recuperarTodos("nome"));
-	
 
+		if (conversation.isTransient()) {
+			conversation.begin();
+		}
 	}
 
 	public List<Perfil> getPerfis() {
@@ -106,6 +111,6 @@ public class PerfilController implements Serializable {
 	}
 
 	public void perfilChange() {
-		telaService.recuperarTodos("nome");
+		setTelas(telaService.recuperarPorModulo(getModuloSelecionado(), false, "nome"));
 	}
 }
