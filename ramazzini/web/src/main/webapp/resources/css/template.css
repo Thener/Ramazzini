@@ -25,3 +25,20 @@ body {
 .semBorda tr, .semBorda td {
 	border: none !important;
 }
+.coluna1 {  
+        width: 50px;
+        text-align: center;  
+}  
+.coluna2 {  
+        width: 300px;  
+} 
+.coluna3 {
+	 	width: 300px;
+} 
+.coluna4 {
+	 	width: 50px;
+	 	text-align: center;
+}
+.coluna5 {
+	 	width: 100px;
+}

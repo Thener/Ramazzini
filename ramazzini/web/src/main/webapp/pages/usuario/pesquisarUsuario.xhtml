@@ -9,7 +9,7 @@
    
       <h:form id="frmUsuario">			
 		<p:panel id="panelPesquisa" header="Filtros" style="margin-bottom:20px">
-			<h:panelGrid columns="3" cellpadding="10">
+			<h:panelGrid columns="4" cellpadding="10">
 				<p:outputLabel for="login" value="Login:" />
 				<p:inputText id="login" 
 					value="#{usuarioController.loginPesquisa}" required="false"/>
@@ -18,6 +18,10 @@
 					title="Pesquisa" >
 					<f:ajax execute="login" render="gridUsuarios"/>
 				</p:commandButton>
+				<p:commandButton 
+					id="botaoAdicionarUsuario" icon="ui-icon-circle-plus"
+					title="Adicionar Usuário" action="incluirUsuario.jsf?faces-redirect=true">					
+				</p:commandButton>
 			</h:panelGrid>
 		</p:panel>
 
@@ -25,23 +29,23 @@
 				id="gridUsuarios" emptyMessage="#{usuarioController.gridMsg}"
 				paginator="true" paginatorPosition="bottom" rows="5">
 				<f:facet name="header"> Usuários </f:facet>
-				<p:column headerText="Id" sortBy="#{usuario.id}">
+				<p:column headerText="Id" sortBy="#{usuario.id}" styleClass="coluna1">
 					<h:outputText value="#{usuario.id}" />
 				</p:column>
 
-				<p:column headerText="Nome" sortBy="#{usuario.nome}">
+				<p:column headerText="Nome" sortBy="#{usuario.nome}" styleClass="coluna2">
 					<h:outputText value="#{usuario.nome}" />
 				</p:column>
 
-				<p:column headerText="Login" sortBy="#{usuario.login}">
+				<p:column headerText="Login" sortBy="#{usuario.login}" styleClass="coluna3">
 					<h:outputText value="#{usuario.login}" />
 				</p:column>
 
-				<p:column headerText="Ativo">
+				<p:column headerText="Ativo" styleClass="coluna4">
 					<p:selectBooleanCheckbox value="#{usuario.ativo}" disabled="true" />
 				</p:column>
 
-				<p:column headerText="Ações" style="white-space: nowrap;" >
+				<p:column headerText="Ações" styleClass="coluna5">
 					<h:panelGrid columns="3" styleClass="semBorda">					  
 						<p:commandLink title="vizualizar"
 							styleClass="ui-icon ui-icon-search" />

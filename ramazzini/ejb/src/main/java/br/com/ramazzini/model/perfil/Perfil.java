@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -23,7 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import br.com.ramazzini.model.tela.Tela;
 import br.com.ramazzini.model.usuario.Usuario;
 import br.com.ramazzini.model.util.AbstractEntidade;
-
+@SequenceGenerator(name = "seq_perfil", sequenceName = "seq_perfil", allocationSize = 1)
 @Entity
 @XmlRootElement
 @Table(name = "perfil", uniqueConstraints = @UniqueConstraint(columnNames = "nm_perfil"))
@@ -33,7 +34,7 @@ public class Perfil extends AbstractEntidade implements Serializable {
 
     @Id
     @Column(name = "cd_perfil")
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "seq_perfil")
     private Long id;
     
     @Column(name = "nm_perfil")

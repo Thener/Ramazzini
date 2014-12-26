@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -24,7 +25,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import br.com.ramazzini.model.perfil.Perfil;
 import br.com.ramazzini.model.util.AbstractEntidade;
-
+@SequenceGenerator(name = "seq_usuario", sequenceName = "seq_usuario", allocationSize = 1)
 @Entity
 @XmlRootElement
 @Table(name = "usuario", uniqueConstraints = @UniqueConstraint(columnNames = "nm_login"))
@@ -34,7 +35,7 @@ public class Usuario extends AbstractEntidade implements Serializable {
 
     @Id
     @Column(name = "cd_usuario")
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "seq_usuario")
     private Long id;
     
     /**

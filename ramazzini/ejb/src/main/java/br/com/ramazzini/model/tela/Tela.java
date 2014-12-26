@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -24,6 +25,7 @@ import br.com.ramazzini.model.modulo.Modulo;
 import br.com.ramazzini.model.perfil.Perfil;
 import br.com.ramazzini.model.util.AbstractEntidade;
 
+@SequenceGenerator(name = "seq_tela", sequenceName = "seq_tela", allocationSize = 1)
 @Entity
 @XmlRootElement
 @Table(name = "tela", uniqueConstraints = @UniqueConstraint(columnNames = "nm_tela"))
@@ -33,7 +35,7 @@ public class Tela extends AbstractEntidade implements Serializable {
 
     @Id
     @Column(name = "cd_tela")
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "seq_tela")
     private Long id;
     
     @Column(name = "nm_tela")
