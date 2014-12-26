@@ -53,7 +53,7 @@ public class AcessoFilter implements Filter {
 		if (usuario == null) {
 			response.sendRedirect(request.getContextPath() + "/index.jsf");
 		} else {
-			if (telaAcessoPublico(uri) || isAutorizado(uri, session)) {
+			if (isAdministrador(session) || telaAcessoPublico(uri) || isAutorizado(uri, session)) {
 				chain.doFilter(req, res);
 			} else {
 				response.sendRedirect(request.getContextPath() + "/pages/home/acessoNaoAutorizado.jsf");	
@@ -83,11 +83,6 @@ public class AcessoFilter implements Filter {
 		
 		sairLoop:
 		for(Perfil p : usuarioPerfis) {
-
-			if (p.getNome().equals("administrador")) {
-				autorizado = true;
-				break;
-			}
 
 			if (!p.isAtivo()) {
 				mensagem = "Perfil não está ativo!";
@@ -124,6 +119,24 @@ public class AcessoFilter implements Filter {
 
 		return autorizado;
 	}
+	
+	private static boolean isAdministrador(HttpSession session) {
+
+		@SuppressWarnings("unchecked")
+		List<Perfil> usuarioPerfis = (List<Perfil>) session.getAttribute("usuarioPerfis");
+		
+		boolean administrador = false;
+		
+		for(Perfil p : usuarioPerfis) {
+
+			if (p.getNome().equals("administrador")) {
+				administrador = true;
+				break;
+			}
+		}
+
+		return administrador;
+	}	
 	
 	/**
 	 * Uma tela pode ser de acesso público, porém o usuário precisará estar autenticado. 

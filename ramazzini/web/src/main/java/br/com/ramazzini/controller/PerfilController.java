@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -11,6 +12,7 @@ import br.com.ramazzini.model.perfil.Perfil;
 import br.com.ramazzini.service.PerfilService;
 
 @Named
+@ConversationScoped
 public class PerfilController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -44,14 +46,9 @@ public class PerfilController implements Serializable {
 	public void setPerfilSelecionado(Perfil perfilSelecionado) {
 		this.perfilSelecionado = perfilSelecionado;
 	}
-
-	public String visualizarPerfil(Perfil perfil) {
-		
-		return "/pages/home/home.jsf";
-	}
 	
 	public String alterarPerfil(Perfil perfil) {
-		
-		return "/pages/home/home.jsf";
+		setPerfilSelecionado(perfil);
+		return "/pages/perfil/alterarPerfil.jsf";
 	}	
 }
