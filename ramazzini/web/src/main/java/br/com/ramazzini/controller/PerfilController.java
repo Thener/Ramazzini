@@ -113,4 +113,9 @@ public class PerfilController implements Serializable {
 	public void perfilChange() {
 		setTelas(telaService.recuperarPorModulo(getModuloSelecionado(), false, "nome"));
 	}
+	
+    public void autorizarTela() {
+        
+    		
+    }	
 }

@@ -8,24 +8,60 @@
 	template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
 
-	<h:form>
-		<p:panel header="Alterando Perfil: #{perfilController.perfilSelecionado.nome}">
+		<h:form>
+			<p:panel
+				header="Alterando Perfil: #{perfilController.perfilSelecionado.nome}">
+
+				<p:panelGrid columns="3">
+				
+					<p:outputLabel for="modulo" value="Módulo: " />
+					<p:selectOneMenu id="modulo"
+						value="#{perfilController.moduloSelecionado}"
+						converter="entityConverter">
+						<p:ajax listener="#{perfilController.perfilChange}" update="tela" />
+						<f:selectItem itemLabel="Selecione o módulo" itemValue=""
+							noSelectionOption="true" />
+						<f:selectItems value="#{perfilController.modulos}" var="modulo"
+							itemLabel="#{modulo.nome}" />
+					</p:selectOneMenu>
+					
+					<p:outputLabel value="" />
+					
+					<p:outputLabel for="tela" value="Tela: " />
+					<p:selectOneMenu id="tela"
+						value="#{perfilController.telaSelecionada}">
+						<f:selectItem itemLabel="Selecione a tela" itemValue="" />
+						<f:selectItems value="#{perfilController.telas}" var="tela"
+							itemLabel="#{tela.nome}" />
+					</p:selectOneMenu>
+					
+					<p:commandButton action="#{loginController.login()}" value="Incluir"
+							icon="ui-icon-check" ajax="true" />
+					
+				</p:panelGrid>
+				
+				<p:dataTable var="perfil" value="#{perfilController.perfis}">
+
+					<p:column headerText="Id">
+						<h:outputText value="#{perfil.id}" />
+					</p:column>
+
+					<p:column headerText="Nome">
+						<h:outputText value="#{perfil.nome}" />
+					</p:column>
+
+					<p:column headerText="Ações" style="white-space: nowrap;">
+						<h:panelGrid columns="3" styleClass="semBorda">
+							<p:commandLink action="#{perfilController.alterarPerfil(perfil)}"
+								title="editar" styleClass="ui-icon ui-icon-pencil"
+								rendered="#{perfil.nome != 'administrador'}" />
+						</h:panelGrid>
+					</p:column>
+
+				</p:dataTable>				
+				
+			</p:panel>
+		</h:form>
 		
-	        <p:outputLabel for="modulo" value="Módulo: " />
-	        <p:selectOneMenu id="modulo" value="#{perfilController.moduloSelecionado}" converter="entityConverter">
-	        	<p:ajax listener="#{perfilController.perfilChange}" update="tela" />
-	            <f:selectItem itemLabel="Selecione o módulo" itemValue="" noSelectionOption="true" />
-	            <f:selectItems value="#{perfilController.modulos}" var="modulo" itemLabel="#{modulo.nome}" />
-	        </p:selectOneMenu>
-	        
-	        <p:outputLabel for="tela" value="Tela: " />
-	        <p:selectOneMenu id="tela" value="#{perfilController.telaSelecionada}">
-	            <f:selectItem itemLabel="Selecione a tela" itemValue="" />
-	            <f:selectItems value="#{perfilController.telas}" var="tela" itemLabel="#{tela.nome}" />
-	        </p:selectOneMenu>
-		
-		</p:panel>
-	</h:form>
-	
 	</ui:define>
 </ui:composition>
