@@ -3,6 +3,7 @@ package br.com.ramazzini.service.util;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import br.com.ramazzini.dao.util.AbstractDao;
 import br.com.ramazzini.dao.util.DaoFactoryLocal;
@@ -25,6 +26,9 @@ public abstract class AbstractServiceImpl<T extends AbstractEntidade>
 
 	@Inject
 	private DaoFactoryLocal daoFactory;
+	
+    @Inject
+    private HttpSession session;	
 
 	/**
 	 * Construtor da classe abstrata de servi�os.
@@ -126,5 +130,9 @@ public abstract class AbstractServiceImpl<T extends AbstractEntidade>
 	public List<T> salvarLista(List<T> listaEntidade,
 			Usuario usuarioLogado) {
 		return null;
+	}
+	
+	public Usuario getUsuarioLogado() {
+		return (Usuario) session.getAttribute("usuario");
 	}
 }

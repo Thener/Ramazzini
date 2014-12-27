@@ -16,15 +16,43 @@
  */
 package br.com.ramazzini.service;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 
+import br.com.ramazzini.dao.perfil.PerfilDao;
 import br.com.ramazzini.model.perfil.Perfil;
+import br.com.ramazzini.model.tela.Tela;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
 
 // The @Stateless annotation eliminates the need for manual transaction demarcation
 @Stateless
 public class PerfilService extends AbstractServiceImpl<Perfil> {
 
+	public List<Tela> recuperarTelas(Perfil perfil) {
+		
+        return ((PerfilDao) getDao()).recuperarTelas(perfil);
+	}
 
+	public Perfil incluirTelaVerificandoExistencia(Perfil perfil, Tela tela) {
+		
+		List<Tela> telas = recuperarTelas(perfil);
+		
+    	boolean ok = true;
+    	if (telas != null && telas.size() > 0 && telas.get(0) != null) {
+	    	for (Tela t : telas) {
+	    		if (t.getModulo().getNome().equals(tela.getModulo().getNome())
+	    				&& t.getNome().equals(tela.getNome())) {
+	    			ok = false;
+	    		}
+	    	}
+    	}
+    	if (ok) {
+    		perfil.getTelas().add(tela);
+    		return salvar(perfil, getUsuarioLogado());
+    	} else {
+    		return null;
+    	}
+	}
     
 }

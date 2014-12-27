@@ -27,4 +27,13 @@
              order by :order
 		]]>
 	</query>
+	<query name="Tela.recuperarPorPerfil">
+		<![CDATA[
+            select t
+              from Tela t
+             left join t.perfis p 
+             where :perfil in p
+             order by t.nome
+		]]>
+	</query>	
 </hibernate-mapping>

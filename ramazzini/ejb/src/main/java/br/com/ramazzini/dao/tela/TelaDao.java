@@ -7,6 +7,7 @@ import javax.persistence.Query;
 
 import br.com.ramazzini.dao.util.AbstractDao;
 import br.com.ramazzini.model.modulo.Modulo;
+import br.com.ramazzini.model.perfil.Perfil;
 import br.com.ramazzini.model.tela.Tela;
 
 
@@ -15,6 +16,7 @@ public class TelaDao extends AbstractDao<Tela> {
 	private static final String QUERY_RECUPERAR_POR_MODULO = "Tela.recuperarPorModulo";
 	private static final String QUERY_RECUPERAR_POR_MDOULO_TELA = "Tela.recuperarPorModuloTela";
 	private static final String QUERY_RECUPERAR_TELAS_NAO_PUBLICAS = "Tela.recuperarTelasNaoPublicas";
+	private static final String QUERY_RECUPERAR_POR_PERFIL = "Tela.recuperarPorPerfil";
 	
 	@SuppressWarnings("unchecked")
 	public List<Tela> recuperarPorModulo(Modulo modulo, boolean publico, String orderBy) {
@@ -50,6 +52,17 @@ public class TelaDao extends AbstractDao<Tela> {
 			virgula = ",";
 		}		
 		query.setParameter("order", order);
+		try {
+			return query.getResultList();
+		} catch (NoResultException nr) {
+			return null;
+		}
+	}	
+	
+	@SuppressWarnings("unchecked")
+	public List<Tela> recuperarPorPerfil(Perfil perfil) {
+		Query query = createNamedQuery(QUERY_RECUPERAR_POR_PERFIL);
+		query.setParameter("perfil", perfil);
 		try {
 			return query.getResultList();
 		} catch (NoResultException nr) {

@@ -29,34 +29,31 @@
 					
 					<p:outputLabel for="tela" value="Tela: " />
 					<p:selectOneMenu id="tela"
-						value="#{perfilController.telaSelecionada}">
+						value="#{perfilController.telaSelecionada}"
+						converter="entityConverter">
 						<f:selectItem itemLabel="Selecione a tela" itemValue="" />
 						<f:selectItems value="#{perfilController.telas}" var="tela"
 							itemLabel="#{tela.nome}" />
 					</p:selectOneMenu>
 					
-					<p:commandButton action="#{loginController.login()}" value="Incluir"
-							icon="ui-icon-check" ajax="true" />
+					<p:commandButton action="#{perfilController.autorizarTela()}" value="Incluir"
+							icon="ui-icon-check" ajax="false" />
 					
 				</p:panelGrid>
 				
-				<p:dataTable var="perfil" value="#{perfilController.perfis}">
-
-					<p:column headerText="Id">
-						<h:outputText value="#{perfil.id}" />
-					</p:column>
+				<p:dataTable var="tela" value="#{perfilController.telasDoPerfil}">
 
 					<p:column headerText="Nome">
-						<h:outputText value="#{perfil.nome}" />
+						<h:outputText value="#{tela.nome}" />
 					</p:column>
-
-					<p:column headerText="Ações" style="white-space: nowrap;">
-						<h:panelGrid columns="3" styleClass="semBorda">
-							<p:commandLink action="#{perfilController.alterarPerfil(perfil)}"
-								title="editar" styleClass="ui-icon ui-icon-pencil"
-								rendered="#{perfil.nome != 'administrador'}" />
-						</h:panelGrid>
-					</p:column>
+					
+					<p:column headerText="Ativa" style="text-align:center;">
+						<p:selectBooleanCheckbox value="#{tela.ativo}" disabled="true" />
+					</p:column>						
+					
+					<p:column headerText="Módulo" style="text-align:center;">
+						<h:outputText value="#{tela.modulo.nome}" />
+					</p:column>					
 
 				</p:dataTable>				
 				

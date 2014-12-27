@@ -3,3 +3,9 @@ http://vimeo.com/user24839735/videos
 
 2. Converter
 http://wehavescience.com/2012/12/16/converter-generico/
+
+3. Caso o autocomplete do eclipse não funcione, apresentando a mensagem:
+"this compilation unit is not on the build path of a java project"
+
+>> O projeto está com 4 pastas, então o autocomplete só funcionará nas pastas "ejb" e "web"; Quando pesquisamos no ecplise
+por um arquivo (Ctrl + shift + R), o mesmo arquivo aparecerá duas vezes; então "não" devemos abrir o arquivo no projeto pai do maven 

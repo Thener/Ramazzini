@@ -15,6 +15,7 @@ import br.com.ramazzini.model.tela.Tela;
 import br.com.ramazzini.service.ModuloService;
 import br.com.ramazzini.service.PerfilService;
 import br.com.ramazzini.service.TelaService;
+import br.com.ramazzini.util.UtilMensagens;
 
 @Named
 @ConversationScoped
@@ -38,6 +39,8 @@ public class PerfilController implements Serializable {
 	private List<Modulo> modulos;
 
 	private List<Tela> telas;
+	
+	private List<Tela> telasDoPerfil;
 
 	private Perfil perfilSelecionado;
 
@@ -116,6 +119,15 @@ public class PerfilController implements Serializable {
 	
     public void autorizarTela() {
         
-    		
-    }	
+    	if (perfilService.incluirTelaVerificandoExistencia(perfilSelecionado, telaSelecionada) != null) {
+    		UtilMensagens.mensagemInformacao("Tela incluída com sucesso!");
+    	} else {
+    		UtilMensagens.mensagemErro("Tela já autorizada");
+    	}
+
+    }
+
+	public List<Tela> getTelasDoPerfil() {
+		return telaService.recuperarPorPerfil(perfilSelecionado);
+	}    
 }
