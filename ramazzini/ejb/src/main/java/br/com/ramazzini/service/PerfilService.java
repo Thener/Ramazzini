@@ -20,42 +20,52 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 
+import br.com.ramazzini.dao.perfil.PerfilDao;
 import br.com.ramazzini.model.perfil.Perfil;
+import br.com.ramazzini.model.perfilTela.PerfilTela;
 import br.com.ramazzini.model.tela.Tela;
+import br.com.ramazzini.model.usuario.Usuario;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
 
 // The @Stateless annotation eliminates the need for manual transaction demarcation
 @Stateless
 public class PerfilService extends AbstractServiceImpl<Perfil> {
 
-	public List<Tela> recuperarTelas(Perfil perfil) {
-		
-        //return ((PerfilDao) getDao()).recuperarTelas(perfil);
-		
-		return null;
+	public List<Perfil> recuperarTudoPorUsuario(Usuario usuario) {
+		return ((PerfilDao) getDao()).recuperarTudoPorUsuario(usuario);
 	}
+	
+	public List<Tela> recuperarTelas(Perfil perfil) {
+        return ((PerfilDao) getDao()).recuperarTelasPorPerfil(perfil);
+	}
+	
+	public List<PerfilTela> recuperarPerfilTelaPor(Perfil perfil) {
+        return ((PerfilDao) getDao()).recuperarPerfilTelaPor(perfil);
+	}	
 
 	public Perfil incluirTelaVerificandoExistencia(Perfil perfil, Tela tela) {
-		/*
-		List<Tela> telas = recuperarTelas(perfil);
+
+		List<PerfilTela> perfisTelas = recuperarPerfilTelaPor(perfil);
 		
     	boolean ok = true;
-    	if (telas != null && telas.size() > 0 && telas.get(0) != null) {
-	    	for (Tela t : telas) {
-	    		if (t.getModulo().getNome().equals(tela.getModulo().getNome())
-	    				&& t.getNome().equals(tela.getNome())) {
+    	//if (telas != null && telas.size() > 0 && telas.get(0) != null) {
+	    	for (PerfilTela pt : perfisTelas) {
+	    		if (pt.getTela().getModulo().getNome().equals(tela.getModulo().getNome())
+	    				&& pt.getTela().getNome().equals(tela.getNome())) {
 	    			ok = false;
 	    		}
 	    	}
-    	}
+    	//}
+	    	
     	if (ok) {
-    		perfil.getTelas().add(tela);
+    		PerfilTela perfilTela = new PerfilTela();
+    		perfilTela.setPerfil(perfil);
+    		perfilTela.setTela(tela);
+    		perfil.getPerfisTelas().add(perfilTela);
     		return salvar(perfil, getUsuarioLogado());
     	} else {
     		return null;
-    	}*/
-    	
-    	return null;
+    	}    	
 	}
     
 }

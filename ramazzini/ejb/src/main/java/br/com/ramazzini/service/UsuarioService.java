@@ -16,7 +16,6 @@
  */
 package br.com.ramazzini.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -38,8 +37,11 @@ public class UsuarioService extends AbstractServiceImpl<Usuario> {
     private Logger log;
     
     @Inject
-    private HttpSession session;    
-
+    private HttpSession session;
+    
+    @Inject
+    private PerfilService perfilService;    
+       
     public Usuario recuperarPorLogin(String login) {
         
     	log.info("Verificando " + login);
@@ -69,19 +71,9 @@ public class UsuarioService extends AbstractServiceImpl<Usuario> {
     	}
     	
     	//----- Autenticação Ok. Gravando informações na sessão:
-    	
-    	// Em AcessoFilter, ao tentar acessar as telas do perfil, gera um
-    	// LazyInitializationException, então carrego as telas por aqui. 
-    	
-    	List<Perfil> perfis = new ArrayList<Perfil>();
-    	
-    	for (Perfil p : usuario.getPerfis()) {
-    		Perfil perfil = new Perfil();
-    		perfil = p;
-    		perfil.setTelas(p.getTelas());
-    		perfis.add(perfil);
-    	}
 
+    	List<Perfil> perfis = perfilService.recuperarTudoPorUsuario(usuario);
+    	
     	session.setAttribute("usuario", usuario);
     	session.setAttribute("usuarioPerfis", perfis);
     	

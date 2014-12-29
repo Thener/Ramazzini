@@ -40,8 +40,6 @@ public class PerfilController implements Serializable {
 
 	private List<Tela> telas;
 	
-	private List<Tela> telasDoPerfil;
-
 	private Perfil perfilSelecionado;
 
 	private Modulo moduloSelecionado;

@@ -60,7 +60,7 @@ public class Tela extends AbstractEntidade implements Serializable {
 	@OneToMany(mappedBy="tela")
 	private List<Acao> acoes;	
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="cd_modulo")
 	private Modulo modulo;	
 	

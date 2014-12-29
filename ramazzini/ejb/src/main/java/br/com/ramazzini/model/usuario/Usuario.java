@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -69,7 +68,7 @@ public class Usuario extends AbstractEntidade implements Serializable {
 	@NotNull
 	private boolean ativo = true;
 	
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany
 	@JoinTable(
 	name="usuario_perfil",
 	joinColumns={@JoinColumn(name="cd_usuario")},

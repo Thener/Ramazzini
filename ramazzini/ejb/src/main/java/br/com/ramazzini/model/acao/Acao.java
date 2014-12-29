@@ -51,11 +51,11 @@ public class Acao extends AbstractEntidade implements Serializable {
 	@JoinColumn(name="cd_tela")
 	private Tela tela;	
 	
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(
 	name="perfil_tela_acao",
 	joinColumns={@JoinColumn(name="cd_acao")},
-	inverseJoinColumns={@JoinColumn(name="cd_perfil"), @JoinColumn(name="cd_tela")})
+	inverseJoinColumns={@JoinColumn(name="cd_perfil_tela")})
 	private List<PerfilTela> perfisTelas = new ArrayList<PerfilTela>();	
 	
 	public Long getId() {
@@ -80,6 +80,14 @@ public class Acao extends AbstractEntidade implements Serializable {
 
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
+	}
+
+	public List<PerfilTela> getPerfisTelas() {
+		return perfisTelas;
+	}
+
+	public void setPerfisTelas(List<PerfilTela> perfisTelas) {
+		this.perfisTelas = perfisTelas;
 	}
 
 }

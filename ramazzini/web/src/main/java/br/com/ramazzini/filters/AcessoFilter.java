@@ -90,7 +90,7 @@ public class AcessoFilter implements Filter {
 				continue;				
 			}
 			
-			for (PerfilTela perfilTtela : p.getTelas()) {
+			for (PerfilTela perfilTtela : p.getPerfisTelas()) {
 				
 				if (perfilTtela.getTela().getModulo().getNome().equals(getModulo(uri))
 						&& perfilTtela.getTela().getNome().equals(getTela(uri))) {

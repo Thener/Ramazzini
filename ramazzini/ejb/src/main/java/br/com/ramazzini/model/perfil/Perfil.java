@@ -56,7 +56,7 @@ public class Perfil extends AbstractEntidade implements Serializable {
 	*/
 	
 	@OneToMany(mappedBy = "perfil")
-	private Collection<PerfilTela> telas;
+	private Collection<PerfilTela> perfisTelas;
 		
 	public List<Usuario> getUsuarios() {
 		return usuarios;
@@ -66,12 +66,12 @@ public class Perfil extends AbstractEntidade implements Serializable {
 		this.usuarios = usuarios;
 	}
 
-	public Collection<PerfilTela> getTelas() {
-		return telas;
+	public Collection<PerfilTela> getPerfisTelas() {
+		return perfisTelas;
 	}
 
-	public void setTelas(Collection<PerfilTela> telas) {
-		this.telas = telas;
+	public void setPerfisTelas(Collection<PerfilTela> perfisTelas) {
+		this.perfisTelas = perfisTelas;
 	}
 
 	public Long getId() {
