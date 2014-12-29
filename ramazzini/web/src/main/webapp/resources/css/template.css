@@ -18,13 +18,9 @@ body {
 #content {
 
 }
-
 #menu {
     display: block;
     min-height: 50px;	
-}
-.semBorda tr, .semBorda td {
-	border: none !important;
 }
 .coluna1 {  
         width: 50px;

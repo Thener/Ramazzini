@@ -19,7 +19,7 @@
 					<f:ajax execute="login" render="gridUsuarios"/>
 				</p:commandButton>
 				<p:commandButton 
-					id="botaoAdicionarUsuario" icon="ui-icon-circle-plus"
+					id="botaoAdicionarUsuario" icon="ui-icon-circle-plus" value="Novo"
 					title="Adicionar Usuário" action="incluirUsuario.jsf?faces-redirect=true">					
 				</p:commandButton>
 			</h:panelGrid>
@@ -46,16 +46,24 @@
 				</p:column>
 
 				<p:column headerText="Ações" styleClass="coluna5">
-					<h:panelGrid columns="3" styleClass="semBorda">					  
+					<p:panelGrid columns="3" styleClass="semBorda">					  
 						<p:commandLink title="vizualizar" action="#{usuarioController.visualizar(usuario)}"
 							styleClass="ui-icon ui-icon-search" />
 						<p:commandLink title="editar" action="#{usuarioController.editar(usuario)}"
 							styleClass="ui-icon ui-icon-pencil" />
-						<p:commandLink title="remover" action="#{usuarioController.remover(usuario)}"
-							styleClass="ui-icon ui-icon-closethick" update="gridUsuarios"/>
-					</h:panelGrid>
+						<p:commandLink title="excluir" action="#{usuarioController.remover(usuario)}"
+							styleClass="ui-icon ui-icon-closethick" update="gridUsuarios">
+							<p:confirm header="Confirmação" message="Tem certeza que deseja excluir o usuário selecionado?" icon="ui-icon-alert" />
+						</p:commandLink>	
+					</p:panelGrid>
 				</p:column>
 			</p:dataTable>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="Não" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
 		</h:form>
 	</ui:define>
 </ui:composition>

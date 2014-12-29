@@ -30,11 +30,12 @@ public class DaoUtil {
 	 * Classe que realiza o salvamento da entidade passada como parâmetro.
 	 */
 	public static final AbstractEntidade salvar(EntityManager entityManager, AbstractEntidade entidade, Usuario usuarioLogado) {
+		usuarioLogado = entityManager.find(Usuario.class, usuarioLogado.getId());
 		if (entidade.getId() == null) {
-			//entidade.setUsuarioInclusao(usuarioLogado);
+			entidade.setUsuarioInclusao(usuarioLogado);
 			entityManager.persist(entidade);
 		} else {
-			//entidade.setUsuarioAlteracao(usuarioLogado);
+			entidade.setUsuarioAlteracao(usuarioLogado);
 			entidade = entityManager.merge(entidade);
 		}
 		return entidade;

@@ -49,7 +49,7 @@ public class PerfilService extends AbstractServiceImpl<Perfil> {
     	}
     	if (ok) {
     		perfil.getTelas().add(tela);
-    		return salvar(perfil, getUsuarioLogado());
+    		return salvar(perfil);
     	} else {
     		return null;
     	}

@@ -14,6 +14,7 @@ import javax.inject.Named;
 
 import br.com.ramazzini.model.usuario.Usuario;
 import br.com.ramazzini.service.UsuarioService;
+import br.com.ramazzini.util.Md5;
 
 @Named
 @SessionScoped
@@ -33,17 +34,16 @@ public class UsuarioController implements Serializable {
     
     private Usuario usuarioSelecionado;
     
-    @Inject @Named("usuarioLogado") 
-    private Usuario usuarioLogado;
-    
     private List<Usuario> usuarios;
     
     private String loginPesquisa;
     private String gridMsg;
+    private String novaSenha;
+
     
     private boolean somenteLeitura = Boolean.FALSE;
     
-	@Produces
+	
     public List<Usuario> getUsuarios() {
         return usuarios;
     }
@@ -56,14 +56,15 @@ public class UsuarioController implements Serializable {
     	somenteLeitura = Boolean.FALSE; 
     }
     
-    @Produces
+    
     public Usuario getNovoUsuario() {
         return usuarioNovo;
     }
   
     public void salvar() throws Exception {
         try {
-            usuarioService.salvar(usuarioNovo, usuarioLogado);
+        	usuarioNovo.setSenha(Md5.hashMd5(usuarioNovo.getSenha()));
+            usuarioService.salvar(usuarioNovo);
             facesContext.addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_INFO, "Salvo!", "Usuario salvo com sucesso!"));
             init();
@@ -76,7 +77,10 @@ public class UsuarioController implements Serializable {
     }  
     public void atualizar() throws Exception {
         try {
-            usuarioService.salvar(usuarioSelecionado, usuarioLogado);
+        	if (!novaSenha.isEmpty()){
+        		usuarioSelecionado.setSenha(Md5.hashMd5(novaSenha));
+        	}
+            usuarioService.salvar(usuarioSelecionado);
             facesContext.addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_INFO, "Alterado!", "Usuario alteraddo com sucesso!"));
             init();
@@ -169,4 +173,12 @@ public class UsuarioController implements Serializable {
 	public void setSomenteLeitura(boolean somenteLeitura) {
 		this.somenteLeitura = somenteLeitura;
 	}
+
+	public String getNovaSenha() {
+		return novaSenha;
+	}
+
+	public void setNovaSenha(String novaSenha) {
+		this.novaSenha = novaSenha;
+	}	
 }
