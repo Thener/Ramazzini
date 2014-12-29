@@ -20,7 +20,6 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 
-import br.com.ramazzini.dao.perfil.PerfilDao;
 import br.com.ramazzini.model.perfil.Perfil;
 import br.com.ramazzini.model.tela.Tela;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
@@ -31,11 +30,13 @@ public class PerfilService extends AbstractServiceImpl<Perfil> {
 
 	public List<Tela> recuperarTelas(Perfil perfil) {
 		
-        return ((PerfilDao) getDao()).recuperarTelas(perfil);
+        //return ((PerfilDao) getDao()).recuperarTelas(perfil);
+		
+		return null;
 	}
 
 	public Perfil incluirTelaVerificandoExistencia(Perfil perfil, Tela tela) {
-		
+		/*
 		List<Tela> telas = recuperarTelas(perfil);
 		
     	boolean ok = true;
@@ -52,7 +53,9 @@ public class PerfilService extends AbstractServiceImpl<Perfil> {
     		return salvar(perfil);
     	} else {
     		return null;
-    	}
+    	}*/
+    	
+    	return null;
 	}
     
 }
