@@ -59,14 +59,11 @@ public interface AbstractServiceInterface<T extends AbstractEntidade> {
 	void remover(T entidade, Long id);
 
 	/**
-	 * M�todo respons�vel por armazenar um objeto do tipo entidade.
-	 * 
+	 * Salvar entidade.
 	 * @param entidade
-	 *            entidade
-	 * @param usuarioLogado
-	 *            usuario logado no sistema
+	 * @return
 	 */
-	T salvar(T entidade, Usuario usuarioLogado);
+	T salvar(T entidade);
 
 	/**
 	 * Inicializa uma transa��o pesada no banco de dados, simplesmente n�o

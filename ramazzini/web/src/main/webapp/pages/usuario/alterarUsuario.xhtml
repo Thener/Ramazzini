@@ -9,29 +9,27 @@
    
       <h:form id="frmAlterarUsuario">      
       	<p:panel id="panelDadosUsuario" header="Dados do Usuário" style="margin-bottom:20px">
-	        <h:panelGrid columns="4" cellpadding="10">
-	      	   
+	        <p:panelGrid columns="4" cellpadding="10">	      	   
 		        <p:outputLabel for="nome" value="Nome:"/>
 	            <p:inputText id="nome" value="#{usuarioController.usuarioSelecionado.nome}" required="true" readonly="#{usuarioController.somenteLeitura}"/>            
-	
+	            
 	            <p:outputLabel for="login" value="Email:"/>
 	            <p:inputText id="login" value="#{usuarioController.usuarioSelecionado.login}" required="true" readonly="#{usuarioController.somenteLeitura}"/>
-	           
-	            <p:outputLabel for="senha" value="Senha:"/>
-	            <p:password id="senha" value="#{usuarioController.usuarioSelecionado.senha}" required="true" readonly="#{usuarioController.somenteLeitura}"/>
-	                        
-	            <h:outputLabel for="ativoCheck" value="Ativo: " />
+	            
+	            <p:outputLabel for="senha" value="Nova senha:" rendered="#{!usuarioController.somenteLeitura}"/>
+	            <p:password id="senha" value="#{usuarioController.novaSenha}" rendered="#{!usuarioController.somenteLeitura}"/>
+	            
+	            <p:outputLabel for="ativoCheck" value="Ativo: " />
 	        	<p:selectBooleanCheckbox id="ativoCheck" value="#{usuarioController.usuarioSelecionado.ativo}" readonly="#{usuarioController.somenteLeitura}"/>
 				
-				<p:commandButton id="salvar" action="#{usuarioController.atualizar()}"
+				<p:commandButton id="salvar" action="#{usuarioController.atualizar()}" value="Salvar"
 					icon="ui-icon-disk" title="Salvar" styleClass="register" update = "panelDadosUsuario" disabled="#{usuarioController.somenteLeitura}"/>
-
 				<p:commandButton id="botaoVoltar" immediate="true"
 					icon="ui-icon-arrowreturnthick-1-w" title="Voltar"
 					action="pesquisarUsuario.jsf?faces-redirect=true">
 				</p:commandButton>
 				<p:growl id="growl" showDetail="true" sticky="true" /> 				           
-	        </h:panelGrid>
+	        </p:panelGrid>
     	</p:panel>		
 		
 		</h:form>

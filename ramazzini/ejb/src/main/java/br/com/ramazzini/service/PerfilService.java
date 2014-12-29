@@ -62,7 +62,7 @@ public class PerfilService extends AbstractServiceImpl<Perfil> {
     		perfilTela.setPerfil(perfil);
     		perfilTela.setTela(tela);
     		perfil.getPerfisTelas().add(perfilTela);
-    		return salvar(perfil, getUsuarioLogado());
+    		return salvar(perfil);
     	} else {
     		return null;
     	}    	

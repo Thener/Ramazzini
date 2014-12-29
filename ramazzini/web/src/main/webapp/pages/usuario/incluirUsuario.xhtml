@@ -23,7 +23,7 @@
 	            <h:outputLabel for="ativoCheck" value="Ativo: " />
 	        	<p:selectBooleanCheckbox id="ativoCheck" value="#{usuarioController.novoUsuario.ativo}" />
 				
-				<p:commandButton id="salvar" action="#{usuarioController.salvar()}"
+				<p:commandButton id="salvar" action="#{usuarioController.salvar()}" value="Salvar"
 					icon="ui-icon-disk" title="Salvar" styleClass="register" update = "panelDadosUsuario"/>
 
 				<p:commandButton id="botaoVoltar" immediate="true"

@@ -12,18 +12,14 @@ import br.com.ramazzini.model.util.AbstractEntidade;
 import br.com.ramazzini.util.ReflectionUtil;
 
 /**
- * Classe gen�rica de servico que possui os m�todos de servi�o reutiliz�veis por
- * todas as classes de servi�o existentes.
+ * Classe genérica de servico que possui os métodos de serviços reutilizáveis.
  * 
  * @param <T>
- *            T extends AbstractEntidade
- * 
  */
 public abstract class AbstractServiceImpl<T extends AbstractEntidade>
 		implements AbstractServiceInterface<T> {
 
 	private final Class<? extends AbstractEntidade> classePersistente;
-
 	@Inject
 	private DaoFactoryLocal daoFactory;
 	
@@ -31,7 +27,7 @@ public abstract class AbstractServiceImpl<T extends AbstractEntidade>
     private HttpSession session;	
 
 	/**
-	 * Construtor da classe abstrata de servi�os.
+	 * Construtor da classe abstrata de serviços.
 	 */
 	@SuppressWarnings("unchecked")
 	public AbstractServiceImpl() {
@@ -40,7 +36,8 @@ public abstract class AbstractServiceImpl<T extends AbstractEntidade>
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * 
+	 * @return
 	 */
 	@SuppressWarnings("unchecked")
 	protected final AbstractDao<T> getDao() {
@@ -48,21 +45,24 @@ public abstract class AbstractServiceImpl<T extends AbstractEntidade>
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * 
+	 * @return
 	 */
 	public T recuperarPorId(Long id) {
 		return getDao().recuperarPorId(id);
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * 
+	 * @return
 	 */
 	public T recuperarPorIdForUpdate(Long id) {
 		return getDao().recuperarPorIdForUpdate(id);
 	}
 	
 	/**
-	 * {@inheritDoc}
+	 * 
+	 * @return
 	 */
 	public void remover(T entidade, Long id) {
 		getDao().remover(entidade, id);
@@ -81,25 +81,17 @@ public abstract class AbstractServiceImpl<T extends AbstractEntidade>
 		// Realiza validacoes complexas da entidade
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public T salvar(T entidade, Usuario usuarioLogado) {
-		return getDao().salvar(entidade, usuarioLogado);
+	public T salvar(T entidade) {
+		return getDao().salvar(entidade, getUsuarioLogado());
 	}
-
-
 	
 	public void clear() {
 		getDao().clear();
-	}
-
-	
+	}	
 	
 	public void refresh(AbstractEntidade entidade) {
 		getDao().refresh(entidade);
-	}
-	
+	}	
 	
 	public List<T> recuperarTodos(String... orderBy) {
 		return getDao().recuperarTodosOrdenados(orderBy);

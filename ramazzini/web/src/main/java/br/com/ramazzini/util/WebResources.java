@@ -19,11 +19,10 @@ package br.com.ramazzini.util;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import br.com.ramazzini.model.usuario.Usuario;
-import javax.enterprise.inject.New;
-import javax.inject.Named;
 
 /**
  * This class uses CDI to alias Java EE resources, such as the persistence context, to CDI beans
@@ -38,8 +37,7 @@ import javax.inject.Named;
  * </pre>
  */
 public class WebResources {
-
-    @Produces
+	@Produces
     @RequestScoped
     public FacesContext produceFacesContext() {
         return FacesContext.getCurrentInstance();
@@ -51,12 +49,10 @@ public class WebResources {
 		HttpSession session = (HttpSession) produceFacesContext().getExternalContext().getSession(false);
     	return session;    	
     }
-    
     @Named
     @Produces
     @RequestScoped
-    public Usuario usuarioLogado(){
-    	
+    public Usuario usuarioLogado(){        	
     	return (Usuario)session().getAttribute("usuario");
     }
 
