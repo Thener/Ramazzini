@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import br.com.ramazzini.model.perfil.Perfil;
+import br.com.ramazzini.model.perfilTela.PerfilTela;
 import br.com.ramazzini.model.tela.Tela;
 import br.com.ramazzini.model.usuario.Usuario;
 import br.com.ramazzini.service.TelaService;
@@ -89,18 +90,18 @@ public class AcessoFilter implements Filter {
 				continue;				
 			}
 			
-			for (Tela tela : p.getTelas()) {
+			for (PerfilTela perfilTtela : p.getTelas()) {
 				
-				if (tela.getModulo().getNome().equals(getModulo(uri))
-						&& tela.getNome().equals(getTela(uri))) {
+				if (perfilTtela.getTela().getModulo().getNome().equals(getModulo(uri))
+						&& perfilTtela.getTela().getNome().equals(getTela(uri))) {
 					
-					if (!tela.isAtivo()) {
+					if (!perfilTtela.getTela().isAtivo()) {
 						mensagem = "Tela está bloqueada no sistema. Por favor entre em contato com os Administradores do Sistema.";
 						break sairLoop;
 					}
 					
-					if (!tela.getModulo().isAtivo()) {
-						mensagem = "Módulo " + tela.getModulo().getNome() + " está bloqueado no sistema. Por favor entre em contato com os Administradores do Sistema.";
+					if (!perfilTtela.getTela().getModulo().isAtivo()) {
+						mensagem = "Módulo " + perfilTtela.getTela().getModulo().getNome() + " está bloqueado no sistema. Por favor entre em contato com os Administradores do Sistema.";
 						break sairLoop;
 					}
 					

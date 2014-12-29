@@ -1,19 +1,16 @@
 package br.com.ramazzini.model.perfil;
 
 import java.io.Serializable;
-import java.util.HashSet;
+import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -21,7 +18,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import br.com.ramazzini.model.tela.Tela;
+import br.com.ramazzini.model.perfilTela.PerfilTela;
 import br.com.ramazzini.model.usuario.Usuario;
 import br.com.ramazzini.model.util.AbstractEntidade;
 @SequenceGenerator(name = "seq_perfil", sequenceName = "seq_perfil", allocationSize = 1)
@@ -49,12 +46,17 @@ public class Perfil extends AbstractEntidade implements Serializable {
 	@ManyToMany(mappedBy="perfis")
 	private List<Usuario> usuarios;
 	
+	/*
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 	name="perfil_tela",
 	joinColumns={@JoinColumn(name="cd_perfil")},
 	inverseJoinColumns={@JoinColumn(name="cd_tela")})
 	private Set<Tela> telas = new HashSet<Tela>();	
+	*/
+	
+	@OneToMany(mappedBy = "perfil")
+	private Collection<PerfilTela> telas;
 		
 	public List<Usuario> getUsuarios() {
 		return usuarios;
@@ -64,11 +66,11 @@ public class Perfil extends AbstractEntidade implements Serializable {
 		this.usuarios = usuarios;
 	}
 
-	public Set<Tela> getTelas() {
+	public Collection<PerfilTela> getTelas() {
 		return telas;
 	}
 
-	public void setTelas(Set<Tela> telas) {
+	public void setTelas(Collection<PerfilTela> telas) {
 		this.telas = telas;
 	}
 

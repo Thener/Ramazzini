@@ -24,7 +24,6 @@ public abstract class AbstractEntidade implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "ts_inclusao", columnDefinition = "Date")
 	@Basic(fetch = FetchType.LAZY)
@@ -125,16 +124,31 @@ public abstract class AbstractEntidade implements Serializable {
 		return getId().toString();
 	}
 
-	/**
-	 * Retorna true se os dois objetos passados sao iguais.
-	 *
-	 * @param o1
-	 * @param o2
-	 * @return
-	 */
-	public static boolean equals(final Object o1, final Object o2) {
-		return o1 == null ? o2 == null : o1.equals(o2);
-	}	
-	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AbstractEntidade other = (AbstractEntidade) obj;
+		if (getId() == null) {
+			if (other.getId() != null)
+				return false;
+		} else if (!getId().equals(other.getId()))
+			return false;
+		return true;
+	}
+
+
 	
 }

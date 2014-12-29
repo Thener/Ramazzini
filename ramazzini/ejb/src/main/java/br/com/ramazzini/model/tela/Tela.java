@@ -1,6 +1,7 @@
 package br.com.ramazzini.model.tela;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -10,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import br.com.ramazzini.model.acao.Acao;
 import br.com.ramazzini.model.modulo.Modulo;
-import br.com.ramazzini.model.perfil.Perfil;
+import br.com.ramazzini.model.perfilTela.PerfilTela;
 import br.com.ramazzini.model.util.AbstractEntidade;
 
 @SequenceGenerator(name = "seq_tela", sequenceName = "seq_tela", allocationSize = 1)
@@ -51,8 +51,11 @@ public class Tela extends AbstractEntidade implements Serializable {
 	@NotNull
 	private boolean publico = true;
 	
-	@ManyToMany(mappedBy="telas")
-	private List<Perfil> perfis;
+	//@ManyToMany(mappedBy="telas")
+	//private List<Perfil> perfis;
+	
+	@OneToMany(mappedBy = "tela")
+	private Collection<PerfilTela> perfis;	
 	
 	@OneToMany(mappedBy="tela")
 	private List<Acao> acoes;	
@@ -93,13 +96,13 @@ public class Tela extends AbstractEntidade implements Serializable {
 		this.publico = publico;
 	}
 
-	public List<Perfil> getPerfis() {
+	/*public List<Perfil> getPerfis() {
 		return perfis;
 	}
 
 	public void setPerfis(List<Perfil> perfis) {
 		this.perfis = perfis;
-	}
+	}*/
 
 	public List<Acao> getAcoes() {
 		return acoes;
