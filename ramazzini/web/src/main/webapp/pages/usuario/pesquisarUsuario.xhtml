@@ -47,12 +47,12 @@
 
 				<p:column headerText="Ações" styleClass="coluna5">
 					<h:panelGrid columns="3" styleClass="semBorda">					  
-						<p:commandLink title="vizualizar"
+						<p:commandLink title="vizualizar" action="#{usuarioController.visualizar(usuario)}"
 							styleClass="ui-icon ui-icon-search" />
-						<p:commandLink title="editar"
+						<p:commandLink title="editar" action="#{usuarioController.editar(usuario)}"
 							styleClass="ui-icon ui-icon-pencil" />
-						<p:commandLink title="remover"
-							styleClass="ui-icon ui-icon-closethick" />
+						<p:commandLink title="remover" action="#{usuarioController.remover(usuario)}"
+							styleClass="ui-icon ui-icon-closethick" update="gridUsuarios"/>
 					</h:panelGrid>
 				</p:column>
 			</p:dataTable>

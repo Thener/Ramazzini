@@ -64,8 +64,8 @@ public abstract class AbstractServiceImpl<T extends AbstractEntidade>
 	/**
 	 * {@inheritDoc}
 	 */
-	public void remover(T entidade) {
-		getDao().remover(entidade);
+	public void remover(T entidade, Long id) {
+		getDao().remover(entidade, id);
 	}
 
 	/**

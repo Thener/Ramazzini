@@ -56,7 +56,7 @@ public interface AbstractServiceInterface<T extends AbstractEntidade> {
 	 * @param entidade
 	 *            entidade
 	 */
-	void remover(T entidade);
+	void remover(T entidade, Long id);
 
 	/**
 	 * M�todo respons�vel por armazenar um objeto do tipo entidade.

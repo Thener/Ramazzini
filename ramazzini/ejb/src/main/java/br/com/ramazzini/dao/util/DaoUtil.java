@@ -21,8 +21,8 @@ public class DaoUtil {
 	 * @param entidade
 	 *            entidade
 	 */
-	public static void remover(EntityManager entityManager, Object entidade) {
-		entityManager.remove(entidade);
+	public static void remover(EntityManager entityManager, Object entidade, Long id) {
+		entityManager.remove(entityManager.getReference(entidade.getClass(), id));
 		entityManager.flush();
 	}
 
@@ -34,7 +34,7 @@ public class DaoUtil {
 			//entidade.setUsuarioInclusao(usuarioLogado);
 			entityManager.persist(entidade);
 		} else {
-			entidade.setUsuarioAlteracao(usuarioLogado);
+			//entidade.setUsuarioAlteracao(usuarioLogado);
 			entidade = entityManager.merge(entidade);
 		}
 		return entidade;

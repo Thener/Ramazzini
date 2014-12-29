@@ -31,6 +31,8 @@ public class UsuarioController implements Serializable {
     
     private Usuario usuarioNovo;
     
+    private Usuario usuarioSelecionado;
+    
     @Inject @Named("usuarioLogado") 
     private Usuario usuarioLogado;
     
@@ -38,6 +40,8 @@ public class UsuarioController implements Serializable {
     
     private String loginPesquisa;
     private String gridMsg;
+    
+    private boolean somenteLeitura = Boolean.FALSE;
     
 	@Produces
     public List<Usuario> getUsuarios() {
@@ -47,8 +51,9 @@ public class UsuarioController implements Serializable {
     @PostConstruct     
     public void init() {
     	usuarios = new ArrayList<Usuario>();
-    	usuarioNovo = new Usuario();  
+    	usuarioNovo = new Usuario(); 
     	gridMsg = "";
+    	somenteLeitura = Boolean.FALSE; 
     }
     
     @Produces
@@ -60,15 +65,51 @@ public class UsuarioController implements Serializable {
         try {
             usuarioService.salvar(usuarioNovo, usuarioLogado);
             facesContext.addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Registrado!", "Usuario cadastrado com sucesso!"));
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Salvo!", "Usuario salvo com sucesso!"));
             init();
         } catch (Exception e) {
             String errorMessage = getRaizErro(e);
-            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMessage, "Usuario não cadastrado!");
+            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMessage, "Usuario não salvo!");
             init();
             facesContext.addMessage(null, m);            
         }
     }  
+    public void atualizar() throws Exception {
+        try {
+            usuarioService.salvar(usuarioSelecionado, usuarioLogado);
+            facesContext.addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Alterado!", "Usuario alteraddo com sucesso!"));
+            init();
+        } catch (Exception e) {
+            String errorMessage = getRaizErro(e);
+            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMessage, "Usuario não alterardo!");
+            init();
+            facesContext.addMessage(null, m);            
+        }
+    }  
+    public void remover(Usuario usuario){
+    	try {
+    		usuarioService.remover(usuario, usuario.getId());
+    		usuarios.remove(usuario);
+    		facesContext.addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso!", "Usuario removido com sucesso!"));
+    	} catch (Exception e) {
+            String errorMessage = getRaizErro(e);
+            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMessage, "Não foi pssível deletar o Usuario!");
+            facesContext.addMessage(null, m);            
+        }            
+    }
+    public String editar(Usuario usuario){
+    	setUsuarioSelecionado(usuarioService.recuperarPorId(usuario.getId()));
+    	setSomenteLeitura(Boolean.FALSE);
+    	return "alterarUsuario.jsf";
+    }
+    
+    public String visualizar(Usuario usuario){
+    	setUsuarioSelecionado(usuario);
+    	setSomenteLeitura(Boolean.TRUE);
+    	return "alterarUsuario.jsf";
+    }
     public void pesquisar() throws Exception {
 		if (loginPesquisa.isEmpty()){
 			usuarios = usuarioService.recuperarTodos("nome");        		
@@ -111,5 +152,21 @@ public class UsuarioController implements Serializable {
 
 	public void setGridMsg(String gridMsg) {
 		this.gridMsg = gridMsg;
+	}
+
+	public Usuario getUsuarioSelecionado() {
+		return usuarioSelecionado;
+	}
+
+	public void setUsuarioSelecionado(Usuario usuarioSelecionado) {
+		this.usuarioSelecionado = usuarioSelecionado;
+	}
+
+	public boolean isSomenteLeitura() {
+		return somenteLeitura;
+	}
+
+	public void setSomenteLeitura(boolean somenteLeitura) {
+		this.somenteLeitura = somenteLeitura;
 	}
 }

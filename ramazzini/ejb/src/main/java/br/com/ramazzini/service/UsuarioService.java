@@ -97,5 +97,5 @@ public class UsuarioService extends AbstractServiceImpl<Usuario> {
     	UsuarioDao dao = ((UsuarioDao) getDao());
     	
         return dao.recuperarPorTrechoLogin(login);
-    }
+    }	
 }
