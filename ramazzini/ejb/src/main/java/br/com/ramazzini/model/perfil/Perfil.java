@@ -4,8 +4,10 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,6 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import br.com.ramazzini.model.perfilTela.PerfilTela;
 import br.com.ramazzini.model.usuario.Usuario;
 import br.com.ramazzini.model.util.AbstractEntidade;
+
 @SequenceGenerator(name = "seq_perfil", sequenceName = "seq_perfil", allocationSize = 1)
 @Entity
 @XmlRootElement
@@ -55,7 +58,7 @@ public class Perfil extends AbstractEntidade implements Serializable {
 	private Set<Tela> telas = new HashSet<Tela>();	
 	*/
 	
-	@OneToMany(mappedBy = "perfil")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "perfil", cascade=CascadeType.ALL)
 	private Collection<PerfilTela> perfisTelas;
 		
 	public List<Usuario> getUsuarios() {

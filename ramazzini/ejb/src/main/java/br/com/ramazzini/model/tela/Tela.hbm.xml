@@ -6,7 +6,8 @@
 		<![CDATA[
             select t
               from Tela t
-             where t.modulo = :modulo
+             join fetch t.modulo m
+             where m = :modulo
              and t.publico = :publico
              order by t.nome
 		]]>
@@ -30,9 +31,11 @@
 	<query name="Tela.recuperarPorPerfil">
 		<![CDATA[
             select t
-              from Tela t
-             left join t.perfis p 
-             where :perfil in p
+              from PerfilTela pt
+             left join pt.perfil p
+             left join pt.tela t 
+             join fetch t.modulo m
+             where p = :perfil
              order by t.nome
 		]]>
 	</query>	

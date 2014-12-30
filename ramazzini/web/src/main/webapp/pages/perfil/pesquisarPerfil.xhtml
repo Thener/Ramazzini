@@ -24,13 +24,11 @@
 						<h:outputText value="#{perfil.nome}" />
 					</p:column>
 
-					<p:column headerText="Ações" style="white-space: nowrap;">
-						<h:panelGrid columns="3" styleClass="semBorda">
-							<p:commandLink action="#{perfilController.alterarPerfil(perfil)}"
-								title="editar" styleClass="ui-icon ui-icon-pencil"
-								rendered="#{perfil.nome != 'administrador'}" />
-						</h:panelGrid>
-					</p:column>
+					<p:column headerText="Ações">
+						<p:commandLink title="editar" action="#{perfilController.alterarPerfil(perfil)}"
+							styleClass="ui-icon ui-icon-pencil" 
+							rendered="#{perfil.nome != 'administrador'}" />
+					</p:column>					
 
 				</p:dataTable>
 

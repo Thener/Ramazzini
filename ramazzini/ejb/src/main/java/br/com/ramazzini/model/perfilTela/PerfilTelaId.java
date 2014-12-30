@@ -4,12 +4,19 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 @Embeddable
 public class PerfilTelaId implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@SequenceGenerator(name = "seq_perfil_tela", sequenceName = "seq_perfil_tela", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_perfil_tela")
     @Column(name = "cd_perfil_tela")
     private Long id;
 

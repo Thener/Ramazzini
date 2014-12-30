@@ -41,21 +41,37 @@
 					
 				</p:panelGrid>
 				
-				<p:dataTable var="tela" value="#{perfilController.telasDoPerfil}">
+				<p:dataTable id="gridPerfisTelas" var="perfilTela" value="#{perfilController.perfisTelas}">
 
 					<p:column headerText="Nome">
-						<h:outputText value="#{tela.nome}" />
+						<h:outputText value="#{perfilTela.tela.nome}" />
 					</p:column>
 					
 					<p:column headerText="Ativa" style="text-align:center;">
-						<p:selectBooleanCheckbox value="#{tela.ativo}" disabled="true" />
+						<p:selectBooleanCheckbox value="#{perfilTela.tela.ativo}" disabled="true" />
 					</p:column>						
 					
 					<p:column headerText="Módulo" style="text-align:center;">
-						<h:outputText value="#{tela.modulo.nome}" />
-					</p:column>					
+						<h:outputText value="#{perfilTela.tela.modulo.nome}" />
+					</p:column>	
+					
+					<p:column headerText="Ações" styleClass="coluna5">
+						<p:panelGrid columns="3" styleClass="semBorda">
+							<p:commandLink title="excluir" action="#{perfilController.removerPerfilTela(perfilTela)}"
+								styleClass="ui-icon ui-icon-closethick" update="gridPerfisTelas">
+								<p:confirm header="Confirmação" message="Tem certeza que deseja excluir o acesso do perfil?" icon="ui-icon-alert" />
+							</p:commandLink>	
+						</p:panelGrid>
+					</p:column>
 
-				</p:dataTable>				
+				</p:dataTable>	
+				
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+					<p:commandButton value="Sim" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="Não" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
 				
 			</p:panel>
 		</h:form>

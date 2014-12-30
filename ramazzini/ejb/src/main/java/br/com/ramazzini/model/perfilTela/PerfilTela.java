@@ -5,30 +5,30 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import br.com.ramazzini.model.acao.Acao;
 import br.com.ramazzini.model.perfil.Perfil;
 import br.com.ramazzini.model.tela.Tela;
 import br.com.ramazzini.model.util.AbstractEntidade;
 
+
 @Entity
+@XmlRootElement
 @Table(name = "perfil_tela")
 @IdClass(PerfilTelaId.class)
 public class PerfilTela extends AbstractEntidade implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
-    @Column(name = "cd_perfil_tela")
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "cd_perfil_tela")
     private Long id;
     
     @ManyToOne

@@ -11,9 +11,11 @@ import javax.inject.Named;
 
 import br.com.ramazzini.model.modulo.Modulo;
 import br.com.ramazzini.model.perfil.Perfil;
+import br.com.ramazzini.model.perfilTela.PerfilTela;
 import br.com.ramazzini.model.tela.Tela;
 import br.com.ramazzini.service.ModuloService;
 import br.com.ramazzini.service.PerfilService;
+import br.com.ramazzini.service.PerfilTelaService;
 import br.com.ramazzini.service.TelaService;
 import br.com.ramazzini.util.UtilMensagens;
 
@@ -33,8 +35,13 @@ public class PerfilController implements Serializable {
 
 	@Inject
 	private TelaService telaService;
+	
+	@Inject
+	private PerfilTelaService perfilTelaService;	
 
 	private List<Perfil> perfis;
+	
+	private List<PerfilTela> perfisTelas;
 
 	private List<Modulo> modulos;
 
@@ -125,7 +132,19 @@ public class PerfilController implements Serializable {
 
     }
 
-	public List<Tela> getTelasDoPerfil() {
-		return telaService.recuperarPorPerfil(perfilSelecionado);
-	}    
+	public List<PerfilTela> getPerfisTelas() {
+		if (perfisTelas == null || perfisTelas.isEmpty()) {
+			perfisTelas = perfilTelaService.recuperarPorPerfil(perfilSelecionado);
+		}
+		return perfisTelas;
+	}
+	
+    public void removerPerfilTela(PerfilTela perfilTela){
+    	if (perfilTelaService.remover(perfilTela)) {
+    		perfisTelas.clear();
+    		UtilMensagens.mensagemInformacao("Acesso removido!");
+    	} else {
+            UtilMensagens.mensagemErro("Não foi possível exluir o acesso do Perfil!");            
+        }            
+    }	
 }

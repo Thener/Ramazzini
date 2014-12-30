@@ -112,7 +112,7 @@ public class AcessoFilter implements Filter {
 			}
 		}
 		
-		if (!autorizado) {
+		if (!autorizado && mensagem == null) {
 			mensagem = "Desculpe, acesso não autorizado!";
 		}
 		

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+	<query name="PerfilTela.recuperarPorPerfil">
+		<![CDATA[
+            select pt
+              from PerfilTela pt
+             left join pt.perfil p
+             left join pt.tela t 
+             left join t.modulo m
+             where p = :perfil
+             order by t.nome
+		]]>
+	</query>
+		
+</hibernate-mapping>

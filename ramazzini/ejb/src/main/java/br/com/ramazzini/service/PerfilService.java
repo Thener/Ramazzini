@@ -48,15 +48,14 @@ public class PerfilService extends AbstractServiceImpl<Perfil> {
 		List<PerfilTela> perfisTelas = recuperarPerfilTelaPor(perfil);
 		
     	boolean ok = true;
-    	//if (telas != null && telas.size() > 0 && telas.get(0) != null) {
-	    	for (PerfilTela pt : perfisTelas) {
-	    		if (pt.getTela().getModulo().getNome().equals(tela.getModulo().getNome())
-	    				&& pt.getTela().getNome().equals(tela.getNome())) {
-	    			ok = false;
-	    		}
-	    	}
-    	//}
-	    	
+
+    	for (PerfilTela pt : perfisTelas) {
+    		if (pt.getTela().getModulo().getNome().equals(tela.getModulo().getNome())
+    				&& pt.getTela().getNome().equals(tela.getNome())) {
+    			ok = false;
+    		}
+    	}
+
     	if (ok) {
     		PerfilTela perfilTela = new PerfilTela();
     		perfilTela.setPerfil(perfil);
