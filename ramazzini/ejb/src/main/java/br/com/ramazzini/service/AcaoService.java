@@ -20,24 +20,16 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 
-import br.com.ramazzini.dao.perfilTela.PerfilTelaDao;
-import br.com.ramazzini.model.perfil.Perfil;
-import br.com.ramazzini.model.perfilTela.PerfilTela;
+import br.com.ramazzini.dao.acao.AcaoDao;
+import br.com.ramazzini.model.acao.Acao;
+import br.com.ramazzini.model.tela.Tela;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
 
 // The @Stateless annotation eliminates the need for manual transaction demarcation
 @Stateless
-public class PerfilTelaService extends AbstractServiceImpl<PerfilTela> {
+public class AcaoService extends AbstractServiceImpl<Acao> {
 
-    public List<PerfilTela> recuperarPorPerfil(Perfil perfil) {
-    	return ((PerfilTelaDao) getDao()).recuperarPorPerfil(perfil);
+    public List<Acao> recuperarPorTela(Tela tela) {
+    	return ((AcaoDao) getDao()).recuperarPorTela(tela);
     } 
-    
-	public boolean remover(PerfilTela perfilTela) {
-		return ((PerfilTelaDao) getDao()).removerPorId(perfilTela, perfilTela.getId());
-	}
-	
-	public PerfilTela recuperarTudoPorId(Long id) {
-		return ((PerfilTelaDao) getDao()).recuperarTudoPorId(id);
-	}
 }

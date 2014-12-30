@@ -1,6 +1,7 @@
 package br.com.ramazzini.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -9,10 +10,15 @@ import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.primefaces.event.TransferEvent;
+import org.primefaces.model.DualListModel;
+
+import br.com.ramazzini.model.acao.Acao;
 import br.com.ramazzini.model.modulo.Modulo;
 import br.com.ramazzini.model.perfil.Perfil;
 import br.com.ramazzini.model.perfilTela.PerfilTela;
 import br.com.ramazzini.model.tela.Tela;
+import br.com.ramazzini.service.AcaoService;
 import br.com.ramazzini.service.ModuloService;
 import br.com.ramazzini.service.PerfilService;
 import br.com.ramazzini.service.PerfilTelaService;
@@ -37,7 +43,10 @@ public class PerfilController implements Serializable {
 	private TelaService telaService;
 	
 	@Inject
-	private PerfilTelaService perfilTelaService;	
+	private PerfilTelaService perfilTelaService;
+	
+	@Inject
+	private AcaoService acaoService;		
 
 	private List<Perfil> perfis;
 	
@@ -47,12 +56,16 @@ public class PerfilController implements Serializable {
 
 	private List<Tela> telas;
 	
+	private DualListModel<Acao> acoes;
+	
 	private Perfil perfilSelecionado;
 
 	private Modulo moduloSelecionado;
 
 	private Tela telaSelecionada;
-
+	
+	private PerfilTela perfilTelaSelecionado;
+	
 	@PostConstruct
 	public void init() {
 
@@ -110,12 +123,28 @@ public class PerfilController implements Serializable {
 		this.telas = telas;
 	}
 
+	public DualListModel<Acao> getAcoes() {
+		return acoes;
+	}
+
+	public void setAcoes(DualListModel<Acao> acoes) {
+		this.acoes = acoes;
+	}
+
 	public Tela getTelaSelecionada() {
 		return telaSelecionada;
 	}
 
 	public void setTelaSelecionada(Tela telaSelecionada) {
 		this.telaSelecionada = telaSelecionada;
+	}
+
+	public PerfilTela getPerfilTelaSelecionado() {
+		return perfilTelaSelecionado;
+	}
+
+	public void setPerfilTelaSelecionado(PerfilTela perfilTelaSelecionado) {
+		this.perfilTelaSelecionado = perfilTelaSelecionado;
 	}
 
 	public void perfilChange() {
@@ -157,5 +186,39 @@ public class PerfilController implements Serializable {
     	} else {
             UtilMensagens.mensagemErro("Não foi possível exluir o acesso do Perfil!");            
         }            
-    }	
+    }
+    
+    public String editarPerfilTela(PerfilTela perfilTela) {
+    	
+    	// Buscando tudo para evitar LazyInitializationException
+    	PerfilTela pt = perfilTelaService.recuperarTudoPorId(perfilTela.getId());
+    	
+    	setPerfilTelaSelecionado(pt);
+    	
+        //PickList:
+        List<Acao> acoesSource = acaoService.recuperarPorTela(pt.getTela());
+        List<Acao> acoesTarget = new ArrayList<Acao>();
+         
+        acoes = new DualListModel<Acao>(acoesSource, acoesTarget);    	
+    	
+    	return "/pages/perfil/alterarPerfilTela.jsf";
+    }
+
+    public void onTransferAcao(TransferEvent event) {
+        StringBuilder builder = new StringBuilder();
+        for(Object item : event.getItems()) {
+            builder.append(((Acao) item).getNome()).append("<br />");
+        }
+    } 
+    
+    public String autorizarAcao() {
+    	
+    	perfilTelaSelecionado.getAcoes().clear();
+    	perfilTelaService.salvar(perfilTelaSelecionado);
+    	
+    	perfilTelaSelecionado.getAcoes().addAll(acoes.getTarget());
+    	perfilTelaService.salvar(perfilTelaSelecionado);
+    	
+    	return "";
+    }
 }

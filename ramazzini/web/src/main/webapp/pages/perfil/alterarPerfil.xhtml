@@ -69,7 +69,9 @@
 							<p:commandLink title="excluir" action="#{perfilController.removerPerfilTela(perfilTela)}"
 								styleClass="ui-icon ui-icon-closethick" update="gridPerfisTelas">
 								<p:confirm header="Confirmação" message="Tem certeza que deseja excluir o acesso do perfil?" icon="ui-icon-alert" />
-							</p:commandLink>	
+							</p:commandLink>
+							<p:commandLink title="editar" action="#{perfilController.editarPerfilTela(perfilTela)}"
+								styleClass="ui-icon ui-icon-pencil" />								
 						</p:panelGrid>
 					</p:column>
 

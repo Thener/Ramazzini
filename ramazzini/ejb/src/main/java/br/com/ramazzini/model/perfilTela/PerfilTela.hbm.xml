@@ -15,4 +15,17 @@
 		]]>
 	</query>
 		
+	<query name="PerfilTela.recuperarTudoPorId">
+		<![CDATA[
+            select pt
+              from PerfilTela pt
+             left join pt.perfil p
+             left join pt.tela t
+             left join fetch pt.acoes a 
+             left join t.modulo m
+             where pt.id = :id
+             order by t.nome
+		]]>
+	</query>
+			
 </hibernate-mapping>

@@ -13,6 +13,7 @@ import br.com.ramazzini.model.perfilTela.PerfilTela;
 public class PerfilTelaDao extends AbstractDao<PerfilTela> {
 
 	private static final String QUERY_RECUPERAR_POR_PERFIL = "PerfilTela.recuperarPorPerfil";
+	private static final String QUERY_RECUPERAR_TUDO_POR_ID = "PerfilTela.recuperarTudoPorId";
 		
 	@SuppressWarnings("unchecked")
 	public List<PerfilTela> recuperarPorPerfil(Perfil perfil) {
@@ -23,16 +24,20 @@ public class PerfilTelaDao extends AbstractDao<PerfilTela> {
 		} catch (NoResultException nr) {
 			return null;
 		}
-	}	
+	}
 	
-	/**
-	 * Método sobrescrito em virtude da tabela PerfilTelaId (ManyToMany)
-	 * @param perfilTela
-	 * @return
-	 */
-	public boolean remover(PerfilTela perfilTela) {
-		Query q = getEntityManager().createQuery("DELETE FROM " + PerfilTela.class.getSimpleName() + " WHERE id = " + perfilTela.getId());
-		return (q.executeUpdate() > 0 ? true : false);
+	@Override
+	public void remover(PerfilTela perfilTela, Long id) {
+		removerPorId(perfilTela, id);
+	}
+
+	public PerfilTela recuperarTudoPorId(Long id) {
+		Query query = createNamedQuery(QUERY_RECUPERAR_TUDO_POR_ID);
+		query.setParameter("id", id);
+		try {
+			return (PerfilTela) query.getSingleResult();
+		} catch (NoResultException n) {
+			return null;
+		}
 	}	
-		
 }

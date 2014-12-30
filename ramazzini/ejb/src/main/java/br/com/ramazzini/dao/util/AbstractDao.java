@@ -35,6 +35,12 @@ public abstract class AbstractDao<T extends AbstractEntidade> {
 	public void remover(T entidade, Long id) {
 		DaoUtil.remover(entityManager, entidade, id);
 	}
+	
+	public boolean removerPorId(T entidade, Long id) {
+		Query q = getEntityManager().createQuery(
+				"DELETE FROM " + getClassePersistente().getSimpleName() + " WHERE id = " + id);
+		return (q.executeUpdate() > 0 ? true : false);
+	}	
 
 	@SuppressWarnings("unchecked")
 	public T salvar(T entidade, Usuario usuarioLogado) {

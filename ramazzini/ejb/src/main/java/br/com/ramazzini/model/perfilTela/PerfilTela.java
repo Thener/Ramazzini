@@ -3,8 +3,10 @@ package br.com.ramazzini.model.perfilTela;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -44,7 +46,8 @@ public class PerfilTela extends AbstractEntidade implements Serializable {
     @JoinColumn(name="cd_tela")
     private Tela tela;
     
-	@ManyToMany(mappedBy="perfisTelas")
+	@ManyToMany(mappedBy="perfisTelas", fetch=FetchType.LAZY,
+			cascade = {CascadeType.ALL})
 	private List<Acao> acoes;  
 	
 	public Long getId() {
