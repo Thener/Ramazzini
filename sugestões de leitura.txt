@@ -11,3 +11,6 @@ http://wehavescience.com/2012/12/16/converter-generico/
 por um arquivo (Ctrl + shift + R), o mesmo arquivo aparecerá duas vezes; então "não" devemos abrir o arquivo no projeto pai do maven 
 
 4. http://uaihebert.com/jpa-mini-livro-primeiros-passos-e-conceitos-detalhados/22/
+
+5. http://www.developerscrappad.com/139/java/java-ee/ejb3-jpa-entity-many-to-many-relationship/
+Neste link, o autor não usa o mappedBy para criar o ManyToMany; foi apenas com este link que consegui persistir perfil_tela_acao

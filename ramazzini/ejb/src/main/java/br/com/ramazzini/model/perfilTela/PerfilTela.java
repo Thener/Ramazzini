@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
@@ -46,8 +47,12 @@ public class PerfilTela extends AbstractEntidade implements Serializable {
     @JoinColumn(name="cd_tela")
     private Tela tela;
     
-	@ManyToMany(mappedBy="perfisTelas", fetch=FetchType.LAZY,
-			cascade = {CascadeType.ALL})
+	//http://www.developerscrappad.com/139/java/java-ee/ejb3-jpa-entity-many-to-many-relationship/
+	//usando mappedBy, não funciona
+	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+	@JoinTable(name = "perfil_tela_acao",
+	joinColumns = {@JoinColumn(name = "cd_perfil_tela")},
+	   inverseJoinColumns = {@JoinColumn(name = "cd_acao")})	
 	private List<Acao> acoes;  
 	
 	public Long getId() {

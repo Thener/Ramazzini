@@ -96,6 +96,7 @@ public class PerfilController implements Serializable {
 	public String alterarPerfil(Perfil perfil) {
 		setPerfilSelecionado(perfil);
 		setModulos(moduloService.recuperarTodos("nome"));
+		getPerfisTelas().clear();
 		return "/pages/perfil/alterarPerfil.jsf";
 	}
 
@@ -196,9 +197,28 @@ public class PerfilController implements Serializable {
     	setPerfilTelaSelecionado(pt);
     	
         //PickList:
-        List<Acao> acoesSource = acaoService.recuperarPorTela(pt.getTela());
+    	List<Acao> acoesDaTela = acaoService.recuperarPorTela(pt.getTela());
+        List<Acao> acoesSource = new ArrayList<Acao>();
         List<Acao> acoesTarget = new ArrayList<Acao>();
-         
+        
+    	for (Acao a : acoesDaTela) {
+    		
+    		String nome = a.getNome();
+    		Long idAcao = a.getId();
+    		boolean autorizada = false;
+    		for (Acao a2 : pt.getAcoes()) {
+    			if (nome.equals(a2.getNome()) && idAcao == a2.getId()) {
+    				autorizada = true;
+    				break;
+    			}
+    		}
+    		if (autorizada) {
+    			acoesTarget.add(a);
+    		} else {
+    			acoesSource.add(a);
+    		}
+    	}
+    	
         acoes = new DualListModel<Acao>(acoesSource, acoesTarget);    	
     	
     	return "/pages/perfil/alterarPerfilTela.jsf";

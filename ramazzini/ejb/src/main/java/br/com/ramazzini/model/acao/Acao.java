@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -52,8 +53,7 @@ public class Acao extends AbstractEntidade implements Serializable {
 	@JoinColumn(name="cd_tela", nullable=false)
 	private Tela tela;	
 	
-	@ManyToMany(fetch = FetchType.LAZY,
-			cascade = {CascadeType.ALL})
+	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
 	@JoinTable(
 	name="perfil_tela_acao",
 	joinColumns={@JoinColumn(name="cd_acao")},
