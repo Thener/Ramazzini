@@ -43,7 +43,7 @@ public class PerfilService extends AbstractServiceImpl<Perfil> {
         return ((PerfilDao) getDao()).recuperarPerfilTelaPor(perfil);
 	}	
 
-	public Perfil incluirTelaVerificandoExistencia(Perfil perfil, Tela tela) {
+	public boolean incluirTelaVerificandoExistencia(Perfil perfil, Tela tela) {
 
 		List<PerfilTela> perfisTelas = recuperarPerfilTelaPor(perfil);
 		
@@ -60,11 +60,13 @@ public class PerfilService extends AbstractServiceImpl<Perfil> {
     		PerfilTela perfilTela = new PerfilTela();
     		perfilTela.setPerfil(perfil);
     		perfilTela.setTela(tela);
+    		perfil.getPerfisTelas().clear();
     		perfil.getPerfisTelas().add(perfilTela);
-    		return salvar(perfil);
+    		salvar(perfil);
+    		return true;
     	} else {
-    		return null;
-    	}    	
+    		return false;
+    	}
 	}
     
 }

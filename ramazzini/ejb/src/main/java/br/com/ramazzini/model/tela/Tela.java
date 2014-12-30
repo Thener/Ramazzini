@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -54,7 +55,8 @@ public class Tela extends AbstractEntidade implements Serializable {
 	//@ManyToMany(mappedBy="telas")
 	//private List<Perfil> perfis;
 	
-	@OneToMany(mappedBy = "tela")
+	@OneToMany(mappedBy = "tela",
+			cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	private Collection<PerfilTela> perfis;	
 	
 	@OneToMany(mappedBy="tela")

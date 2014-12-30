@@ -58,7 +58,8 @@ public class Perfil extends AbstractEntidade implements Serializable {
 	private Set<Tela> telas = new HashSet<Tela>();	
 	*/
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "perfil", cascade=CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "perfil",
+		cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	private Collection<PerfilTela> perfisTelas;
 		
 	public List<Usuario> getUsuarios() {

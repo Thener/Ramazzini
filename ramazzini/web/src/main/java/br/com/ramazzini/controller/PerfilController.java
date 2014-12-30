@@ -124,10 +124,21 @@ public class PerfilController implements Serializable {
 	
     public void autorizarTela() {
         
-    	if (perfilService.incluirTelaVerificandoExistencia(perfilSelecionado, telaSelecionada) != null) {
+		if (perfilSelecionado == null) {
+			UtilMensagens.mensagemInformacao("Perfil não selecionado!");
+			return;
+		}
+		
+		if (telaSelecionada == null) {
+			UtilMensagens.mensagemErro("Tela não selecionada!");
+			return;
+		}
+		
+    	if (perfilService.incluirTelaVerificandoExistencia(perfilSelecionado, telaSelecionada)) {
     		UtilMensagens.mensagemInformacao("Tela incluída com sucesso!");
+    		getPerfisTelas().clear();
     	} else {
-    		UtilMensagens.mensagemErro("Tela já autorizada");
+    		UtilMensagens.mensagemErro("Tela já autorizada!");
     	}
 
     }

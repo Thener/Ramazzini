@@ -9,6 +9,9 @@
 	<ui:define name="content">
 
 		<h:form>
+		
+			<p:growl id="messages" />
+		
 			<p:panel
 				header="Alterando Perfil: #{perfilController.perfilSelecionado.nome}">
 
@@ -36,9 +39,15 @@
 							itemLabel="#{tela.nome}" />
 					</p:selectOneMenu>
 					
-					<p:commandButton action="#{perfilController.autorizarTela()}" value="Incluir"
-							icon="ui-icon-check" ajax="false" />
-					
+					<h:panelGroup>
+						<p:commandButton action="#{perfilController.autorizarTela()}" value="Incluir"
+								icon="ui-icon-check" ajax="true" update="gridPerfisTelas, messages" />
+								
+						<p:spacer width="10px"/>
+						<p:commandButton id="botaoVoltar" immediate="true"
+							icon="ui-icon-arrowreturnthick-1-w" title="Voltar"
+							action="pesquisarPerfil.jsf?faces-redirect=true" />
+					</h:panelGroup>
 				</p:panelGrid>
 				
 				<p:dataTable id="gridPerfisTelas" var="perfilTela" value="#{perfilController.perfisTelas}">
