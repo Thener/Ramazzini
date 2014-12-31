@@ -40,4 +40,8 @@ public class PerfilTelaService extends AbstractServiceImpl<PerfilTela> {
 	public PerfilTela recuperarTudoPorId(Long id) {
 		return ((PerfilTelaDao) getDao()).recuperarTudoPorId(id);
 	}
+	
+	public boolean removerEmCascata(PerfilTela perfilTela) {
+		return ((PerfilTelaDao) getDao()).removerEmCascata(perfilTela);
+	}
 }

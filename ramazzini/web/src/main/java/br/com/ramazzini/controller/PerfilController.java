@@ -97,7 +97,7 @@ public class PerfilController implements Serializable {
 		setPerfilSelecionado(perfil);
 		setModulos(moduloService.recuperarTodos("nome"));
 		getPerfisTelas().clear();
-		return "/pages/perfil/alterarPerfil.jsf";
+		return "/pages/perfil/alterarPerfil.jsf?faces-redirect=true";
 	}
 
 	public List<Modulo> getModulos() {
@@ -181,7 +181,7 @@ public class PerfilController implements Serializable {
 	}
 	
     public void removerPerfilTela(PerfilTela perfilTela){
-    	if (perfilTelaService.remover(perfilTela)) {
+    	if (perfilTelaService.removerEmCascata(perfilTela)) {
     		perfisTelas.clear();
     		UtilMensagens.mensagemInformacao("Acesso removido!");
     	} else {
@@ -221,7 +221,7 @@ public class PerfilController implements Serializable {
     	
         acoes = new DualListModel<Acao>(acoesSource, acoesTarget);    	
     	
-    	return "/pages/perfil/alterarPerfilTela.jsf";
+    	return "/pages/perfil/alterarPerfilTela.jsf?faces-redirect=true";
     }
 
     public void onTransferAcao(TransferEvent event) {
@@ -231,7 +231,7 @@ public class PerfilController implements Serializable {
         }
     } 
     
-    public String autorizarAcao() {
+    public void autorizarAcao() {
     	
     	perfilTelaSelecionado.getAcoes().clear();
     	perfilTelaService.salvar(perfilTelaSelecionado);
@@ -239,6 +239,12 @@ public class PerfilController implements Serializable {
     	perfilTelaSelecionado.getAcoes().addAll(acoes.getTarget());
     	perfilTelaService.salvar(perfilTelaSelecionado);
     	
-    	return "";
+    	UtilMensagens.mensagemInformacao("Atualizado!");
+    }
+    
+    public void ativaDesativaTela(PerfilTela perfilTela) {
+    	telaService.salvar(perfilTela.getTela());
+    	String msg = perfilTela.getTela().isAtivo() ? "Tela ativada!" : "Atenção: Tela Desativada!";
+    	UtilMensagens.mensagemInformacao(msg);
     }
 }

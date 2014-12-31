@@ -8,7 +8,7 @@
 	template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
 
-		<h:form>
+		<h:form id="form">
 		
 			<p:growl id="messages" />
 		
@@ -57,7 +57,9 @@
 					</p:column>
 					
 					<p:column headerText="Ativa" style="text-align:center;">
-						<p:selectBooleanCheckbox value="#{perfilTela.tela.ativo}" disabled="true" />
+						<p:selectBooleanCheckbox value="#{perfilTela.tela.ativo}">
+							<p:ajax update=":form:messages" listener="#{perfilController.ativaDesativaTela(perfilTela)}" />
+						</p:selectBooleanCheckbox>
 					</p:column>						
 					
 					<p:column headerText="Módulo" style="text-align:center;">

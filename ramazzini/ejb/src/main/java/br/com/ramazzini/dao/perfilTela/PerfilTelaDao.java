@@ -40,4 +40,20 @@ public class PerfilTelaDao extends AbstractDao<PerfilTela> {
 			return null;
 		}
 	}	
+	
+	public boolean removerEmCascata(PerfilTela perfilTela) {
+		
+		int registros = 0;
+		// Removendo filhos:
+		Query q = getEntityManager().createNativeQuery(
+				"DELETE FROM perfil_tela_acao WHERE cd_perfil_tela = " + perfilTela.getId());
+		registros = q.executeUpdate();
+		
+		// Removendo pai:
+		q = getEntityManager().createNativeQuery(
+				"DELETE FROM perfil_tela WHERE cd_perfil_tela = " + perfilTela.getId());
+		registros += q.executeUpdate();
+		
+		return (registros > 0) ? true : false;
+	}	
 }
