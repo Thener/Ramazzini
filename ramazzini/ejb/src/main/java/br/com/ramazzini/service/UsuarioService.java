@@ -78,7 +78,7 @@ public class UsuarioService extends AbstractServiceImpl<Usuario> {
 
     	List<Perfil> perfis = perfilService.recuperarTudoPorUsuario(usuario);
     	List<Modulo> modulos = moduloService.recuperarPorUsuario(usuario);
-    	
+
     	session.setAttribute("usuario", usuario);
     	session.setAttribute("usuarioPerfis", perfis);
     	session.setAttribute("usuarioModulos", modulos);

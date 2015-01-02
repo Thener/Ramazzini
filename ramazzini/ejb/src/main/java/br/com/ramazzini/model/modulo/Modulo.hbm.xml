@@ -16,8 +16,8 @@
 	<query name="Modulo.recuperarPorUsuario">
 		<![CDATA[
             select distinct(m)
-              from Modulo m
-            right join m.telas t
+            	from Tela t
+            right join t.modulo m
             right join t.perfis pt
             right join pt.perfil p
             right join p.usuarios u
