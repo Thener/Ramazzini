@@ -27,7 +27,7 @@ import br.com.ramazzini.util.UtilMensagens;
 
 @Named
 @ConversationScoped
-public class PerfilController implements Serializable {
+public class PerfilController extends AbstractBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
-import javax.enterprise.inject.Produces;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -18,7 +17,7 @@ import br.com.ramazzini.util.Md5;
 
 @Named
 @SessionScoped
-public class UsuarioController implements Serializable {
+public class UsuarioController extends AbstractBean implements Serializable {
     /**
 	 * 
 	 */

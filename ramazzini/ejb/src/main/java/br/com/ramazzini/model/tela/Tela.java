@@ -52,9 +52,6 @@ public class Tela extends AbstractEntidade implements Serializable {
 	@NotNull
 	private boolean publico = true;
 	
-	//@ManyToMany(mappedBy="telas")
-	//private List<Perfil> perfis;
-	
 	@OneToMany(mappedBy = "tela",
 			cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	private Collection<PerfilTela> perfis;	
@@ -97,14 +94,6 @@ public class Tela extends AbstractEntidade implements Serializable {
 	public void setPublico(boolean publico) {
 		this.publico = publico;
 	}
-
-	/*public List<Perfil> getPerfis() {
-		return perfis;
-	}
-
-	public void setPerfis(List<Perfil> perfis) {
-		this.perfis = perfis;
-	}*/
 
 	public List<Acao> getAcoes() {
 		return acoes;

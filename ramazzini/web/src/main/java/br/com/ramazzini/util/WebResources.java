@@ -37,6 +37,7 @@ import br.com.ramazzini.model.usuario.Usuario;
  * </pre>
  */
 public class WebResources {
+	
 	@Produces
     @RequestScoped
     public FacesContext produceFacesContext() {
@@ -49,6 +50,7 @@ public class WebResources {
 		HttpSession session = (HttpSession) produceFacesContext().getExternalContext().getSession(false);
     	return session;    	
     }
+    
     @Named
     @Produces
     @RequestScoped

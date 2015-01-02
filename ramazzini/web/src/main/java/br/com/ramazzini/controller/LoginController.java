@@ -31,6 +31,9 @@ public class LoginController implements Serializable {
 
 	@Inject
 	private HttpSession session;
+	
+    @Inject
+    private FacesContext facesContext;	
 
 	private Usuario usuario = new Usuario();
 	
@@ -89,20 +92,18 @@ public class LoginController implements Serializable {
 
 	public void gravarCookie(String nome, String valor, int tempo) {
 
-		FacesContext context = FacesContext.getCurrentInstance();
-		if (context != null) {
+		if (facesContext != null) {
 			Cookie ck = new Cookie(nome, valor);
 			ck.setMaxAge(tempo);
-			((HttpServletResponse) context.getExternalContext().getResponse())
+			((HttpServletResponse) facesContext.getExternalContext().getResponse())
 					.addCookie(ck);
 		}
 	}
 	
 	public String recuperarCookie(String nome) {
 		
-        FacesContext ctx = FacesContext.getCurrentInstance();  
-        if (ctx != null){  
-             Map<String, Object> cookies = ctx.getExternalContext().getRequestCookieMap();  
+        if (facesContext != null){  
+             Map<String, Object> cookies = facesContext.getExternalContext().getRequestCookieMap();  
              Cookie cookie = (Cookie) cookies.get(nome);  
              if (cookie != null) {
             	 return cookie.getValue();

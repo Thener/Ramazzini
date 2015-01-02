@@ -1,7 +1,7 @@
 package br.com.ramazzini.model.perfilTela;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -53,7 +53,7 @@ public class PerfilTela extends AbstractEntidade implements Serializable {
 	@JoinTable(name = "perfil_tela_acao",
 	joinColumns = {@JoinColumn(name = "cd_perfil_tela")},
 	   inverseJoinColumns = {@JoinColumn(name = "cd_acao")})	
-	private List<Acao> acoes;  
+	private Set<Acao> acoes;  
 	
 	public Long getId() {
 		return id;
@@ -63,11 +63,11 @@ public class PerfilTela extends AbstractEntidade implements Serializable {
 		this.id = id;
 	}	
 
-	public List<Acao> getAcoes() {
+	public Set<Acao> getAcoes() {
 		return acoes;
 	}
 
-	public void setAcoes(List<Acao> acoes) {
+	public void setAcoes(Set<Acao> acoes) {
 		this.acoes = acoes;
 	}
 
