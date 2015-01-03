@@ -41,6 +41,10 @@ public class TelaService extends AbstractServiceImpl<Tela> {
     	return ((TelaDao) getDao()).recuperarTelasNaoPublicas(orderBy);
     }
     
+    public List<Tela> recuperarTelasPublicas(String... orderBy) {
+    	return ((TelaDao) getDao()).recuperarTelasPublicas(orderBy);
+    }    
+    
     public List<Tela> recuperarPorModulo(Modulo modulo, boolean publico, String orderBy) {
     	return ((TelaDao) getDao()).recuperarPorModulo(modulo, publico, orderBy);
     } 
