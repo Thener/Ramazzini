@@ -27,5 +27,18 @@
              order by t.nome
 		]]>
 	</query>
+	
+	<query name="PerfilTela.recuperarPorPerfilModulo">
+		<![CDATA[
+            select pt
+              from PerfilTela pt
+             left join pt.perfil p
+             left join pt.tela t 
+             left join t.modulo m
+             where p = :perfil
+             and m = :modulo
+             order by t.nome
+		]]>
+	</query>	
 			
 </hibernate-mapping>

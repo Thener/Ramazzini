@@ -6,6 +6,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import br.com.ramazzini.dao.util.AbstractDao;
+import br.com.ramazzini.model.modulo.Modulo;
 import br.com.ramazzini.model.perfil.Perfil;
 import br.com.ramazzini.model.perfilTela.PerfilTela;
 
@@ -14,6 +15,7 @@ public class PerfilTelaDao extends AbstractDao<PerfilTela> {
 
 	private static final String QUERY_RECUPERAR_POR_PERFIL = "PerfilTela.recuperarPorPerfil";
 	private static final String QUERY_RECUPERAR_TUDO_POR_ID = "PerfilTela.recuperarTudoPorId";
+	private static final String QUERY_RECUPERAR_POR_PERFIL_E_MODULO = "PerfilTela.recuperarPorPerfilModulo";
 		
 	@SuppressWarnings("unchecked")
 	public List<PerfilTela> recuperarPorPerfil(Perfil perfil) {
@@ -55,5 +57,17 @@ public class PerfilTelaDao extends AbstractDao<PerfilTela> {
 		registros += q.executeUpdate();
 		
 		return (registros > 0) ? true : false;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<PerfilTela> recuperarPorPerfilModulo(Perfil perfil, Modulo modulo) {
+		Query query = createNamedQuery(QUERY_RECUPERAR_POR_PERFIL_E_MODULO);
+		query.setParameter("perfil", perfil);
+		query.setParameter("modulo", modulo);
+		try {
+			return query.getResultList();
+		} catch (NoResultException nr) {
+			return null;
+		}
 	}	
 }

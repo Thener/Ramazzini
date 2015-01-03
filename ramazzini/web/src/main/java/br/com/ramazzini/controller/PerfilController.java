@@ -53,6 +53,8 @@ public class PerfilController extends AbstractBean implements Serializable {
 	private List<PerfilTela> perfisTelas;
 
 	private List<Modulo> modulos;
+	
+	private List<Modulo> modulosDoPerfil;
 
 	private List<Tela> telas;
 	
@@ -66,11 +68,13 @@ public class PerfilController extends AbstractBean implements Serializable {
 	
 	private PerfilTela perfilTelaSelecionado;
 	
+	private Modulo filtroModulo;
+	
 	@PostConstruct
 	public void init() {
 
 		perfis = perfilService.recuperarTodos("nome");
-		setModulos(moduloService.recuperarTodos("nome"));
+		//setModulos(moduloService.recuperarTodos("nome"));
 
 		if (conversation.isTransient()) {
 			conversation.begin();
@@ -106,6 +110,15 @@ public class PerfilController extends AbstractBean implements Serializable {
 
 	public void setModulos(List<Modulo> modulos) {
 		this.modulos = modulos;
+	}
+
+	public List<Modulo> getModulosDoPerfil() {
+		modulosDoPerfil = moduloService.recuperarPorPerfil(perfilSelecionado);
+		return modulosDoPerfil;
+	}
+
+	public void setModulosDoPerfil(List<Modulo> modulosDoPerfil) {
+		this.modulosDoPerfil = modulosDoPerfil;
 	}
 
 	public Modulo getModuloSelecionado() {
@@ -175,7 +188,11 @@ public class PerfilController extends AbstractBean implements Serializable {
 
 	public List<PerfilTela> getPerfisTelas() {
 		if (perfisTelas == null || perfisTelas.isEmpty()) {
-			perfisTelas = perfilTelaService.recuperarPorPerfil(perfilSelecionado);
+			if (filtroModulo == null) {
+				perfisTelas = perfilTelaService.recuperarPorPerfil(perfilSelecionado);
+			} else {
+				perfisTelas = perfilTelaService.recuperarPorPerfilModulo(perfilSelecionado, filtroModulo);
+			}
 		}
 		return perfisTelas;
 	}
@@ -247,4 +264,17 @@ public class PerfilController extends AbstractBean implements Serializable {
     	String msg = perfilTela.getTela().isAtivo() ? "Tela ativada!" : "Atenção: Tela Desativada!";
     	UtilMensagens.mensagemInformacao(msg);
     }
+
+	public Modulo getFiltroModulo() {
+		return filtroModulo;
+	}
+
+	public void setFiltroModulo(Modulo filtroModulo) {
+		this.filtroModulo = filtroModulo;
+	}
+	
+	public void filtrarModulosChange() {
+		perfisTelas.clear();
+	}	
+    
 }

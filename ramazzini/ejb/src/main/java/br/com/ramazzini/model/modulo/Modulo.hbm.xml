@@ -8,8 +8,8 @@
             select m
               from Modulo m
             left join m.telas t
-            left join t.perfis p
-            where p = :perfil
+            left join t.perfis perfilTela
+            where perfilTela.perfil = :perfil
 		]]>
 	</query>
 	

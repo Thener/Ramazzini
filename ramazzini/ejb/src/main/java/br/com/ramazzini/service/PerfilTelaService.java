@@ -21,6 +21,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 
 import br.com.ramazzini.dao.perfilTela.PerfilTelaDao;
+import br.com.ramazzini.model.modulo.Modulo;
 import br.com.ramazzini.model.perfil.Perfil;
 import br.com.ramazzini.model.perfilTela.PerfilTela;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
@@ -44,4 +45,8 @@ public class PerfilTelaService extends AbstractServiceImpl<PerfilTela> {
 	public boolean removerEmCascata(PerfilTela perfilTela) {
 		return ((PerfilTelaDao) getDao()).removerEmCascata(perfilTela);
 	}
+	
+    public List<PerfilTela> recuperarPorPerfilModulo(Perfil perfil, Modulo modulo) {
+    	return ((PerfilTelaDao) getDao()).recuperarPorPerfilModulo(perfil, modulo);
+    }	
 }
