@@ -1,7 +1,11 @@
 package br.com.ramazzini.dao.util;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
+import javax.persistence.Query;
+import javax.persistence.criteria.Order;
 
 import br.com.ramazzini.model.usuario.Usuario;
 import br.com.ramazzini.model.util.AbstractEntidade;
@@ -64,5 +68,42 @@ public class DaoUtil {
 		entityManager.lock(object, LockModeType.READ);
 
 		return object;
+	}
+	
+	/**
+	 * Recupera todas as entidade do tipo T.
+	 * 
+	 * @return entidade
+	 */
+	@SuppressWarnings("unchecked")
+	public static final List recuperarTodos(EntityManager entityManager, Class classePersistente,
+			Order... ordenacoes) {
+		List retorno = null;
+		Query q = entityManager.createQuery("SELECT c FROM " + classePersistente.getSimpleName() + " c "
+				+ adicionaOrderByHql(ordenacoes));		
+		retorno = q.getResultList();		
+		return retorno;
+	}
+	
+	/**
+	 * Adiciona o orderBy no final da query a ser utilizada.
+	 * 
+	 * @param ordenacoes
+	 *            a serem utilizadas para a busca
+	 * @return string com o orderBy
+	 */
+	public static final String adicionaOrderByHql(Order... ordenacoes) {
+		StringBuilder builder = new StringBuilder();
+		if (ordenacoes != null && ordenacoes.length > 0) {
+			builder.append(" order by ");
+			for (int i = 0; i < ordenacoes.length - 1; i++) {
+				builder.append(ordenacoes[i].toString());
+				builder.append(", ");
+			}
+			builder.append(ordenacoes[ordenacoes.length - 1]);
+			builder.toString();
+		}
+
+		return builder.toString();
 	}
 }

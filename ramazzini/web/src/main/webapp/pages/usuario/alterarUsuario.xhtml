@@ -7,31 +7,52 @@
    template="/WEB-INF/templates/default.xhtml">
    <ui:define name="content">
    
-      <h:form id="frmAlterarUsuario">      
-      	<p:panel id="panelDadosUsuario" header="Dados do Usuário" style="margin-bottom:20px">
-	        <p:panelGrid columns="4" cellpadding="10">	      	   
-		        <p:outputLabel for="nome" value="Nome:"/>
-	            <p:inputText id="nome" value="#{usuarioController.usuarioSelecionado.nome}" required="true" readonly="#{usuarioController.somenteLeitura}"/>            
-	            
-	            <p:outputLabel for="login" value="Email:"/>
-	            <p:inputText id="login" value="#{usuarioController.usuarioSelecionado.login}" required="true" readonly="#{usuarioController.somenteLeitura}"/>
-	            
-	            <p:outputLabel for="senha" value="Nova senha:" rendered="#{!usuarioController.somenteLeitura}"/>
-	            <p:password id="senha" value="#{usuarioController.novaSenha}" rendered="#{!usuarioController.somenteLeitura}"/>
-	            
-	            <p:outputLabel for="ativoCheck" value="Ativo: " />
-	        	<p:selectBooleanCheckbox id="ativoCheck" value="#{usuarioController.usuarioSelecionado.ativo}" readonly="#{usuarioController.somenteLeitura}"/>
-				
-				<p:commandButton id="salvar" action="#{usuarioController.atualizar()}" value="Salvar"
-					icon="ui-icon-disk" title="Salvar" styleClass="register" update = "panelDadosUsuario" disabled="#{usuarioController.somenteLeitura}"/>
+      <h:form id="frmAlterarUsuario">   
+     	  <p:growl id="growl" showDetail="true" sticky="true" />        	   
+	      <p:tabView>
+		        <p:tab title="Dados Básicos">
+		            <p:panel id="panelDadosUsuario" header="Dados do Usuário" style="margin-bottom:20px">
+				        <p:panelGrid columns="4" cellpadding="10">	      	   
+					        <p:outputLabel for="nome" value="Nome:"/>
+				            <p:inputText id="nome" value="#{usuarioController.usuarioSelecionado.nome}" required="true" readonly="#{usuarioController.somenteLeitura}"/>            
+				            
+				            <p:outputLabel for="login" value="Email:"/>
+				            <p:inputText id="login" value="#{usuarioController.usuarioSelecionado.login}" required="true" readonly="#{usuarioController.somenteLeitura}"/>
+				            
+				            <p:outputLabel for="senha" value="Nova senha:" rendered="#{!usuarioController.somenteLeitura}"/>
+				            <p:password id="senha" value="#{usuarioController.novaSenha}" rendered="#{!usuarioController.somenteLeitura}"/>
+				            
+				            <p:outputLabel for="ativoCheck" value="Ativo: " />
+				        	<p:selectBooleanCheckbox id="ativoCheck" value="#{usuarioController.usuarioSelecionado.ativo}" readonly="#{usuarioController.somenteLeitura}"/>
+
+							<p:commandButton id="salvar"
+								action="#{usuarioController.atualizar()}" value="Salvar"
+								icon="ui-icon-disk" title="Salvar" styleClass="register"
+								update="panelDadosUsuario"
+								disabled="#{usuarioController.somenteLeitura}" />
+						</p:panelGrid>				        
+			    	</p:panel>
+		        </p:tab>
+		        <p:tab title="Perfis">
+					<p:outputLabel for="perfil" value="Perfil:" />
+					<p:selectOneMenu id="perfil" value="#{usuarioController.perfilSelecionado}"
+						style="width:125px" converter="entityConverter">
+						<f:selectItem itemLabel="Selecione o perfil" itemValue=""
+							noSelectionOption="true" />
+						<f:selectItems value="#{usuarioController.perfisDisponiveis}" var="perfil"
+							itemLabel="#{perfil.nome}" />
+					</p:selectOneMenu>	
+					
+				</p:tab>   				
+	    	</p:tabView> 
+	    	<p:toolbar id="toolBar">
+				<f:facet name="right">				
 				<p:commandButton id="botaoVoltar" immediate="true"
 					icon="ui-icon-arrowreturnthick-1-w" title="Voltar"
 					action="pesquisarUsuario.jsf?faces-redirect=true">
 				</p:commandButton>
-				<p:growl id="growl" showDetail="true" sticky="true" /> 				           
-	        </p:panelGrid>
-    	</p:panel>		
-		
+				</f:facet>
+			</p:toolbar>    	    	
 		</h:form>
 	</ui:define>
 </ui:composition>

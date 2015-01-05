@@ -68,5 +68,8 @@ public class PerfilService extends AbstractServiceImpl<Perfil> {
     		return false;
     	}
 	}
-    
+	
+	public List<Perfil> recuperarPerfisDisponiveisPorUsuario(Usuario usuario) {
+		return ((PerfilDao) getDao()).recuperarPerfisDisponiveisPorUsuario(usuario);
+	}  
 }

@@ -2,17 +2,19 @@ package br.com.ramazzini.controller;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
-import javax.enterprise.inject.Produces;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import br.com.ramazzini.model.perfil.Perfil;
 import br.com.ramazzini.model.usuario.Usuario;
+import br.com.ramazzini.service.PerfilService;
 import br.com.ramazzini.service.UsuarioService;
 import br.com.ramazzini.util.Md5;
 
@@ -28,13 +30,18 @@ public class UsuarioController implements Serializable {
     private FacesContext facesContext; 
     
     @Inject
-    private UsuarioService usuarioService;   
+    private UsuarioService usuarioService;  
     
-    private Usuario usuarioNovo;
+    @Inject
+    private PerfilService perfilService;
     
-    private Usuario usuarioSelecionado;
-    
+    private Usuario usuarioNovo;    
+    private Usuario usuarioSelecionado;    
     private List<Usuario> usuarios;
+    
+    private Perfil perfilSelecionado;
+    private List<Perfil> perfisDisponiveis;
+    private Collection<Perfil> perfisUsuario;
     
     private String loginPesquisa;
     private String gridMsg;
@@ -105,7 +112,8 @@ public class UsuarioController implements Serializable {
     }
     public String editar(Usuario usuario){
     	setUsuarioSelecionado(usuarioService.recuperarPorId(usuario.getId()));
-    	setSomenteLeitura(Boolean.FALSE);
+    	setSomenteLeitura(Boolean.FALSE);    	
+    	//perfisDisponiveis = perfilService.recuperarPerfisDisponiveisPorUsuario(usuario);
     	return "alterarUsuario.jsf";
     }
     
@@ -180,5 +188,29 @@ public class UsuarioController implements Serializable {
 
 	public void setNovaSenha(String novaSenha) {
 		this.novaSenha = novaSenha;
+	}
+
+	public Perfil getPerfilSelecionado() {
+		return perfilSelecionado;
+	}
+
+	public void setPerfilSelecionado(Perfil perfilSelecionado) {
+		this.perfilSelecionado = perfilSelecionado;
+	}
+
+	public List<Perfil> getPerfisDisponiveis() {
+		return perfisDisponiveis;
+	}
+
+	public void setPerfisDisponiveis(List<Perfil> perfis) {
+		this.perfisDisponiveis = perfis;
+	}
+
+	public Collection<Perfil> getPerfisUsuario() {
+		return perfisUsuario;
+	}
+
+	public void setPerfisUsuario(List<Perfil> perfisUsuario) {
+		this.perfisUsuario = perfisUsuario;
 	}	
 }

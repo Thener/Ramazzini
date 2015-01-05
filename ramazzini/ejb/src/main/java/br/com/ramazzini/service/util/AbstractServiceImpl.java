@@ -98,8 +98,7 @@ public abstract class AbstractServiceImpl<T extends AbstractEntidade>
 	}
 	
 	public List<T> recuperarTodos() {
-		// TODO Auto-generated method stub
-		return null;
+		return getDao().recuperarTodos();
 	}	
 
 	

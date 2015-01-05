@@ -17,6 +17,8 @@ public class PerfilDao extends AbstractDao<Perfil> {
 	private static final String QUERY_RECUPERAR_TUDO_POR_USUARIO = "Perfil.recuperarTudoPorUsuario";
 	private static final String QUERY_RECUPERAR_TELAS_POR_PERFIL = "Perfil.recuperarTelasPorPerfil";
 	private static final String QUERY_RECUPERAR_PERFIL_TELA_POR_PERFIL = "Perfil.recuperarPerfilTelaPorPerfil";
+	private static final String QUERY_RECUPERAR_PERFIL_DISPONIVEL_POR_USUARIO = "Perfil.recuperarPerfisDisponiveisPorUsuario";
+	
 	
 	@SuppressWarnings("unchecked")
 	public List<Perfil> recuperarTudoPorUsuario(Usuario usuario) {
@@ -27,7 +29,7 @@ public class PerfilDao extends AbstractDao<Perfil> {
 		} catch (NoResultException nr) {
 			return null;
 		}
-	}	
+	}
 	
 	@SuppressWarnings("unchecked")
 	public List<Tela> recuperarTelasPorPerfil(Perfil perfil) {
@@ -50,5 +52,16 @@ public class PerfilDao extends AbstractDao<Perfil> {
 			return null;
 		}
 	}	
+	
+	@SuppressWarnings("unchecked")
+	public List<Perfil> recuperarPerfisDisponiveisPorUsuario(Usuario usuario) {
+		Query query = createNamedQuery(QUERY_RECUPERAR_PERFIL_DISPONIVEL_POR_USUARIO);
+		query.setParameter("usuario", usuario);
+		try {
+			return query.getResultList();
+		} catch (NoResultException nr) {
+			return null;
+		}
+	}
 	
 }

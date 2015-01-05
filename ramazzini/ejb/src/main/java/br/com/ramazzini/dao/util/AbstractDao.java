@@ -12,6 +12,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.criteria.Order;
 
 import br.com.ramazzini.model.usuario.Usuario;
 import br.com.ramazzini.model.util.AbstractEntidade;
@@ -190,5 +191,15 @@ public abstract class AbstractDao<T extends AbstractEntidade> {
 		}
 		return builder.toString();
 	}
+	/**
+	 * Recupera todas as entidade do tipo T.
+	 * 
+	 * @return entidade
+	 */
+	@SuppressWarnings("unchecked")
+	public final List<T> recuperarTodos(Order... ordenacoes) {
+		return (List<T>) DaoUtil.recuperarTodos(entityManager, getClassePersistente(), ordenacoes);
+	}
+	
 	
 }
