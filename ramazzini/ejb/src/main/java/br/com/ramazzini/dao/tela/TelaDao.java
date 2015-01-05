@@ -16,6 +16,7 @@ public class TelaDao extends AbstractDao<Tela> {
 	private static final String QUERY_RECUPERAR_POR_MODULO = "Tela.recuperarPorModulo";
 	private static final String QUERY_RECUPERAR_POR_MDOULO_TELA = "Tela.recuperarPorModuloTela";
 	private static final String QUERY_RECUPERAR_TELAS_NAO_PUBLICAS = "Tela.recuperarTelasNaoPublicas";
+	private static final String QUERY_RECUPERAR_TELAS_PUBLICAS = "Tela.recuperarTelasPublicas";
 	private static final String QUERY_RECUPERAR_POR_PERFIL = "Tela.recuperarPorPerfil";
 	
 	@SuppressWarnings("unchecked")
@@ -45,6 +46,23 @@ public class TelaDao extends AbstractDao<Tela> {
 	@SuppressWarnings("unchecked")
 	public List<Tela> recuperarTelasNaoPublicas(String... orderBy) {
 		Query query = createNamedQuery(QUERY_RECUPERAR_TELAS_NAO_PUBLICAS);
+		String order = "";
+		String virgula = "";
+		for (String ord : orderBy) {
+			order = order + ord + virgula;
+			virgula = ",";
+		}		
+		query.setParameter("order", order);
+		try {
+			return query.getResultList();
+		} catch (NoResultException nr) {
+			return null;
+		}
+	}	
+	
+	@SuppressWarnings("unchecked")
+	public List<Tela> recuperarTelasPublicas(String... orderBy) {
+		Query query = createNamedQuery(QUERY_RECUPERAR_TELAS_PUBLICAS);
 		String order = "";
 		String virgula = "";
 		for (String ord : orderBy) {

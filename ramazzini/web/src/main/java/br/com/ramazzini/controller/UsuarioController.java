@@ -20,7 +20,7 @@ import br.com.ramazzini.util.Md5;
 
 @Named
 @SessionScoped
-public class UsuarioController implements Serializable {
+public class UsuarioController extends AbstractBean implements Serializable {
     /**
 	 * 
 	 */

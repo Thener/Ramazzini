@@ -5,14 +5,14 @@
 
 	<query name="Perfil.recuperarTudoPorUsuario">
 		<![CDATA[
-            select p
+            select distinct(p)
               from Perfil p
-            left join p.usuarios usuarios
-            left join p.perfisTelas pt
-            left join pt.acoes a
+            right join p.usuarios usuarios
+            left join fetch p.perfisTelas pt
+            left join fetch pt.acoes a 
             left join pt.tela t
             left join t.modulo m  
-             where :usuario in usuarios
+             where usuarios in :usuario
 		]]>
 	</query>
 

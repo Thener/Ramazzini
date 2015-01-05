@@ -2,5 +2,15 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-		
+
+	<query name="Acao.recuperarPorTela">
+		<![CDATA[
+            select a
+              from Acao a
+             left join a.tela t
+             where t = :tela
+             order by a.nome
+		]]>
+	</query>
+	
 </hibernate-mapping>

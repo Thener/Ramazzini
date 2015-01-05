@@ -33,16 +33,16 @@ values (nextval('seq_tela'), null, current_timestamp, true, 'acessoNaoAutorizado
 ------------------------ CARGA DA TABELA: ACAO
 
 insert into acao (cd_acao, ts_alteracao, ts_inclusao, ic_ativo, nm_acao, cd_usuario_alteracao, cd_usuario_inclusao, cd_tela)
-values (nextval('seq_acao'), null, current_timestamp, true, 'visualizarUsuario', null, null, (select cd_tela from tela where nm_tela = 'pesquisarUsuario'));
+values (nextval('seq_acao'), null, current_timestamp, true, 'visualizarUsuario', null, null, (select cd_tela from tela where nm_tela = 'pesquisarUsuario.jsf'));
 
 insert into acao (cd_acao, ts_alteracao, ts_inclusao, ic_ativo, nm_acao, cd_usuario_alteracao, cd_usuario_inclusao, cd_tela)
-values (nextval('seq_acao'), null, current_timestamp, true, 'incluirUsuario', null, null, (select cd_tela from tela where nm_tela = 'pesquisarUsuario'));
+values (nextval('seq_acao'), null, current_timestamp, true, 'incluirUsuario', null, null, (select cd_tela from tela where nm_tela = 'pesquisarUsuario.jsf'));
 
 insert into acao (cd_acao, ts_alteracao, ts_inclusao, ic_ativo, nm_acao, cd_usuario_alteracao, cd_usuario_inclusao, cd_tela)
-values (nextval('seq_acao'), null, current_timestamp, true, 'alterarUsuario', null, null, (select cd_tela from tela where nm_tela = 'pesquisarUsuario'));
+values (nextval('seq_acao'), null, current_timestamp, true, 'alterarUsuario', null, null, (select cd_tela from tela where nm_tela = 'pesquisarUsuario.jsf'));
 
 insert into acao (cd_acao, ts_alteracao, ts_inclusao, ic_ativo, nm_acao, cd_usuario_alteracao, cd_usuario_inclusao, cd_tela)
-values (nextval('seq_acao'), null, current_timestamp, true, 'excluirUsuario', null, null, (select cd_tela from tela where nm_tela = 'pesquisarUsuario'));
+values (nextval('seq_acao'), null, current_timestamp, true, 'excluirUsuario', null, null, (select cd_tela from tela where nm_tela = 'pesquisarUsuario.jsf'));
 
 ------------------------ CARGA DA TABELA: PERFIL
 

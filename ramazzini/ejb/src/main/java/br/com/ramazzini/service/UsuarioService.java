@@ -24,7 +24,9 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import br.com.ramazzini.dao.usuario.UsuarioDao;
+import br.com.ramazzini.model.modulo.Modulo;
 import br.com.ramazzini.model.perfil.Perfil;
+import br.com.ramazzini.model.tela.Tela;
 import br.com.ramazzini.model.usuario.Usuario;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
 import br.com.ramazzini.util.Md5;
@@ -40,7 +42,13 @@ public class UsuarioService extends AbstractServiceImpl<Usuario> {
     private HttpSession session;
     
     @Inject
-    private PerfilService perfilService;    
+    private PerfilService perfilService; 
+    
+    @Inject
+    private ModuloService moduloService;  
+    
+    @Inject
+    private TelaService telaService;    
        
     public Usuario recuperarPorLogin(String login) {
         
@@ -73,9 +81,13 @@ public class UsuarioService extends AbstractServiceImpl<Usuario> {
     	//----- Autenticação Ok. Gravando informações na sessão:
 
     	List<Perfil> perfis = perfilService.recuperarTudoPorUsuario(usuario);
-    	
+    	List<Modulo> modulos = moduloService.recuperarPorUsuario(usuario);
+    	List<Tela> telasPublicas = telaService.recuperarTelasPublicas("nome");
+
     	session.setAttribute("usuario", usuario);
     	session.setAttribute("usuarioPerfis", perfis);
+    	session.setAttribute("usuarioModulos", modulos);
+    	session.setAttribute("telasPublicas", telasPublicas);
     	
     	log.info("Usuário " + login + " autenticado com sucesso.");
     	

@@ -1,15 +1,18 @@
 package br.com.ramazzini.model.perfilTela;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
@@ -44,8 +47,13 @@ public class PerfilTela extends AbstractEntidade implements Serializable {
     @JoinColumn(name="cd_tela")
     private Tela tela;
     
-	@ManyToMany(mappedBy="perfisTelas")
-	private List<Acao> acoes;  
+	//http://www.developerscrappad.com/139/java/java-ee/ejb3-jpa-entity-many-to-many-relationship/
+	//usando mappedBy, não funciona
+	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+	@JoinTable(name = "perfil_tela_acao",
+	joinColumns = {@JoinColumn(name = "cd_perfil_tela")},
+	   inverseJoinColumns = {@JoinColumn(name = "cd_acao")})	
+	private Set<Acao> acoes;  
 	
 	public Long getId() {
 		return id;
@@ -55,11 +63,11 @@ public class PerfilTela extends AbstractEntidade implements Serializable {
 		this.id = id;
 	}	
 
-	public List<Acao> getAcoes() {
+	public Set<Acao> getAcoes() {
 		return acoes;
 	}
 
-	public void setAcoes(List<Acao> acoes) {
+	public void setAcoes(Set<Acao> acoes) {
 		this.acoes = acoes;
 	}
 

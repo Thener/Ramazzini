@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+	
+	<style>
+		.ui-picklist .ui-picklist-list {
+			width: 345px;
+		}
+		.ui-picklist-filter {
+		    padding-right: 15px;
+		    width: 94% !important;
+		}	
+	</style>
+
+	<h:form id="formAlterarPerfilTela">
+	
+		<p:growl id="messages" />
+	
+		<p:panel
+			header="Alterando a Tela: #{perfilController.perfilTelaSelecionado.tela.nome} - Perfil: #{perfilController.perfilSelecionado.nome}">
+
+		    <p:pickList value="#{perfilController.acoes}" var="acao" effect="bounce"
+		         itemValue="#{acao}" itemLabel="#{acao.nome}" showSourceControls="false" showTargetControls="false" showCheckbox="false"
+		         showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" converter="entityConverter">
+		 
+		        <f:facet name="sourceCaption">Ações Disponíveis</f:facet>
+		        <f:facet name="targetCaption">Ações Liberadas</f:facet>
+		 
+		        <p:ajax event="transfer" listener="#{perfilController.onTransferAcao}" update="messages" />
+		 
+		        <p:column style="width:25%">
+		            <h:outputText styleClass="ui-theme ui-theme-#{acao.nome}" />
+		        </p:column>
+		 
+		        <p:column style="width:75%;">
+		            <h:outputText value="#{acao.nome}" />
+		        </p:column>
+		    </p:pickList>
+		    
+		    <p:separator />
+
+			<p:commandButton action="#{perfilController.autorizarAcao()}" value="Gravar"
+				icon="ui-icon-check" ajax="true" update=":formAlterarPerfilTela:messages" />
+			<p:spacer width="10px"/>
+			<p:commandButton id="botaoVoltar" immediate="true"
+				icon="ui-icon-arrowreturnthick-1-w" title="Voltar"
+				action="alterarPerfil.jsf?faces-redirect=true" />		    
+			
+		</p:panel>
+	</h:form>
+		
+	</ui:define>
+</ui:composition>

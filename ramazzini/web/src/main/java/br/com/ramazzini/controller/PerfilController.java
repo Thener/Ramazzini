@@ -1,6 +1,7 @@
 package br.com.ramazzini.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -9,10 +10,15 @@ import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.primefaces.event.TransferEvent;
+import org.primefaces.model.DualListModel;
+
+import br.com.ramazzini.model.acao.Acao;
 import br.com.ramazzini.model.modulo.Modulo;
 import br.com.ramazzini.model.perfil.Perfil;
 import br.com.ramazzini.model.perfilTela.PerfilTela;
 import br.com.ramazzini.model.tela.Tela;
+import br.com.ramazzini.service.AcaoService;
 import br.com.ramazzini.service.ModuloService;
 import br.com.ramazzini.service.PerfilService;
 import br.com.ramazzini.service.PerfilTelaService;
@@ -21,7 +27,7 @@ import br.com.ramazzini.util.UtilMensagens;
 
 @Named
 @ConversationScoped
-public class PerfilController implements Serializable {
+public class PerfilController extends AbstractBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -37,27 +43,38 @@ public class PerfilController implements Serializable {
 	private TelaService telaService;
 	
 	@Inject
-	private PerfilTelaService perfilTelaService;	
+	private PerfilTelaService perfilTelaService;
+	
+	@Inject
+	private AcaoService acaoService;		
 
 	private List<Perfil> perfis;
 	
 	private List<PerfilTela> perfisTelas;
 
 	private List<Modulo> modulos;
+	
+	private List<Modulo> modulosDoPerfil;
 
 	private List<Tela> telas;
+	
+	private DualListModel<Acao> acoes;
 	
 	private Perfil perfilSelecionado;
 
 	private Modulo moduloSelecionado;
 
 	private Tela telaSelecionada;
-
+	
+	private PerfilTela perfilTelaSelecionado;
+	
+	private Modulo filtroModulo;
+	
 	@PostConstruct
 	public void init() {
 
 		perfis = perfilService.recuperarTodos("nome");
-		setModulos(moduloService.recuperarTodos("nome"));
+		//setModulos(moduloService.recuperarTodos("nome"));
 
 		if (conversation.isTransient()) {
 			conversation.begin();
@@ -83,7 +100,8 @@ public class PerfilController implements Serializable {
 	public String alterarPerfil(Perfil perfil) {
 		setPerfilSelecionado(perfil);
 		setModulos(moduloService.recuperarTodos("nome"));
-		return "/pages/perfil/alterarPerfil.jsf";
+		getPerfisTelas().clear();
+		return "/pages/perfil/alterarPerfil.jsf?faces-redirect=true";
 	}
 
 	public List<Modulo> getModulos() {
@@ -92,6 +110,15 @@ public class PerfilController implements Serializable {
 
 	public void setModulos(List<Modulo> modulos) {
 		this.modulos = modulos;
+	}
+
+	public List<Modulo> getModulosDoPerfil() {
+		modulosDoPerfil = moduloService.recuperarPorPerfil(perfilSelecionado);
+		return modulosDoPerfil;
+	}
+
+	public void setModulosDoPerfil(List<Modulo> modulosDoPerfil) {
+		this.modulosDoPerfil = modulosDoPerfil;
 	}
 
 	public Modulo getModuloSelecionado() {
@@ -110,12 +137,28 @@ public class PerfilController implements Serializable {
 		this.telas = telas;
 	}
 
+	public DualListModel<Acao> getAcoes() {
+		return acoes;
+	}
+
+	public void setAcoes(DualListModel<Acao> acoes) {
+		this.acoes = acoes;
+	}
+
 	public Tela getTelaSelecionada() {
 		return telaSelecionada;
 	}
 
 	public void setTelaSelecionada(Tela telaSelecionada) {
 		this.telaSelecionada = telaSelecionada;
+	}
+
+	public PerfilTela getPerfilTelaSelecionado() {
+		return perfilTelaSelecionado;
+	}
+
+	public void setPerfilTelaSelecionado(PerfilTela perfilTelaSelecionado) {
+		this.perfilTelaSelecionado = perfilTelaSelecionado;
 	}
 
 	public void perfilChange() {
@@ -145,17 +188,93 @@ public class PerfilController implements Serializable {
 
 	public List<PerfilTela> getPerfisTelas() {
 		if (perfisTelas == null || perfisTelas.isEmpty()) {
-			perfisTelas = perfilTelaService.recuperarPorPerfil(perfilSelecionado);
+			if (filtroModulo == null) {
+				perfisTelas = perfilTelaService.recuperarPorPerfil(perfilSelecionado);
+			} else {
+				perfisTelas = perfilTelaService.recuperarPorPerfilModulo(perfilSelecionado, filtroModulo);
+			}
 		}
 		return perfisTelas;
 	}
 	
     public void removerPerfilTela(PerfilTela perfilTela){
-    	if (perfilTelaService.remover(perfilTela)) {
+    	if (perfilTelaService.removerEmCascata(perfilTela)) {
     		perfisTelas.clear();
     		UtilMensagens.mensagemInformacao("Acesso removido!");
     	} else {
             UtilMensagens.mensagemErro("Não foi possível exluir o acesso do Perfil!");            
         }            
-    }	
+    }
+    
+    public String editarPerfilTela(PerfilTela perfilTela) {
+    	
+    	// Buscando tudo para evitar LazyInitializationException
+    	PerfilTela pt = perfilTelaService.recuperarTudoPorId(perfilTela.getId());
+    	
+    	setPerfilTelaSelecionado(pt);
+    	
+        //PickList:
+    	List<Acao> acoesDaTela = acaoService.recuperarPorTela(pt.getTela());
+        List<Acao> acoesSource = new ArrayList<Acao>();
+        List<Acao> acoesTarget = new ArrayList<Acao>();
+        
+    	for (Acao a : acoesDaTela) {
+    		
+    		String nome = a.getNome();
+    		Long idAcao = a.getId();
+    		boolean autorizada = false;
+    		for (Acao a2 : pt.getAcoes()) {
+    			if (nome.equals(a2.getNome()) && idAcao == a2.getId()) {
+    				autorizada = true;
+    				break;
+    			}
+    		}
+    		if (autorizada) {
+    			acoesTarget.add(a);
+    		} else {
+    			acoesSource.add(a);
+    		}
+    	}
+    	
+        acoes = new DualListModel<Acao>(acoesSource, acoesTarget);    	
+    	
+    	return "/pages/perfil/alterarPerfilTela.jsf?faces-redirect=true";
+    }
+
+    public void onTransferAcao(TransferEvent event) {
+        StringBuilder builder = new StringBuilder();
+        for(Object item : event.getItems()) {
+            builder.append(((Acao) item).getNome()).append("<br />");
+        }
+    } 
+    
+    public void autorizarAcao() {
+    	
+    	perfilTelaSelecionado.getAcoes().clear();
+    	perfilTelaService.salvar(perfilTelaSelecionado);
+    	
+    	perfilTelaSelecionado.getAcoes().addAll(acoes.getTarget());
+    	perfilTelaService.salvar(perfilTelaSelecionado);
+    	
+    	UtilMensagens.mensagemInformacao("Atualizado!");
+    }
+    
+    public void ativaDesativaTela(PerfilTela perfilTela) {
+    	telaService.salvar(perfilTela.getTela());
+    	String msg = perfilTela.getTela().isAtivo() ? "Tela ativada!" : "Atenção: Tela Desativada!";
+    	UtilMensagens.mensagemInformacao(msg);
+    }
+
+	public Modulo getFiltroModulo() {
+		return filtroModulo;
+	}
+
+	public void setFiltroModulo(Modulo filtroModulo) {
+		this.filtroModulo = filtroModulo;
+	}
+	
+	public void filtrarModulosChange() {
+		perfisTelas.clear();
+	}	
+    
 }

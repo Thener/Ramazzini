@@ -8,7 +8,7 @@
 	template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
 
-		<h:form>
+		<h:form id="form">
 		
 			<p:growl id="messages" />
 		
@@ -41,13 +41,28 @@
 					
 					<h:panelGroup>
 						<p:commandButton action="#{perfilController.autorizarTela()}" value="Incluir"
-								icon="ui-icon-check" ajax="true" update="gridPerfisTelas, messages" />
+								icon="ui-icon-check" ajax="true" update="gridPerfisTelas, messages, filtrarModulos" />
 								
 						<p:spacer width="10px"/>
 						<p:commandButton id="botaoVoltar" immediate="true"
 							icon="ui-icon-arrowreturnthick-1-w" title="Voltar"
 							action="pesquisarPerfil.jsf?faces-redirect=true" />
 					</h:panelGroup>
+				</p:panelGrid>
+				
+				<p:separator />
+				
+				<p:panelGrid columns="2">
+					<p:outputLabel for="filtrarModulos" value="Filtrar módulo: " />
+					<p:selectOneMenu id="filtrarModulos"
+						value="#{perfilController.filtroModulo}"
+						converter="entityConverter">
+						<p:ajax listener="#{perfilController.filtrarModulosChange()}" update="gridPerfisTelas" />
+						<f:selectItem itemLabel="Selecione o módulo" itemValue=""
+							noSelectionOption="true" />
+						<f:selectItems value="#{perfilController.modulosDoPerfil}" var="modulo"
+							itemLabel="#{modulo.nome}" />
+					</p:selectOneMenu>				
 				</p:panelGrid>
 				
 				<p:dataTable id="gridPerfisTelas" var="perfilTela" value="#{perfilController.perfisTelas}">
@@ -57,7 +72,9 @@
 					</p:column>
 					
 					<p:column headerText="Ativa" style="text-align:center;">
-						<p:selectBooleanCheckbox value="#{perfilTela.tela.ativo}" disabled="true" />
+						<p:selectBooleanCheckbox value="#{perfilTela.tela.ativo}">
+							<p:ajax update=":form:messages" listener="#{perfilController.ativaDesativaTela(perfilTela)}" />
+						</p:selectBooleanCheckbox>
 					</p:column>						
 					
 					<p:column headerText="Módulo" style="text-align:center;">
@@ -67,9 +84,11 @@
 					<p:column headerText="Ações" styleClass="coluna5">
 						<p:panelGrid columns="3" styleClass="semBorda">
 							<p:commandLink title="excluir" action="#{perfilController.removerPerfilTela(perfilTela)}"
-								styleClass="ui-icon ui-icon-closethick" update="gridPerfisTelas">
+								styleClass="ui-icon ui-icon-closethick" update="gridPerfisTelas, :form:filtrarModulos">
 								<p:confirm header="Confirmação" message="Tem certeza que deseja excluir o acesso do perfil?" icon="ui-icon-alert" />
-							</p:commandLink>	
+							</p:commandLink>
+							<p:commandLink title="editar" action="#{perfilController.editarPerfilTela(perfilTela)}"
+								styleClass="ui-icon ui-icon-pencil" />								
 						</p:panelGrid>
 					</p:column>
 

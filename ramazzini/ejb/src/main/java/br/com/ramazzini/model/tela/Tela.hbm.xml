@@ -28,6 +28,14 @@
              order by :order
 		]]>
 	</query>
+	<query name="Tela.recuperarTelasPublicas">
+		<![CDATA[
+            select t
+              from Tela t
+             where t.publico = true
+             order by :order
+		]]>
+	</query>	
 	<query name="Tela.recuperarPorPerfil">
 		<![CDATA[
             select t

@@ -3,12 +3,14 @@ package br.com.ramazzini.model.perfilTela;
 import java.io.Serializable;
 
 import javax.persistence.Embeddable;
+import javax.persistence.JoinColumn;
 
 @Embeddable
 public class PerfilTelaId implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	@JoinColumn(name="cd_perfil_tela")
     private Long id;
 
 	public Long getId() {

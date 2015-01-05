@@ -8,7 +8,9 @@
 	template="/WEB-INF/templates/login.xhtml">
 	<ui:define name="content">
 
-		<p:dialog header="Bem-vindo" height="128" width="355" visible="true"
+		<p:growl id="messages" />
+		
+		<p:dialog header="Bem-vindo" height="160" width="375" visible="true"
 			resizable="false" closable="false">
 
 			<h:form id="login">
@@ -21,7 +23,14 @@
 					<p:outputLabel value="Senha" for="inputSenha" />
 					<p:password id="inputSenha"
 						value="#{loginController.usuario.senha}" />
-
+						
+					<h:outputText value="" />
+					
+					<h:panelGroup>
+						<p:selectBooleanCheckbox value="#{loginController.lembrarEmail}" />
+						<h:outputText value="Lembrar usuário" />
+					</h:panelGroup>
+					
 					<f:facet name="footer">
 						<p:commandButton action="#{loginController.login()}" value="Login"
 							icon="ui-icon-check" ajax="false" />

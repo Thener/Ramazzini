@@ -49,15 +49,6 @@ public class Perfil extends AbstractEntidade implements Serializable {
 	@ManyToMany(mappedBy="perfis")
 	private List<Usuario> usuarios;
 	
-	/*
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(
-	name="perfil_tela",
-	joinColumns={@JoinColumn(name="cd_perfil")},
-	inverseJoinColumns={@JoinColumn(name="cd_tela")})
-	private Set<Tela> telas = new HashSet<Tela>();	
-	*/
-	
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "perfil",
 		cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	private Collection<PerfilTela> perfisTelas;
