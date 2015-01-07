@@ -6,7 +6,8 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.Conversation;
+import javax.enterprise.context.ConversationScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -19,12 +20,14 @@ import br.com.ramazzini.service.UsuarioService;
 import br.com.ramazzini.util.Md5;
 
 @Named
-@SessionScoped
+@ConversationScoped
 public class UsuarioController extends AbstractBean implements Serializable {
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private @Inject Conversation conversation;
 
 	@Inject
     private FacesContext facesContext; 
@@ -33,7 +36,7 @@ public class UsuarioController extends AbstractBean implements Serializable {
     private UsuarioService usuarioService;  
     
     @Inject
-    private PerfilService perfilService;
+	private PerfilService perfilService;
     
     private Usuario usuarioNovo;    
     private Usuario usuarioSelecionado;    
@@ -41,7 +44,7 @@ public class UsuarioController extends AbstractBean implements Serializable {
     
     private Perfil perfilSelecionado;
     private List<Perfil> perfisDisponiveis;
-    private Collection<Perfil> perfisUsuario;
+    private List<Perfil> perfisUsuario;
     
     private String loginPesquisa;
     private String gridMsg;
@@ -61,6 +64,9 @@ public class UsuarioController extends AbstractBean implements Serializable {
     	usuarioNovo = new Usuario(); 
     	gridMsg = "";
     	somenteLeitura = Boolean.FALSE; 
+    	if (conversation.isTransient()) {
+			conversation.begin();
+		}
     }
     
     
@@ -110,17 +116,33 @@ public class UsuarioController extends AbstractBean implements Serializable {
             facesContext.addMessage(null, m);            
         }            
     }
+    
+    public void removerPerfilUsuario(Perfil perfil){
+    	try {
+    		perfisUsuario.remove(perfil);
+    		perfisDisponiveis.add(perfil);
+    		usuarioSelecionado.setPerfis(perfisUsuario);
+    		atualizar();
+    		facesContext.addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso!", "Usuario removido com sucesso!"));
+    	} catch (Exception e) {
+            String errorMessage = getRaizErro(e);
+            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMessage, "Não foi pssível deletar o Usuario!");
+            facesContext.addMessage(null, m);            
+        }            
+    }
     public String editar(Usuario usuario){
     	setUsuarioSelecionado(usuarioService.recuperarPorId(usuario.getId()));
     	setSomenteLeitura(Boolean.FALSE);    	
-    	//perfisDisponiveis = perfilService.recuperarPerfisDisponiveisPorUsuario(usuario);
-    	return "alterarUsuario.jsf";
+    	perfisDisponiveis = perfilService.recuperarPerfisDisponiveisPorUsuario(usuario);
+    	perfisUsuario = perfilService.recuperarTudoPorUsuario(usuario);
+    	return "alterarUsuario.jsf?faces-redirect=true";
     }
     
     public String visualizar(Usuario usuario){
     	setUsuarioSelecionado(usuario);
     	setSomenteLeitura(Boolean.TRUE);
-    	return "alterarUsuario.jsf";
+    	return "alterarUsuario.js?faces-redirect=truef";
     }
     public void pesquisar() throws Exception {
 		if (loginPesquisa.isEmpty()){
@@ -135,6 +157,11 @@ public class UsuarioController extends AbstractBean implements Serializable {
 			}
 		}      
     }  
+    public void adicionarPerfil(){
+    	perfisUsuario.add(perfilSelecionado);
+    	usuarioSelecionado.setPerfis(perfisUsuario);
+    	perfisDisponiveis.remove(perfilSelecionado);
+    }
     
     private String getRaizErro(Exception e) {
         String errorMessage = "Registro falhou. Veja o log do servidor para mais informações.";

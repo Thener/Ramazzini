@@ -38,11 +38,14 @@
 	
 	<query name="Perfil.recuperarPerfisDisponiveisPorUsuario">
 		<![CDATA[
-            select p
-              from Perfil p
-              join p.usuarios usuarios
-             where :usuario not in usuarios
+		  select p
+            from Perfil p
+            where p not in(
+	            select distinct(perfil)
+	              from Perfil perfil
+	              left join perfil.usuarios usuarios
+	        	 where :usuario in usuarios  
+	       	)   	
 		]]>
-	</query>	
-	
+	</query>		
 </hibernate-mapping>
