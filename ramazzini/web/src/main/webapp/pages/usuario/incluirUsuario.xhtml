@@ -5,35 +5,39 @@
    xmlns:h="http://java.sun.com/jsf/html"
    xmlns:p="http://primefaces.org/ui"
    template="/WEB-INF/templates/default.xhtml">
-   <ui:define name="content">
-   
-      <h:form id="frmIncluirUsuario">      
-      	<p:panel id="panelDadosUsuario" header="Dados do Usuário" style="margin-bottom:20px">
-	        <h:panelGrid columns="4" cellpadding="10">
-	      	   
-		        <p:outputLabel for="nome" value="Nome:"/>
-	            <p:inputText id="nome" value="#{usuarioController.novoUsuario.nome}" required="true" />            
-	
-	            <p:outputLabel for="login" value="Email:"/>
-	            <p:inputText id="login" value="#{usuarioController.novoUsuario.login}" required="true"/>
-	           
-	            <p:outputLabel for="senha" value="Senha:"/>
-	            <p:password id="senha" value="#{usuarioController.novoUsuario.senha}" required="true"/>
-	                        
-	            <h:outputLabel for="ativoCheck" value="Ativo: " />
-	        	<p:selectBooleanCheckbox id="ativoCheck" value="#{usuarioController.novoUsuario.ativo}" />
-				
-				<p:commandButton id="salvar" action="#{usuarioController.salvar()}" value="Salvar"
-					icon="ui-icon-disk" title="Salvar" styleClass="register" update = "panelDadosUsuario"/>
+	<ui:define name="content">
+		<h:form id="frmIncluirUsuario">
+			<p:panel id="panelDadosUsuario" header="Dados do Usuário">
+				<h:panelGrid columns="4" cellpadding="10">
+					<p:outputLabel for="nome" value="Nome:" />
+					<p:inputText id="nome"
+						value="#{usuarioController.novoUsuario.nome}" required="true" />
 
-				<p:commandButton id="botaoVoltar" immediate="true"
-					icon="ui-icon-arrowreturnthick-1-w" title="Voltar"
-					action="pesquisarUsuario.jsf?faces-redirect=true">
-				</p:commandButton>
-				<p:growl id="growl" showDetail="true" sticky="true" /> 				           
-	        </h:panelGrid>
-    	</p:panel>		
-		
+					<p:outputLabel for="login" value="Email:" />
+					<p:inputText id="login"
+						value="#{usuarioController.novoUsuario.login}" required="true" />
+
+					<p:outputLabel for="senha" value="Senha:" />
+					<p:password id="senha"
+						value="#{usuarioController.novoUsuario.senha}" required="true" />
+
+					<h:outputLabel for="ativoCheck" value="Ativo: " />
+					<p:selectBooleanCheckbox id="ativoCheck"
+						value="#{usuarioController.novoUsuario.ativo}" />
+					<p:growl id="growl" showDetail="true" sticky="true" />
+				</h:panelGrid>
+			</p:panel>
+			<p:toolbar id="toolBar">
+				<f:facet name="left">
+					<p:commandButton id="botaoVoltar" immediate="true"
+						icon="ui-icon-arrowreturnthick-1-w" title="Voltar"
+						action="pesquisarUsuario.jsf?faces-redirect=true">
+					</p:commandButton>
+					<p:commandButton id="salvar" action="#{usuarioController.salvar()}"
+						value="Salvar" icon="ui-icon-disk" title="Salvar"
+						styleClass="register" update="panelDadosUsuario" />
+				</f:facet>
+			</p:toolbar>
 		</h:form>
 	</ui:define>
 </ui:composition>
