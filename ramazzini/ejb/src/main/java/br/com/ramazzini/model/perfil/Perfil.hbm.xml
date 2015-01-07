@@ -12,7 +12,7 @@
             left join fetch pt.acoes a 
             left join pt.tela t
             left join t.modulo m  
-             where usuarios in :usuario
+             where :usuario in usuarios 
 		]]>
 	</query>
 

@@ -42,11 +42,6 @@
 					<h:panelGroup>
 						<p:commandButton action="#{perfilController.autorizarTela()}" value="Incluir"
 								icon="ui-icon-check" ajax="true" update="gridPerfisTelas, messages, filtrarModulos" />
-								
-						<p:spacer width="10px"/>
-						<p:commandButton id="botaoVoltar" immediate="true"
-							icon="ui-icon-arrowreturnthick-1-w" title="Voltar"
-							action="pesquisarPerfil.jsf?faces-redirect=true" />
 					</h:panelGroup>
 				</p:panelGrid>
 				
@@ -102,6 +97,15 @@
 				</p:confirmDialog>
 				
 			</p:panel>
+			
+	    	<p:toolbar id="toolBar">
+				<f:facet name="left">	
+					<p:commandButton id="botaoVoltar" immediate="true"
+						icon="ui-icon-arrowreturnthick-1-w" title="Voltar"
+						action="pesquisarPerfil.jsf?faces-redirect=true" />
+				</f:facet>
+			</p:toolbar>
+					
 		</h:form>
 		
 	</ui:define>

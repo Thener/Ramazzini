@@ -42,17 +42,19 @@
 		            <h:outputText value="#{acao.nome}" />
 		        </p:column>
 		    </p:pickList>
-		    
-		    <p:separator />
-
-			<p:commandButton action="#{perfilController.autorizarAcao()}" value="Gravar"
-				icon="ui-icon-check" ajax="true" update=":formAlterarPerfilTela:messages" />
-			<p:spacer width="10px"/>
-			<p:commandButton id="botaoVoltar" immediate="true"
-				icon="ui-icon-arrowreturnthick-1-w" title="Voltar"
-				action="alterarPerfil.jsf?faces-redirect=true" />		    
 			
 		</p:panel>
+		
+    	<p:toolbar id="toolBar">
+			<f:facet name="left">				
+			<p:commandButton id="botaoVoltar" immediate="true"
+				icon="ui-icon-arrowreturnthick-1-w" title="Voltar"
+				action="alterarPerfil.jsf?faces-redirect=true" />
+			<p:commandButton action="#{perfilController.autorizarAcao()}" value="Gravar"
+				icon="ui-icon-check" ajax="true" update=":formAlterarPerfilTela:messages" />
+			</f:facet>
+		</p:toolbar>
+					
 	</h:form>
 		
 	</ui:define>
