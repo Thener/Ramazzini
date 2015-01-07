@@ -31,7 +31,7 @@
 		        	<p:panel id="panelPerfisUsuario" header="Adicionar Perfil ao usuário: #{usuarioController.usuarioSelecionado.nome}" style="margin-bottom:20px">
 						<p:panelGrid columns="3" cellpadding="10" rendered="#{not empty usuarioController.perfisDisponiveis}"> 
 							<p:outputLabel for="perfil" value="Perfil:" />
-							<p:selectOneMenu id="perfil"
+							<p:selectOneMenu id="perfil" readonly="#{usuarioController.somenteLeitura}"
 								value="#{usuarioController.perfilSelecionado}"
 								converter="entityConverter">
 								<f:selectItem itemLabel="Selecione o perfil" itemValue=""
@@ -40,7 +40,7 @@
 									var="perfil" itemLabel="#{perfil.nome}" />
 							</p:selectOneMenu>	
 							<p:commandButton action="#{usuarioController.adicionarPerfil()}" value="Incluir"
-								icon="ui-icon-check" ajax="true" update="panelPerfisUsuario"/>
+								icon="ui-icon-check" ajax="true" update="panelPerfisUsuario" disabled="#{usuarioController.somenteLeitura}"/>
 														
 						</p:panelGrid>
 						<p:separator/>
@@ -55,7 +55,7 @@
 
 							<p:column headerText="Ações" style="width:10%;">
 								<p:panelGrid columns="1" styleClass="semBorda">
-									<p:commandLink title="excluir"
+									<p:commandLink title="excluir" disabled="#{usuarioController.somenteLeitura}"
 										action="#{usuarioController.removerPerfilUsuario(perfil)}"
 										styleClass="ui-icon ui-icon-closethick" update="gridPerfis, :frmAlterarUsuario:tabViewAlterarUsuario:perfil">
 										<p:confirm header="Confirmação" message="Tem certeza que deseja excluir o perfil selecionado?" icon="ui-icon-alert" />
