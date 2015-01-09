@@ -44,7 +44,7 @@ public class Procedimento extends AbstractEntidade implements Serializable {
     
 	@Column(name = "tp_procedimento", length = 5)
     @NotNull 
-    private TipoProcedimento tipoProcedimento;
+    private String tipoProcedimento;
     
     @Column(name = "ic_sistema")
     @NotNull    
@@ -82,11 +82,24 @@ public class Procedimento extends AbstractEntidade implements Serializable {
 		this.sigla = sigla;
 	}
 
-	public TipoProcedimento getTipoProcedimento() {
+	// Não colocar o get com o mesmo nome do atributo int ou string
+	public TipoProcedimento getEnumTipoProcedimento() {
+		if (this.tipoProcedimento != null) {
+			return TipoProcedimento.valueOf(this.tipoProcedimento);
+		}
+		return null;
+	}
+
+	// Não colocar o set com o mesmo nome do atributo int ou string	
+	public void setEnumTipoProcedimento(TipoProcedimento tipoProcedimento) {
+		this.tipoProcedimento = tipoProcedimento.getValue();
+	}
+
+	public String getTipoProcedimento() {
 		return tipoProcedimento;
 	}
 
-	public void setTipoProcedimento(TipoProcedimento tipoProcedimento) {
+	public void setTipoProcedimento(String tipoProcedimento) {
 		this.tipoProcedimento = tipoProcedimento;
 	}
 

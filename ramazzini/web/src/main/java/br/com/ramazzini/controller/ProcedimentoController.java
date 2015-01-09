@@ -23,12 +23,12 @@ public class ProcedimentoController extends AbstractBean implements Serializable
     @Inject
     private ProcedimentoService procedimentoService;  	
 	
-	private Procedimento procedimentoNovo;
+	private Procedimento novoProcedimento;
 	
 	@PostConstruct
 	public void init() {
 
-		procedimentoNovo = new Procedimento();
+		novoProcedimento = new Procedimento();
 		
 		if (conversation.isTransient()) {
 			conversation.begin();
@@ -36,20 +36,21 @@ public class ProcedimentoController extends AbstractBean implements Serializable
 	}
 	
 	public void salvar() {
-		procedimentoNovo.setTipoProcedimento(TipoProcedimento.EXAME_COMPLEMENTAR);
-		procedimentoService.salvar(procedimentoNovo);
+		
+		//procedimentoNovo.setTipoProcedimento(TipoProcedimento.EXAME_COMPLEMENTAR);
+		procedimentoService.salvar(novoProcedimento);
 	}
 
-	public Procedimento getProcedimentoNovo() {
-		return procedimentoNovo;
+	public Procedimento getNovoProcedimento() {
+		return novoProcedimento;
 	}
 
-	public void setProcedimentoNovo(Procedimento procedimentoNovo) {
-		this.procedimentoNovo = procedimentoNovo;
+	public void setNovoProcedimento(Procedimento novoProcedimento) {
+		this.novoProcedimento = novoProcedimento;
 	}
 
-
-
-
+	public TipoProcedimento[] getTiposProcedimento() {
+		return TipoProcedimento.values();
+	}
     
 }

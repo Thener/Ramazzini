@@ -3,32 +3,35 @@ package br.com.ramazzini.model.procedimento;
 
 public enum TipoProcedimento {
 
-	EXAME_CLINICO_OCUPACIONAL("EXCLIN"),
-	EXAME_COMPLEMENTAR("EXCOMP");
-	
-    private String dbValue;
+	/* exemplo usando integer
+	 * http://stackoverflow.com/questions/2751733/map-enum-in-jpa-with-fixed-values
+	 */
+    EXAME_COMPLEMENTAR("EXCOM","Exame Complementar"), 
+    EXAME_CLINICO_OCUPACIONAL("EXCLI", "Exame Clínico Ocupacional");
 
-    TipoProcedimento(String dbValue) {
-        this.dbValue = dbValue;
+    private String value;
+    private String descricao;
+
+    TipoProcedimento(String value, String descricao) { 
+    	this.value = value;
+    	this.descricao = descricao;
+    }    
+
+    public String getValue() { return value; }
+
+    public static TipoProcedimento parse(String id) {
+    	TipoProcedimento tipo = null; // Default
+        for (TipoProcedimento item : TipoProcedimento.values()) {
+            if (item.getValue().equals(id)) {
+            	tipo = item;
+                break;
+            }
+        }
+        return tipo;
     }
 
-	public static TipoProcedimento fromValue(String value) {
-
-		for (TipoProcedimento tp : TipoProcedimento.values()) {
-			if (tp.dbValue.equals(value)) {
-				return tp;
-			}
-		}
-
-		throw new IllegalArgumentException("Tipo Procedimento inválido: " + value);
+	public String getDescricao() {
+		return descricao;
 	}
-
-	public String getDbValue() {
-		return dbValue;
-	}    
-	
-	public String toValue() {
-		return dbValue;
-	}	
 
 }
