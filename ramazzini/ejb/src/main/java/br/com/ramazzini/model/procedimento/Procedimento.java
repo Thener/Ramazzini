@@ -83,7 +83,7 @@ public class Procedimento extends AbstractEntidade implements Serializable {
 	}
 
 	// Não colocar o get com o mesmo nome do atributo int ou string
-	public TipoProcedimento getEnumTipoProcedimento() {
+	public TipoProcedimento getTipoProcedimentoEnum() {
 		if (this.tipoProcedimento != null) {
 			return TipoProcedimento.valueOf(this.tipoProcedimento);
 		}
@@ -91,7 +91,7 @@ public class Procedimento extends AbstractEntidade implements Serializable {
 	}
 
 	// Não colocar o set com o mesmo nome do atributo int ou string	
-	public void setEnumTipoProcedimento(TipoProcedimento tipoProcedimento) {
+	public void setTipoProcedimentoEnum(TipoProcedimento tipoProcedimento) {
 		this.tipoProcedimento = tipoProcedimento.getValue();
 	}
 
