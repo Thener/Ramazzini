@@ -24,6 +24,8 @@
 				<p:submenu label="Administrativos">
 					<p:menuitem value="Perfis" url="/pages/perfil/pesquisarPerfil.jsf" 
 						rendered="#{menuController.controleAcesso.telaAutorizada('perfil','pesquisarPerfil.jsf')}"/>
+					<p:menuitem value="Procedimentos" url="/pages/procedimento/pesquisarProcedimento.jsf" 
+						rendered="#{menuController.controleAcesso.telaAutorizada('procedimento','pesquisarProcedimento.jsf')}"/>
 					<p:menuitem value="Usuários" url="/pages/usuario/pesquisarUsuario.jsf"
 						rendered="#{menuController.controleAcesso.telaAutorizada('usuario','pesquisarUsuario.jsf')}" />
 				</p:submenu>

@@ -1,0 +1,19 @@
+Atributo	Significado
+CD	Código
+DJ	Data Juliana
+DS	Descrição
+DT	Data Gregoriana
+HR	Horário
+IC	Indicador
+IG	Imagem
+IN	Índice
+NM	Nome
+NO	Número
+PC	Porcentagem
+QT	Quantidade
+SG	Sigla
+SM	Som
+TE	Texto
+TP 	Tipo
+TS	Timestamp
+VL	Valor
