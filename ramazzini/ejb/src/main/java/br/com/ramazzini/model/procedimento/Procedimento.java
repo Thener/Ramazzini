@@ -85,7 +85,7 @@ public class Procedimento extends AbstractEntidade implements Serializable {
 	// Não colocar o get com o mesmo nome do atributo int ou string
 	public TipoProcedimento getTipoProcedimentoEnum() {
 		if (this.tipoProcedimento != null) {
-			return TipoProcedimento.valueOf(this.tipoProcedimento);
+			return TipoProcedimento.parse(this.tipoProcedimento);
 		}
 		return null;
 	}

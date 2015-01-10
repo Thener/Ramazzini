@@ -19,10 +19,10 @@ public enum TipoProcedimento {
 
     public String getValue() { return value; }
 
-    public static TipoProcedimento parse(String id) {
+    public static TipoProcedimento parse(String valor) {
     	TipoProcedimento tipo = null; // Default
         for (TipoProcedimento item : TipoProcedimento.values()) {
-            if (item.getValue().equals(id)) {
+            if (item.getValue().equals(valor)) {
             	tipo = item;
                 break;
             }

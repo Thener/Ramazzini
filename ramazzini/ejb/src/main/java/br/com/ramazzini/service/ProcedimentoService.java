@@ -16,8 +16,11 @@
  */
 package br.com.ramazzini.service;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 
+import br.com.ramazzini.dao.procedimento.ProcedimentoDao;
 import br.com.ramazzini.model.procedimento.Procedimento;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
 
@@ -25,5 +28,8 @@ import br.com.ramazzini.service.util.AbstractServiceImpl;
 @Stateless
 public class ProcedimentoService extends AbstractServiceImpl<Procedimento> {
 
+    public List<Procedimento> recuperarPorNome(String nome) {
+    	return ((ProcedimentoDao) getDao()).recuperarPorNome(nome);
+    }	
 
 }

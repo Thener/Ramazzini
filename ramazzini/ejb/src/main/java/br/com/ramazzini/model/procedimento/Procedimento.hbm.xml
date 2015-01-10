@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+	<query name="Procedimento.recuperarPorNome">
+		<![CDATA[
+			select 
+				p			
+			from 
+				Procedimento p
+			where 
+				lower(p.nome) like lower(:nome)
+			order 
+				by p.nome
+		]]>
+	</query>
+
+</hibernate-mapping>
