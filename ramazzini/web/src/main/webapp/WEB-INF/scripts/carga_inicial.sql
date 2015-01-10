@@ -12,22 +12,22 @@ values (nextval('seq_modulo'), null, current_timestamp, true, 'home', null, null
 
 ------------------------ CARGA DA TABELA: TELA
 
-insert into tela (cd_tela, ts_alteracao, ts_inclusao, ic_ativo, nm_tela, ic_publico, cd_usuario_alteracao, cd_usuario_inclusao, cd_modulo)
+insert into tela (cd_tela, ts_alteracao, ts_inclusao, ic_ativa, nm_tela, ic_publico, cd_usuario_alteracao, cd_usuario_inclusao, cd_modulo)
 values (nextval('seq_tela'), null, current_timestamp, true, 'pesquisarUsuario.jsf', false, null, null, (select cd_modulo from modulo where nm_modulo = 'usuario') );
 
-insert into tela (cd_tela, ts_alteracao, ts_inclusao, ic_ativo, nm_tela, ic_publico, cd_usuario_alteracao, cd_usuario_inclusao, cd_modulo)
+insert into tela (cd_tela, ts_alteracao, ts_inclusao, ic_ativa, nm_tela, ic_publico, cd_usuario_alteracao, cd_usuario_inclusao, cd_modulo)
 values (nextval('seq_tela'), null, current_timestamp, true, 'visualizarUsuario.jsf', false, null, null, (select cd_modulo from modulo where nm_modulo = 'usuario') );
 
-insert into tela (cd_tela, ts_alteracao, ts_inclusao, ic_ativo, nm_tela, ic_publico, cd_usuario_alteracao, cd_usuario_inclusao, cd_modulo)
+insert into tela (cd_tela, ts_alteracao, ts_inclusao, ic_ativa, nm_tela, ic_publico, cd_usuario_alteracao, cd_usuario_inclusao, cd_modulo)
 values (nextval('seq_tela'), null, current_timestamp, true, 'incluirUsuario.jsf', false, null, null, (select cd_modulo from modulo where nm_modulo = 'usuario') );
 
-insert into tela (cd_tela, ts_alteracao, ts_inclusao, ic_ativo, nm_tela, ic_publico, cd_usuario_alteracao, cd_usuario_inclusao, cd_modulo)
+insert into tela (cd_tela, ts_alteracao, ts_inclusao, ic_ativa, nm_tela, ic_publico, cd_usuario_alteracao, cd_usuario_inclusao, cd_modulo)
 values (nextval('seq_tela'), null, current_timestamp, true, 'alterarUsuario.jsf', false, null, null, (select cd_modulo from modulo where nm_modulo = 'usuario') );
 
-insert into tela (cd_tela, ts_alteracao, ts_inclusao, ic_ativo, nm_tela, ic_publico, cd_usuario_alteracao, cd_usuario_inclusao, cd_modulo)
+insert into tela (cd_tela, ts_alteracao, ts_inclusao, ic_ativa, nm_tela, ic_publico, cd_usuario_alteracao, cd_usuario_inclusao, cd_modulo)
 values (nextval('seq_tela'), null, current_timestamp, true, 'home.jsf', true, null, null, (select cd_modulo from modulo where nm_modulo = 'home') );
 
-insert into tela (cd_tela, ts_alteracao, ts_inclusao, ic_ativo, nm_tela, ic_publico, cd_usuario_alteracao, cd_usuario_inclusao, cd_modulo)
+insert into tela (cd_tela, ts_alteracao, ts_inclusao, ic_ativa, nm_tela, ic_publico, cd_usuario_alteracao, cd_usuario_inclusao, cd_modulo)
 values (nextval('seq_tela'), null, current_timestamp, true, 'acessoNaoAutorizado.jsf', true, null, null, (select cd_modulo from modulo where nm_modulo = 'home') );
 
 ------------------------ CARGA DA TABELA: ACAO

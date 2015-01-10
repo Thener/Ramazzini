@@ -1,14 +1,22 @@
 package br.com.ramazzini.model.funcao;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -18,6 +26,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import br.com.ramazzini.model.cbo.Cbo;
 import br.com.ramazzini.model.empresa.Empresa;
+import br.com.ramazzini.model.funcaoProcedimento.FuncaoProcedimento;
+import br.com.ramazzini.model.funcionario.Funcionario;
+import br.com.ramazzini.model.riscoOcupacional.RiscoOcupacional;
 import br.com.ramazzini.model.setor.Setor;
 import br.com.ramazzini.model.util.AbstractEntidade;
 
@@ -54,6 +65,20 @@ public class Funcao extends AbstractEntidade implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="cd_cbo")
 	private Cbo cbo;
+	
+	@ManyToMany
+	@JoinTable(
+	name="funcao_risco_ocupacional",
+	joinColumns={@JoinColumn(name="cd_funcao")},
+	inverseJoinColumns={@JoinColumn(name="cd_risco_ocupacional")})
+	private List<RiscoOcupacional> riscosOcupacionais = new ArrayList<RiscoOcupacional>();
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "funcao",
+			cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+	private Collection<FuncaoProcedimento> funcoesProcedimentos;
+	
+	@OneToMany(mappedBy="funcao")
+	private List<Funcionario> funcionarios;		
 
 	public Long getId() {
 		return id;
@@ -101,8 +126,31 @@ public class Funcao extends AbstractEntidade implements Serializable {
 
 	public void setCbo(Cbo cbo) {
 		this.cbo = cbo;
+	}
+
+	public List<RiscoOcupacional> getRiscosOcupacionais() {
+		return riscosOcupacionais;
+	}
+
+	public void setRiscosOcupacionais(List<RiscoOcupacional> riscosOcupacionais) {
+		this.riscosOcupacionais = riscosOcupacionais;
+	}
+
+	public Collection<FuncaoProcedimento> getFuncoesProcedimentos() {
+		return funcoesProcedimentos;
+	}
+
+	public void setFuncoesProcedimentos(
+			Collection<FuncaoProcedimento> funcoesProcedimentos) {
+		this.funcoesProcedimentos = funcoesProcedimentos;
+	}
+
+	public List<Funcionario> getFuncionarios() {
+		return funcionarios;
+	}
+
+	public void setFuncionarios(List<Funcionario> funcionarios) {
+		this.funcionarios = funcionarios;
 	}	
-    
-	
 
 }

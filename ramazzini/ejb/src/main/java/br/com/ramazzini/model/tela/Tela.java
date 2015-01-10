@@ -46,7 +46,7 @@ public class Tela extends AbstractEntidade implements Serializable {
     
 	@Column(name = "ic_ativa")
 	@NotNull
-	private boolean ativa = true;
+	private boolean ativa = Boolean.TRUE;
 	
 	@Column(name = "ic_publico")
 	@NotNull
@@ -60,6 +60,7 @@ public class Tela extends AbstractEntidade implements Serializable {
 	private List<Acao> acoes;	
 	
 	@ManyToOne(fetch=FetchType.EAGER)
+	@NotNull
 	@JoinColumn(name="cd_modulo")
 	private Modulo modulo;	
 	

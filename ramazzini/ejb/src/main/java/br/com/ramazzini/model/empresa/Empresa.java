@@ -1,8 +1,10 @@
 package br.com.ramazzini.model.empresa;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,8 +22,11 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import br.com.ramazzini.model.cnae.Cnae;
+import br.com.ramazzini.model.empresaServico.EmpresaServico;
 import br.com.ramazzini.model.funcao.Funcao;
+import br.com.ramazzini.model.funcionario.Funcionario;
 import br.com.ramazzini.model.grupo.Grupo;
+import br.com.ramazzini.model.lotacao.Lotacao;
 import br.com.ramazzini.model.responsavel.Responsavel;
 import br.com.ramazzini.model.setor.Setor;
 import br.com.ramazzini.model.util.AbstractEntidade;
@@ -171,6 +176,16 @@ public class Empresa extends AbstractEntidade implements Serializable {
 	
 	@OneToMany(mappedBy="empresa")
 	private List<Funcao> funcoes;	
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresa",
+			cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+	private Collection<EmpresaServico> empresasServicos;	
+	
+	@OneToMany(mappedBy="empresa")
+	private List<Lotacao> lotacoes;	
+	
+	@OneToMany(mappedBy="empresa")
+	private List<Funcionario> funcionarios;	
 
 	public Long getId() {
 		return id;
@@ -502,8 +517,31 @@ public class Empresa extends AbstractEntidade implements Serializable {
 
 	public void setFuncoes(List<Funcao> funcoes) {
 		this.funcoes = funcoes;
-	}    
-    
-    
+	}
 
+	public Collection<EmpresaServico> getEmpresasServicos() {
+		return empresasServicos;
+	}
+
+	public void setEmpresasServicos(Collection<EmpresaServico> empresasServicos) {
+		this.empresasServicos = empresasServicos;
+	}
+
+	public List<Lotacao> getLotacoes() {
+		return lotacoes;
+	}
+
+	public void setLotacoes(List<Lotacao> lotacoes) {
+		this.lotacoes = lotacoes;
+	}
+
+	public List<Funcionario> getFuncionarios() {
+		return funcionarios;
+	}
+
+	public void setFuncionarios(List<Funcionario> funcionarios) {
+		this.funcionarios = funcionarios;
+	}    
+
+	
 }

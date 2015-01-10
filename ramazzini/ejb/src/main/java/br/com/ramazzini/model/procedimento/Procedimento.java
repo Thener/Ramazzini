@@ -1,12 +1,16 @@
 package br.com.ramazzini.model.procedimento;
 
 import java.io.Serializable;
+import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -14,6 +18,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import br.com.ramazzini.model.funcaoProcedimento.FuncaoProcedimento;
+import br.com.ramazzini.model.procedimentoCredenciado.ProcedimentoCredenciado;
 import br.com.ramazzini.model.util.AbstractEntidade;
 
 @SequenceGenerator(name = "seq_procedimento", sequenceName = "seq_procedimento", allocationSize = 1)
@@ -49,6 +55,14 @@ public class Procedimento extends AbstractEntidade implements Serializable {
     @Column(name = "ic_sistema")
     @NotNull    
     private boolean sistema = false;
+    
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "procedimento",
+			cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+	private Collection<FuncaoProcedimento> funcoesProcedimentos;    
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "procedimento",
+			cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+	private Collection<ProcedimentoCredenciado> procedimentosCredenciados;    
 
 	public Long getId() {
 		return id;
@@ -109,6 +123,24 @@ public class Procedimento extends AbstractEntidade implements Serializable {
 
 	public void setSistema(boolean sistema) {
 		this.sistema = sistema;
+	}
+
+	public Collection<FuncaoProcedimento> getFuncoesProcedimentos() {
+		return funcoesProcedimentos;
+	}
+
+	public void setFuncoesProcedimentos(
+			Collection<FuncaoProcedimento> funcoesProcedimentos) {
+		this.funcoesProcedimentos = funcoesProcedimentos;
+	}
+
+	public Collection<ProcedimentoCredenciado> getProcedimentosCredenciados() {
+		return procedimentosCredenciados;
+	}
+
+	public void setProcedimentosCredenciados(
+			Collection<ProcedimentoCredenciado> procedimentosCredenciados) {
+		this.procedimentosCredenciados = procedimentosCredenciados;
 	}
     
     
