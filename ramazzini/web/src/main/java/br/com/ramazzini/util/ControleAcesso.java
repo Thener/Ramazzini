@@ -186,7 +186,7 @@ public class ControleAcesso implements Serializable {
 				if (perfilTtela.getTela().getModulo().getNome().equals(modulo)
 						&& perfilTtela.getTela().getNome().equals(tela)) {
 					
-					if (!perfilTtela.getTela().isAtivo()) {
+					if (!perfilTtela.getTela().isAtiva()) {
 						mensagem = "Tela está bloqueada no sistema. Por favor entre em contato com os Administradores do Sistema.";
 						break sairLoop;
 					}

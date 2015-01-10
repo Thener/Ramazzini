@@ -261,7 +261,7 @@ public class PerfilController extends AbstractBean implements Serializable {
     
     public void ativaDesativaTela(PerfilTela perfilTela) {
     	telaService.salvar(perfilTela.getTela());
-    	String msg = perfilTela.getTela().isAtivo() ? "Tela ativada!" : "Atenção: Tela Desativada!";
+    	String msg = perfilTela.getTela().isAtiva() ? "Tela ativada!" : "Atenção: Tela Desativada!";
     	UtilMensagens.mensagemInformacao(msg);
     }
 

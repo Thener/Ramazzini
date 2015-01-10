@@ -67,7 +67,7 @@
 					</p:column>
 					
 					<p:column headerText="Ativa" style="text-align:center;">
-						<p:selectBooleanCheckbox value="#{perfilTela.tela.ativo}">
+						<p:selectBooleanCheckbox value="#{perfilTela.tela.ativa}">
 							<p:ajax update=":form:messages" listener="#{perfilController.ativaDesativaTela(perfilTela)}" />
 						</p:selectBooleanCheckbox>
 					</p:column>						

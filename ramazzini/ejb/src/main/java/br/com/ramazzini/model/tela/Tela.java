@@ -44,9 +44,9 @@ public class Tela extends AbstractEntidade implements Serializable {
     @Size(min = 1, max = 50)
     private String nome;
     
-	@Column(name = "ic_ativo")
+	@Column(name = "ic_ativa")
 	@NotNull
-	private boolean ativo = true;
+	private boolean ativa = true;
 	
 	@Column(name = "ic_publico")
 	@NotNull
@@ -79,12 +79,12 @@ public class Tela extends AbstractEntidade implements Serializable {
 		this.nome = nome;
 	}
 
-	public boolean isAtivo() {
-		return ativo;
+	public boolean isAtiva() {
+		return ativa;
 	}
 
-	public void setAtivo(boolean ativo) {
-		this.ativo = ativo;
+	public void setAtiva(boolean ativa) {
+		this.ativa = ativa;
 	}
 
 	public boolean isPublico() {
