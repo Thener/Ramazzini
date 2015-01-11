@@ -94,12 +94,12 @@ public class UsuarioService extends AbstractServiceImpl<Usuario> {
     	return true;
     }
     
-    public List<Usuario> recuperarPorTrechoLogin(String login) {
+    public List<Usuario> recuperarPorLikeLogin(String login) {
         
     	log.info("recuerando usuario pelo login: " + login);
     	
     	UsuarioDao dao = ((UsuarioDao) getDao());
     	
-        return dao.recuperarPorTrechoLogin(login);
+        return dao.recuperarPorLoginLike(login);
     }	
 }

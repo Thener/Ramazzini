@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui"
+   template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+		<h:form id="frmTrocarSenha">
+			<p:panel id="panelTrocarSenha" header="Trocar senha do usuário #{usuario.nome}" style="margin-bottom:20px">
+				<p:growl id="growl" showDetail="true" sticky="true" />
+				<p:panelGrid columns="2" cellpadding="5">											 
+						<p:outputLabel value="Senha Atual" for="inputSenhaAtual" />
+						<p:password id="inputSenhaAtual"
+							value="#{usuarioController.senhaAtual}" />
+							
+						<p:outputLabel value="Nova Senha" for="inputSenhaNova" />
+						<p:password id="inputSenhaNova"
+							value="#{usuarioController.senhaNova}" />
+							
+						<p:outputLabel value="Confirme Nova Senha" for="inputSenhaNovaConfirmacao" />
+						<p:password id="inputSenhaNovaConfirmacao"
+							value="#{usuarioController.senhaNovaConfirmacao}" />											
+					</p:panelGrid>
+
+				<p:toolbar id="toolBar">
+					<f:facet name="left">
+						<p:commandButton id="botaoVoltar" immediate="true"
+							icon="ui-icon-arrowreturnthick-1-w" title="Voltar"
+							action="home.jsf?faces-redirect=true">
+						</p:commandButton>
+						<p:commandButton id="salvar"
+							action="#{usuarioController.trocarSenha(usuario)}" value="Salvar"
+							icon="ui-icon-disk" title="Salvar" styleClass="register"
+							update="panelTrocarSenha" />
+					</f:facet>
+				</p:toolbar>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

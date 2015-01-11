@@ -44,9 +44,11 @@ public class UsuarioController extends AbstractBean implements Serializable {
     private List<Perfil> perfisUsuario;
     
     private String loginPesquisa;
-    private String gridMsg;
-    private String novaSenha;
-
+    private String gridMsg;   
+    
+    private String senhaAtual;
+    private String senhaNova;
+    private String senhaNovaConfirmacao;
     
     private boolean somenteLeitura = Boolean.FALSE;
     
@@ -58,7 +60,8 @@ public class UsuarioController extends AbstractBean implements Serializable {
     @PostConstruct  
     public void init() {
     	usuarios = new ArrayList<Usuario>();
-    	usuarioNovo = new Usuario();    	
+    	usuarioNovo = new Usuario();
+    	senhaNova = "";
     	gridMsg = "";
     	somenteLeitura = Boolean.FALSE; 
     	if (conversation.isTransient()) {
@@ -90,8 +93,8 @@ public class UsuarioController extends AbstractBean implements Serializable {
     
     public void atualizar() throws Exception {
         try {
-        	if (!novaSenha.isEmpty()){
-        		usuarioSelecionado.setSenha(Md5.hashMd5(novaSenha));
+        	if (!senhaNova.isEmpty()){
+        		usuarioSelecionado.setSenha(Md5.hashMd5(senhaNova));
         	}
             usuarioService.salvar(usuarioSelecionado);
             init();
@@ -124,7 +127,7 @@ public class UsuarioController extends AbstractBean implements Serializable {
         }            
     }
     
-    public String editar(Usuario usuario){
+    public String editar(Usuario usuario){    	
     	setUsuarioSelecionado(usuarioService.recuperarPorId(usuario.getId()));
     	setSomenteLeitura(Boolean.FALSE);    	
     	perfisDisponiveis = perfilService.recuperarPerfisDisponiveisPorUsuario(usuario);
@@ -150,7 +153,7 @@ public class UsuarioController extends AbstractBean implements Serializable {
 		if (loginPesquisa.isEmpty()){
 			usuarios = usuarioService.recuperarTodos("nome");        		
 		} else {
-			List<Usuario> usuariosRecuperados = usuarioService.recuperarPorTrechoLogin(loginPesquisa);
+			List<Usuario> usuariosRecuperados = usuarioService.recuperarPorLikeLogin(loginPesquisa);
 			if (!usuariosRecuperados.isEmpty()) {
 				usuarios=usuariosRecuperados;
 			} else {
@@ -165,6 +168,24 @@ public class UsuarioController extends AbstractBean implements Serializable {
     	usuarioSelecionado.setPerfis(perfisUsuario);
     	perfisDisponiveis.remove(perfilSelecionado);
     }
+    
+    public void trocarSenha(Usuario usuarioLogado) throws Exception {
+        try {
+        	if (usuarioService.autenticar(usuarioLogado.getLogin(), senhaAtual)) {
+        		if(senhaNova.equals(senhaNovaConfirmacao)){
+	        		usuarioLogado.setSenha(Md5.hashMd5(senhaNova));
+	        		usuarioService.salvar(usuarioLogado);
+	        		UtilMensagens.mensagemInformacao("Senha alterada com sucesso!");
+        		} else {
+        			UtilMensagens.mensagemErro("Senha nova não confere com a senha de confirmação.");
+        		}
+    		} else {
+    			UtilMensagens.mensagemErro("Senha atual incorreta! Favor verificar os dados informados.");
+    		}
+        } catch (Exception e) {
+        	UtilMensagens.mensagemErro("Não foi possível alterar a senha do Usuário!");        	
+        }
+    }  
     
 	public String getLoginPesquisa() {
 		return loginPesquisa;
@@ -197,15 +218,7 @@ public class UsuarioController extends AbstractBean implements Serializable {
 	public void setSomenteLeitura(boolean somenteLeitura) {
 		this.somenteLeitura = somenteLeitura;
 	}
-
-	public String getNovaSenha() {
-		return novaSenha;
-	}
-
-	public void setNovaSenha(String novaSenha) {
-		this.novaSenha = novaSenha;
-	}
-
+	
 	public Perfil getPerfilSelecionado() {
 		return perfilSelecionado;
 	}
@@ -228,5 +241,29 @@ public class UsuarioController extends AbstractBean implements Serializable {
 
 	public void setPerfisUsuario(List<Perfil> perfisUsuario) {
 		this.perfisUsuario = perfisUsuario;
-	}	
+	}
+
+	public String getSenhaAtual() {
+		return senhaAtual;
+	}
+
+	public void setSenhaAtual(String senhaAtual) {
+		this.senhaAtual = senhaAtual;
+	}
+
+	public String getSenhaNova() {
+		return senhaNova;
+	}
+
+	public void setSenhaNova(String senhaNova) {
+		this.senhaNova = senhaNova;
+	}
+
+	public String getSenhaNovaConfirmacao() {
+		return senhaNovaConfirmacao;
+	}
+
+	public void setSenhaNovaConfirmacao(String senhaNovaConfirmacao) {
+		this.senhaNovaConfirmacao = senhaNovaConfirmacao;
+	}		
 }

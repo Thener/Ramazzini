@@ -20,7 +20,7 @@
 				            <p:inputText id="login" value="#{usuarioController.usuarioSelecionado.login}" required="true" readonly="#{usuarioController.somenteLeitura}"/>
 				            
 				            <p:outputLabel for="senha" value="Nova senha:" rendered="#{!usuarioController.somenteLeitura}"/>
-				            <p:password id="senha" value="#{usuarioController.novaSenha}" rendered="#{!usuarioController.somenteLeitura}"/>
+				            <p:password id="senha" value="#{usuarioController.senhaNova}" rendered="#{!usuarioController.somenteLeitura}"/>
 				            
 				            <p:outputLabel for="ativoCheck" value="Ativo: " />
 				        	<p:selectBooleanCheckbox id="ativoCheck" value="#{usuarioController.usuarioSelecionado.ativo}" readonly="#{usuarioController.somenteLeitura}"/>

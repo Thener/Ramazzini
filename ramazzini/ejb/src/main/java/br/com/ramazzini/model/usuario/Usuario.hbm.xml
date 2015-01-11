@@ -9,7 +9,7 @@
              where u.login = :login
 		]]>
 	</query>	
-	<query name="Usuario.recuperarPorTrechoLogin">
+	<query name="Usuario.recuperarPorLikeLogin">
 		<![CDATA[
             select u
               from Usuario u

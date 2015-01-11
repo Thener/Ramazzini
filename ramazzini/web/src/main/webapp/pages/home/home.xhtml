@@ -12,7 +12,7 @@
   			Bem-vindo, #{usuario.nome}! 
   			
   			<p:commandLink id="trocarSenha" style="float: right;"
-				actionListener="#{buttonView.buttonAction}">
+				action="trocarSenha.jsf?faces-redirect=true">
 				<h:outputText value="Trocar Senha" />
 			</p:commandLink>
 		</p:panel>

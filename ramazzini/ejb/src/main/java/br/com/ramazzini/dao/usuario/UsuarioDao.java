@@ -12,7 +12,7 @@ import br.com.ramazzini.model.usuario.Usuario;
 public class UsuarioDao extends AbstractDao<Usuario> {
 
 	private static final String QUERY_RECUPERAR_POR_LOGIN = "Usuario.recuperarPorLogin";
-	private static final String QUERY_RECUPERAR_POR_TRECHO_LOGIN = "Usuario.recuperarPorTrechoLogin";
+	private static final String QUERY_RECUPERAR_POR_LIKE_LOGIN = "Usuario.recuperarPorLikeLogin";
 	
 	/**
 	 * Recupera o usuário pelo login
@@ -35,8 +35,8 @@ public class UsuarioDao extends AbstractDao<Usuario> {
 	 * @return Lista de Usuario
 	 */
 	@SuppressWarnings("unchecked")
-	public List<Usuario> recuperarPorTrechoLogin(String login) {
-		Query query = createNamedQuery(QUERY_RECUPERAR_POR_TRECHO_LOGIN);
+	public List<Usuario> recuperarPorLoginLike(String login) {
+		Query query = createNamedQuery(QUERY_RECUPERAR_POR_LIKE_LOGIN);
 		query.setParameter("login", "%"+login+"%");
 		try {
 			return query.getResultList();

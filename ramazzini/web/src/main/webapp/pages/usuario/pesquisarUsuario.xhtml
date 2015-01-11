@@ -7,8 +7,8 @@
    template="/WEB-INF/templates/default.xhtml">
    <ui:define name="content">
    
-      <h:form id="frmUsuario">			
-		<p:panel id="panelPesquisa" header="Filtros" style="margin-bottom:20px">
+	<h:form id="frmUsuario">			
+		<p:panel id="panelPesquisa" header="Pesquisa" style="margin-bottom:20px">
 			<h:panelGrid columns="4" cellpadding="10">
 				<p:outputLabel for="login" value="Login:" />
 				<p:inputText id="login" 
@@ -24,7 +24,7 @@
 					rendered="#{usuarioController.controleAcesso.acaoAutorizada('usuario','pesquisarUsuario.jsf','incluirUsuario')}">					
 				</p:commandButton>
 			</h:panelGrid>
-		</p:panel>
+		
 
 			<p:dataTable var="usuario" value="#{usuarioController.usuarios}"
 				id="gridUsuarios" emptyMessage="#{usuarioController.gridMsg}"
@@ -68,6 +68,7 @@
 				<p:commandButton value="Não" type="button"
 					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 			</p:confirmDialog>
-		</h:form>
-	</ui:define>
+		</p:panel>
+	</h:form>
+</ui:define>
 </ui:composition>
