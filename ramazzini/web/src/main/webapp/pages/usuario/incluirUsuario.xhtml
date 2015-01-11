@@ -24,6 +24,16 @@
 					<h:outputLabel for="ativoCheck" value="Ativo: " />
 					<p:selectBooleanCheckbox id="ativoCheck"
 						value="#{usuarioController.novoUsuario.ativo}" />
+					
+					<p:outputLabel for="perfil" value="Perfil:" />
+					<p:selectOneMenu id="perfil" style="width:232px;"						
+						value="#{usuarioController.perfilSelecionado}"
+						converter="entityConverter" required="true">
+						<f:selectItem itemLabel="Selecione o perfil" itemValue=""
+							noSelectionOption="true" />
+						<f:selectItems value="#{usuarioController.perfisDisponiveis}"
+							var="perfil" itemLabel="#{perfil.nome}" />
+					</p:selectOneMenu>		
 					<p:growl id="growl" showDetail="true" sticky="true" />
 				</h:panelGrid>
 			</p:panel>

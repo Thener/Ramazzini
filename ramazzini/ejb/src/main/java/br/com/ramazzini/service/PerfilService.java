@@ -71,5 +71,9 @@ public class PerfilService extends AbstractServiceImpl<Perfil> {
 	
 	public List<Perfil> recuperarPerfisDisponiveisPorUsuario(Usuario usuario) {
 		return ((PerfilDao) getDao()).recuperarPerfisDisponiveisPorUsuario(usuario);
-	}  
+	} 
+	
+	public List<Perfil> recuperarTodosMenosAdmin() {
+		return ((PerfilDao) getDao()).recuperarTodosMenosAdmin();
+	}
 }

@@ -18,7 +18,8 @@ public class PerfilDao extends AbstractDao<Perfil> {
 	private static final String QUERY_RECUPERAR_TELAS_POR_PERFIL = "Perfil.recuperarTelasPorPerfil";
 	private static final String QUERY_RECUPERAR_PERFIL_TELA_POR_PERFIL = "Perfil.recuperarPerfilTelaPorPerfil";
 	private static final String QUERY_RECUPERAR_PERFIL_DISPONIVEL_POR_USUARIO = "Perfil.recuperarPerfisDisponiveisPorUsuario";
-	
+	private static final String QUERY_RECUPERAR_TODOS_MENOS_ADMIN = "Perfil.recuperarTodosMenosAdmin";
+
 	
 	@SuppressWarnings("unchecked")
 	public List<Perfil> recuperarTudoPorUsuario(Usuario usuario) {
@@ -57,6 +58,16 @@ public class PerfilDao extends AbstractDao<Perfil> {
 	public List<Perfil> recuperarPerfisDisponiveisPorUsuario(Usuario usuario) {
 		Query query = createNamedQuery(QUERY_RECUPERAR_PERFIL_DISPONIVEL_POR_USUARIO);
 		query.setParameter("usuario", usuario);
+		try {
+			return query.getResultList();
+		} catch (NoResultException nr) {
+			return null;
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Perfil> recuperarTodosMenosAdmin() {
+		Query query = createNamedQuery(QUERY_RECUPERAR_TODOS_MENOS_ADMIN);
 		try {
 			return query.getResultList();
 		} catch (NoResultException nr) {

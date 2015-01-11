@@ -61,7 +61,7 @@ public class UsuarioController extends AbstractBean implements Serializable {
     @PostConstruct     
     public void init() {
     	usuarios = new ArrayList<Usuario>();
-    	usuarioNovo = new Usuario(); 
+    	usuarioNovo = new Usuario();    	
     	gridMsg = "";
     	somenteLeitura = Boolean.FALSE; 
     	if (conversation.isTransient()) {
@@ -76,7 +76,10 @@ public class UsuarioController extends AbstractBean implements Serializable {
   
     public String salvar() throws Exception {
         try {
-        	usuarioNovo.setSenha(Md5.hashMd5(usuarioNovo.getSenha()));
+        	usuarioNovo.setSenha(Md5.hashMd5(usuarioNovo.getSenha())); 
+        	perfisUsuario.add(perfilSelecionado);
+        	perfisDisponiveis.remove(perfilSelecionado);
+        	usuarioNovo.setPerfis(perfisUsuario);
             usuarioService.salvar(usuarioNovo);
             facesContext.addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Usuario salvo com sucesso!"));            
@@ -140,6 +143,12 @@ public class UsuarioController extends AbstractBean implements Serializable {
     	perfisDisponiveis = perfilService.recuperarPerfisDisponiveisPorUsuario(usuario);
     	perfisUsuario = perfilService.recuperarTudoPorUsuario(usuario);
     	return "alterarUsuario.jsf?faces-redirect=true";
+    }
+    
+    public String incluirUsuario(){
+    	perfisDisponiveis = perfilService.recuperarTodosMenosAdmin();
+    	perfisUsuario = new ArrayList<Perfil>();
+    	return "incluirUsuario.jsf?faces-redirect=true";
     }
     
     public String visualizar(Usuario usuario){

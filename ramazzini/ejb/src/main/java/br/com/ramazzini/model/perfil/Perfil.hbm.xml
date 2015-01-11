@@ -45,7 +45,17 @@
 	              from Perfil perfil
 	              left join perfil.usuarios usuarios
 	        	 where :usuario in usuarios  
-	       	)   	
+	       	)
+	       	and p.nome != 'administrador'   	
 		]]>
-	</query>		
+	</query>	
+	<query name="Perfil.recuperarTodosMenosAdmin">
+		<![CDATA[
+		   select p
+             from Perfil p
+            where p.nome != 'administrador'  
+	      )   	
+		]]>
+	</query>	
+		
 </hibernate-mapping>
