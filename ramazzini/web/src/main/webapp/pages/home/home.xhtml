@@ -10,6 +10,11 @@
    
 		<p:panel header="Ramazzini" style="min-height:300px;">
   			Bem-vindo, #{usuario.nome}! 
-  		</p:panel>
+  			
+  			<p:commandLink id="trocarSenha" style="float: right;"
+				actionListener="#{buttonView.buttonAction}">
+				<h:outputText value="Trocar Senha" />
+			</p:commandLink>
+		</p:panel>
    </ui:define>
 </ui:composition>

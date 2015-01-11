@@ -8,8 +8,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -18,21 +16,20 @@ import br.com.ramazzini.model.usuario.Usuario;
 import br.com.ramazzini.service.PerfilService;
 import br.com.ramazzini.service.UsuarioService;
 import br.com.ramazzini.util.Md5;
+import br.com.ramazzini.util.UtilMensagens;
 
 @Named
 @ConversationScoped
 public class UsuarioController extends AbstractBean implements Serializable {
-    /**
-	 * 
-	 */
+    
 	private static final long serialVersionUID = 1L;
+	
+	private static final String PAGINA_INCLUIR_USUARIO = "incluirUsuario.jsf?faces-redirect=true";
+	private static final String PAGINA_ALTERAR_ALTERAR_USUARIO = "alterarUsuario.jsf?faces-redirect=true";
 	
 	private @Inject Conversation conversation;
 
 	@Inject
-    private FacesContext facesContext; 
-    
-    @Inject
     private UsuarioService usuarioService;  
     
     @Inject
@@ -58,7 +55,7 @@ public class UsuarioController extends AbstractBean implements Serializable {
         return usuarios;
     }
    
-    @PostConstruct     
+    @PostConstruct  
     public void init() {
     	usuarios = new ArrayList<Usuario>();
     	usuarioNovo = new Usuario();    	
@@ -68,8 +65,7 @@ public class UsuarioController extends AbstractBean implements Serializable {
 			conversation.begin();
 		}
     }
-    
-    
+        
     public Usuario getNovoUsuario() {
         return usuarioNovo;
     }
@@ -81,45 +77,38 @@ public class UsuarioController extends AbstractBean implements Serializable {
         	perfisDisponiveis.remove(perfilSelecionado);
         	usuarioNovo.setPerfis(perfisUsuario);
             usuarioService.salvar(usuarioNovo);
-            facesContext.addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Usuario salvo com sucesso!"));            
+            UtilMensagens.mensagemInformacao("Usuario salvo com sucesso!");
             String alterar = editar(usuarioNovo);
             init();
             return alterar;
         } catch (Exception e) {
-            String errorMessage = getRaizErro(e);
-            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMessage, "Usuario não salvo!");
-            init();
-            facesContext.addMessage(null, m);       
+        	UtilMensagens.mensagemErro("Não foi possível salvar o Usuário!");
+        	init();
             return null;
         }
-    }  
+    } 
+    
     public void atualizar() throws Exception {
         try {
         	if (!novaSenha.isEmpty()){
         		usuarioSelecionado.setSenha(Md5.hashMd5(novaSenha));
         	}
             usuarioService.salvar(usuarioSelecionado);
-            facesContext.addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Usuario alterado com sucesso!"));
             init();
+            UtilMensagens.mensagemInformacao("Usuario alterado com sucesso!");
         } catch (Exception e) {
-            String errorMessage = getRaizErro(e);
-            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMessage, "Usuario não alterardo!");
-            init();
-            facesContext.addMessage(null, m);            
+        	UtilMensagens.mensagemErro("Não foi possível alterar o Usuário!");
+        	init();  
         }
     }  
+    
     public void remover(Usuario usuario){
     	try {
     		usuarioService.remover(usuario, usuario.getId());
     		usuarios.remove(usuario);
-    		facesContext.addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Usuario removido com sucesso!"));
+    		UtilMensagens.mensagemInformacao("Usuario removido com sucesso!");    		
     	} catch (Exception e) {
-            String errorMessage = getRaizErro(e);
-            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMessage, "Não foi pssível deletar o Usuario!");
-            facesContext.addMessage(null, m);            
+    		UtilMensagens.mensagemErro("Não foi possível remover o Usuário!");                       
         }            
     }
     
@@ -129,26 +118,24 @@ public class UsuarioController extends AbstractBean implements Serializable {
     		perfisDisponiveis.add(perfil);
     		usuarioSelecionado.setPerfis(perfisUsuario);
     		atualizar();
-    		facesContext.addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Usuario removido com sucesso!"));
+    		UtilMensagens.mensagemInformacao("Perfil removido com sucesso!");
     	} catch (Exception e) {
-            String errorMessage = getRaizErro(e);
-            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMessage, "Não foi pssível deletar o Usuario!");
-            facesContext.addMessage(null, m);            
+    		UtilMensagens.mensagemErro("Não foi possível remover o Perfil!");            
         }            
     }
+    
     public String editar(Usuario usuario){
     	setUsuarioSelecionado(usuarioService.recuperarPorId(usuario.getId()));
     	setSomenteLeitura(Boolean.FALSE);    	
     	perfisDisponiveis = perfilService.recuperarPerfisDisponiveisPorUsuario(usuario);
     	perfisUsuario = perfilService.recuperarTudoPorUsuario(usuario);
-    	return "alterarUsuario.jsf?faces-redirect=true";
+    	return PAGINA_ALTERAR_ALTERAR_USUARIO;
     }
     
     public String incluirUsuario(){
     	perfisDisponiveis = perfilService.recuperarTodosMenosAdmin();
     	perfisUsuario = new ArrayList<Perfil>();
-    	return "incluirUsuario.jsf?faces-redirect=true";
+    	return PAGINA_INCLUIR_USUARIO;
     }
     
     public String visualizar(Usuario usuario){
@@ -158,6 +145,7 @@ public class UsuarioController extends AbstractBean implements Serializable {
     	perfisUsuario = perfilService.recuperarTudoPorUsuario(usuario);
     	return "alterarUsuario.js?faces-redirect=truef";
     }
+    
     public void pesquisar() throws Exception {
 		if (loginPesquisa.isEmpty()){
 			usuarios = usuarioService.recuperarTodos("nome");        		
@@ -171,26 +159,13 @@ public class UsuarioController extends AbstractBean implements Serializable {
 			}
 		}      
     }  
+    
     public void adicionarPerfil(){
     	perfisUsuario.add(perfilSelecionado);
     	usuarioSelecionado.setPerfis(perfisUsuario);
     	perfisDisponiveis.remove(perfilSelecionado);
     }
     
-    private String getRaizErro(Exception e) {
-        String errorMessage = "Registro falhou. Veja o log do servidor para mais informações.";
-        if (e == null) {
-            // Se não houver uma Exception, retorna a mensagem padrão
-            return errorMessage;
-        }
-        Throwable t = e;
-        while (t != null) {
-            errorMessage = t.getLocalizedMessage();
-            t = t.getCause();
-        }
-        return errorMessage;
-    }
-
 	public String getLoginPesquisa() {
 		return loginPesquisa;
 	}
