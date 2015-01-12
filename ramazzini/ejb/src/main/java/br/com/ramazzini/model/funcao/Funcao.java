@@ -2,7 +2,6 @@ package br.com.ramazzini.model.funcao;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -75,7 +74,7 @@ public class Funcao extends AbstractEntidade implements Serializable {
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "funcao",
 			cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
-	private Collection<FuncaoProcedimento> funcoesProcedimentos;
+	private List<FuncaoProcedimento> funcoesProcedimentos;
 	
 	@OneToMany(mappedBy="funcao")
 	private List<Funcionario> funcionarios;		
@@ -136,12 +135,12 @@ public class Funcao extends AbstractEntidade implements Serializable {
 		this.riscosOcupacionais = riscosOcupacionais;
 	}
 
-	public Collection<FuncaoProcedimento> getFuncoesProcedimentos() {
+	public List<FuncaoProcedimento> getFuncoesProcedimentos() {
 		return funcoesProcedimentos;
 	}
 
 	public void setFuncoesProcedimentos(
-			Collection<FuncaoProcedimento> funcoesProcedimentos) {
+			List<FuncaoProcedimento> funcoesProcedimentos) {
 		this.funcoesProcedimentos = funcoesProcedimentos;
 	}
 

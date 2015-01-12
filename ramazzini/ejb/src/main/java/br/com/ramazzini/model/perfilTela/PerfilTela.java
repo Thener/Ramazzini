@@ -10,7 +10,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -28,7 +27,6 @@ import br.com.ramazzini.model.util.AbstractEntidade;
 @Entity
 @XmlRootElement
 @Table(name = "perfil_tela")
-@IdClass(PerfilTelaId.class)
 public class PerfilTela extends AbstractEntidade implements Serializable {
 	
 	private static final long serialVersionUID = 1L;

@@ -4,10 +4,10 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
@@ -24,10 +24,10 @@ public class ProcedimentoCredenciado extends AbstractEntidade implements Seriali
 	
 	private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
+	@Id
 	@SequenceGenerator(name = "seq_procedimento_credenciado", sequenceName = "seq_procedimento_credenciado", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_procedimento_credenciado")	
-	private ProcedimentoCredenciadoId id;
+	private Long id;
     
     @ManyToOne
     @JoinColumn(name="cd_procedimento")
@@ -44,10 +44,10 @@ public class ProcedimentoCredenciado extends AbstractEntidade implements Seriali
 	private BigDecimal precoCusto;
 
 	public Long getId() {
-		return id.getId();
+		return id;
 	}
 
-	public void setId(ProcedimentoCredenciadoId id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

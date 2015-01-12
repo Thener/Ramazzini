@@ -1,7 +1,6 @@
 package br.com.ramazzini.model.empresa;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -179,7 +178,7 @@ public class Empresa extends AbstractEntidade implements Serializable {
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresa",
 			cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
-	private Collection<EmpresaServico> empresasServicos;	
+	private List<EmpresaServico> empresasServicos;	
 	
 	@OneToMany(mappedBy="empresa")
 	private List<Lotacao> lotacoes;	
@@ -519,11 +518,11 @@ public class Empresa extends AbstractEntidade implements Serializable {
 		this.funcoes = funcoes;
 	}
 
-	public Collection<EmpresaServico> getEmpresasServicos() {
+	public List<EmpresaServico> getEmpresasServicos() {
 		return empresasServicos;
 	}
 
-	public void setEmpresasServicos(Collection<EmpresaServico> empresasServicos) {
+	public void setEmpresasServicos(List<EmpresaServico> empresasServicos) {
 		this.empresasServicos = empresasServicos;
 	}
 

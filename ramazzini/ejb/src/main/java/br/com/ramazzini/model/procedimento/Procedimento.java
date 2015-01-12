@@ -1,7 +1,7 @@
 package br.com.ramazzini.model.procedimento;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -58,11 +58,11 @@ public class Procedimento extends AbstractEntidade implements Serializable {
     
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "procedimento",
 			cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
-	private Collection<FuncaoProcedimento> funcoesProcedimentos;    
+	private List<FuncaoProcedimento> funcoesProcedimentos;    
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "procedimento",
 			cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
-	private Collection<ProcedimentoCredenciado> procedimentosCredenciados;    
+	private List<ProcedimentoCredenciado> procedimentosCredenciados;    
 
 	public Long getId() {
 		return id;
@@ -125,21 +125,21 @@ public class Procedimento extends AbstractEntidade implements Serializable {
 		this.sistema = sistema;
 	}
 
-	public Collection<FuncaoProcedimento> getFuncoesProcedimentos() {
+	public List<FuncaoProcedimento> getFuncoesProcedimentos() {
 		return funcoesProcedimentos;
 	}
 
 	public void setFuncoesProcedimentos(
-			Collection<FuncaoProcedimento> funcoesProcedimentos) {
+			List<FuncaoProcedimento> funcoesProcedimentos) {
 		this.funcoesProcedimentos = funcoesProcedimentos;
 	}
 
-	public Collection<ProcedimentoCredenciado> getProcedimentosCredenciados() {
+	public List<ProcedimentoCredenciado> getProcedimentosCredenciados() {
 		return procedimentosCredenciados;
 	}
 
 	public void setProcedimentosCredenciados(
-			Collection<ProcedimentoCredenciado> procedimentosCredenciados) {
+			List<ProcedimentoCredenciado> procedimentosCredenciados) {
 		this.procedimentosCredenciados = procedimentosCredenciados;
 	}
     
