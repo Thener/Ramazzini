@@ -49,7 +49,8 @@ public class Acao extends AbstractEntidade implements Serializable {
 	private boolean ativo = true;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="cd_tela", nullable=false)
+	@NotNull
+	@JoinColumn(name="cd_tela")
 	private Tela tela;	
 	
 	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
@@ -61,10 +62,6 @@ public class Acao extends AbstractEntidade implements Serializable {
 	
 	public Long getId() {
 		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getNome() {

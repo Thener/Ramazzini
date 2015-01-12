@@ -41,6 +41,7 @@ public class Setor extends AbstractEntidade implements Serializable {
     private String nome;
     
 	@ManyToOne
+	@NotNull
 	@JoinColumn(name="cd_empresa")
 	private Empresa empresa;
 	
@@ -49,10 +50,6 @@ public class Setor extends AbstractEntidade implements Serializable {
 
 	public Long getId() {
 		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getNome() {

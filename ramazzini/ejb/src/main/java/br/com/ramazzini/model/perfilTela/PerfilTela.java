@@ -16,6 +16,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import br.com.ramazzini.model.acao.Acao;
@@ -38,10 +39,12 @@ public class PerfilTela extends AbstractEntidade implements Serializable {
     private Long id;
     
     @ManyToOne
+    @NotNull
     @JoinColumn(name="cd_perfil")
     private Perfil perfil;
  
 	@ManyToOne
+	@NotNull
     @JoinColumn(name="cd_tela")
     private Tela tela;
     
@@ -56,10 +59,6 @@ public class PerfilTela extends AbstractEntidade implements Serializable {
 	public Long getId() {
 		return id;
 	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}	
 
 	public Set<Acao> getAcoes() {
 		return acoes;

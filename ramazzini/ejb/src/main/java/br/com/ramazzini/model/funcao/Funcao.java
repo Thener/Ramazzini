@@ -54,6 +54,7 @@ public class Funcao extends AbstractEntidade implements Serializable {
 	private boolean ativa = true;    
 	
 	@ManyToOne
+	@NotNull
 	@JoinColumn(name="cd_empresa")
 	private Empresa empresa;
 	
@@ -81,10 +82,6 @@ public class Funcao extends AbstractEntidade implements Serializable {
 
 	public Long getId() {
 		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getNome() {

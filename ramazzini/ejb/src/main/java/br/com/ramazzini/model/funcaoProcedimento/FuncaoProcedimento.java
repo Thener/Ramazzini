@@ -30,10 +30,12 @@ public class FuncaoProcedimento extends AbstractEntidade implements Serializable
 	private Long id;
     
     @ManyToOne
+    @NotNull
     @JoinColumn(name="cd_funcao")
     private Funcao funcao;
  
 	@ManyToOne
+	@NotNull
     @JoinColumn(name="cd_procedimento")
     private Procedimento procedimento;
 	
@@ -77,10 +79,6 @@ public class FuncaoProcedimento extends AbstractEntidade implements Serializable
 
 	public Long getId() {
 		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public Funcao getFuncao() {

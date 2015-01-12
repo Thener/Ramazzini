@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import br.com.ramazzini.model.credenciado.Credenciado;
 import br.com.ramazzini.model.procedimento.Procedimento;
@@ -30,10 +31,12 @@ public class ProcedimentoCredenciado extends AbstractEntidade implements Seriali
 	private Long id;
     
     @ManyToOne
+    @NotNull
     @JoinColumn(name="cd_procedimento")
     private Procedimento procedimento;
  
 	@ManyToOne
+	@NotNull
     @JoinColumn(name="cd_credenciado")
     private Credenciado credenciado;
 
@@ -45,10 +48,6 @@ public class ProcedimentoCredenciado extends AbstractEntidade implements Seriali
 
 	public Long getId() {
 		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public Procedimento getProcedimento() {

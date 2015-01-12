@@ -15,6 +15,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import br.com.ramazzini.model.empresa.Empresa;
@@ -34,11 +35,13 @@ public class Responsavel extends AbstractEntidade implements Serializable {
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "seq_responsavel")
     private Long id;
     
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
+	@NotNull
 	@JoinColumn(name="cd_empresa")
 	private Empresa empresa;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
+	@NotNull
 	@JoinColumn(name="cd_profissional")
 	private Profissional profissional;	
 
@@ -52,10 +55,6 @@ public class Responsavel extends AbstractEntidade implements Serializable {
 
 	public Long getId() {
 		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public Empresa getEmpresa() {

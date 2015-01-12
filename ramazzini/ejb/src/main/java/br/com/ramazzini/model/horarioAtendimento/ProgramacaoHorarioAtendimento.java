@@ -47,15 +47,12 @@ public class ProgramacaoHorarioAtendimento extends AbstractEntidade implements S
 	private Integer intervalo;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
+	@NotNull
 	@JoinColumn(name="cd_horario_atendimento", nullable=false)
 	private HorarioAtendimento horarioAtendimento;	
 	
 	public Long getId() {
 		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getDiaSemana() {
