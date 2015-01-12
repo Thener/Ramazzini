@@ -37,10 +37,10 @@ public class ProcedimentoCredenciado extends AbstractEntidade implements Seriali
     @JoinColumn(name="cd_credenciado")
     private Credenciado credenciado;
 
-	@Column(name = "vl_venda" , columnDefinition = "double precision")
+	@Column(name = "vl_venda" , columnDefinition = "float8")
 	private BigDecimal precoVenda;
 	
-	@Column(name = "vl_custo" , columnDefinition = "double precision")
+	@Column(name = "vl_custo" , columnDefinition = "float8")
 	private BigDecimal precoCusto;
 
 	public Long getId() {

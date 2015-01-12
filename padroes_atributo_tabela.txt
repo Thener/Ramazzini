@@ -14,6 +14,7 @@ PC	Porcentagem
 QT	Quantidade
 SG	Sigla
 SM	Som
+ST	Situação
 TF	telefone
 TE	Texto
 TP 	Tipo

@@ -53,15 +53,15 @@ public class Empresa extends AbstractEntidade implements Serializable {
     @Size(max = 100)
     private String nomeFantasia;
     
-	@Column(name = "sg_situacao_empresa", length = 3)
+	@Column(name = "st_empresa", length = 3)
     @NotNull 
     private String situacaoEmpresa;
 	
-	@Column(name = "sg_tipo_pessoa", length = 3)
+	@Column(name = "tp_pessoa", length = 3)
     @NotNull 
     private String tipoPessoa;
 	
-	@Column(name = "sg_tipo_pcmso", length = 3)
+	@Column(name = "tp_pcmso", length = 3)
     @NotNull 
     private String tipoPcmso;
 	

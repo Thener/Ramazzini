@@ -79,7 +79,7 @@ public class Funcionario extends AbstractEntidade implements Serializable {
     @NotNull 
     private String sexo;
 	
-	@Column(name = "sg_situacao_funcionario", length = 1)
+	@Column(name = "st_funcionario", length = 1)
     @NotNull 
     private String situacaoFuncionario;
 	

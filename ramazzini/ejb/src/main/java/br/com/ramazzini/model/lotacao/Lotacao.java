@@ -53,7 +53,7 @@ public class Lotacao extends AbstractEntidade implements Serializable {
     @NotNull 
     private boolean ativa = Boolean.TRUE;
 	
-	@Column(name = "sg_tipo_pessoa", length = 3)
+	@Column(name = "tp_pessoa", length = 3)
     @NotNull 
     private String tipoPessoa;
 	
