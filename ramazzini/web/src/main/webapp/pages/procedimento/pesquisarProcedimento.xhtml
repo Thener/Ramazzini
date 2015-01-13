@@ -9,6 +9,8 @@
    
 	<h:form id="frmProcedimento">
 	
+		<p:growl id="messages" />
+	
 		<p:panel id="panelPesquisaProcedimento" header="Pesquisa" style="margin-bottom:20px">
 		
 			<h:panelGrid columns="4" cellpadding="10">
@@ -25,7 +27,7 @@
 				
 				<p:commandButton 
 					id="botaoIncluirProcedimento" icon="ui-icon-circle-plus" value="Novo"
-					title="Incluir Usuário" action="incluirProcedimento.jsf?faces-redirect=true" />					
+					title="Incluir Usuário" action="#{procedimentoController.incluirProcedimento()}" />					
 				
 			</h:panelGrid>		
 
@@ -60,7 +62,7 @@
 							styleClass="ui-icon ui-icon-pencil" 
 							rendered="#{procedimentoController.controleAcesso.acaoAutorizada('procedimento','pesquisarProcedimento.jsf','alterarProcedimento')}" />
 						<p:commandLink title="excluir" action="#{procedimentoController.remover(procedimento)}"
-							styleClass="ui-icon ui-icon-closethick" update="gridProcedimentos"
+							styleClass="ui-icon ui-icon-closethick" update="gridProcedimentos, :frmProcedimento:messages"
 							rendered="#{procedimentoController.controleAcesso.acaoAutorizada('procedimento','pesquisarProcedimento.jsf','excluirProcedimento')}">
 							<p:confirm header="Confirmação" message="Tem certeza que deseja excluir o procedimento selecionado?" icon="ui-icon-alert" />
 						</p:commandLink>	

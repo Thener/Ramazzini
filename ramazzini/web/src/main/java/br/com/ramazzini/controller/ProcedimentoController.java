@@ -22,6 +22,7 @@ public class ProcedimentoController extends AbstractBean implements Serializable
 	
 	private static final String PAGINA_PESQUISAR_PROCEDIMENTO = "pesquisarProcedimento.js?faces-redirect=true";
 	private static final String PAGINA_ALTERAR_PROCEDIMENTO = "alterarProcedimento.js?faces-redirect=true";
+	private static final String PAGINA_INCLUIR_PROCEDIMENTO = "incluirProcedimento.jsf?faces-redirect=true";
 
 	private @Inject Conversation conversation;
 	
@@ -41,11 +42,15 @@ public class ProcedimentoController extends AbstractBean implements Serializable
 	@PostConstruct
 	public void init() {
 
-		novoProcedimento = new Procedimento();
-		
 		if (conversation.isTransient()) {
 			conversation.begin();
 		}
+	}
+	
+	public String incluirProcedimento() {
+		
+		novoProcedimento = new Procedimento();
+		return PAGINA_INCLUIR_PROCEDIMENTO;
 	}
 	
 	public String salvar() {
@@ -90,9 +95,9 @@ public class ProcedimentoController extends AbstractBean implements Serializable
     	try {
     		procedimentoService.remover(procedimento, procedimento.getId());
     		procedimentos.remove(procedimento);
-    		UtilMensagens.mensagemInformacao("Procedimento removido com sucesso!");
+    		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.registroExcluidoComSucesso");
     	} catch (Exception e) {
-    		UtilMensagens.mensagemErro("Não foi possível remover o procedimento!");
+    		UtilMensagens.mensagemErroPorChave("mensagem.erro.naoFoiPossivelExcluirRegistro");
         }
     }    
 

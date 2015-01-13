@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui"
+   template="/WEB-INF/templates/default.xhtml">
+   <ui:define name="content">
+   
+	<h:form id="frmEmpresa">
+	
+		<p:panel id="panelPesquisaEmpresa" header="#{msgs['label.empresa']}" style="margin-bottom:20px">
+		
+			<h:panelGrid columns="4" cellpadding="10">
+			
+				<p:outputLabel for="nomeEmpresaPesquisa" value="#{msgs['label.nome']}" />
+				<p:inputText id="nomeEmpresaPesquisa" 
+					value="#{empresaController.nomeEmpresaPesquisa}" required="false"/>
+					
+				<p:commandButton action="#{empresaController.pesquisar()}"
+					id="botaoPesquisa" icon="ui-icon-search" title="#{msgs['botao.pesquisar']}"
+					update="frmEmpresa">
+					<f:ajax execute="nomeEmpresaPesquisa" render="gridEmpresas"/>
+				</p:commandButton>
+				
+				<p:commandButton 
+					id="botaoIncluirEmpresa" icon="ui-icon-circle-plus" value="#{msgs['botao.incluir']}"
+					action="incluirEmpresa.jsf?faces-redirect=true" />					
+				
+			</h:panelGrid>		
+
+			<p:dataTable var="empresa" value="#{empresaController.empresas}"
+				id="gridEmpresas" emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}"
+				paginator="true" paginatorPosition="bottom" rows="5">
+				
+				<f:facet name="header"> #{msgs['label.empresas']} </f:facet>
+
+				<p:column headerText="#{msgs['label.nome']}" sortBy="#{empresa.nome}" styleClass="coluna2">
+					<h:outputText value="#{empresa.nome}" />
+				</p:column>
+
+				<p:column headerText="#{msgs['label.nomeFantasia']}" sortBy="#{empresa.nomeFantasia}" styleClass="coluna3">
+					<h:outputText value="#{empresa.nomeFantasia}" />
+				</p:column>
+
+				<p:column headerText="#{msgs['label.acoes']}" styleClass="coluna5">
+					<p:panelGrid columns="3" styleClass="semBorda">					  
+						<p:commandLink title="#{msgs['label.visualizar']}" action="#{empresaController.visualizar(empresa)}"
+							styleClass="ui-icon ui-icon-search" 
+								rendered="#{empresaController.controleAcesso.acaoAutorizada('empresa','pesquisarEmpresa.jsf','visualizarEmpresa')}" />
+						<p:commandLink title="#{msgs['label.editar']}" action="#{empresaController.editar(empresa)}"
+							styleClass="ui-icon ui-icon-pencil" 
+							rendered="#{empresaController.controleAcesso.acaoAutorizada('empresa','pesquisarEmpresa.jsf','alterarEmpresa')}" />
+						<p:commandLink title="#{msgs['label.excluir']}" action="#{empresaController.remover(empresa)}"
+							styleClass="ui-icon ui-icon-closethick" update="gridEmpresas"
+							rendered="#{empresaController.controleAcesso.acaoAutorizada('empresa','pesquisarEmpresa.jsf','excluirEmpresa')}">
+							<p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['label.confirmacaoExclusao']}" icon="ui-icon-alert" />
+						</p:commandLink>	
+					</p:panelGrid>
+				</p:column>							
+
+			</p:dataTable>
+			
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+				<p:commandButton value="#{msgs['label.confirmacaoSim']}" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="#{msgs['label.confirmacaoNao']}" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>			
+			
+		</p:panel>
+
+	</h:form>
+	
+	</ui:define>
+</ui:composition>

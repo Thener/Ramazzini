@@ -30,6 +30,9 @@
 				
 				<p:submenu label="Básicos">
 				
+					<p:menuitem value="Empresas" url="/pages/empresa/pesquisarEmpresa.jsf" 
+						rendered="#{menuController.controleAcesso.telaAutorizada('empresa','pesquisarEmpresa.jsf')}"/>
+
 					<p:menuitem value="Procedimentos" url="/pages/procedimento/pesquisarProcedimento.jsf" 
 						rendered="#{menuController.controleAcesso.telaAutorizada('procedimento','pesquisarProcedimento.jsf')}"/>
 										
