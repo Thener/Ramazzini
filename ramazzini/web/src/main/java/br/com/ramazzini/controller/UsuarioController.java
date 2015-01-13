@@ -51,12 +51,7 @@ public class UsuarioController extends AbstractBean implements Serializable {
     private String senhaNovaConfirmacao;
     
     private boolean somenteLeitura = Boolean.FALSE;
-    
-	
-    public List<Usuario> getUsuarios() {
-        return usuarios;
-    }
-   
+       
     @PostConstruct  
     public void init() {
     	usuarios = new ArrayList<Usuario>();
@@ -68,11 +63,7 @@ public class UsuarioController extends AbstractBean implements Serializable {
 			conversation.begin();
 		}
     }
-        
-    public Usuario getNovoUsuario() {
-        return usuarioNovo;
-    }
-  
+          
     public String salvar() throws Exception {
         try {
         	usuarioNovo.setSenha(Md5.hashMd5(usuarioNovo.getSenha())); 
@@ -265,5 +256,13 @@ public class UsuarioController extends AbstractBean implements Serializable {
 
 	public void setSenhaNovaConfirmacao(String senhaNovaConfirmacao) {
 		this.senhaNovaConfirmacao = senhaNovaConfirmacao;
-	}		
+	}	
+	
+	public List<Usuario> getUsuarios() {
+        return usuarios;
+    }
+	
+	public Usuario getNovoUsuario() {
+        return usuarioNovo;
+    }
 }

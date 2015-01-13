@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui"
+   template="/WEB-INF/templates/default.xhtml">
+   <ui:define name="content">
+   
+	<h:form id="frmCredenciado">
+	
+		<p:panel id="panelPesquisaCredenciado" header="#{msgs['label.credenciado']}" style="margin-bottom:20px">
+		
+			<h:panelGrid columns="4" cellpadding="10">
+			
+				<p:outputLabel for="nomeCredenciadoPesquisa" value="#{msgs['label.nome']}" />
+				<p:inputText id="nomeCredenciadoPesquisa" 
+					value="#{credenciadoController.nomeCredenciadoPesquisa}" required="false"/>
+					
+				<p:commandButton action="#{empresaController.pesquisar()}"
+					id="botaoPesquisa" icon="ui-icon-search" title="#{msgs['botao.pesquisar']}"
+					update="frmCredenciado">
+					<f:ajax execute="nomeCredenciadoPesquisa" render="gridCredenciados"/>
+				</p:commandButton>
+				
+				<p:commandButton 
+					id="botaoIncluirCredenciado" icon="ui-icon-circle-plus" value="#{msgs['botao.incluir']}"
+					action="incluirCredenciado.jsf?faces-redirect=true" />					
+				
+			</h:panelGrid>		
+
+			<p:dataTable var="credenciado" value="#{credenciadoController.credenciados}"
+				id="gridCredenciados" emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}"
+				paginator="true" paginatorPosition="bottom" rows="5">
+				
+				<f:facet name="header"> #{msgs['label.credenciados']} </f:facet>
+
+				<p:column headerText="#{msgs['label.nome']}" sortBy="#{credenciado.nome}" styleClass="coluna2">
+					<h:outputText value="#{credenciado.nome}" />
+				</p:column>
+
+				<p:column headerText="#{msgs['label.ativo']}" styleClass="coluna4">
+					<p:selectBooleanCheckbox value="#{credenciado.ativo}" disabled="true" />
+				</p:column>
+
+				<p:column headerText="#{msgs['label.acoes']}" styleClass="coluna5">
+					<p:panelGrid columns="3" styleClass="semBorda">					  
+						<p:commandLink title="#{msgs['label.visualizar']}" action="#{credenciadoController.visualizar(credenciado)}"
+							styleClass="ui-icon ui-icon-search" 
+								rendered="#{credenciadoController.controleAcesso.acaoAutorizada('credenciado','pesquisarCredenciado.jsf','visualizarCredenciado')}" />
+						<p:commandLink title="#{msgs['label.editar']}" action="#{credenciadoController.editar(credenciado)}"
+							styleClass="ui-icon ui-icon-pencil" 
+							rendered="#{credenciadoController.controleAcesso.acaoAutorizada('credenciado','pesquisarCredenciado.jsf','alterarCredenciado')}" />
+						<p:commandLink title="#{msgs['label.excluir']}" action="#{credenciadoController.remover(credenciado)}"
+							styleClass="ui-icon ui-icon-closethick" update="gridCredenciados"
+							rendered="#{credenciadoController.controleAcesso.acaoAutorizada('credenciado','pesquisarEmpresa.jsf','excluirCredenciado')}">
+							<p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['label.confirmacaoExclusao']}" icon="ui-icon-alert" />
+						</p:commandLink>	
+					</p:panelGrid>
+				</p:column>							
+
+			</p:dataTable>
+			
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+				<p:commandButton value="#{msgs['label.confirmacaoSim']}" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="#{msgs['label.confirmacaoNao']}" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>			
+			
+		</p:panel>
+
+	</h:form>
+	
+	</ui:define>
+</ui:composition>

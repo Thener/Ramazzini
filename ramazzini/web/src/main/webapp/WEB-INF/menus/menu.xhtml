@@ -29,6 +29,9 @@
 				<p:separator />
 				
 				<p:submenu label="Básicos">
+					<p:menuitem value="#{msgs['label.credenciados']}" url="/pages/credenciado/pesquisarCredenciado.jsf" 
+						rendered="#{menuController.controleAcesso.telaAutorizada('credenciado','pesquisarCredenciado.jsf')}"/>
+				
 				
 					<p:menuitem value="Empresas" url="/pages/empresa/pesquisarEmpresa.jsf" 
 						rendered="#{menuController.controleAcesso.telaAutorizada('empresa','pesquisarEmpresa.jsf')}"/>
