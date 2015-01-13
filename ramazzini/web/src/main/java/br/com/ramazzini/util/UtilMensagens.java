@@ -38,5 +38,17 @@ public class UtilMensagens {
 		}
 		return bundle;
 	}
+	
+	public static void mensagemErroPorChave(String chave, String... parameters) {
+		int i = 0;
+		String parametro;
+		String mensagem = getValor(chave);
+		for (String p : parameters) {
+			parametro = "{"+i+"}";
+			mensagem = mensagem.replace(parametro, p);
+			i++;
+		}
+		mensagemErro(mensagem);
+	}
 
 }

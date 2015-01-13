@@ -8,23 +8,23 @@
 	<ui:define name="content">
 	
 		<h:form id="frmIncluirProcedimento">
-			<p:panel id="panelDadosProcedimento" header="Dados do Procedimento">
+			<p:panel id="panelDadosProcedimento" header="#{msgs['label.dadosProcedimento']}">
 				<h:panelGrid columns="4" cellpadding="10">
-					<p:outputLabel for="nome" value="Nome:" />
+					<p:outputLabel for="nome" value="#{msgs['label.nome']}:" />
 					<p:inputText id="nome"
-						value="#{procedimentoController.novoProcedimento.nome}" required="true" />
+						value="#{procedimentoController.procedimentoSelecionado.nome}" required="true" />
 
-					<p:outputLabel for="nomeAbreviado" value="Nome abreviado:" />
+					<p:outputLabel for="nomeAbreviado" value="#{msgs['label.nomeAbreviado']}:" />
 					<p:inputText id="nomeAbreviado"
-						value="#{procedimentoController.novoProcedimento.nomeAbreviado}" required="false" />
+						value="#{procedimentoController.procedimentoSelecionado.nomeAbreviado}" required="false" />
 
-					<p:outputLabel for="sigla" value="Sigla:" />
+					<p:outputLabel for="sigla" value="#{msgs['label.sigla']}:" />
 					<p:inputText id="sigla"
-						value="#{procedimentoController.novoProcedimento.sigla}" required="true" />
+						value="#{procedimentoController.procedimentoSelecionado.sigla}" required="true" />
 
-					<p:outputLabel for="tipoProcedimento" value="Tipo Procedimento:" />
+					<p:outputLabel for="tipoProcedimento" value="#{msgs['label.tipoProcedimento']}:" />
 					<p:selectOneMenu id="tipoProcedimento"
-						value="#{procedimentoController.novoProcedimento.tipoProcedimento}">
+						value="#{procedimentoController.procedimentoSelecionado.tipoProcedimento}">
 						<f:selectItems value="#{procedimentoController.tiposProcedimento}" var="tipoProcedimento"
 							itemLabel="#{tipoProcedimento.stringChave}" itemValue="#{tipoProcedimento.value}" />
 					</p:selectOneMenu>
@@ -39,7 +39,7 @@
 						action="pesquisarProcedimento.jsf?faces-redirect=true">
 					</p:commandButton>
 					<p:commandButton id="salvar" action="#{procedimentoController.salvar()}"
-						value="Salvar" icon="ui-icon-disk" title="Salvar"
+						value="Salvar" icon="ui-icon-disk" title="#{msgs['botao.gravar']}"
 						styleClass="register" update="panelDadosProcedimento" />
 				</f:facet>
 			</p:toolbar>

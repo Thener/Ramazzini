@@ -9,17 +9,27 @@
 	
 		<h:form id="frmIncluirEmpresa">
 		
+			<p:growl id="growl" showDetail="true" sticky="true" />
+		
 			<p:panel id="panelDadosEmpresa" header="#{msgs['label.dadosCadastrais']}">
 			
 				<h:panelGrid columns="4" cellpadding="10">
 					
 					<p:outputLabel for="nome" value="#{msgs['label.nome']}:" />
 					<p:inputText id="nome"
-						value="#{procedimentoController.novoProcedimento.nome}" required="true" />
+						value="#{empresaController.novaEmpresa.nome}" required="true" />
 					
-					<p:growl id="growl" showDetail="true" sticky="true" />
+					
 					
 				</h:panelGrid>
+				
+				<p:tabView id="tabViewIncluirEmpresa">
+		        	<p:tab title="Dados Cadastrais">
+		        		<ui:include src="includes/tabDadosCadastraisEmpresa.xhtml" />
+		        	</p:tab>
+		        	<p:tab title="Funções">
+		        	</p:tab>		        	
+		        </p:tabView>
 				
 			</p:panel>
 			

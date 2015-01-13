@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui">
+   
+	<p:outputLabel for="nome" value="#{msgs['label.nomeFantasia']}:" />
+	<p:inputText id="nome" value="#{empresaController.novaEmpresa.nomeFantasia}" required="false" />
+	
+	<p:outputLabel for="tipoProcedimento" value="#{msgs['label.tipoPessoa']}:" />
+	<p:selectOneMenu id="tipoProcedimento"
+		value="#{empresaController.novaEmpresa.tipoPessoa}">
+		<f:selectItems value="#{empresaController.tiposPessoa}" var="tipoPessoa"
+			itemLabel="#{tipoPessoa.stringChave}" itemValue="#{tipoPessoa.value}" />
+	</p:selectOneMenu>
+						
+</ui:composition>

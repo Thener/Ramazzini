@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.ramazzini.model.empresa.Empresa;
+import br.com.ramazzini.model.empresa.TipoPessoa;
 import br.com.ramazzini.service.EmpresaService;
 import br.com.ramazzini.util.UtilMensagens;
 
@@ -63,7 +64,7 @@ public class EmpresaController extends AbstractBean implements Serializable {
 	
     public void pesquisar() throws Exception {
 		
-    	if (nomeEmpresaPesquisa.isEmpty()){
+    	if (nomeEmpresaPesquisa == null || nomeEmpresaPesquisa.isEmpty()){
     		empresas = empresaService.recuperarTodos("nome");
 		} else {
 			empresas = empresaService.recuperarPorNome(nomeEmpresaPesquisa);
@@ -131,5 +132,8 @@ public class EmpresaController extends AbstractBean implements Serializable {
 		this.somenteLeitura = somenteLeitura;
 	}
     
+	public TipoPessoa[] getTiposPessoa() {
+		return TipoPessoa.values();
+	}	
 	
 }

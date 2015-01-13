@@ -97,7 +97,7 @@ public class ProcedimentoController extends AbstractBean implements Serializable
     		procedimentos.remove(procedimento);
     		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.registroExcluidoComSucesso");
     	} catch (Exception e) {
-    		UtilMensagens.mensagemErroPorChave("mensagem.erro.naoFoiPossivelExcluirRegistro");
+    		UtilMensagens.mensagemErroPorChave("mensagem.erro.naoFoiPossivelExcluirRegistro","o procedimento.");
         }
     }    
 

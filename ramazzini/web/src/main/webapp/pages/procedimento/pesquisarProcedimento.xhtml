@@ -11,60 +11,60 @@
 	
 		<p:growl id="messages" />
 	
-		<p:panel id="panelPesquisaProcedimento" header="Pesquisa" style="margin-bottom:20px">
+		<p:panel id="panelPesquisaProcedimento" header="#{msgs['label.pesquisa']}" style="margin-bottom:20px">
 		
 			<h:panelGrid columns="4" cellpadding="10">
 			
-				<p:outputLabel for="nomeProcedimentoPesquisa" value="Procedimento:" />
+				<p:outputLabel for="nomeProcedimentoPesquisa" value="#{msgs['label.procedimento']}:" />
 				<p:inputText id="nomeProcedimentoPesquisa" 
 					value="#{procedimentoController.nomeProcedimentoPesquisa}" required="false"/>
 					
 				<p:commandButton action="#{procedimentoController.pesquisar()}"
-					id="botaoPesquisa" icon="ui-icon-search" title="Pesquisa"
+					id="botaoPesquisa" icon="ui-icon-search" title="#{msgs['label.pesquisa']}"
 					update="frmProcedimento">
 					<f:ajax execute="nomeProcedimentoPesquisa" render="gridProcedimentos"/>
 				</p:commandButton>
 				
 				<p:commandButton 
-					id="botaoIncluirProcedimento" icon="ui-icon-circle-plus" value="Novo"
+					id="botaoIncluirProcedimento" icon="ui-icon-circle-plus" value="#{msgs['botao.incluir']}"
 					title="Incluir Usuário" action="#{procedimentoController.incluirProcedimento()}" />					
 				
 			</h:panelGrid>		
 
 			<p:dataTable var="procedimento" value="#{procedimentoController.procedimentos}"
-				id="gridProcedimentos" emptyMessage="Nenhum registro localizado."
+				id="gridProcedimentos" emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}"
 				paginator="true" paginatorPosition="bottom" rows="5">
 				
-				<f:facet name="header"> Procedimentos </f:facet>
+				<f:facet name="header"> #{msgs['label.procedimentos']} </f:facet>
 
-				<p:column headerText="Nome" sortBy="#{procedimento.nome}" styleClass="coluna2">
+				<p:column headerText="#{msgs['label.nome']}" sortBy="#{procedimento.nome}" styleClass="coluna2">
 					<h:outputText value="#{procedimento.nome}" />
 				</p:column>
 
-				<p:column headerText="Nome abreviado" sortBy="#{procedimento.nomeAbreviado}" styleClass="coluna3">
+				<p:column headerText="#{msgs['label.nomeAbreviado']}" sortBy="#{procedimento.nomeAbreviado}" styleClass="coluna3">
 					<h:outputText value="#{procedimento.nomeAbreviado}" />
 				</p:column>
 
-				<p:column headerText="Sistema" styleClass="coluna4">
+				<p:column headerText="#{msgs['label.sistema']}" styleClass="coluna4">
 					<p:selectBooleanCheckbox value="#{procedimento.sistema}" disabled="true" />
 				</p:column>
 				
-				<p:column headerText="Tipo" sortBy="#{procedimento.tipoProcedimento}" styleClass="coluna3">
+				<p:column headerText="#{msgs['label.tipo']}" sortBy="#{procedimento.tipoProcedimento}" styleClass="coluna3">
 					<h:outputText value="#{procedimento.tipoProcedimentoEnum.stringChave}" />
 				</p:column>	
 				
-				<p:column headerText="Ações" styleClass="coluna5">
+				<p:column headerText="#{msgs['label.acoes']}" styleClass="coluna5">
 					<p:panelGrid columns="3" styleClass="semBorda">					  
-						<p:commandLink title="vizualizar" action="#{procedimentoController.visualizar(procedimento)}"
+						<p:commandLink title="#{msgs['label.visualizar']}" action="#{procedimentoController.visualizar(procedimento)}"
 							styleClass="ui-icon ui-icon-search" 
 								rendered="#{procedimentoController.controleAcesso.acaoAutorizada('procedimento','pesquisarProcedimento.jsf','visualizarProcedimento')}" />
-						<p:commandLink title="editar" action="#{procedimentoController.editar(procedimento)}"
+						<p:commandLink title="#{msgs['label.editar']}" action="#{procedimentoController.editar(procedimento)}"
 							styleClass="ui-icon ui-icon-pencil" 
 							rendered="#{procedimentoController.controleAcesso.acaoAutorizada('procedimento','pesquisarProcedimento.jsf','alterarProcedimento')}" />
-						<p:commandLink title="excluir" action="#{procedimentoController.remover(procedimento)}"
+						<p:commandLink title="#{msgs['label.excluir']}" action="#{procedimentoController.remover(procedimento)}"
 							styleClass="ui-icon ui-icon-closethick" update="gridProcedimentos, :frmProcedimento:messages"
 							rendered="#{procedimentoController.controleAcesso.acaoAutorizada('procedimento','pesquisarProcedimento.jsf','excluirProcedimento')}">
-							<p:confirm header="Confirmação" message="Tem certeza que deseja excluir o procedimento selecionado?" icon="ui-icon-alert" />
+							<p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['mensagem.pergunta.desejaRealmenteExcluir']}" icon="ui-icon-alert" />
 						</p:commandLink>	
 					</p:panelGrid>
 				</p:column>							
@@ -72,9 +72,9 @@
 			</p:dataTable>
 			
 			<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-				<p:commandButton value="Sim" type="button"
+				<p:commandButton value="#{msgs['label.confirmacaoSim']}" type="button"
 					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-				<p:commandButton value="Não" type="button"
+				<p:commandButton value="#{msgs['label.confirmacaoNao']}" type="button"
 					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 			</p:confirmDialog>			
 			

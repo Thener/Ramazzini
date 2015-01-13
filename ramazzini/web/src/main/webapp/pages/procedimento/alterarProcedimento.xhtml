@@ -8,21 +8,21 @@
 	<ui:define name="content">
 	
 		<h:form id="frmAlterarProcedimento">
-			<p:panel id="panelDadosProcedimento" header="Dados do Procedimento">
+			<p:panel id="panelDadosProcedimento" header="#{msgs['label.dadosProcedimento']}">
 				<h:panelGrid columns="4" cellpadding="10">
-					<p:outputLabel for="nome" value="Nome:" />
+					<p:outputLabel for="nome" value="#{msgs['label.nome']}:" />
 					<p:inputText id="nome"
 						value="#{procedimentoController.procedimentoSelecionado.nome}" required="true" />
 
-					<p:outputLabel for="nomeAbreviado" value="Nome abreviado:" />
+					<p:outputLabel for="nomeAbreviado" value="#{msgs['label.nomeAbreviado']}:" />
 					<p:inputText id="nomeAbreviado"
 						value="#{procedimentoController.procedimentoSelecionado.nomeAbreviado}" required="false" />
 
-					<p:outputLabel for="sigla" value="Sigla:" />
+					<p:outputLabel for="sigla" value="#{msgs['label.sigla']}:" />
 					<p:inputText id="sigla"
 						value="#{procedimentoController.procedimentoSelecionado.sigla}" required="true" />
 
-					<p:outputLabel for="tipoProcedimento" value="Tipo Procedimento:" />
+					<p:outputLabel for="tipoProcedimento" value="#{msgs['label.tipoProcedimento']}:" />
 					<p:selectOneMenu id="tipoProcedimento"
 						value="#{procedimentoController.procedimentoSelecionado.tipoProcedimento}">
 						<f:selectItems value="#{procedimentoController.tiposProcedimento}" var="tipoProcedimento"
@@ -39,7 +39,7 @@
 						action="pesquisarProcedimento.jsf?faces-redirect=true">
 					</p:commandButton>
 					<p:commandButton id="salvar" action="#{procedimentoController.atualizar()}"
-						value="Salvar" icon="ui-icon-disk" title="Salvar"
+						value="Salvar" icon="ui-icon-disk" title="#{msgs['botao.gravar']}"
 						styleClass="register" update="panelDadosProcedimento"
 						disabled="#{procedimentoController.somenteLeitura}" />
 				</f:facet>
