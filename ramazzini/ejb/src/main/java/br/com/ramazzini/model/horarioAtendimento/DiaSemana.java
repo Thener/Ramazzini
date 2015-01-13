@@ -1,22 +1,26 @@
 package br.com.ramazzini.model.horarioAtendimento;
 
+import java.util.ResourceBundle;
+
 
 public enum DiaSemana {
 
-    DOMINGO("DOM","Domingo"), 
-    SEGUNDA("SEG", "Segunda"),
-    TERCA("TER", "Terça"),
-    QUARTA("QUA", "Quarta"),
-    QUINTA("QUI", "Quinta"),
-    SEXTA("SEX", "Sexta"),
-    SABADO("SAB", "Sábado");
+    DOMINGO("DOM","diaSemana.Domingo"), 
+    SEGUNDA("SEG", "diaSemana.Segunda"),
+    TERCA("TER", "diaSemana.Terca"),
+    QUARTA("QUA", "diaSemana.Quarta"),
+    QUINTA("QUI", "diaSemana.Quinta"),
+    SEXTA("SEX", "diaSemana.Sexta"),
+    SABADO("SAB", "diaSemana.Sabado");
+    
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("messages");
 
     private String value;
-    private String descricao;
+    private String chave;
 
-    DiaSemana(String value, String descricao) { 
+    DiaSemana(String value, String chave) { 
     	this.value = value;
-    	this.descricao = descricao;
+    	this.chave = chave;
     }    
 
     public String getValue() { return value; }
@@ -32,8 +36,12 @@ public enum DiaSemana {
         return dia;
     }
 
-	public String getDescricao() {
-		return descricao;
+	public String getChave() {
+		return chave;
+	}    
+    
+	public String getStringChave() {
+		return bundle.getString(chave);
 	}
 
 }

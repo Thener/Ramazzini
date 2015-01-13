@@ -1,18 +1,22 @@
 package br.com.ramazzini.model.empresa;
 
+import java.util.ResourceBundle;
+
 
 public enum SituacaoEmpresa {
 
-    ATIVA("ATI","Ativa"), 
-    CANCELADA("CAN", "Cancelada"),
-    SUSPENSA("SUS", "Suspensa");
+    ATIVA("ATI","situacaoEmpresa.ativa"), 
+    CANCELADA("CAN", "situacaoEmpresa.cancelada"),
+    SUSPENSA("SUS", "situacaoEmpresa.suspensa");
+    
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("messages");
 
     private String value;
-    private String descricao;
+    private String chave;
 
-    SituacaoEmpresa(String value, String descricao) { 
+    SituacaoEmpresa(String value, String chave) { 
     	this.value = value;
-    	this.descricao = descricao;
+    	this.chave = chave;
     }    
 
     public String getValue() { return value; }
@@ -28,8 +32,12 @@ public enum SituacaoEmpresa {
         return situacao;
     }
 
-	public String getDescricao() {
-		return descricao;
+	public String getChave() {
+		return chave;
+	}    
+    
+	public String getStringChave() {
+		return bundle.getString(chave);
 	}
 
 }

@@ -1,21 +1,25 @@
 package br.com.ramazzini.model.profissional;
 
+import java.util.ResourceBundle;
+
 
 public enum PapelProfissional {
 
-    MEDICO("MED","Médico(a)"), 
-    ENGENHEIRO("ENG", "Engenheiro(a)"),
-    FONOAUDIOLOGO("FON", "Fonoaudiólogo(a)"),
-    PSICOLOGO("PSI", "Psicólogo(a)"),
-    TECNICO_SEG_TRABALHO("TST", "Técnico(a) Segurança do Trabalho"),
-    TECNICO("TEC", "Técnico(a)");
+    MEDICO("MED","papelProfissional.Medico"), 
+    ENGENHEIRO("ENG", "papelProfissional.Engenheiro"),
+    FONOAUDIOLOGO("FON", "papelProfissional.Fonoaudiologo"),
+    PSICOLOGO("PSI", "papelProfissional.Psicologo"),
+    TECNICO_SEG_TRABALHO("TST", "papelProfissional.TecnicoSegurancaTrabalho"),
+    TECNICO("TEC", "papelProfissional.Tecnico");
+    
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("messages");
 
     private String value;
-    private String descricao;
+    private String chave;
 
-    PapelProfissional(String value, String descricao) { 
+    PapelProfissional(String value, String chave) { 
     	this.value = value;
-    	this.descricao = descricao;
+    	this.chave = chave;
     }    
 
     public String getValue() { return value; }
@@ -31,8 +35,12 @@ public enum PapelProfissional {
         return papel;
     }
 
-	public String getDescricao() {
-		return descricao;
+	public String getChave() {
+		return chave;
+	}    
+    
+	public String getStringChave() {
+		return bundle.getString(chave);
 	}
 
 }

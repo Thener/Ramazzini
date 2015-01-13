@@ -26,7 +26,7 @@
 					<p:selectOneMenu id="tipoProcedimento"
 						value="#{procedimentoController.procedimentoSelecionado.tipoProcedimento}">
 						<f:selectItems value="#{procedimentoController.tiposProcedimento}" var="tipoProcedimento"
-							itemLabel="#{tipoProcedimento.descricao}" itemValue="#{tipoProcedimento.value}" />
+							itemLabel="#{tipoProcedimento.stringChave}" itemValue="#{tipoProcedimento.value}" />
 					</p:selectOneMenu>
 					
 					<p:growl id="growl" showDetail="true" sticky="true" />

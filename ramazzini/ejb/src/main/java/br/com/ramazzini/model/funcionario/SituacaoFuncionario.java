@@ -1,21 +1,25 @@
 package br.com.ramazzini.model.funcionario;
 
+import java.util.ResourceBundle;
+
 
 public enum SituacaoFuncionario {
 
-    ATIVO("AT","Ativo"), 
-    DEMITIDO("DE", "Demitido"),
-    LICENCA_MATERNIDADE("LM", "Licença Maternidade"),
-    AFASTADO("AF", "Afastado"),
-    LICENCIADO("LI", "Licenciado"),
-    BAIXA("BA", "Baixa");
+    ATIVO("AT","situacaoFuncionario.Ativo"), 
+    DEMITIDO("DE", "situacaoFuncionario.Demitido"),
+    LICENCA_MATERNIDADE("LM", "situacaoFuncionario.LicencaMaternidade"),
+    AFASTADO("AF", "situacaoFuncionario.Afastado"),
+    LICENCIADO("LI", "situacaoFuncionario.Licenciado"),
+    BAIXA("BA", "situacaoFuncionario.Baixa");
+    
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("messages");
 
     private String value;
-    private String descricao;
+    private String chave;
 
-    SituacaoFuncionario(String value, String descricao) { 
+    SituacaoFuncionario(String value, String chave) { 
     	this.value = value;
-    	this.descricao = descricao;
+    	this.chave = chave;
     }    
 
     public String getValue() { return value; }
@@ -31,8 +35,12 @@ public enum SituacaoFuncionario {
         return sit;
     }
 
-	public String getDescricao() {
-		return descricao;
+	public String getChave() {
+		return chave;
+	}    
+    
+	public String getStringChave() {
+		return bundle.getString(chave);
 	}
 
 }

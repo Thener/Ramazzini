@@ -1,20 +1,24 @@
 package br.com.ramazzini.model.procedimento;
 
+import java.util.ResourceBundle;
+
 
 public enum TipoProcedimento {
 
 	/* exemplo usando integer
 	 * http://stackoverflow.com/questions/2751733/map-enum-in-jpa-with-fixed-values
 	 */
-    EXAME_COMPLEMENTAR("EXCOM","Exame Complementar"), 
-    EXAME_CLINICO_OCUPACIONAL("EXCLI", "Exame Clínico Ocupacional");
+    EXAME_COMPLEMENTAR("EXCOM","tipoProcedimento.exameComplementar"), 
+    EXAME_CLINICO_OCUPACIONAL("EXCLI", "tipoProcedimento.exameClinicoOcupacional");
 
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("messages");
+    
     private String value;
-    private String descricao;
+    private String chave;
 
-    TipoProcedimento(String value, String descricao) { 
+    TipoProcedimento(String value, String chave) { 
     	this.value = value;
-    	this.descricao = descricao;
+    	this.chave = chave;
     }    
 
     public String getValue() { return value; }
@@ -30,8 +34,12 @@ public enum TipoProcedimento {
         return tipo;
     }
 
-	public String getDescricao() {
-		return descricao;
+	public String getChave() {
+		return chave;
+	}    
+    
+	public String getStringChave() {
+		return bundle.getString(chave);
 	}
-
+	
 }

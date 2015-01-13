@@ -1,17 +1,21 @@
 package br.com.ramazzini.model.empresa;
 
+import java.util.ResourceBundle;
+
 
 public enum TipoPcmso {
 
-    COM_COORDENCAO("COM","Pcmso com coordenação"), 
-    SEM_COORDENACAO("SEM", "Pcmso sem coordenação");
+    COM_COORDENCAO("COM","tipoPcmso.pcmsoComCoordenacao"), 
+    SEM_COORDENACAO("SEM", "tipoPcmso.pcmsoSemCoordenacao");
+    
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("messages");
 
     private String value;
-    private String descricao;
+    private String chave;
 
-    TipoPcmso(String value, String descricao) { 
+    TipoPcmso(String value, String chave) { 
     	this.value = value;
-    	this.descricao = descricao;
+    	this.chave = chave;
     }    
 
     public String getValue() { return value; }
@@ -27,8 +31,11 @@ public enum TipoPcmso {
         return tipo;
     }
 
-	public String getDescricao() {
-		return descricao;
+	public String getChave() {
+		return chave;
+	}    
+    
+	public String getStringChave() {
+		return bundle.getString(chave);
 	}
-
 }

@@ -1,42 +1,46 @@
 package br.com.ramazzini.model.empresa;
 
+import java.util.ResourceBundle;
+
 
 public enum UnidadeFederativa {
 
-    ACRE("AC","Acre"), 
-    ALAGOAS("AL", "Alagoas"),
-    AMAZONAS("AM", "Amazonas"),
-    AMAPA("AP", "Amapá"),
-    BAHIA("BA", "Bahia"),
-    CEARA("CE", "Ceará"),
-    DISTRITO_FEDERAL("DF", "Distrito Federal"),
-    ESPIRITO_SANTO("ES", "Espírto Santo"),
-    GOIAS("GO", "Goiás"),
-    MARANHAO("MA", "Maranhão"),
-    MATO_GROSSO("MT", "Mato Grosso"),
-    MATO_GROSSO_SUL("MS", "Mato Grosso do Sul"),
-    MINAS_GERAIS("MG", "Minas Gerais"),
-    PARA("PA", "Pará"),
-    PARAIBA("PB", "Paraíba"),
-    PARANA("PR", "Paraná"),
-    PERNAMBUCO("PE", "Pernambuco"),
-    PIAUI("PI", "Piauí"),
-    RIO_DE_JANEIRO("RJ", "Rio de Janeiro"),
-    RIO_GRANDE_NORTE("RN", "Rio Grande do Norte"),
-    RIO_GRANDE_SUL("RS", "Rio Grande do Sul"),
-    RONDONIA("RO", "Rondônia"),
-    RORAIMA("RR", "Roraima"),
-    SANTA_CATARINA("SC", "Santa Catarina"),
-    SAO_PAULO("SP", "São Paulo"),
-    SERGIPE("SE", "Sergipe"),
-    TOCANTINS("TO", "Tocantins");
+    ACRE("AC","unidadeFederativa.Acre"), 
+    ALAGOAS("AL", "unidadeFederativa.Alagoas"),
+    AMAZONAS("AM", "unidadeFederativa.Amazonas"),
+    AMAPA("AP", "unidadeFederativa.Amapa"),
+    BAHIA("BA", "unidadeFederativa.Bahia"),
+    CEARA("CE", "unidadeFederativa.Ceara"),
+    DISTRITO_FEDERAL("DF", "unidadeFederativa.DistritoFederal"),
+    ESPIRITO_SANTO("ES", "unidadeFederativa.EspirtoSanto"),
+    GOIAS("GO", "unidadeFederativa.Goias"),
+    MARANHAO("MA", "unidadeFederativa.Maranhao"),
+    MATO_GROSSO("MT", "unidadeFederativa.MatoGrosso"),
+    MATO_GROSSO_SUL("MS", "unidadeFederativa.MatoGrossoSul"),
+    MINAS_GERAIS("MG", "unidadeFederativa.MinasGerais"),
+    PARA("PA", "unidadeFederativa.Para"),
+    PARAIBA("PB", "unidadeFederativa.Paraiba"),
+    PARANA("PR", "unidadeFederativa.Parana"),
+    PERNAMBUCO("PE", "unidadeFederativa.Pernambuco"),
+    PIAUI("PI", "unidadeFederativa.Piaui"),
+    RIO_DE_JANEIRO("RJ", "unidadeFederativa.RioDeJaneiro"),
+    RIO_GRANDE_NORTE("RN", "unidadeFederativa.RioGrandeNorte"),
+    RIO_GRANDE_SUL("RS", "unidadeFederativa.RioGrandeSul"),
+    RONDONIA("RO", "unidadeFederativa.Rondonia"),
+    RORAIMA("RR", "unidadeFederativa.Roraima"),
+    SANTA_CATARINA("SC", "unidadeFederativa.SantaCatarina"),
+    SAO_PAULO("SP", "unidadeFederativa.SaoPaulo"),
+    SERGIPE("SE", "unidadeFederativa.Sergipe"),
+    TOCANTINS("TO", "unidadeFederativa.Tocantins");
+    
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("messages");
 
     private String value;
-    private String descricao;
+    private String chave;
 
-    UnidadeFederativa(String value, String descricao) { 
+    UnidadeFederativa(String value, String chave) { 
     	this.value = value;
-    	this.descricao = descricao;
+    	this.chave = chave;
     }    
 
     public String getValue() { return value; }
@@ -52,8 +56,12 @@ public enum UnidadeFederativa {
         return uf;
     }
 
-	public String getDescricao() {
-		return descricao;
+	public String getChave() {
+		return chave;
+	}    
+    
+	public String getStringChave() {
+		return bundle.getString(chave);
 	}
 
 }

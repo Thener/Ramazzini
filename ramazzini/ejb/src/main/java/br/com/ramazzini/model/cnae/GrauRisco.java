@@ -1,19 +1,23 @@
 package br.com.ramazzini.model.cnae;
 
+import java.util.ResourceBundle;
+
 
 public enum GrauRisco {
 
-    RISCO_1(1,"Grau de risco 1"), 
-    RISCO_2(2, "Grau de risco 2"),
-    RISCO_3(3, "Grau de risco 3"),
-    RISCO_4(5, "Grau de risco 4");
+    RISCO_1(1,"grauRisco.grauRisco1"), 
+    RISCO_2(2, "grauRisco.grauRisco2"),
+    RISCO_3(3, "grauRisco.grauRisco3"),
+    RISCO_4(5, "grauRisco.grauRisco4");
+    
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("messages");
 
     private Integer value;
-    private String descricao;
+    private String chave;
 
-    GrauRisco(Integer value, String descricao) { 
+    GrauRisco(Integer value, String chave) { 
     	this.value = value;
-    	this.descricao = descricao;
+    	this.chave = chave;
     }    
 
     public Integer getValue() { return value; }
@@ -29,8 +33,12 @@ public enum GrauRisco {
         return grau;
     }
 
-	public String getDescricao() {
-		return descricao;
+	public String getChave() {
+		return chave;
+	}    
+    
+	public String getStringChave() {
+		return bundle.getString(chave);
 	}
 
 }

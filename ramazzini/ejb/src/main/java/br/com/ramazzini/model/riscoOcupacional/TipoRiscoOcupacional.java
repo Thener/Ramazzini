@@ -1,22 +1,26 @@
 package br.com.ramazzini.model.riscoOcupacional;
 
+import java.util.ResourceBundle;
+
 
 public enum TipoRiscoOcupacional {
 
-    AUSENCIA_RISCO_OCUPACIONAL("AUS","Ausência de Risco Ocupacional"), 
-    FISICO("FIS", "Físico"),
-    QUIMICO("QUI", "Químico"),
-    BIOLOGICO("BIO", "Biológico"),
-    ERGONOMICO("ERG", "Ergonômico"),
-    ACIDENTE("ACI", "Acidente"),
-    MECANICO("MEC", "Mecânico");
+    AUSENCIA_RISCO_OCUPACIONAL("AUS","tipoRiscoOcupacional.AusenciaRiscoOcupacional"), 
+    FISICO("FIS", "tipoRiscoOcupacional.Fisico"),
+    QUIMICO("QUI", "tipoRiscoOcupacional.Quimico"),
+    BIOLOGICO("BIO", "tipoRiscoOcupacional.Biologico"),
+    ERGONOMICO("ERG", "tipoRiscoOcupacional.Ergonomico"),
+    ACIDENTE("ACI", "tipoRiscoOcupacional.Acidente"),
+    MECANICO("MEC", "tipoRiscoOcupacional.Mecanico");
+    
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("messages");
 
     private String value;
-    private String descricao;
+    private String chave;
 
-    TipoRiscoOcupacional(String value, String descricao) { 
+    TipoRiscoOcupacional(String value, String chave) { 
     	this.value = value;
-    	this.descricao = descricao;
+    	this.chave = chave;
     }    
 
     public String getValue() { return value; }
@@ -32,8 +36,11 @@ public enum TipoRiscoOcupacional {
         return tipo;
     }
 
-	public String getDescricao() {
-		return descricao;
+	public String getChave() {
+		return chave;
+	}    
+    
+	public String getStringChave() {
+		return bundle.getString(chave);
 	}
-
 }

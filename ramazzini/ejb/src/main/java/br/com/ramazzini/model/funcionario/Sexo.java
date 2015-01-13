@@ -1,17 +1,21 @@
 package br.com.ramazzini.model.funcionario;
 
+import java.util.ResourceBundle;
+
 
 public enum Sexo {
 
-    MASCULINO("M","Masculino"), 
-    FEMININO("F", "Feminino");
+    MASCULINO("M","sexo.Masculino"), 
+    FEMININO("F", "sexo.Feminino");
+    
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("messages");
 
     private String value;
-    private String descricao;
+    private String chave;
 
-    Sexo(String value, String descricao) { 
+    Sexo(String value, String chave) { 
     	this.value = value;
-    	this.descricao = descricao;
+    	this.chave = chave;
     }    
 
     public String getValue() { return value; }
@@ -27,8 +31,12 @@ public enum Sexo {
         return sexo;
     }
 
-	public String getDescricao() {
-		return descricao;
+	public String getChave() {
+		return chave;
+	}    
+    
+	public String getStringChave() {
+		return bundle.getString(chave);
 	}
 
 }
