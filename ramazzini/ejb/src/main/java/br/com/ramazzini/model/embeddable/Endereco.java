@@ -1,41 +1,35 @@
-package br.com.ramazzini.model.endereco;
+package br.com.ramazzini.model.embeddable;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.validation.constraints.Size;
+
+import br.com.ramazzini.model.empresa.UnidadeFederativa;
 
 @Embeddable
 public class Endereco {
-	@Column(name = "nm_logradouro")
-	@Size(max = 100)
+	
+	@Column(name = "nm_logradouro", length = 100)
 	private String logradouro;
 
-	@Column(name = "no_logradouro")
-	@Size(max = 20)
+	@Column(name = "no_logradouro", length = 20)
 	private String numeroLogradouro;
 
-	@Column(name = "no_complemento")
-	@Size(max = 20)
+	@Column(name = "no_complemento", length = 20)
 	private String complementoLogradouro;
 
-	@Column(name = "nm_bairro")
-	@Size(max = 50)
+	@Column(name = "nm_bairro", length = 50)
 	private String bairro;
 
-	@Column(name = "no_cep")
-	@Size(max = 10)
+	@Column(name = "no_cep", length = 10)
 	private String cep;
 
-	@Column(name = "nm_cidade")
-	@Size(max = 100)
+	@Column(name = "nm_cidade", length = 100)
 	private String cidade;
 
-	@Column(name = "sg_uf")
-	@Size(max = 2)
+	@Column(name = "sg_uf", length = 2)
 	private String unidadeFederativa;
 
-	@Column(name = "te_referencia_endereco")
-	@Size(max = 200)
+	@Column(name = "te_referencia_endereco", length = 200)
 	private String referenciaEndereco;
 
 	public String getLogradouro() {
@@ -93,6 +87,14 @@ public class Endereco {
 	public void setUnidadeFederativa(String unidadeFederativa) {
 		this.unidadeFederativa = unidadeFederativa;
 	}
+	
+	public UnidadeFederativa getUnidadeFederativaEnum() {
+		return (this.unidadeFederativa != null) ? UnidadeFederativa.parse(this.unidadeFederativa) : null;
+	}
+
+	public void setUnidadeFederativaEnum(UnidadeFederativa unidadeFederativa) {
+		setUnidadeFederativa(unidadeFederativa.getValue());
+	}	
 
 	public String getReferenciaEndereco() {
 		return referenciaEndereco;

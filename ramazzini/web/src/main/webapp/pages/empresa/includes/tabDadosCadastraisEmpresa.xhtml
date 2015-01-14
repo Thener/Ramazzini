@@ -43,25 +43,25 @@
 	<p:fieldset legend="#{msgs['label.enderecoEmpresa']}">
 		<h:panelGrid columns="6" cellpadding="5">	
 			<p:outputLabel for="logradouro" value="#{msgs['label.logradouro']}:" />
-			<p:inputText id="logradouro" value="#{empresaController.novaEmpresa.logradouro}" required="false" />
+			<p:inputText id="logradouro" value="#{empresaController.novaEmpresa.endereco.logradouro}" required="false" />
 				
 			<p:outputLabel for="logradouroNumero" value="#{msgs['label.numeroLogradouro']}:" />
-			<p:inputText id="logradouroNumero" value="#{empresaController.novaEmpresa.numeroLogradouro}" required="false" />
+			<p:inputText id="logradouroNumero" value="#{empresaController.novaEmpresa.endereco.numeroLogradouro}" required="false" />
 		
 			<p:outputLabel for="logradouroComplemento" value="#{msgs['label.complementoLogradouro']}:" />
-			<p:inputText id="logradouroComplemento" value="#{empresaController.novaEmpresa.complementoLogradouro}" required="false" />
+			<p:inputText id="logradouroComplemento" value="#{empresaController.novaEmpresa.endereco.complementoLogradouro}" required="false" />
 		</h:panelGrid>
 		
 		<h:panelGrid columns="6" cellpadding="5">
 			<p:outputLabel for="logradouroBairro" value="#{msgs['label.bairro']}:" />
-			<p:inputText id="logradouroBairro" value="#{empresaController.novaEmpresa.bairro}" required="false" />
+			<p:inputText id="logradouroBairro" value="#{empresaController.novaEmpresa.endereco.bairro}" required="false" />
 		
 			<p:outputLabel for="cidade" value="#{msgs['label.cidade']}:" />
-			<p:inputText id="cidade" value="#{empresaController.novaEmpresa.cidade}" required="false" />
+			<p:inputText id="cidade" value="#{empresaController.novaEmpresa.endereco.cidade}" required="false" />
 			
 			<p:outputLabel for="uf" value="#{msgs['label.uf']}:" />
 			<p:selectOneMenu id="uf"
-				value="#{empresaController.novaEmpresa.unidadeFederativa}">
+				value="#{empresaController.novaEmpresa.endereco.unidadeFederativa}">
 				<f:selectItems value="#{empresaController.ufs}" var="uf"
 					itemLabel="#{uf.stringChave}" itemValue="#{uf.value}" />
 			</p:selectOneMenu>
@@ -73,25 +73,25 @@
 	<p:fieldset legend="#{msgs['label.enderecoCorrespondencia']}">
 		<h:panelGrid columns="6" cellpadding="5">	
 			<p:outputLabel for="logradouroCorrespondencia" value="#{msgs['label.logradouro']}:" />
-			<p:inputText id="logradouroCorrespondencia" value="#{empresaController.novaEmpresa.logradouroCorrespondencia}" required="false" />
+			<p:inputText id="logradouroCorrespondencia" value="#{empresaController.novaEmpresa.enderecoCorrespondencia.logradouro}" required="false" />
 				
 			<p:outputLabel for="logradouroNumeroCorrespondencia" value="#{msgs['label.numeroLogradouro']}:" />
-			<p:inputText id="logradouroNumeroCorrespondencia" value="#{empresaController.novaEmpresa.numeroLogradouroCorrespondencia}" required="false" />
+			<p:inputText id="logradouroNumeroCorrespondencia" value="#{empresaController.novaEmpresa.enderecoCorrespondencia.numeroLogradouro}" required="false" />
 		
 			<p:outputLabel for="logradouroComplementoCorrespondencia" value="#{msgs['label.complementoLogradouro']}:" />
-			<p:inputText id="logradouroComplementoCorrespondencia" value="#{empresaController.novaEmpresa.complementoLogradouroCorrespondencia}" required="false" />
+			<p:inputText id="logradouroComplementoCorrespondencia" value="#{empresaController.novaEmpresa.enderecoCorrespondencia.complementoLogradouro}" required="false" />
 		</h:panelGrid>
 		
 		<h:panelGrid columns="6" cellpadding="5">
 			<p:outputLabel for="logradouroBairroCorrespondencia" value="#{msgs['label.bairro']}:" />
-			<p:inputText id="logradouroBairroCorrespondencia" value="#{empresaController.novaEmpresa.bairroCorrespondencia}" required="false" />
+			<p:inputText id="logradouroBairroCorrespondencia" value="#{empresaController.novaEmpresa.enderecoCorrespondencia.bairro}" required="false" />
 		
 			<p:outputLabel for="cidadeCorrespondencia" value="#{msgs['label.cidade']}:" />
-			<p:inputText id="cidadeCorrespondencia" value="#{empresaController.novaEmpresa.cidadeCorrespondencia}" required="false" />
+			<p:inputText id="cidadeCorrespondencia" value="#{empresaController.novaEmpresa.enderecoCorrespondencia.cidade}" required="false" />
 			
 			<p:outputLabel for="ufCorrespondencia" value="#{msgs['label.uf']}:" />
 			<p:selectOneMenu id="ufCorrespondencia"
-				value="#{empresaController.novaEmpresa.unidadeFederativaCorrespondencia}">
+				value="#{empresaController.novaEmpresa.enderecoCorrespondencia.unidadeFederativa}">
 				<f:selectItems value="#{empresaController.ufs}" var="uf"
 					itemLabel="#{uf.stringChave}" itemValue="#{uf.value}" />
 			</p:selectOneMenu>

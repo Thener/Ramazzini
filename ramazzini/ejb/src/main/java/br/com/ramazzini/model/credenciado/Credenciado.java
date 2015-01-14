@@ -19,7 +19,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import br.com.ramazzini.model.endereco.Endereco;
+import br.com.ramazzini.model.embeddable.Endereco;
 import br.com.ramazzini.model.procedimentoCredenciado.ProcedimentoCredenciado;
 import br.com.ramazzini.model.util.AbstractEntidade;
 

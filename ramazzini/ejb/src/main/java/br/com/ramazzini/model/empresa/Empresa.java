@@ -3,8 +3,11 @@ package br.com.ramazzini.model.empresa;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -21,6 +24,7 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import br.com.ramazzini.model.cnae.Cnae;
+import br.com.ramazzini.model.embeddable.Endereco;
 import br.com.ramazzini.model.empresaServico.EmpresaServico;
 import br.com.ramazzini.model.funcao.Funcao;
 import br.com.ramazzini.model.funcionario.Funcionario;
@@ -80,61 +84,29 @@ public class Empresa extends AbstractEntidade implements Serializable {
 	@JoinColumn(name="cd_cnae")
 	private Cnae cnae;	
 	
-    @Column(name = "nm_logradouro")
-    @Size(max = 100)	
-	private String logradouro;
-	
-    @Column(name = "no_logradouro")
-    @Size(max = 20)    
-	private String numeroLogradouro;
-	
-    @Column(name = "no_complemento")
-    @Size(max = 20)
-	private String complementoLogradouro;
-	
-    @Column(name = "nm_bairro")
-    @Size(max = 50)    
-	private String bairro;
-	
-    @Column(name = "no_cep")
-    @Size(max = 10)    
-	private String cep;
-	
-    @Column(name = "nm_cidade")
-    @Size(max = 100)
-	private String cidade;
-	
-    @Column(name = "sg_uf")
-    @Size(max = 2)    
-	private String unidadeFederativa;
-    
-    @Column(name = "nm_logradouro_correspondencia")
-    @Size(max = 100)	
-	private String logradouroCorrespondencia;
-	
-    @Column(name = "no_logradouro_correspondencia")
-    @Size(max = 20)    
-	private String numeroLogradouroCorrespondencia;
-	
-    @Column(name = "no_complemento_correspondencia")
-    @Size(max = 20)
-	private String complementoLogradouroCorrespondencia;
-	
-    @Column(name = "nm_bairro_correspondencia")
-    @Size(max = 50)    
-	private String bairroCorrespondencia;
-	
-    @Column(name = "no_cep_correspondencia")
-    @Size(max = 10)    
-	private String cepCorrespondencia;
-	
-    @Column(name = "nm_cidade_correspondencia")
-    @Size(max = 100)
-	private String cidadeCorrespondencia;
-	
-    @Column(name = "sg_uf_correspondencia")
-    @Size(max = 2)
-	private String unidadeFederativaCorrespondencia;    
+	@Embedded
+    private Endereco endereco = new Endereco(); 
+
+	@Embedded
+	@AttributeOverrides({
+		@AttributeOverride(name="logradouro",
+		column=@Column(name="nm_logradouro_correspondencia")),
+		@AttributeOverride(name="numeroLogradouro",
+		column=@Column(name="no_logradouro_correspondencia")),
+		@AttributeOverride(name="complementoLogradouro",
+		column=@Column(name="no_complemento_correspondencia")),
+		@AttributeOverride(name="bairro",
+		column=@Column(name="nm_bairro_correspondencia")),
+		@AttributeOverride(name="cep",
+		column=@Column(name="no_cep_correspondencia")),
+		@AttributeOverride(name="cidade",
+		column=@Column(name="nm_cidade_correspondencia")),
+		@AttributeOverride(name="unidadeFederativa",
+		column=@Column(name="sg_uf_correspondencia")),
+		@AttributeOverride(name="referenciaEndereco",
+		column=@Column(name="te_referencia_endereco_correspondencia"))		
+		})	
+    private Endereco enderecoCorrespondencia = new Endereco(); 
     
     @Column(name = "em_empresa")
     @Size(max = 200)
@@ -297,138 +269,6 @@ public class Empresa extends AbstractEntidade implements Serializable {
 		this.cnae = cnae;
 	}
 
-	public String getLogradouro() {
-		return logradouro;
-	}
-
-	public void setLogradouro(String logradouro) {
-		this.logradouro = logradouro;
-	}
-
-	public String getNumeroLogradouro() {
-		return numeroLogradouro;
-	}
-
-	public void setNumeroLogradouro(String numeroLogradouro) {
-		this.numeroLogradouro = numeroLogradouro;
-	}
-
-	public String getComplementoLogradouro() {
-		return complementoLogradouro;
-	}
-
-	public void setComplementoLogradouro(String complementoLogradouro) {
-		this.complementoLogradouro = complementoLogradouro;
-	}
-
-	public String getBairro() {
-		return bairro;
-	}
-
-	public void setBairro(String bairro) {
-		this.bairro = bairro;
-	}
-
-	public String getCep() {
-		return cep;
-	}
-
-	public void setCep(String cep) {
-		this.cep = cep;
-	}
-
-	public String getCidade() {
-		return cidade;
-	}
-
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
-	}
-
-	public String getUnidadeFederativa() {
-		return unidadeFederativa;
-	}
-
-	public void setUnidadeFederativa(String unidadeFederativa) {
-		this.unidadeFederativa = unidadeFederativa;
-	}
-	
-	public UnidadeFederativa getUnidadeFederativaEnum() {
-		return (this.unidadeFederativa != null) ? UnidadeFederativa.parse(this.unidadeFederativa) : null;
-	}
-
-	public void setUnidadeFederativaEnum(UnidadeFederativa unidadeFederativa) {
-		setUnidadeFederativa(unidadeFederativa.getValue());
-	}	
-
-	public String getLogradouroCorrespondencia() {
-		return logradouroCorrespondencia;
-	}
-
-	public void setLogradouroCorrespondencia(String logradouroCorrespondencia) {
-		this.logradouroCorrespondencia = logradouroCorrespondencia;
-	}
-
-	public String getNumeroLogradouroCorrespondencia() {
-		return numeroLogradouroCorrespondencia;
-	}
-
-	public void setNumeroLogradouroCorrespondencia(
-			String numeroLogradouroCorrespondencia) {
-		this.numeroLogradouroCorrespondencia = numeroLogradouroCorrespondencia;
-	}
-
-	public String getComplementoLogradouroCorrespondencia() {
-		return complementoLogradouroCorrespondencia;
-	}
-
-	public void setComplementoLogradouroCorrespondencia(
-			String complementoLogradouroCorrespondencia) {
-		this.complementoLogradouroCorrespondencia = complementoLogradouroCorrespondencia;
-	}
-
-	public String getBairroCorrespondencia() {
-		return bairroCorrespondencia;
-	}
-
-	public void setBairroCorrespondencia(String bairroCorrespondencia) {
-		this.bairroCorrespondencia = bairroCorrespondencia;
-	}
-
-	public String getCepCorrespondencia() {
-		return cepCorrespondencia;
-	}
-
-	public void setCepCorrespondencia(String cepCorrespondencia) {
-		this.cepCorrespondencia = cepCorrespondencia;
-	}
-
-	public String getCidadeCorrespondencia() {
-		return cidadeCorrespondencia;
-	}
-
-	public void setCidadeCorrespondencia(String cidadeCorrespondencia) {
-		this.cidadeCorrespondencia = cidadeCorrespondencia;
-	}
-
-	public String getUnidadeFederativaCorrespondencia() {
-		return unidadeFederativaCorrespondencia;
-	}
-
-	public void setUnidadeFederativaCorrespondencia(
-			String unidadeFederativaCorrespondencia) {
-		this.unidadeFederativaCorrespondencia = unidadeFederativaCorrespondencia;
-	}
-	
-	public UnidadeFederativa getUnidadeFederativaCorrespondenciaEnum() {
-		return (this.unidadeFederativaCorrespondencia != null) ? 
-				UnidadeFederativa.parse(this.unidadeFederativaCorrespondencia) : null;
-	}
-
-	public void setUnidadeFederativaCorrespondenciaEnum(UnidadeFederativa unidadeFederativa) {
-		setUnidadeFederativaCorrespondencia(unidadeFederativa.getValue());
-	}	
-
 	public String getEmail() {
 		return email;
 	}
@@ -547,6 +387,22 @@ public class Empresa extends AbstractEntidade implements Serializable {
 
 	public void setFuncionarios(List<Funcionario> funcionarios) {
 		this.funcionarios = funcionarios;
+	}
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+
+	public Endereco getEnderecoCorrespondencia() {
+		return enderecoCorrespondencia;
+	}
+
+	public void setEnderecoCorrespondencia(Endereco enderecoCorrespondencia) {
+		this.enderecoCorrespondencia = enderecoCorrespondencia;
 	}    
 
 	
