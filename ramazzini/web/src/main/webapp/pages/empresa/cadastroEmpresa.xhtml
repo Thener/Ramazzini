@@ -16,19 +16,19 @@
 				<h:panelGrid columns="8" cellpadding="5">
 					
 					<p:outputLabel for="nome" value="#{msgs['label.nome']}:" />
-					<p:inputText id="nome"
-						value="#{empresaController.novaEmpresa.nome}" required="true" styleClass="nome100"/>
+					<p:inputText id="nome" value="#{empresaController.empresa.nome}" 
+						required="true" maxlength="100" styleClass="nome100"/>
 						
 					<p:outputLabel for="situacaoEmpresa" value="#{msgs['label.situacao']}:" />
 					<p:selectOneMenu id="situacaoEmpresa"
-						value="#{empresaController.novaEmpresa.situacaoEmpresa}">
+						value="#{empresaController.empresa.situacaoEmpresa}">
 						<f:selectItems value="#{empresaController.situacoesEmpresa}" var="sitEmpresa"
 							itemLabel="#{sitEmpresa.stringChave}" itemValue="#{sitEmpresa.value}" />
 					</p:selectOneMenu>	
 					
 					<p:outputLabel for="tipoPcmso" value="#{msgs['label.tipoPcmso']}:" />
 					<p:selectOneMenu id="tipoPcmso"
-						value="#{empresaController.novaEmpresa.tipoPcmso}">
+						value="#{empresaController.empresa.tipoPcmso}">
 						<f:selectItems value="#{empresaController.tiposPcmso}" var="tipoPcmso"
 							itemLabel="#{tipoPcmso.stringChave}" itemValue="#{tipoPcmso.value}" />
 					</p:selectOneMenu>
@@ -40,11 +40,11 @@
 		        		<ui:include src="includes/tabDadosCadastraisEmpresa.xhtml" />
 		        	</p:tab>
 		        	<p:tab title="#{msgs['label.orientacoesEspecificas']}">
-		        		<p:inputTextarea  value="#{empresaController.novaEmpresa.orientacoesEspecificas}" 
+		        		<p:inputTextarea  value="#{empresaController.empresa.orientacoesEspecificas}" 
 		        			style="width:100%; height:300px;" />
 		        	</p:tab>
 		        	<p:tab title="#{msgs['label.observacoes']}">
-		        		<p:inputTextarea  value="#{empresaController.novaEmpresa.observacoesGerais}" 
+		        		<p:inputTextarea  value="#{empresaController.empresa.observacoesGerais}" 
 		        			style="width:100%; height:300px;" />
 		        	</p:tab>
 		        </p:tabView>
@@ -58,9 +58,10 @@
 						icon="ui-icon-arrowreturnthick-1-w" title="Voltar"
 						action="pesquisarEmpresa.jsf?faces-redirect=true">
 					</p:commandButton>
-					<p:commandButton id="salvar" action="#{empresaController.salvar()}"
+					<p:commandButton id="salvar" action="#{empresaController.gravarEmpresa()}"
 						value="Salvar" icon="ui-icon-disk" title="Salvar"
-						styleClass="register" update="panelDadosEmpresa" />
+						styleClass="register" update="panelDadosEmpresa" 
+						disabled="#{empresaController.somenteLeitura}"/>
 				</f:facet>
 				
 			</p:toolbar>
