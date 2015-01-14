@@ -27,6 +27,7 @@ public class EmpresaController extends AbstractBean implements Serializable {
 	
 	private static final String PAGINA_PESQUISAR_EMPRESA = "pesquisarEmpresa.js?faces-redirect=true";
 	private static final String PAGINA_ALTERAR_EMPRESA = "alterarEmpresa.js?faces-redirect=true";
+	private static final String PAGINA_INCLUIR_EMPRESA = "incluirEmpresa.jsf?faces-redirect=true";
 
 	private @Inject Conversation conversation;
 	
@@ -51,11 +52,14 @@ public class EmpresaController extends AbstractBean implements Serializable {
 	@PostConstruct
 	public void init() {
 
-		novaEmpresa = new Empresa();
-		
 		if (conversation.isTransient()) {
 			conversation.begin();
 		}
+	}
+	
+	public String incluirEmpresa() {
+		this.novaEmpresa = new Empresa();
+		return PAGINA_INCLUIR_EMPRESA;
 	}
 	
 	public String salvar() {

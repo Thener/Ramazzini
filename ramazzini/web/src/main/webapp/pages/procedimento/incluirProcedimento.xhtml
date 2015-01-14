@@ -12,19 +12,19 @@
 				<h:panelGrid columns="4" cellpadding="10">
 					<p:outputLabel for="nome" value="#{msgs['label.nome']}:" />
 					<p:inputText id="nome"
-						value="#{procedimentoController.procedimentoSelecionado.nome}" required="true" />
+						value="#{procedimentoController.novoProcedimento.nome}" required="true" />
 
 					<p:outputLabel for="nomeAbreviado" value="#{msgs['label.nomeAbreviado']}:" />
 					<p:inputText id="nomeAbreviado"
-						value="#{procedimentoController.procedimentoSelecionado.nomeAbreviado}" required="false" />
+						value="#{procedimentoController.novoProcedimento.nomeAbreviado}" required="false" />
 
 					<p:outputLabel for="sigla" value="#{msgs['label.sigla']}:" />
 					<p:inputText id="sigla"
-						value="#{procedimentoController.procedimentoSelecionado.sigla}" required="true" />
+						value="#{procedimentoController.novoProcedimento.sigla}" required="true" />
 
 					<p:outputLabel for="tipoProcedimento" value="#{msgs['label.tipoProcedimento']}:" />
 					<p:selectOneMenu id="tipoProcedimento"
-						value="#{procedimentoController.procedimentoSelecionado.tipoProcedimento}">
+						value="#{procedimentoController.novoProcedimento.tipoProcedimento}">
 						<f:selectItems value="#{procedimentoController.tiposProcedimento}" var="tipoProcedimento"
 							itemLabel="#{tipoProcedimento.stringChave}" itemValue="#{tipoProcedimento.value}" />
 					</p:selectOneMenu>
