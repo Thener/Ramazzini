@@ -1,6 +1,7 @@
 package br.com.ramazzini.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -10,7 +11,10 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.ramazzini.model.credenciado.Credenciado;
+import br.com.ramazzini.model.empresa.UnidadeFederativa;
+import br.com.ramazzini.model.procedimento.Procedimento;
 import br.com.ramazzini.service.CredenciadoService;
+import br.com.ramazzini.service.ProcedimentoService;
 import br.com.ramazzini.util.UtilMensagens;
 
 @Named
@@ -26,6 +30,9 @@ public class CredenciadoController extends AbstractBean implements Serializable 
 	
     @Inject
     private CredenciadoService credenciadoService;  	
+    
+    @Inject
+    private ProcedimentoService procedimentoService;      
 	
 	private Credenciado novoCredenciado;
 	
@@ -35,12 +42,14 @@ public class CredenciadoController extends AbstractBean implements Serializable 
 	
 	private Credenciado credenciadoSelecionado;
 	
+	private Procedimento procedimentoSelecionado;
+	
 	private boolean somenteLeitura = Boolean.FALSE;
 	
 	@PostConstruct
 	public void init() {
 
-		novoCredenciado = new Credenciado();
+		novoCredenciado = new Credenciado();	
 		
 		if (conversation.isTransient()) {
 			conversation.begin();
@@ -93,7 +102,21 @@ public class CredenciadoController extends AbstractBean implements Serializable 
     	} catch (Exception e) {
     		UtilMensagens.mensagemErro("Não foi possível remover a empresa!");
         }
-    }        
+    }   
+    
+    public List<Procedimento> completeProcedimento(String query) {
+        List<Procedimento> todosProcedimentos = procedimentoService.recuperarTodos();
+        List<Procedimento> procedimentosFiltrados = new ArrayList<Procedimento>();
+         
+        for (int i = 0; i < todosProcedimentos.size(); i++) {
+        	Procedimento skin = todosProcedimentos.get(i);
+            if(skin.getNome().toLowerCase().startsWith(query)) {
+            	procedimentosFiltrados.add(skin);
+            }
+        }         
+        return procedimentosFiltrados;
+    }
+ 
 
 	public Credenciado getNovoCredenciado() {
 		return novoCredenciado;
@@ -131,4 +154,15 @@ public class CredenciadoController extends AbstractBean implements Serializable 
 		this.somenteLeitura = somenteLeitura;
 	}  
 	
+	public UnidadeFederativa[] getUnidadesFederativas() {
+		return UnidadeFederativa.values();
+	}
+
+	public Procedimento getProcedimentoSelecionado() {
+		return procedimentoSelecionado;
+	}
+
+	public void setProcedimentoSelecionado(Procedimento procedimentoSelecionado) {
+		this.procedimentoSelecionado = procedimentoSelecionado;
+	}	
 }

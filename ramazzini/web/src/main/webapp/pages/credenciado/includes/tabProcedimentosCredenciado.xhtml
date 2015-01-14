@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui">
+  	
+	<p:outputLabel value="#{msgs['label.procedimento']}" for="procedimento" />
+	<p:autoComplete id="procedimento"
+		value="#{credenciadoController.procedimentoSelecionado}"
+		completeMethod="#{credenciadoController.completeProcedimento}"
+		var="procedimento" itemLabel="#{procedimento.nome}"
+		itemValue="#{procedimento}" converter="entityConverter"
+		forceSelection="true" />
+
+</ui:composition>

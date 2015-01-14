@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:panel id="panelDadosCredenciado"
+		header="#{msgs['label.credenciado']}">
+
+		<h:panelGrid columns="6" cellpadding="10">
+
+			<p:outputLabel for="nome" value="#{msgs['label.nome']}" />
+			<p:inputText id="nome"
+				value="#{credenciadoController.novoCredenciado.nome}"
+				required="true" />
+
+			<h:outputLabel for="ativoCheck" value="#{msgs['label.ativo']}" />
+			<p:selectBooleanCheckbox id="ativoCheck"
+				value="#{credenciadoController.novoCredenciado.ativo}" />
+
+			<p:outputLabel for="horario"
+				value="#{msgs['label.horarioAtendimento']}" />
+			<p:inputText id="horario"
+				value="#{credenciadoController.novoCredenciado.horarioAtendimento}"
+				required="true" />
+		</h:panelGrid>
+
+		<h5 >#{msgs['label.endereco']}</h5>
+		<p:separator />
+
+		<h:panelGrid columns="6" cellpadding="10">
+			
+			<p:outputLabel for="cep" value="#{msgs['label.CEP']}" />
+			<p:inputMask id="cep"
+				value="#{credenciadoController.novoCredenciado.endereco.cep}"
+				mask="9999-999" required="true" />
+				
+			<p:outputLabel for="logradouro" value="#{msgs['label.logradouro']}" />
+			<p:inputText id="logradouro"
+				value="#{credenciadoController.novoCredenciado.endereco.logradouro}"
+				required="true" />
+			
+			<p:outputLabel for="numero" value="#{msgs['label.numero']}" />
+			<p:inputText id="numero"
+				value="#{credenciadoController.novoCredenciado.endereco.numeroLogradouro}"
+				required="true" />
+			
+			<p:outputLabel for="complemento" value="#{msgs['label.complemento']}" />
+			<p:inputText id="complemento"
+				value="#{credenciadoController.novoCredenciado.endereco.complementoLogradouro}"
+				required="true" />
+				
+			<p:outputLabel for="bairro" value="#{msgs['label.bairro']}" />
+			<p:inputText id="bairro"
+				value="#{credenciadoController.novoCredenciado.endereco.bairro}"
+				required="true" />
+			
+			<p:outputLabel for="cidade" value="#{msgs['label.cidade']}" />
+			<p:inputText id="cidade"
+				value="#{credenciadoController.novoCredenciado.endereco.cidade}"
+				required="true" />
+			
+			<p:outputLabel for="uf" value="#{msgs['label.unidadeFederativa']}:" />
+					<p:selectOneMenu id="uf"
+						value="#{credenciadoController.novoCredenciado.endereco.unidadeFederativa}">
+						<f:selectItems value="#{credenciadoController.unidadesFederativas}" var="uf"
+							itemLabel="#{uf.stringChave}" itemValue="#{uf.value}" />
+					</p:selectOneMenu>		
+			
+			<p:outputLabel for="uf" value="#{msgs['label.referenciaEndereco']}:" />
+    		<p:inputTextarea id="referenciaEndereco" rows="3" cols="33" value="#{credenciadoController.novoCredenciado.endereco.referenciaEndereco}"/>
+					
+			<p:growl id="growl" showDetail="true" sticky="true" />
+
+		</h:panelGrid>
+
+	</p:panel>
+
+</ui:composition>
