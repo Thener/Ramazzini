@@ -13,22 +13,40 @@
 		
 			<p:panel id="panelDadosEmpresa" header="#{msgs['label.dadosCadastrais']}">
 			
-				<h:panelGrid columns="4" cellpadding="10">
+				<h:panelGrid columns="8" cellpadding="5">
 					
 					<p:outputLabel for="nome" value="#{msgs['label.nome']}:" />
 					<p:inputText id="nome"
-						value="#{empresaController.novaEmpresa.nome}" required="true" />
+						value="#{empresaController.novaEmpresa.nome}" required="true" styleClass="nome100"/>
+						
+					<p:outputLabel for="situacaoEmpresa" value="#{msgs['label.situacao']}:" />
+					<p:selectOneMenu id="situacaoEmpresa"
+						value="#{empresaController.novaEmpresa.situacaoEmpresa}">
+						<f:selectItems value="#{empresaController.situacoesEmpresa}" var="sitEmpresa"
+							itemLabel="#{sitEmpresa.stringChave}" itemValue="#{sitEmpresa.value}" />
+					</p:selectOneMenu>	
 					
-					
+					<p:outputLabel for="tipoPcmso" value="#{msgs['label.tipoPcmso']}:" />
+					<p:selectOneMenu id="tipoPcmso"
+						value="#{empresaController.novaEmpresa.tipoPcmso}">
+						<f:selectItems value="#{empresaController.tiposPcmso}" var="tipoPcmso"
+							itemLabel="#{tipoPcmso.stringChave}" itemValue="#{tipoPcmso.value}" />
+					</p:selectOneMenu>
 					
 				</h:panelGrid>
 				
 				<p:tabView id="tabViewIncluirEmpresa">
-		        	<p:tab title="Dados Cadastrais">
+		        	<p:tab title="#{msgs['label.dadosCadastrais']}">
 		        		<ui:include src="includes/tabDadosCadastraisEmpresa.xhtml" />
 		        	</p:tab>
-		        	<p:tab title="Funções">
-		        	</p:tab>		        	
+		        	<p:tab title="#{msgs['label.orientacoesEspecificas']}">
+		        		<p:inputTextarea  value="#{empresaController.novaEmpresa.orientacoesEspecificas}" 
+		        			style="width:100%; height:300px;" />
+		        	</p:tab>
+		        	<p:tab title="#{msgs['label.observacoes']}">
+		        		<p:inputTextarea  value="#{empresaController.novaEmpresa.observacoesGerais}" 
+		        			style="width:100%; height:300px;" />
+		        	</p:tab>
 		        </p:tabView>
 				
 			</p:panel>
