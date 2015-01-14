@@ -70,6 +70,9 @@ public class Empresa extends AbstractEntidade implements Serializable {
 	@Column(name = "no_cei", length = 20)
 	private String cei;
 	
+	@Column(name = "no_inscricao_estadual", length = 20)
+	private String inscricaoEstadual;	
+	
 	@Column(name = "no_cpf", length = 14)
 	private String cpf;
 	
@@ -268,6 +271,14 @@ public class Empresa extends AbstractEntidade implements Serializable {
 
 	public void setCei(String cei) {
 		this.cei = cei;
+	}
+	
+	public String getInscricaoEstadual() {
+		return inscricaoEstadual;
+	}
+
+	public void setInscricaoEstadual(String inscricaoEstadual) {
+		this.inscricaoEstadual = inscricaoEstadual;
 	}
 
 	public String getCpf() {

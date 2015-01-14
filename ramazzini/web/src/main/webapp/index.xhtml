@@ -10,17 +10,17 @@
 
 		<p:growl id="messages" />
 		
-		<p:dialog header="Bem-vindo" height="160" width="375" visible="true"
+		<p:dialog header="#{msgs['label.bemVindo']}" height="160" width="375" visible="true"
 			resizable="false" closable="false">
 
 			<h:form id="login">
 
 				<p:panelGrid columns="2" cellpadding="5">
-					<p:outputLabel value="Usuário" for="inputUsuario" />
+					<p:outputLabel value="#{msgs['label.usuario']}:" for="inputUsuario" />
 					<p:inputText id="inputUsuario"
 						value="#{loginController.usuario.login}" />
 
-					<p:outputLabel value="Senha" for="inputSenha" />
+					<p:outputLabel value="#{msgs['label.senha']}:" for="inputSenha" />
 					<p:password id="inputSenha"
 						value="#{loginController.usuario.senha}" />
 						
@@ -28,11 +28,11 @@
 					
 					<h:panelGroup>
 						<p:selectBooleanCheckbox value="#{loginController.lembrarEmail}" />
-						<h:outputText value="Lembrar usuário" />
+						<h:outputText value="#{msgs['label.lembrarUsuario']}" />
 					</h:panelGroup>
 					
 					<f:facet name="footer">
-						<p:commandButton action="#{loginController.login()}" value="Login"
+						<p:commandButton action="#{loginController.login()}" value="#{msgs['label.login']}"
 							icon="ui-icon-check" ajax="false" />
 					</f:facet>
 				</p:panelGrid>

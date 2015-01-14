@@ -9,8 +9,13 @@ import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import br.com.ramazzini.model.cnae.Cnae;
 import br.com.ramazzini.model.empresa.Empresa;
+import br.com.ramazzini.model.empresa.SituacaoEmpresa;
+import br.com.ramazzini.model.empresa.TipoPcmso;
 import br.com.ramazzini.model.empresa.TipoPessoa;
+import br.com.ramazzini.model.empresa.UnidadeFederativa;
+import br.com.ramazzini.service.CnaeService;
 import br.com.ramazzini.service.EmpresaService;
 import br.com.ramazzini.util.UtilMensagens;
 
@@ -28,9 +33,14 @@ public class EmpresaController extends AbstractBean implements Serializable {
     @Inject
     private EmpresaService empresaService;  	
 	
+    @Inject
+    private CnaeService cnaeService; 
+    
 	private Empresa novaEmpresa;
 	
 	private List<Empresa> empresas;
+	
+	private List<Cnae> cnaes;
 	
 	private String nomeEmpresaPesquisa;
 	
@@ -134,6 +144,25 @@ public class EmpresaController extends AbstractBean implements Serializable {
     
 	public TipoPessoa[] getTiposPessoa() {
 		return TipoPessoa.values();
+	}
+	
+	public List<Cnae> getCnaes() {
+		if (cnaes == null || cnaes.isEmpty()) {
+			cnaes = cnaeService.recuperarTodos("numero");
+		}
+		return cnaes;
+	}
+	
+	public UnidadeFederativa[] getUfs() {
+		return UnidadeFederativa.values();
+	}
+	
+	public SituacaoEmpresa[] getSituacoesEmpresa() {
+		return SituacaoEmpresa.values();
+	}
+	
+	public TipoPcmso[] getTiposPcmso() {
+		return TipoPcmso.values();
 	}	
 	
 }
