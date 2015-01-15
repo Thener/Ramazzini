@@ -22,16 +22,6 @@
 		
 		<p:outputLabel for="cei" value="#{msgs['label.cei']}:" />
 		<p:inputText id="cei" value="#{empresaController.empresa.cei}" required="false" maxlength="20" />
-	</h:panelGrid>
-	
-	<h:panelGrid columns="6" cellpadding="5">	
-		<p:outputLabel for="cnae" value="#{msgs['label.cnae']}:" />
-		<p:selectOneMenu id="cnae"
-			value="#{empresaController.empresa.cnae}">
-			<f:selectItems value="#{empresaController.cnaes}" var="cnae"
-				itemLabel="#{cnae.numero}" itemValue="#{cnae}" 
-				converter="entityConverter" />
-		</p:selectOneMenu>
 		
 		<p:outputLabel for="inscricaoEstadual" value="#{msgs['label.inscricaoEstadual']}:" />
 		<p:inputText id="inscricaoEstadual" value="#{empresaController.empresa.inscricaoEstadual}" 
@@ -39,6 +29,14 @@
 		
 		<p:outputLabel for="cpf" value="#{msgs['label.cpf']}:" />
 		<p:inputMask mask="#{msgs['pattern.cpf']}" id="cpf" value="#{empresaController.empresa.cpf}" required="false" styleClass="cpf" />
+		
+		<p:outputLabel for="cnae" value="#{msgs['label.cnae']}:" />
+		<p:selectOneMenu id="cnae"
+			value="#{empresaController.empresa.cnae}">
+			<f:selectItems value="#{empresaController.cnaes}" var="cnae"
+				itemLabel="#{cnae.numero}" itemValue="#{cnae}" 
+				converter="entityConverter" />
+		</p:selectOneMenu>		
 	</h:panelGrid>
 	
 	<p:fieldset legend="#{msgs['label.enderecoEmpresa']}">
@@ -54,9 +52,7 @@
 			<p:outputLabel for="logradouroComplemento" value="#{msgs['label.complementoLogradouro']}:" />
 			<p:inputText id="logradouroComplemento" value="#{empresaController.empresa.endereco.complementoLogradouro}" 
 				maxlength="20" required="false" />
-		</h:panelGrid>
-		
-		<h:panelGrid columns="6" cellpadding="5">
+
 			<p:outputLabel for="logradouroBairro" value="#{msgs['label.bairro']}:" />
 			<p:inputText id="logradouroBairro" value="#{empresaController.empresa.endereco.bairro}" 
 				maxlength="50" required="false" />
@@ -89,9 +85,7 @@
 			<p:outputLabel for="logradouroComplementoCorrespondencia" value="#{msgs['label.complementoLogradouro']}:" />
 			<p:inputText id="logradouroComplementoCorrespondencia" value="#{empresaController.empresa.enderecoCorrespondencia.complementoLogradouro}" 
 				maxlength="20" required="false" />
-		</h:panelGrid>
-		
-		<h:panelGrid columns="6" cellpadding="5">
+
 			<p:outputLabel for="logradouroBairroCorrespondencia" value="#{msgs['label.bairro']}:" />
 			<p:inputText id="logradouroBairroCorrespondencia" value="#{empresaController.empresa.enderecoCorrespondencia.bairro}" 
 				maxlength="50" required="false" />

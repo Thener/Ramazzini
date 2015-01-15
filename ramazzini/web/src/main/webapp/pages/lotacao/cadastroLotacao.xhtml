@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui"
+   template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+	
+		<h:form id="frmAlterarLotacao">
+		
+			<p:growl id="growl" showDetail="true" sticky="true" />
+			
+			<p:panel id="panelDadosLotacao" header="#{msgs['label.dadosLotacao']}">
+			
+				<h:panelGrid columns="4" cellpadding="10">
+					
+					<p:outputLabel for="nome" value="#{msgs['label.nome']}:" />
+					<p:inputText id="nome"
+						value="#{lotacaoController.lotacao.nome}" maxlength="100" required="true" />
+					
+				</h:panelGrid>
+				
+			</p:panel>
+			
+			<p:toolbar>
+				<f:facet name="left">
+					<p:commandButton id="botaoVoltar" immediate="true"
+						icon="ui-icon-arrowreturnthick-1-w" title="Voltar"
+						action="/pages/empresa/cadastroEmpresa.jsf?faces-redirect=true">
+					</p:commandButton>
+					<p:commandButton id="salvar" action="#{lotacaoController.gravarLotacao()}"
+						value="Salvar" icon="ui-icon-disk" title="#{msgs['botao.gravar']}"
+						styleClass="register" update="panelDadosLotacao"
+						disabled="#{empresaController.somenteLeitura}" />
+				</f:facet>
+			</p:toolbar>
+		</h:form>
+	</ui:define>
+</ui:composition>

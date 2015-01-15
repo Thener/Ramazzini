@@ -39,6 +39,21 @@
 		        	<p:tab title="#{msgs['label.dadosCadastrais']}">
 		        		<ui:include src="includes/tabDadosCadastraisEmpresa.xhtml" />
 		        	</p:tab>
+		        	<p:tab title="#{msgs['label.responsaveis']}">
+						<ui:include src="includes/tabResponsaveis.xhtml" />
+		        	</p:tab>
+		        	<p:tab title="#{msgs['label.lotacoes']}">
+						<ui:include src="includes/tabLotacoes.xhtml" />
+		        	</p:tab>
+		        	<p:tab title="#{msgs['label.setores']}">
+						<ui:include src="includes/tabSetores.xhtml" />
+		        	</p:tab>
+		        	<p:tab title="#{msgs['label.funcoes']}">
+						<ui:include src="includes/tabFuncoes.xhtml" />
+		        	</p:tab>
+		        	<p:tab title="#{msgs['label.funcionarios']}">
+						<ui:include src="includes/tabFuncionarios.xhtml" />
+		        	</p:tab>
 		        	<p:tab title="#{msgs['label.orientacoesEspecificas']}">
 		        		<p:inputTextarea  value="#{empresaController.empresa.orientacoesEspecificas}" 
 		        			style="width:100%; height:300px;" />

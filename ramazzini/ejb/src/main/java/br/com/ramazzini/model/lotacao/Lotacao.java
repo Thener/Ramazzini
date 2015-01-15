@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -19,10 +20,10 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import br.com.ramazzini.model.cnae.Cnae;
+import br.com.ramazzini.model.embeddable.Endereco;
 import br.com.ramazzini.model.empresa.Empresa;
 import br.com.ramazzini.model.empresa.TipoPcmso;
 import br.com.ramazzini.model.empresa.TipoPessoa;
-import br.com.ramazzini.model.empresa.UnidadeFederativa;
 import br.com.ramazzini.model.funcionario.Funcionario;
 import br.com.ramazzini.model.util.AbstractEntidade;
 
@@ -70,33 +71,8 @@ public class Lotacao extends AbstractEntidade implements Serializable {
 	@JoinColumn(name="cd_cnae")
 	private Cnae cnae;	
 	
-    @Column(name = "nm_logradouro")
-    @Size(max = 100)	
-	private String logradouro;
-	
-    @Column(name = "no_logradouro")
-    @Size(max = 20)    
-	private String numeroLogradouro;
-	
-    @Column(name = "no_complemento")
-    @Size(max = 20)
-	private String complementoLogradouro;
-	
-    @Column(name = "nm_bairro")
-    @Size(max = 50)    
-	private String bairro;
-	
-    @Column(name = "no_cep")
-    @Size(max = 10)    
-	private String cep;
-	
-    @Column(name = "nm_cidade")
-    @Size(max = 100)
-	private String cidade;
-	
-    @Column(name = "sg_uf")
-    @Size(max = 2)    
-	private String unidadeFederativa;
+	@Embedded
+    private Endereco endereco = new Endereco(); 
         
     @Column(name = "tf_lotacao")
     @Size(max = 20)
@@ -172,70 +148,6 @@ public class Lotacao extends AbstractEntidade implements Serializable {
 		this.cnae = cnae;
 	}
 
-	public String getLogradouro() {
-		return logradouro;
-	}
-
-	public void setLogradouro(String logradouro) {
-		this.logradouro = logradouro;
-	}
-
-	public String getNumeroLogradouro() {
-		return numeroLogradouro;
-	}
-
-	public void setNumeroLogradouro(String numeroLogradouro) {
-		this.numeroLogradouro = numeroLogradouro;
-	}
-
-	public String getComplementoLogradouro() {
-		return complementoLogradouro;
-	}
-
-	public void setComplementoLogradouro(String complementoLogradouro) {
-		this.complementoLogradouro = complementoLogradouro;
-	}
-
-	public String getBairro() {
-		return bairro;
-	}
-
-	public void setBairro(String bairro) {
-		this.bairro = bairro;
-	}
-
-	public String getCep() {
-		return cep;
-	}
-
-	public void setCep(String cep) {
-		this.cep = cep;
-	}
-
-	public String getCidade() {
-		return cidade;
-	}
-
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
-	}
-
-	public String getUnidadeFederativa() {
-		return unidadeFederativa;
-	}
-
-	public void setUnidadeFederativa(String unidadeFederativa) {
-		this.unidadeFederativa = unidadeFederativa;
-	}
-	
-	public UnidadeFederativa getUnidadeFederativaEnum() {
-		return (this.unidadeFederativa != null) ? UnidadeFederativa.parse(this.unidadeFederativa) : null;
-	}
-
-	public void setUnidadeFederativaEnum(UnidadeFederativa unidadeFederativa) {
-		setUnidadeFederativa(unidadeFederativa.getValue());
-	}	
-
 	public String getTelefone() {
 		return telefone;
 	}
@@ -282,6 +194,14 @@ public class Lotacao extends AbstractEntidade implements Serializable {
 
 	public void setFuncionarios(List<Funcionario> funcionarios) {
 		this.funcionarios = funcionarios;
+	}
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
 	}
 
 	

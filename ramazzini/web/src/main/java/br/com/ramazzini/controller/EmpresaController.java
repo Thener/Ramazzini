@@ -36,6 +36,9 @@ public class EmpresaController extends AbstractBean implements Serializable {
     @Inject
     private CnaeService cnaeService; 
     
+    @Inject
+    private LotacaoController lotacaoController;    
+    
 	private Empresa empresa;
 	
 	private List<Empresa> empresas;
@@ -77,16 +80,19 @@ public class EmpresaController extends AbstractBean implements Serializable {
     
     public String visualizarEmpresa(Empresa empresa){
     	
-    	setEmpresa(empresa);
-    	setSomenteLeitura(Boolean.TRUE);
-    	return PAGINA_CADASTRO_EMPRESA;
+    	return cadatroEmpresa(empresa, Boolean.TRUE);
     }
     
     public String alterarEmpresa(Empresa empresa){
     	
+    	return cadatroEmpresa(empresa, Boolean.FALSE);
+    }
+    
+    private String cadatroEmpresa(Empresa empresa, Boolean somenteLeitura) {
     	setEmpresa(empresa);
-    	setSomenteLeitura(Boolean.FALSE);    	
-    	return PAGINA_CADASTRO_EMPRESA;
+    	lotacaoController.setEmpresa(empresa);
+    	setSomenteLeitura(somenteLeitura);    	
+    	return PAGINA_CADASTRO_EMPRESA;    	
     }
     
     public void removerEmpresa(Empresa empresa){
@@ -149,5 +155,11 @@ public class EmpresaController extends AbstractBean implements Serializable {
 
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
-	}	
+	}
+
+	public LotacaoController getLotacaoController() {
+		return lotacaoController;
+	}
+	
+	
 }

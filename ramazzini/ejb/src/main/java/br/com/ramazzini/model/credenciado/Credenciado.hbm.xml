@@ -3,16 +3,16 @@
 		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 
-	<query name="Empresa.recuperarPorNome">
+	<query name="Credenciado.recuperarPorNome">
 		<![CDATA[
 			select 
-				e	
+				c	
 			from 
-				Empresa e
+				Credenciado c
 			where 
-				lower(e.nome) like lower(:nome)
+				lower(c.nome) like lower(:nome)
 			order 
-				by e.nome
+				by c.nome
 		]]>
 	</query>
 
