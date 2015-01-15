@@ -20,7 +20,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import br.com.ramazzini.model.cnae.Cnae;
@@ -47,13 +46,11 @@ public class Empresa extends AbstractEntidade implements Serializable {
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "seq_empresa")
     private Long id;
     
-    @Column(name = "nm_empresa")
+    @Column(name = "nm_empresa", length = 100)
     @NotNull
-    @Size(min = 1, max = 100)
     private String nome;
     
-    @Column(name = "nm_fantasia")
-    @Size(max = 100)
+    @Column(name = "nm_fantasia", length = 100)
     private String nomeFantasia;
     
 	@Column(name = "st_empresa", length = 3)
@@ -108,28 +105,22 @@ public class Empresa extends AbstractEntidade implements Serializable {
 		})	
     private Endereco enderecoCorrespondencia = new Endereco(); 
     
-    @Column(name = "em_empresa")
-    @Size(max = 200)
+    @Column(name = "em_empresa", length = 200)
     private String email;
     
-    @Column(name = "tf_empresa1")
-    @Size(max = 20)
+    @Column(name = "tf_empresa1", length = 20)
     private String telefone1; 
     
-    @Column(name = "tf_empresa2")
-    @Size(max = 20)
+    @Column(name = "tf_empresa2", length = 20)
     private String telefone2;    
 	
-    @Column(name = "nm_pessoa_contato")
-    @Size(max = 50)
+    @Column(name = "nm_pessoa_contato", length = 50)
     private String pessoaContato;
     
-    @Column(name = "nm_representante_legal")
-    @Size(max = 100)
+    @Column(name = "nm_representante_legal", length = 100)
     private String nomeRepresentanteLegal;
     
-    @Column(name = "no_nit_representante_legal")
-    @Size(max = 20)
+    @Column(name = "no_nit_representante_legal", length = 20)
     private String nitRepresentanteLegal;
     
     @Column(name = "te_orientacoes_especificas", columnDefinition="TEXT")

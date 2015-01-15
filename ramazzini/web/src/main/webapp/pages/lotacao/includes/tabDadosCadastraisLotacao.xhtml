@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui">
+   
+	<h:panelGrid columns="6" cellpadding="10">
+	
+		<p:outputLabel for="cnpjLotacao" value="#{msgs['label.cnpj']}:" />
+		<p:inputMask mask="#{msgs['pattern.cnpj']}" id="cnpjLotacao" value="#{lotacaoController.lotacao.cnpj}" 
+			required="false" styleClass="cnpj" />
+		
+		<p:outputLabel for="ceiLotacao" value="#{msgs['label.cei']}:" />
+		<p:inputText id="ceiLotacao" value="#{lotacaoController.lotacao.cei}" 
+			required="false" maxlength="20" />
+			
+		<p:outputLabel for="cpfLotacao" value="#{msgs['label.cpf']}:" />
+		<p:inputMask mask="#{msgs['pattern.cpf']}" id="cpfLotacao" value="#{lotacaoController.lotacao.cpf}" 
+			required="false" styleClass="cpf" />
+			
+		<p:outputLabel for="cnaeLotacao" value="#{msgs['label.cnae']}:" />
+		<p:selectOneMenu id="cnaeLotacao"
+			value="#{lotacaoController.lotacao.cnae}">
+			<f:selectItems value="#{empresaController.cnaes}" var="cnae"
+				itemLabel="#{cnae.numero}" itemValue="#{cnae}" 
+				converter="entityConverter" />
+		</p:selectOneMenu>					
+				
+	</h:panelGrid>
+	
+	<p:fieldset legend="#{msgs['label.endereco']}">
+		<h:panelGrid columns="6" cellpadding="5">	
+			<p:outputLabel for="logradouroLotacao" value="#{msgs['label.logradouro']}:" />
+			<p:inputText id="logradouroLotacao" value="#{lotacaoController.lotacao.endereco.logradouro}" 
+				maxlength="100" required="false" />
+				
+			<p:outputLabel for="logradouroNumeroLotacao" value="#{msgs['label.numeroLogradouro']}:" />
+			<p:inputText id="logradouroNumeroLotacao" value="#{lotacaoController.lotacao.endereco.numeroLogradouro}" 
+				maxlength="20" required="false" />
+		
+			<p:outputLabel for="logradouroComplementoLotacao" value="#{msgs['label.complementoLogradouro']}:" />
+			<p:inputText id="logradouroComplementoLotacao" value="#{lotacaoController.lotacao.endereco.complementoLogradouro}" 
+				maxlength="20" required="false" />
+
+			<p:outputLabel for="logradouroBairroLotacao" value="#{msgs['label.bairro']}:" />
+			<p:inputText id="logradouroBairroLotacao" value="#{lotacaoController.lotacao.endereco.bairro}" 
+				maxlength="50" required="false" />
+		
+			<p:outputLabel for="cidadeLotacao" value="#{msgs['label.cidade']}:" />
+			<p:inputText id="cidadeLotacao" value="#{lotacaoController.lotacao.endereco.cidade}" 
+				maxlength="100" required="false" />
+			
+			<p:outputLabel for="ufLotacao" value="#{msgs['label.uf']}:" />
+			<p:selectOneMenu id="ufLotacao"
+				value="#{lotacaoController.lotacao.endereco.unidadeFederativa}">
+				<f:selectItems value="#{empresaController.ufs}" var="uf"
+					itemLabel="#{uf.stringChave}" itemValue="#{uf.value}" />
+			</p:selectOneMenu>
+		</h:panelGrid>
+	</p:fieldset>
+		
+</ui:composition>

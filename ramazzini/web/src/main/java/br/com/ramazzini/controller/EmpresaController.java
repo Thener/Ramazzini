@@ -26,8 +26,7 @@ public class EmpresaController extends AbstractBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private static final String PAGINA_PESQUISAR_EMPRESA = "pesquisarEmpresa.js?faces-redirect=true";
-	private static final String PAGINA_ALTERAR_EMPRESA = "alterarEmpresa.js?faces-redirect=true";
-	private static final String PAGINA_INCLUIR_EMPRESA = "incluirEmpresa.jsf?faces-redirect=true";
+	private static final String PAGINA_CADASTRO_EMPRESA = "cadastroEmpresa.js?faces-redirect=true";
 
 	private @Inject Conversation conversation;
 	
@@ -37,15 +36,16 @@ public class EmpresaController extends AbstractBean implements Serializable {
     @Inject
     private CnaeService cnaeService; 
     
-	private Empresa novaEmpresa;
+    @Inject
+    private LotacaoController lotacaoController;    
+    
+	private Empresa empresa;
 	
 	private List<Empresa> empresas;
 	
 	private List<Cnae> cnaes;
 	
 	private String nomeEmpresaPesquisa;
-	
-	private Empresa empresaSelecionada;
 	
 	private boolean somenteLeitura = Boolean.FALSE;
 	
@@ -56,26 +56,7 @@ public class EmpresaController extends AbstractBean implements Serializable {
 			conversation.begin();
 		}
 	}
-	
-	public String incluirEmpresa() {
-		this.novaEmpresa = new Empresa();
-		return PAGINA_INCLUIR_EMPRESA;
-	}
-	
-	public String salvar() {
 		
-		empresaService.salvar(novaEmpresa);
-		empresas = empresaService.recuperarTodos("nome");
-		return PAGINA_PESQUISAR_EMPRESA;
-	}
-	
-	public String atualizar() {
-		
-		empresaService.salvar(empresaSelecionada);
-		empresas = empresaService.recuperarTodos("nome");
-		return PAGINA_PESQUISAR_EMPRESA;
-	}	
-	
     public void pesquisar() throws Exception {
 		
     	if (nomeEmpresaPesquisa == null || nomeEmpresaPesquisa.isEmpty()){
@@ -84,22 +65,24 @@ public class EmpresaController extends AbstractBean implements Serializable {
 			empresas = empresaService.recuperarPorNome(nomeEmpresaPesquisa);
 		}      
     }  	
+        
+	public String incluirEmpresa() {
+		
+		this.empresa = new Empresa();
+		return cadatroEmpresa(empresa, Boolean.FALSE);
+	}    
     
-    public String visualizar(Empresa empresa){
+    public String alterarEmpresa(Empresa empresa){
     	
-    	setEmpresaSelecionada(empresa);
-    	setSomenteLeitura(Boolean.TRUE);
-    	return PAGINA_ALTERAR_EMPRESA;
+    	return cadatroEmpresa(empresa, Boolean.FALSE);
     }
     
-    public String editar(Empresa empresa){
+    public String visualizarEmpresa(Empresa empresa){
     	
-    	setEmpresaSelecionada(empresa);
-    	setSomenteLeitura(Boolean.FALSE);    	
-    	return PAGINA_ALTERAR_EMPRESA;
-    }
+    	return cadatroEmpresa(empresa, Boolean.TRUE);
+    } 
     
-    public void remover(Empresa empresa){
+    public void removerEmpresa(Empresa empresa){
     	
     	try {
     		empresaService.remover(empresa, empresa.getId());
@@ -108,16 +91,22 @@ public class EmpresaController extends AbstractBean implements Serializable {
     	} catch (Exception e) {
     		UtilMensagens.mensagemErro("Não foi possível remover a empresa!");
         }
-    }    
-
-	public Empresa getNovaEmpresa() {
-		return novaEmpresa;
-	}
-
-	public void setNovaEmpresa(Empresa novaEmpresa) {
-		this.novaEmpresa = novaEmpresa;
-	}
-
+    }     
+    
+    private String cadatroEmpresa(Empresa empresa, Boolean somenteLeitura) {
+    	setEmpresa(empresa);
+    	lotacaoController.setEmpresa(empresa);
+    	setSomenteLeitura(somenteLeitura);    	
+    	return PAGINA_CADASTRO_EMPRESA;    	
+    }
+    
+	public String gravarEmpresa() {
+		
+		empresaService.salvar(empresa);
+		empresas = empresaService.recuperarTodos("nome");
+		return PAGINA_PESQUISAR_EMPRESA;
+	}    
+      
 	public List<Empresa> getEmpresas() {
 		return empresas;
 	}
@@ -128,14 +117,6 @@ public class EmpresaController extends AbstractBean implements Serializable {
 
 	public void setNomeEmpresaPesquisa(String nomeEmpresaPesquisa) {
 		this.nomeEmpresaPesquisa = nomeEmpresaPesquisa;
-	}
-
-	public Empresa getEmpresaSelecionada() {
-		return empresaSelecionada;
-	}
-
-	public void setEmpresaSelecionada(Empresa empresaSelecionada) {
-		this.empresaSelecionada = empresaSelecionada;
 	}
 
 	public boolean isSomenteLeitura() {
@@ -167,6 +148,19 @@ public class EmpresaController extends AbstractBean implements Serializable {
 	
 	public TipoPcmso[] getTiposPcmso() {
 		return TipoPcmso.values();
-	}	
+	}
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}
+
+	public LotacaoController getLotacaoController() {
+		return lotacaoController;
+	}
+	
 	
 }

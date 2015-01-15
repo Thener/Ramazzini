@@ -1,3 +1,10 @@
 .ui-panelgrid td, .ui-panelgrid tr {
     border-style: none !important
 }
+
+.ui-fieldset legend {
+	background: none !important;
+	border: none !important;
+	padding: 0px !important;
+	text-shadow: 1px 1px 7px #222;
+}

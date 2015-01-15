@@ -15,7 +15,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import br.com.ramazzini.model.funcaoProcedimento.FuncaoProcedimento;
@@ -35,17 +34,14 @@ public class Procedimento extends AbstractEntidade implements Serializable {
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "seq_procedimento")
     private Long id;
     
-    @Column(name = "nm_procedimento")
+    @Column(name = "nm_procedimento", length = 100)
     @NotNull
-    @Size(min = 1, max = 100)
     private String nome;
     
-    @Column(name = "nm_abreviado")
-    @Size(max = 50)
+    @Column(name = "nm_abreviado", length = 50)
     private String nomeAbreviado;
     
-    @Column(name = "sg_procedimento")
-    @Size(max = 10)
+    @Column(name = "sg_procedimento", length = 10)
     private String sigla;    
     
 	@Column(name = "tp_procedimento", length = 5)

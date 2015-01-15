@@ -17,7 +17,7 @@
 				<p:inputText id="nomeCredenciadoPesquisa" 
 					value="#{credenciadoController.nomeCredenciadoPesquisa}" required="false"/>
 					
-				<p:commandButton action="#{empresaController.pesquisar()}"
+				<p:commandButton action="#{credenciadoController.pesquisar()}"
 					id="botaoPesquisa" icon="ui-icon-search" title="#{msgs['botao.pesquisar']}"
 					update="frmCredenciado">
 					<f:ajax execute="nomeCredenciadoPesquisa" render="gridCredenciados"/>

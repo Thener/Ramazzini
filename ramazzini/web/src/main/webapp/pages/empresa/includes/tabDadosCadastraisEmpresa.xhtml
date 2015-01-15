@@ -7,61 +7,63 @@
    
 	<h:panelGrid columns="8" cellpadding="5">
 		<p:outputLabel for="nome" value="#{msgs['label.nomeFantasia']}:" />
-		<p:inputText id="nome" value="#{empresaController.novaEmpresa.nomeFantasia}" 
-			required="false" styleClass="nome50"/>
+		<p:inputText id="nome" value="#{empresaController.empresa.nomeFantasia}" 
+			required="false" maxlength="50" styleClass="nome50"/>
 		
-		<p:outputLabel for="tipoProcedimento" value="#{msgs['label.tipoPessoa']}:" />
-		<p:selectOneMenu id="tipoProcedimento"
-			value="#{empresaController.novaEmpresa.tipoPessoa}">
+		<p:outputLabel for="tipoPessoa" value="#{msgs['label.tipoPessoa']}:" />
+		<p:selectOneMenu id="tipoPessoa"
+			value="#{empresaController.empresa.tipoPessoa}">
 			<f:selectItems value="#{empresaController.tiposPessoa}" var="tipoPessoa"
 				itemLabel="#{tipoPessoa.stringChave}" itemValue="#{tipoPessoa.value}" />
 		</p:selectOneMenu>
 		
 		<p:outputLabel for="cnpj" value="#{msgs['label.cnpj']}:" />
-		<p:inputMask mask="#{msgs['pattern.cnpj']}" id="cnpj" value="#{empresaController.novaEmpresa.cnpj}" required="false" styleClass="cnpj" />
+		<p:inputMask mask="#{msgs['pattern.cnpj']}" id="cnpj" value="#{empresaController.empresa.cnpj}" required="false" styleClass="cnpj" />
 		
 		<p:outputLabel for="cei" value="#{msgs['label.cei']}:" />
-		<p:inputText id="cei" value="#{empresaController.novaEmpresa.cei}" required="false" />
-	</h:panelGrid>
-	
-	<h:panelGrid columns="6" cellpadding="5">	
+		<p:inputText id="cei" value="#{empresaController.empresa.cei}" required="false" maxlength="20" />
+		
+		<p:outputLabel for="inscricaoEstadual" value="#{msgs['label.inscricaoEstadual']}:" />
+		<p:inputText id="inscricaoEstadual" value="#{empresaController.empresa.inscricaoEstadual}" 
+			required="false" maxlength="20"/>
+		
+		<p:outputLabel for="cpf" value="#{msgs['label.cpf']}:" />
+		<p:inputMask mask="#{msgs['pattern.cpf']}" id="cpf" value="#{empresaController.empresa.cpf}" required="false" styleClass="cpf" />
+		
 		<p:outputLabel for="cnae" value="#{msgs['label.cnae']}:" />
 		<p:selectOneMenu id="cnae"
-			value="#{empresaController.novaEmpresa.cnae}">
+			value="#{empresaController.empresa.cnae}">
 			<f:selectItems value="#{empresaController.cnaes}" var="cnae"
 				itemLabel="#{cnae.numero}" itemValue="#{cnae}" 
 				converter="entityConverter" />
-		</p:selectOneMenu>
-		
-		<p:outputLabel for="inscricaoEstadual" value="#{msgs['label.inscricaoEstadual']}:" />
-		<p:inputText id="inscricaoEstadual" value="#{empresaController.novaEmpresa.inscricaoEstadual}" required="false" />
-		
-		<p:outputLabel for="cpf" value="#{msgs['label.cpf']}:" />
-		<p:inputMask mask="#{msgs['pattern.cpf']}" id="cpf" value="#{empresaController.novaEmpresa.cpf}" required="false" styleClass="cpf" />
+		</p:selectOneMenu>		
 	</h:panelGrid>
 	
 	<p:fieldset legend="#{msgs['label.enderecoEmpresa']}">
 		<h:panelGrid columns="6" cellpadding="5">	
 			<p:outputLabel for="logradouro" value="#{msgs['label.logradouro']}:" />
-			<p:inputText id="logradouro" value="#{empresaController.novaEmpresa.endereco.logradouro}" required="false" />
+			<p:inputText id="logradouro" value="#{empresaController.empresa.endereco.logradouro}" 
+				maxlength="100" required="false" />
 				
 			<p:outputLabel for="logradouroNumero" value="#{msgs['label.numeroLogradouro']}:" />
-			<p:inputText id="logradouroNumero" value="#{empresaController.novaEmpresa.endereco.numeroLogradouro}" required="false" />
+			<p:inputText id="logradouroNumero" value="#{empresaController.empresa.endereco.numeroLogradouro}" 
+				maxlength="20" required="false" />
 		
 			<p:outputLabel for="logradouroComplemento" value="#{msgs['label.complementoLogradouro']}:" />
-			<p:inputText id="logradouroComplemento" value="#{empresaController.novaEmpresa.endereco.complementoLogradouro}" required="false" />
-		</h:panelGrid>
-		
-		<h:panelGrid columns="6" cellpadding="5">
+			<p:inputText id="logradouroComplemento" value="#{empresaController.empresa.endereco.complementoLogradouro}" 
+				maxlength="20" required="false" />
+
 			<p:outputLabel for="logradouroBairro" value="#{msgs['label.bairro']}:" />
-			<p:inputText id="logradouroBairro" value="#{empresaController.novaEmpresa.endereco.bairro}" required="false" />
+			<p:inputText id="logradouroBairro" value="#{empresaController.empresa.endereco.bairro}" 
+				maxlength="50" required="false" />
 		
 			<p:outputLabel for="cidade" value="#{msgs['label.cidade']}:" />
-			<p:inputText id="cidade" value="#{empresaController.novaEmpresa.endereco.cidade}" required="false" />
+			<p:inputText id="cidade" value="#{empresaController.empresa.endereco.cidade}" 
+				maxlength="100" required="false" />
 			
 			<p:outputLabel for="uf" value="#{msgs['label.uf']}:" />
 			<p:selectOneMenu id="uf"
-				value="#{empresaController.novaEmpresa.endereco.unidadeFederativa}">
+				value="#{empresaController.empresa.endereco.unidadeFederativa}">
 				<f:selectItems value="#{empresaController.ufs}" var="uf"
 					itemLabel="#{uf.stringChave}" itemValue="#{uf.value}" />
 			</p:selectOneMenu>
@@ -73,25 +75,28 @@
 	<p:fieldset legend="#{msgs['label.enderecoCorrespondencia']}">
 		<h:panelGrid columns="6" cellpadding="5">	
 			<p:outputLabel for="logradouroCorrespondencia" value="#{msgs['label.logradouro']}:" />
-			<p:inputText id="logradouroCorrespondencia" value="#{empresaController.novaEmpresa.enderecoCorrespondencia.logradouro}" required="false" />
+			<p:inputText id="logradouroCorrespondencia" value="#{empresaController.empresa.enderecoCorrespondencia.logradouro}" 
+				maxlength="100" required="false" />
 				
 			<p:outputLabel for="logradouroNumeroCorrespondencia" value="#{msgs['label.numeroLogradouro']}:" />
-			<p:inputText id="logradouroNumeroCorrespondencia" value="#{empresaController.novaEmpresa.enderecoCorrespondencia.numeroLogradouro}" required="false" />
+			<p:inputText id="logradouroNumeroCorrespondencia" value="#{empresaController.empresa.enderecoCorrespondencia.numeroLogradouro}" 
+				maxlength="20" required="false" />
 		
 			<p:outputLabel for="logradouroComplementoCorrespondencia" value="#{msgs['label.complementoLogradouro']}:" />
-			<p:inputText id="logradouroComplementoCorrespondencia" value="#{empresaController.novaEmpresa.enderecoCorrespondencia.complementoLogradouro}" required="false" />
-		</h:panelGrid>
-		
-		<h:panelGrid columns="6" cellpadding="5">
+			<p:inputText id="logradouroComplementoCorrespondencia" value="#{empresaController.empresa.enderecoCorrespondencia.complementoLogradouro}" 
+				maxlength="20" required="false" />
+
 			<p:outputLabel for="logradouroBairroCorrespondencia" value="#{msgs['label.bairro']}:" />
-			<p:inputText id="logradouroBairroCorrespondencia" value="#{empresaController.novaEmpresa.enderecoCorrespondencia.bairro}" required="false" />
+			<p:inputText id="logradouroBairroCorrespondencia" value="#{empresaController.empresa.enderecoCorrespondencia.bairro}" 
+				maxlength="50" required="false" />
 		
 			<p:outputLabel for="cidadeCorrespondencia" value="#{msgs['label.cidade']}:" />
-			<p:inputText id="cidadeCorrespondencia" value="#{empresaController.novaEmpresa.enderecoCorrespondencia.cidade}" required="false" />
+			<p:inputText id="cidadeCorrespondencia" value="#{empresaController.empresa.enderecoCorrespondencia.cidade}" 
+				maxlength="100" required="false" />
 			
 			<p:outputLabel for="ufCorrespondencia" value="#{msgs['label.uf']}:" />
 			<p:selectOneMenu id="ufCorrespondencia"
-				value="#{empresaController.novaEmpresa.enderecoCorrespondencia.unidadeFederativa}">
+				value="#{empresaController.empresa.enderecoCorrespondencia.unidadeFederativa}">
 				<f:selectItems value="#{empresaController.ufs}" var="uf"
 					itemLabel="#{uf.stringChave}" itemValue="#{uf.value}" />
 			</p:selectOneMenu>
@@ -103,25 +108,31 @@
 	<p:fieldset legend="#{msgs['label.representanteLegal']}">
 		<h:panelGrid columns="4" cellpadding="5">
 			<p:outputLabel for="nomeRepresentanteLegal" value="#{msgs['label.nome']}:" />
-			<p:inputText id="nomeRepresentanteLegal" value="#{empresaController.novaEmpresa.nomeRepresentanteLegal}" required="false" />
+			<p:inputText id="nomeRepresentanteLegal" value="#{empresaController.empresa.nomeRepresentanteLegal}" 
+				maxlength="100" required="false" />
 		
 			<p:outputLabel for="nitRepresLegal" value="#{msgs['label.nit']}:" />
-			<p:inputText id="nitRepresLegal" value="#{empresaController.novaEmpresa.nitRepresentanteLegal}" required="false" />
+			<p:inputText id="nitRepresLegal" value="#{empresaController.empresa.nitRepresentanteLegal}" 
+				maxlength="20" required="false" />
 		</h:panelGrid>
 	</p:fieldset>
 	
 	<h:panelGrid columns="8" cellpadding="5">
 		<p:outputLabel for="email" value="#{msgs['label.email']}:" />
-		<p:inputText id="email" value="#{empresaController.novaEmpresa.email}" required="false" />
+		<p:inputText id="email" value="#{empresaController.empresa.email}" 
+			maxlength="200" required="false" />
 			
 		<p:outputLabel for="telefone1" value="#{msgs['label.telefone']} 1:" />
-		<p:inputText id="telefone1" value="#{empresaController.novaEmpresa.telefone1}" required="false" />
+		<p:inputText id="telefone1" value="#{empresaController.empresa.telefone1}" 
+			maxlength="20" required="false" />
 	
 		<p:outputLabel for="telefone2" value="#{msgs['label.telefone']} 2:" />
-		<p:inputText id="telefone2" value="#{empresaController.novaEmpresa.telefone2}" required="false" />
+		<p:inputText id="telefone2" value="#{empresaController.empresa.telefone2}" 
+			maxlength="20" required="false" />
 		
 		<p:outputLabel for="pessoaContato" value="#{msgs['label.contato']}:" />
-		<p:inputText id="pessoaContato" value="#{empresaController.novaEmpresa.pessoaContato}" required="false" />
+		<p:inputText id="pessoaContato" value="#{empresaController.empresa.pessoaContato}" 
+			maxlength="50" required="false" />
 	</h:panelGrid>	
 		
 </ui:composition>
