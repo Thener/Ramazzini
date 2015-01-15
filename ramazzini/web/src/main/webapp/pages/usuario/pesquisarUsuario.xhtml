@@ -19,7 +19,7 @@
 					<f:ajax execute="login" render="gridUsuarios"/>
 				</p:commandButton>
 				<p:commandButton 
-					id="botaoAdicionarUsuario" icon="ui-icon-circle-plus" value="Novo"
+					id="botaoAdicionarUsuario" icon="ui-icon-circle-plus" value="#{msgs['botao.incluir']}"s
 					title="Adicionar Usuário" action="#{usuarioController.incluirUsuario()}"
 					rendered="#{usuarioController.controleAcesso.acaoAutorizada('usuario','pesquisarUsuario.jsf','incluirUsuario')}">					
 				</p:commandButton>

@@ -13,3 +13,8 @@ input.nome100 {
 input.nome50 {
 	width: 380px;	
 }
+
+input.cep {	
+	max-width: 100px;
+
+}

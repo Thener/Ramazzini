@@ -110,14 +110,13 @@ public class CredenciadoController extends AbstractBean implements Serializable 
          
         for (int i = 0; i < todosProcedimentos.size(); i++) {
         	Procedimento skin = todosProcedimentos.get(i);
-            if(skin.getNome().toLowerCase().startsWith(query)) {
+            if(skin.getNome().toLowerCase().contains(query)) {
             	procedimentosFiltrados.add(skin);
             }
         }         
         return procedimentosFiltrados;
     }
- 
-
+    
 	public Credenciado getNovoCredenciado() {
 		return novoCredenciado;
 	}

@@ -8,16 +8,29 @@
 	<ui:define name="content">
 	
 		<h:form id="frmIncluirCredenciado">
-		
-			<p:tabView id="tabViewIncluirCredenciado">
-		        	<p:tab title="#{msgs['label.dadosCadastrais']}">
-		        		<ui:include src="includes/tabDadosCadastraisCredenciado.xhtml" />
-		        	</p:tab>
-		        	<p:tab title="#{msgs['label.procedimentos']}">
-		        		<ui:include src="includes/tabProcedimentosCredenciado.xhtml" />
-		        	</p:tab>		        	
-		    </p:tabView>
+			<p:growl id="growl" showDetail="true" sticky="true" />		
+			<p:panel id="panelDadosCredenciado" header="#{msgs['label.credenciado']}">
+			
+				<h:panelGrid columns="2" cellpadding="20">
+				
+					<p:outputLabel for="nome" value="#{msgs['label.nome']}:" />
+					
+					<p:inputText id="nome"
+						value="#{credenciadoController.novoCredenciado.nome}"
+						required="true" styleClass="nome50"/>
 						
+				</h:panelGrid>
+				
+				<p:tabView id="tabViewIncluirCredenciado">
+			        	<p:tab title="#{msgs['label.dadosCadastrais']}">
+			        		<ui:include src="includes/tabDadosCadastraisCredenciado.xhtml" />
+			        	</p:tab>
+			        	<p:tab title="#{msgs['label.procedimentos']}">
+			        		<ui:include src="includes/tabProcedimentosCredenciado.xhtml" />
+			        	</p:tab>		        	
+			    </p:tabView>
+			</p:panel>
+										
 			<p:toolbar id="toolBar">
 			
 				<f:facet name="left">
@@ -31,7 +44,7 @@
 				</f:facet>
 				
 			</p:toolbar>
-			
+				
 		</h:form>
 		
 	</ui:define>

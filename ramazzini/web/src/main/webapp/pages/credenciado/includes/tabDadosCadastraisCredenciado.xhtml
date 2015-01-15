@@ -3,60 +3,50 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui">	
 
-	<p:panel id="panelDadosCredenciado"
-		header="#{msgs['label.credenciado']}">
+	<h:panelGrid columns="6" cellpadding="10">			
 
-		<h:panelGrid columns="6" cellpadding="10">
+		<h:outputLabel for="ativoCheck" value="#{msgs['label.ativo']}:" />
+		<p:selectBooleanCheckbox id="ativoCheck"
+			value="#{credenciadoController.novoCredenciado.ativo}" />
 
-			<p:outputLabel for="nome" value="#{msgs['label.nome']}" />
-			<p:inputText id="nome"
-				value="#{credenciadoController.novoCredenciado.nome}"
-				required="true" />
+		<p:outputLabel for="horario"
+			value="#{msgs['label.horarioAtendimento']}:" />
+		<p:inputText id="horario"
+			value="#{credenciadoController.novoCredenciado.horarioAtendimento}"
+			styleClass="nome50"/>
+	</h:panelGrid>
 
-			<h:outputLabel for="ativoCheck" value="#{msgs['label.ativo']}" />
-			<p:selectBooleanCheckbox id="ativoCheck"
-				value="#{credenciadoController.novoCredenciado.ativo}" />
-
-			<p:outputLabel for="horario"
-				value="#{msgs['label.horarioAtendimento']}" />
-			<p:inputText id="horario"
-				value="#{credenciadoController.novoCredenciado.horarioAtendimento}"
-				required="true" />
-		</h:panelGrid>
-
-		<h5 >#{msgs['label.endereco']}</h5>
-		<p:separator />
+	<p:fieldset legend="#{msgs['label.endereco']}">
 
 		<h:panelGrid columns="6" cellpadding="10">
 			
-			<p:outputLabel for="cep" value="#{msgs['label.CEP']}" />
+			<p:outputLabel for="cep" value="#{msgs['label.CEP']}:" />
 			<p:inputMask id="cep"
 				value="#{credenciadoController.novoCredenciado.endereco.cep}"
-				mask="9999-999" required="true" />
+				mask="#{msgs['pattern.cep']}" required="true" styleClass="cep"/>
 				
-			<p:outputLabel for="logradouro" value="#{msgs['label.logradouro']}" />
+			<p:outputLabel for="logradouro" value="#{msgs['label.logradouro']}:" />
 			<p:inputText id="logradouro"
 				value="#{credenciadoController.novoCredenciado.endereco.logradouro}"
-				required="true" />
+				required="true" styleClass="nome50"/>
 			
-			<p:outputLabel for="numero" value="#{msgs['label.numero']}" />
+			<p:outputLabel for="numero" value="#{msgs['label.numero']}:" />
 			<p:inputText id="numero"
 				value="#{credenciadoController.novoCredenciado.endereco.numeroLogradouro}"
 				required="true" />
 			
-			<p:outputLabel for="complemento" value="#{msgs['label.complemento']}" />
+			<p:outputLabel for="complemento" value="#{msgs['label.complemento']}:" />
 			<p:inputText id="complemento"
-				value="#{credenciadoController.novoCredenciado.endereco.complementoLogradouro}"
-				required="true" />
+				value="#{credenciadoController.novoCredenciado.endereco.complementoLogradouro}"/>
 				
-			<p:outputLabel for="bairro" value="#{msgs['label.bairro']}" />
+			<p:outputLabel for="bairro" value="#{msgs['label.bairro']}:" />
 			<p:inputText id="bairro"
 				value="#{credenciadoController.novoCredenciado.endereco.bairro}"
 				required="true" />
 			
-			<p:outputLabel for="cidade" value="#{msgs['label.cidade']}" />
+			<p:outputLabel for="cidade" value="#{msgs['label.cidade']}:" />
 			<p:inputText id="cidade"
 				value="#{credenciadoController.novoCredenciado.endereco.cidade}"
 				required="true" />
@@ -69,12 +59,8 @@
 					</p:selectOneMenu>		
 			
 			<p:outputLabel for="uf" value="#{msgs['label.referenciaEndereco']}:" />
-    		<p:inputTextarea id="referenciaEndereco" rows="3" cols="33" value="#{credenciadoController.novoCredenciado.endereco.referenciaEndereco}"/>
+	   		<p:inputTextarea id="referenciaEndereco" rows="3" cols="33" value="#{credenciadoController.novoCredenciado.endereco.referenciaEndereco}"/>
 					
-			<p:growl id="growl" showDetail="true" sticky="true" />
-
 		</h:panelGrid>
-
-	</p:panel>
-
+	</p:fieldset>
 </ui:composition>
