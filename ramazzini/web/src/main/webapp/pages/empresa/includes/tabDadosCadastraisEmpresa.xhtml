@@ -10,8 +10,8 @@
 		<p:inputText id="nome" value="#{empresaController.empresa.nomeFantasia}" 
 			required="false" maxlength="50" styleClass="nome50"/>
 		
-		<p:outputLabel for="tipoProcedimento" value="#{msgs['label.tipoPessoa']}:" />
-		<p:selectOneMenu id="tipoProcedimento"
+		<p:outputLabel for="tipoPessoa" value="#{msgs['label.tipoPessoa']}:" />
+		<p:selectOneMenu id="tipoPessoa"
 			value="#{empresaController.empresa.tipoPessoa}">
 			<f:selectItems value="#{empresaController.tiposPessoa}" var="tipoPessoa"
 				itemLabel="#{tipoPessoa.stringChave}" itemValue="#{tipoPessoa.value}" />

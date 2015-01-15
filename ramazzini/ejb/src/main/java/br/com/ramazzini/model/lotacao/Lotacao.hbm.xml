@@ -16,5 +16,21 @@
 				by lot.nome
 		]]>
 	</query>
+	
+	<query name="Lotacao.recuperarPorNome">
+		<![CDATA[
+			select 
+				lot
+			from 
+				Lotacao lot
+			left join lot.empresa emp
+			where 
+				emp = :empresa
+			and
+				lower(lot.nome) like lower(:nome)
+			order 
+				by lot.nome
+		]]>
+	</query>	
 
 </hibernate-mapping>

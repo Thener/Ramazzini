@@ -56,19 +56,7 @@ public class EmpresaController extends AbstractBean implements Serializable {
 			conversation.begin();
 		}
 	}
-	
-	public String incluirEmpresa() {
-		this.empresa = new Empresa();
-		return PAGINA_CADASTRO_EMPRESA;
-	}
-	
-	public String gravarEmpresa() {
 		
-		empresaService.salvar(empresa);
-		empresas = empresaService.recuperarTodos("nome");
-		return PAGINA_PESQUISAR_EMPRESA;
-	}
-
     public void pesquisar() throws Exception {
 		
     	if (nomeEmpresaPesquisa == null || nomeEmpresaPesquisa.isEmpty()){
@@ -77,23 +65,22 @@ public class EmpresaController extends AbstractBean implements Serializable {
 			empresas = empresaService.recuperarPorNome(nomeEmpresaPesquisa);
 		}      
     }  	
-    
-    public String visualizarEmpresa(Empresa empresa){
-    	
-    	return cadatroEmpresa(empresa, Boolean.TRUE);
-    }
+        
+	public String incluirEmpresa() {
+		
+		this.empresa = new Empresa();
+		return cadatroEmpresa(empresa, Boolean.FALSE);
+	}    
     
     public String alterarEmpresa(Empresa empresa){
     	
     	return cadatroEmpresa(empresa, Boolean.FALSE);
     }
     
-    private String cadatroEmpresa(Empresa empresa, Boolean somenteLeitura) {
-    	setEmpresa(empresa);
-    	lotacaoController.setEmpresa(empresa);
-    	setSomenteLeitura(somenteLeitura);    	
-    	return PAGINA_CADASTRO_EMPRESA;    	
-    }
+    public String visualizarEmpresa(Empresa empresa){
+    	
+    	return cadatroEmpresa(empresa, Boolean.TRUE);
+    } 
     
     public void removerEmpresa(Empresa empresa){
     	
@@ -104,8 +91,22 @@ public class EmpresaController extends AbstractBean implements Serializable {
     	} catch (Exception e) {
     		UtilMensagens.mensagemErro("Não foi possível remover a empresa!");
         }
-    }    
-
+    }     
+    
+    private String cadatroEmpresa(Empresa empresa, Boolean somenteLeitura) {
+    	setEmpresa(empresa);
+    	lotacaoController.setEmpresa(empresa);
+    	setSomenteLeitura(somenteLeitura);    	
+    	return PAGINA_CADASTRO_EMPRESA;    	
+    }
+    
+	public String gravarEmpresa() {
+		
+		empresaService.salvar(empresa);
+		empresas = empresaService.recuperarTodos("nome");
+		return PAGINA_PESQUISAR_EMPRESA;
+	}    
+      
 	public List<Empresa> getEmpresas() {
 		return empresas;
 	}

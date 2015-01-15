@@ -5,6 +5,27 @@
    xmlns:h="http://java.sun.com/jsf/html"
    xmlns:p="http://primefaces.org/ui">
    
+	<p:fieldset legend="Pesquisa">
+		<h:panelGrid columns="4" cellpadding="10">
+		
+			<p:outputLabel for="nomeLotacaoPesquisa" value="#{msgs['label.lotacao']}" />
+			<p:inputText id="nomeLotacaoPesquisa" 
+				value="#{lotacaoController.nomeLotacaoPesquisa}" required="false"/>
+				
+			<p:commandButton action="#{lotacaoController.pesquisar()}"
+				id="botaoPesquisa" icon="ui-icon-search" title="#{msgs['botao.pesquisar']}">
+				<f:ajax execute="nomeLotacaoPesquisa" render="gridLotacoes"/>
+			</p:commandButton>
+			
+			<p:commandButton 
+				id="botaoIncluirLotacao" icon="ui-icon-circle-plus" value="#{msgs['botao.incluir']}"
+				action="#{lotacaoController.incluirLotacao()}" />					
+			
+		</h:panelGrid>   
+	</p:fieldset>
+	
+	<p:spacer width="5px" />
+   
 	<p:dataTable var="lotacao" value="#{lotacaoController.getLotacoes()}"
 		id="gridLotacoes" emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}"
 		paginator="true" paginatorPosition="bottom" rows="5">

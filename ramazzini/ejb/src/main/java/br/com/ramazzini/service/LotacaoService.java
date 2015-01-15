@@ -32,5 +32,9 @@ public class LotacaoService extends AbstractServiceImpl<Lotacao> {
     public List<Lotacao> recuperarPorEmpresa(Empresa empresa) {
     	return ((LotacaoDao) getDao()).recuperarPorEmpresa(empresa);
     }	
+    
+    public List<Lotacao> recuperarPorNome(Empresa empresa, String nomeLotacao) {
+    	return ((LotacaoDao) getDao()).recuperarPorNome(empresa, nomeLotacao);
+    }    
 
 }

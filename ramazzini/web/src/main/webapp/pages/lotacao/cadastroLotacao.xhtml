@@ -13,13 +13,38 @@
 			
 			<p:panel id="panelDadosLotacao" header="#{msgs['label.dadosLotacao']}">
 			
-				<h:panelGrid columns="4" cellpadding="10">
+				<h:panelGrid columns="2" cellpadding="10">
+					
+					<p:outputLabel value="#{msgs['label.empresa']}:" />
+					<p:outputLabel value="#{empresaController.empresa.nome}" />
+					
+				</h:panelGrid>
+				
+				<p:separator />
+			
+				<h:panelGrid columns="6" cellpadding="10">
 					
 					<p:outputLabel for="nome" value="#{msgs['label.nome']}:" />
 					<p:inputText id="nome"
 						value="#{lotacaoController.lotacao.nome}" maxlength="100" required="true" />
-					
+						
+		            <p:outputLabel for="ativoCheck" value="#{msgs['label.ativa']}:" />
+		        	<p:selectBooleanCheckbox id="ativoCheck" value="#{lotacaoController.lotacao.ativa}"/>
+						
+					<p:outputLabel for="tipoPessoaLotacao" value="#{msgs['label.tipoPessoa']}:" />
+					<p:selectOneMenu id="tipoPessoaLotacao"
+						value="#{lotacaoController.lotacao.tipoPessoa}">
+						<f:selectItems value="#{empresaController.tiposPessoa}" var="tipoPessoa"
+							itemLabel="#{tipoPessoa.stringChave}" itemValue="#{tipoPessoa.value}" />
+					</p:selectOneMenu>
+				
 				</h:panelGrid>
+				
+				<p:tabView id="tabViewCadastroLotacao">
+		        	<p:tab title="#{msgs['label.dadosCadastrais']}">
+		        		<ui:include src="includes/tabDadosCadastraisLotacao.xhtml" />
+		        	</p:tab>
+				</p:tabView>
 				
 			</p:panel>
 			

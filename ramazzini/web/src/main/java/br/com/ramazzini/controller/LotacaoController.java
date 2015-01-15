@@ -30,15 +30,34 @@ public class LotacaoController extends AbstractBean implements Serializable {
     
     private Lotacao lotacao;
     
+    private String nomeLotacaoPesquisa;
+       
+	public String incluirLotacao() {
+		
+		this.lotacao = new Lotacao();
+		return cadatroLotacao(lotacao, Boolean.FALSE);
+	}
+	    
+    public String alterarLotacao(Lotacao lotacao){
+    	
+    	return cadatroLotacao(lotacao, Boolean.FALSE);
+    }
+    
     public String visualizarLotacao(Lotacao lotacao){
     	
     	return cadatroLotacao(lotacao, Boolean.TRUE);
     }
     
-    public String alterarLotacao(Lotacao lotacao){
+    public void removerLotacao(Lotacao lotacao){
     	
-    	return cadatroLotacao(lotacao, Boolean.FALSE);
-    }
+    	try {
+    		lotacaoService.remover(lotacao, lotacao.getId());
+    		setLotacoes(null);
+    		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeExcluidaComSucesso", "Lotação");
+    	} catch (Exception e) {
+    		UtilMensagens.mensagemErroPorChave("mensagem.erro.naoFoiPossivelExcluirRegistro", "a lotação.");
+        }
+    }    
     
     private String cadatroLotacao(Lotacao lotacao, Boolean somenteLeitura) {
     	setLotacao(lotacao);
@@ -51,16 +70,16 @@ public class LotacaoController extends AbstractBean implements Serializable {
 		return PAGINA_CADASTRO_EMPRESA;
 	}
 	
-    public void removerLotacao(Lotacao lotacao){
-    	
-    	try {
-    		lotacaoService.remover(lotacao, lotacao.getId());
-    		setLotacoes(null);
-    		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeExcluidaComSucesso", "Lotação");
-    	} catch (Exception e) {
-    		UtilMensagens.mensagemErroPorChave("mensagem.erro.naoFoiPossivelExcluirRegistro", "a lotação.");
-        }
-    }     
+ 
+    
+    public void pesquisar() throws Exception {
+		
+    	if (nomeLotacaoPesquisa == null || nomeLotacaoPesquisa.isEmpty()){
+    		lotacoes = lotacaoService.recuperarPorNome(empresa, nomeLotacaoPesquisa);
+		} else {
+			lotacoes = lotacaoService.recuperarPorEmpresa(empresa);
+		}      
+    }    
 	
 	public List<Lotacao> getLotacoes() {
 		if (lotacoes == null || lotacoes.isEmpty()) {
@@ -88,6 +107,14 @@ public class LotacaoController extends AbstractBean implements Serializable {
 
 	public void setLotacao(Lotacao lotacao) {
 		this.lotacao = lotacao;
+	}
+
+	public String getNomeLotacaoPesquisa() {
+		return nomeLotacaoPesquisa;
+	}
+
+	public void setNomeLotacaoPesquisa(String nomeLotacaoPesquisa) {
+		this.nomeLotacaoPesquisa = nomeLotacaoPesquisa;
 	}
 	
 	
