@@ -60,6 +60,9 @@ public class LotacaoController extends AbstractBean implements Serializable {
     }    
     
     private String cadatroLotacao(Lotacao lotacao, Boolean somenteLeitura) {
+    	if (lotacao.getEmpresa() == null) {
+    		lotacao.setEmpresa(empresa);
+    	}
     	setLotacao(lotacao);
     	return PAGINA_CADASTRO_LOTACAO;    	
     }
@@ -75,9 +78,9 @@ public class LotacaoController extends AbstractBean implements Serializable {
     public void pesquisar() throws Exception {
 		
     	if (nomeLotacaoPesquisa == null || nomeLotacaoPesquisa.isEmpty()){
-    		lotacoes = lotacaoService.recuperarPorNome(empresa, nomeLotacaoPesquisa);
+    		lotacoes = lotacaoService.recuperarPorEmpresa(empresa);
 		} else {
-			lotacoes = lotacaoService.recuperarPorEmpresa(empresa);
+			lotacoes = lotacaoService.recuperarPorNome(empresa, nomeLotacaoPesquisa);
 		}      
     }    
 	

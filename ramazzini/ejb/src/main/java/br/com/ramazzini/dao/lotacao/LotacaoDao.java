@@ -30,7 +30,7 @@ public class LotacaoDao extends AbstractDao<Lotacao> {
 	public List<Lotacao> recuperarPorNome(Empresa empresa, String nomeLotacao) {
 		Query query = createNamedQuery(QUERY_RECUPERAR_POR_NOME);
 		query.setParameter("empresa", empresa);
-		query.setParameter("nomeLotacao", nomeLotacao);
+		query.setParameter("nomeLotacao", "%"+nomeLotacao+"%");
 		try {
 			return query.getResultList();
 		} catch (NoResultException nr) {

@@ -30,7 +30,7 @@ import br.com.ramazzini.service.util.AbstractServiceImpl;
 public class LotacaoService extends AbstractServiceImpl<Lotacao> {
 
     public List<Lotacao> recuperarPorEmpresa(Empresa empresa) {
-    	return ((LotacaoDao) getDao()).recuperarPorEmpresa(empresa);
+    	return (!empresa.isNovo()) ? ((LotacaoDao) getDao()).recuperarPorEmpresa(empresa) : null;
     }	
     
     public List<Lotacao> recuperarPorNome(Empresa empresa, String nomeLotacao) {

@@ -15,7 +15,6 @@ import br.com.ramazzini.model.empresa.SituacaoEmpresa;
 import br.com.ramazzini.model.empresa.TipoPcmso;
 import br.com.ramazzini.model.empresa.TipoPessoa;
 import br.com.ramazzini.model.empresa.UnidadeFederativa;
-import br.com.ramazzini.model.lotacao.Lotacao;
 import br.com.ramazzini.service.CnaeService;
 import br.com.ramazzini.service.EmpresaService;
 import br.com.ramazzini.util.UtilMensagens;
@@ -50,6 +49,10 @@ public class EmpresaController extends AbstractBean implements Serializable {
 	
 	private boolean somenteLeitura = Boolean.FALSE;
 	
+	private boolean acaoInclusao = Boolean.FALSE;
+	private boolean acaoAlteracao = Boolean.FALSE;
+	private boolean acaoVisualizacao = Boolean.FALSE;
+	
 	@PostConstruct
 	public void init() {
 
@@ -70,18 +73,19 @@ public class EmpresaController extends AbstractBean implements Serializable {
 	public String incluirEmpresa() {
 		
 		empresa = new Empresa();
-		lotacaoController.setEmpresa(empresa);
-		lotacaoController.setLotacao(new Lotacao());
+		setAcaoInclusao(Boolean.TRUE);
 		return cadastroEmpresa(empresa, Boolean.FALSE);
 	}    
     
     public String alterarEmpresa(Empresa empresa){
     	
+    	setAcaoAlteracao(Boolean.TRUE);
     	return cadastroEmpresa(empresa, Boolean.FALSE);
     }
     
     public String visualizarEmpresa(Empresa empresa){
     	
+    	setAcaoVisualizacao(Boolean.TRUE);
     	return cadastroEmpresa(empresa, Boolean.TRUE);
     } 
     
@@ -107,7 +111,7 @@ public class EmpresaController extends AbstractBean implements Serializable {
 		
 		empresaService.salvar(empresa);
 		empresas = empresaService.recuperarTodos("nome");
-		return PAGINA_PESQUISAR_EMPRESA;
+		return (acaoInclusao) ? alterarEmpresa(empresa) : PAGINA_PESQUISAR_EMPRESA;
 	}    
       
 	public List<Empresa> getEmpresas() {
@@ -163,6 +167,36 @@ public class EmpresaController extends AbstractBean implements Serializable {
 
 	public LotacaoController getLotacaoController() {
 		return lotacaoController;
+	}
+
+	public boolean isAcaoInclusao() {
+		return acaoInclusao;
+	}
+
+	public void setAcaoInclusao(boolean acaoInclusao) {
+		this.acaoInclusao = acaoInclusao;
+		this.acaoAlteracao = !acaoInclusao;
+		this.acaoVisualizacao = !acaoInclusao;
+	}
+
+	public boolean isAcaoAlteracao() {
+		return acaoAlteracao;
+	}
+
+	public void setAcaoAlteracao(boolean acaoAlteracao) {
+		this.acaoAlteracao = acaoAlteracao;
+		this.acaoInclusao = !acaoAlteracao;
+		this.acaoVisualizacao = !acaoAlteracao;
+	}
+
+	public boolean isAcaoVisualizacao() {
+		return acaoVisualizacao;
+	}
+
+	public void setAcaoVisualizacao(boolean acaoVisualizacao) {
+		this.acaoVisualizacao = acaoVisualizacao;
+		this.acaoInclusao = !acaoVisualizacao;
+		this.acaoAlteracao = !acaoVisualizacao;
 	}
 	
 	

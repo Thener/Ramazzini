@@ -27,7 +27,7 @@
 			where 
 				emp = :empresa
 			and
-				lower(lot.nome) like lower(:nome)
+				lower(lot.nome) like lower(:nomeLotacao)
 			order 
 				by lot.nome
 		]]>
