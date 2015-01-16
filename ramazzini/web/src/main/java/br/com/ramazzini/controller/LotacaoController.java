@@ -31,6 +31,8 @@ public class LotacaoController extends AbstractBean implements Serializable {
     private Lotacao lotacao;
     
     private String nomeLotacaoPesquisa;
+    
+    private boolean somenteLeitura = Boolean.FALSE;
        
 	public String incluirLotacao() {
 		
@@ -64,6 +66,7 @@ public class LotacaoController extends AbstractBean implements Serializable {
     		lotacao.setEmpresa(empresa);
     	}
     	setLotacao(lotacao);
+    	setSomenteLeitura(somenteLeitura);
     	return PAGINA_CADASTRO_LOTACAO;    	
     }
     
@@ -119,7 +122,13 @@ public class LotacaoController extends AbstractBean implements Serializable {
 	public void setNomeLotacaoPesquisa(String nomeLotacaoPesquisa) {
 		this.nomeLotacaoPesquisa = nomeLotacaoPesquisa;
 	}
-	
-	
+
+	public boolean isSomenteLeitura() {
+		return somenteLeitura;
+	}
+
+	public void setSomenteLeitura(boolean somenteLeitura) {
+		this.somenteLeitura = somenteLeitura;
+	}
 
 }

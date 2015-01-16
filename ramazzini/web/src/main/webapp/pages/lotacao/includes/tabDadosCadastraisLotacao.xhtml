@@ -19,6 +19,14 @@
 		<p:inputMask mask="#{msgs['pattern.cpf']}" id="cpfLotacao" value="#{lotacaoController.lotacao.cpf}" 
 			required="false" styleClass="cpf" />
 			
+		<p:outputLabel for="telefoneLotacao" value="#{msgs['label.telefone']}:" />
+		<p:inputText id="telefoneLotacao" value="#{lotacaoController.lotacao.telefone}" 
+			maxlength="20" required="false" />
+	
+		<p:outputLabel for="pessoaContatoLotacao" value="#{msgs['label.contato']}:" />
+		<p:inputText id="pessoaContatoLotacao" value="#{lotacaoController.lotacao.pessoaContato}" 
+			maxlength="50" required="false" />			
+			
 		<p:outputLabel for="cnaeLotacao" value="#{msgs['label.cnae']}:" />
 		<p:selectOneMenu id="cnaeLotacao"
 			value="#{lotacaoController.lotacao.cnae}">

@@ -52,9 +52,9 @@
 				<p:commandLink title="#{msgs['label.visualizar']}" action="#{lotacaoController.visualizarLotacao(lotacao)}"
 					styleClass="ui-icon ui-icon-search" />
 				<p:commandLink title="#{msgs['label.editar']}" action="#{lotacaoController.alterarLotacao(lotacao)}"
-					styleClass="ui-icon ui-icon-pencil" />
+					disabled="#{empresaController.somenteLeitura}" styleClass="ui-icon ui-icon-pencil" />
 				<p:commandLink title="#{msgs['label.excluir']}" action="#{lotacaoController.removerLotacao(lotacao)}"
-					styleClass="ui-icon ui-icon-closethick" update="gridLotacoes">
+					disabled="#{empresaController.somenteLeitura}" styleClass="ui-icon ui-icon-closethick" update="gridLotacoes">
 					<p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['label.confirmacaoExclusao']}" icon="ui-icon-alert" />
 				</p:commandLink>	
 			</p:panelGrid>
