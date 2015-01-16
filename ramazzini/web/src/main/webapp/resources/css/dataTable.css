@@ -3,6 +3,11 @@
 	width: 100%;
 }
 
+.ui-datatable .colunaAcoes {
+	text-align: center;
+	width: 160px;
+}
+
 .coluna1 {  
 	width: 50px;
 	text-align: center;  

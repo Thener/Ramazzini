@@ -7,63 +7,51 @@
    template="/WEB-INF/templates/default.xhtml">
    <ui:define name="content">
    
-	<h:form id="frmProcedimento">
+	<h:form id="frmServico">
 	
 		<p:growl id="messages" />
 	
-		<p:panel id="panelPesquisaProcedimento" header="#{msgs['label.pesquisa']}" style="margin-bottom:20px">
+		<p:panel id="panelPesquisaServico" header="#{msgs['label.servicos']}">
 		
 			<h:panelGrid columns="4" cellpadding="10">
 			
-				<p:outputLabel for="nomeProcedimentoPesquisa" value="#{msgs['label.procedimento']}:" />
-				<p:inputText id="nomeProcedimentoPesquisa" 
-					value="#{procedimentoController.nomeProcedimentoPesquisa}" required="false"/>
+				<p:outputLabel for="nomeServicoPesquisa" value="#{msgs['label.nome']}:" />
+				<p:inputText id="nomeServicoPesquisa" 
+					value="#{servicoController.nomeServicoPesquisa}" required="false"/>
 					
-				<p:commandButton action="#{procedimentoController.pesquisar()}"
+				<p:commandButton action="#{servicoController.pesquisar()}"
 					id="botaoPesquisa" icon="ui-icon-search" title="#{msgs['label.pesquisa']}"
-					update="frmProcedimento">
-					<f:ajax execute="nomeProcedimentoPesquisa" render="gridProcedimentos"/>
+					update="frmServico">
+					<f:ajax execute="nomeServicoPesquisa" render="gridServicos"/>
 				</p:commandButton>
 				
 				<p:commandButton 
-					id="botaoIncluirProcedimento" icon="ui-icon-circle-plus" value="#{msgs['botao.incluir']}"
-					title="Incluir Usuário" action="#{procedimentoController.incluirProcedimento()}" />					
+					id="botaoIncluirServico" icon="ui-icon-circle-plus" value="#{msgs['botao.incluir']}"
+					action="#{servicoController.incluirServico()}" />					
 				
 			</h:panelGrid>		
 
-			<p:dataTable var="procedimento" value="#{procedimentoController.procedimentos}"
-				id="gridProcedimentos" emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}"
+			<p:dataTable var="servico" value="#{servicoController.servicos}"
+				id="gridServicos" emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}"
 				paginator="true" paginatorPosition="bottom" rows="5">
 				
-				<f:facet name="header"> #{msgs['label.procedimentos']} </f:facet>
+				<f:facet name="header"> #{msgs['label.servicos']} </f:facet>
 
-				<p:column headerText="#{msgs['label.nome']}" sortBy="#{procedimento.nome}" styleClass="coluna2">
-					<h:outputText value="#{procedimento.nome}" />
-				</p:column>
-
-				<p:column headerText="#{msgs['label.nomeAbreviado']}" sortBy="#{procedimento.nomeAbreviado}" styleClass="coluna3">
-					<h:outputText value="#{procedimento.nomeAbreviado}" />
-				</p:column>
-
-				<p:column headerText="#{msgs['label.sistema']}" styleClass="coluna4">
-					<p:selectBooleanCheckbox value="#{procedimento.sistema}" disabled="true" />
+				<p:column headerText="#{msgs['label.nome']}" sortBy="#{servico.nome}">
+					<h:outputText value="#{servico.nome}" />
 				</p:column>
 				
-				<p:column headerText="#{msgs['label.tipo']}" sortBy="#{procedimento.tipoProcedimento}" styleClass="coluna3">
-					<h:outputText value="#{procedimento.tipoProcedimentoEnum.stringChave}" />
-				</p:column>	
-				
-				<p:column headerText="#{msgs['label.acoes']}" styleClass="coluna5">
-					<p:panelGrid columns="3" styleClass="semBorda">					  
-						<p:commandLink title="#{msgs['label.visualizar']}" action="#{procedimentoController.visualizarProcedimento(procedimento)}"
+				<p:column headerText="#{msgs['label.acoes']}" styleClass="colunaAcoes">
+					<p:panelGrid columns="3">					  
+						<p:commandLink title="#{msgs['label.visualizar']}" action="#{servicoController.visualizarServico(servico)}"
 							styleClass="ui-icon ui-icon-search" 
-								rendered="#{procedimentoController.controleAcesso.acaoAutorizada('procedimento','pesquisarProcedimento.jsf','visualizarProcedimento')}" />
-						<p:commandLink title="#{msgs['label.editar']}" action="#{procedimentoController.alterarProcedimento(procedimento)}"
+								rendered="#{servicoController.controleAcesso.acaoAutorizada('servico','pesquisarServico.jsf','visualizarServico')}" />
+						<p:commandLink title="#{msgs['label.editar']}" action="#{servicoController.alterarServico(servico)}"
 							styleClass="ui-icon ui-icon-pencil" 
-							rendered="#{procedimentoController.controleAcesso.acaoAutorizada('procedimento','pesquisarProcedimento.jsf','alterarProcedimento')}" />
-						<p:commandLink title="#{msgs['label.excluir']}" action="#{procedimentoController.removerProcedimento(procedimento)}"
-							styleClass="ui-icon ui-icon-closethick" update="gridProcedimentos, :frmProcedimento:messages"
-							rendered="#{procedimentoController.controleAcesso.acaoAutorizada('procedimento','pesquisarProcedimento.jsf','excluirProcedimento')}">
+							rendered="#{servicoController.controleAcesso.acaoAutorizada('servico','pesquisarServico.jsf','alterarServico')}" />
+						<p:commandLink title="#{msgs['label.excluir']}" action="#{servicoController.removerServico(servico)}"
+							styleClass="ui-icon ui-icon-closethick" update="gridServicos, :frmServico:messages"
+							rendered="#{servicoController.controleAcesso.acaoAutorizada('servico','pesquisarServico.jsf','excluirServico')}">
 							<p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['mensagem.pergunta.desejaRealmenteExcluir']}" icon="ui-icon-alert" />
 						</p:commandLink>	
 					</p:panelGrid>

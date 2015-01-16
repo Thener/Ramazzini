@@ -11,11 +11,11 @@
 	
 		<p:growl id="messages" />
 	
-		<p:panel id="panelPesquisaProcedimento" header="#{msgs['label.pesquisa']}" style="margin-bottom:20px">
+		<p:panel id="panelPesquisaProcedimento" header="#{msgs['label.procedimentos']}" style="margin-bottom:20px">
 		
 			<h:panelGrid columns="4" cellpadding="10">
 			
-				<p:outputLabel for="nomeProcedimentoPesquisa" value="#{msgs['label.procedimento']}:" />
+				<p:outputLabel for="nomeProcedimentoPesquisa" value="#{msgs['label.nome']}:" />
 				<p:inputText id="nomeProcedimentoPesquisa" 
 					value="#{procedimentoController.nomeProcedimentoPesquisa}" required="false"/>
 					

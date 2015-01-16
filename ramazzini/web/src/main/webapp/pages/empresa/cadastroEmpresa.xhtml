@@ -70,11 +70,11 @@
 			
 				<f:facet name="left">
 					<p:commandButton id="botaoVoltar" immediate="true"
-						icon="ui-icon-arrowreturnthick-1-w" title="Voltar"
+						icon="ui-icon-arrowreturnthick-1-w" title="#{msgs['botao.voltar']}"
 						action="pesquisarEmpresa.jsf?faces-redirect=true">
 					</p:commandButton>
 					<p:commandButton id="salvar" action="#{empresaController.gravarEmpresa()}"
-						value="Salvar" icon="ui-icon-disk" title="Salvar"
+						value="#{msgs['botao.gravar']}" icon="ui-icon-disk" 
 						styleClass="register" update="panelDadosEmpresa" 
 						disabled="#{empresaController.somenteLeitura}"/>
 				</f:facet>
