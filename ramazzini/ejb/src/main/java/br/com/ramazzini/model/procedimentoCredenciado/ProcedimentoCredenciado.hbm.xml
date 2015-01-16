@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+	<query name="Lotacao.recuperarPorEmpresa">
+		<![CDATA[
+			select 
+				lot
+			from 
+				Lotacao lot
+			left join lot.empresa emp
+			where 
+				emp = :empresa
+			order 
+				by lot.nome
+		]]>
+	</query>
+	
+	<query name="Lotacao.recuperarPorNome">
+		<![CDATA[
+			select 
+				lot
+			from 
+				Lotacao lot
+			left join lot.empresa emp
+			where 
+				emp = :empresa
+			and
+				lower(lot.nome) like lower(:nomeLotacao)
+			order 
+				by lot.nome
+		]]>
+	</query>	
+
+</hibernate-mapping>
