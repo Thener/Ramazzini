@@ -10,7 +10,7 @@
 	
 		<p:growl id="growl" showDetail="true" sticky="true" />
 	
-		<h:form id="frmCadastroUsuario">
+		<h:form id="frmCadastroUsuario" prependId="false">
 		
 			<p:panel id="panelDadosUsuario" header="#{msgs['label.dadosUsuario']}">
 				
@@ -30,8 +30,11 @@
 						<ui:include src="includes/tabDadosCadastraisUsuario.xhtml" />
 					</p:tab>
 					
-					<p:tab title="#{msgs['label.perfis']}" rendered="#{not usuarioController.acaoInclusao}">
+					<p:tab title="#{msgs['label.perfis']}" id="tabPerfisUsuario" 
+						rendered="#{not usuarioController.acaoInclusao}">
+						<f:subview id="subview">
 						<ui:include src="includes/tabPerfisUsuario.xhtml" />
+						</f:subview>
 					</p:tab>
 				
 				</p:tabView>
@@ -44,10 +47,11 @@
 						icon="ui-icon-arrowreturnthick-1-w" title="#{msgs['label.voltar']}"
 						action="pesquisarUsuario.jsf?faces-redirect=true">
 					</p:commandButton>
-					<p:commandButton id="salvar" action="#{usuarioController.gravar()}"
+					<p:commandButton id="salvar" action="#{usuarioController.gravarUsuario()}"
 						value="#{msgs['botao.gravar']}" icon="ui-icon-disk" 
 						styleClass="register" update="frmCadastroUsuario" 
-						 disabled="#{usuarioController.somenteLeitura}"/>
+						disabled="#{usuarioController.somenteLeitura}"
+						ajax="false"/>
 				</f:facet>
 			</p:toolbar>
 		

@@ -60,25 +60,6 @@ public class UsuarioController extends AbstractBean implements Serializable {
 		}
     }
     
-    public String gravar() {
-    	
-    	if (acaoInclusao == Boolean.TRUE) {
-    		perfisUsuario.add(perfilSelecionado);
-    		usuario.setSenha(Md5.hashMd5(usuario.getSenha())); 
-    		usuario.setPerfis(perfisUsuario);
-    		perfisDisponiveis.remove(perfilSelecionado);
-    	} else {
-        	if (!senhaNova.isEmpty()){
-        		usuario.setSenha(Md5.hashMd5(senhaNova));
-        	}    		
-    	}
-    	usuarioService.salvar(usuario);
-    	
-    	usuarios = usuarioService.recuperarTodos("nome");
-    	
-    	return PAGINA_PESQUISAR_USUARIO;
-    }
-    
     public void removerUsuario(Usuario usuario){
     	try {
     		usuarioService.remover(usuario, usuario.getId());
@@ -131,6 +112,25 @@ public class UsuarioController extends AbstractBean implements Serializable {
    	
     	return PAGINA_CADASTRO_USUARIO;
     }
+    
+    public String gravarUsuario() {
+    	
+    	if (acaoInclusao == Boolean.TRUE) {
+    		perfisUsuario.add(perfilSelecionado);
+    		usuario.setSenha(Md5.hashMd5(usuario.getSenha())); 
+    		usuario.setPerfis(perfisUsuario);
+    		perfisDisponiveis.remove(perfilSelecionado);
+    	} else {
+        	if (!senhaNova.isEmpty()){
+        		usuario.setSenha(Md5.hashMd5(senhaNova));
+        	}    		
+    	}
+    	usuarioService.salvar(usuario);
+    	
+    	usuarios = usuarioService.recuperarTodos("nome");
+    	
+    	return PAGINA_PESQUISAR_USUARIO;
+    }    
     
     public void pesquisar() throws Exception {
     	

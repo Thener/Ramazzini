@@ -11,10 +11,16 @@
 		<p:inputText id="login"
 			value="#{usuarioController.usuario.login}" required="true" />
 
-		<p:outputLabel for="senha" value="#{msgs['label.senha']}:" />
-		<p:password id="senha"
-			value="#{usuarioController.usuario.senha}" required="true" />
-		
+		<p:outputLabel for="senha" value="#{msgs['label.senha']}:" 
+			rendered="#{usuarioController.acaoInclusao}" />
+		<p:password id="senha" value="#{usuarioController.usuario.senha}" 
+			required="true" rendered="#{usuarioController.acaoInclusao}" />
+			
+		<p:outputLabel for="senhaNova" value="Nova senha:" 
+			rendered="#{not usuarioController.acaoInclusao}" />
+		<p:password id="senhaNova" value="#{usuarioController.senhaNova}" 
+			rendered="#{not usuarioController.acaoInclusao}" />
+			
 		<p:outputLabel for="perfil" value="#{msgs['label.perfil']}:" 
 			rendered="#{usuarioController.acaoInclusao}"/>
 		<p:selectOneMenu id="perfil" style="width:232px;"						

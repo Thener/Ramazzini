@@ -15,17 +15,22 @@
 			<h:form id="form">
 
 				<p:growl id="growl" showDetail="true" sticky="true" />
+				
+				<p:dataTable var="perfil" value="#{perfilController.perfis}"
+					id="gridPerfisDoSistema" emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}"
+					paginator="true" paginatorPosition="bottom" rows="5">
+				
+					<f:facet name="header"> #{msgs['label.perfis']} </f:facet>				
 
-				<p:dataTable var="perfil" value="#{perfilController.perfis}">
-
-					<p:column headerText="Nome">
+					<p:column headerText="#{msgs['label.nome']}">
 						<h:outputText value="#{perfil.nome}" />
 					</p:column>
 
-					<p:column headerText="Ações" style="width:10%;">
+					<p:column headerText="#{msgs['label.acoes']}" style="width:5%;">
 						<p:commandLink title="editar" action="#{perfilController.alterarPerfil(perfil)}"
 							styleClass="ui-icon ui-icon-pencil"
-							rendered="#{perfil.nome != 'administrador'}" />
+							rendered="#{perfil.nome != 'administrador'}" 
+							style="margin-left: 40%;"/>
 					</p:column>					
 
 				</p:dataTable>
