@@ -15,6 +15,7 @@ import br.com.ramazzini.model.empresa.SituacaoEmpresa;
 import br.com.ramazzini.model.empresa.TipoPcmso;
 import br.com.ramazzini.model.empresa.TipoPessoa;
 import br.com.ramazzini.model.empresa.UnidadeFederativa;
+import br.com.ramazzini.model.lotacao.Lotacao;
 import br.com.ramazzini.service.CnaeService;
 import br.com.ramazzini.service.EmpresaService;
 import br.com.ramazzini.util.UtilMensagens;
@@ -68,7 +69,9 @@ public class EmpresaController extends AbstractBean implements Serializable {
         
 	public String incluirEmpresa() {
 		
-		this.empresa = new Empresa();
+		empresa = new Empresa();
+		lotacaoController.setEmpresa(empresa);
+		lotacaoController.setLotacao(new Lotacao());
 		return cadastroEmpresa(empresa, Boolean.FALSE);
 	}    
     

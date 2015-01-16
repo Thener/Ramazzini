@@ -12,7 +12,7 @@
 	
 		<h:form id="frmCadastroUsuario" prependId="false">
 		
-			<p:panel id="panelDadosUsuario" header="#{msgs['label.dadosUsuario']}">
+			<p:panel id="panelDadosUsuario" header="#{msgs['label.usuario']}">
 				
 				<h:panelGrid columns="4" cellpadding="10">
 					<p:outputLabel for="nome" value="#{msgs['label.nome']}:" />
@@ -32,9 +32,7 @@
 					
 					<p:tab title="#{msgs['label.perfis']}" id="tabPerfisUsuario" 
 						rendered="#{not usuarioController.acaoInclusao}">
-						<f:subview id="subview">
 						<ui:include src="includes/tabPerfisUsuario.xhtml" />
-						</f:subview>
 					</p:tab>
 				
 				</p:tabView>

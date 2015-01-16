@@ -19,7 +19,7 @@
 			
 			<p:commandButton 
 				id="botaoIncluirLotacao" icon="ui-icon-circle-plus" value="#{msgs['botao.incluir']}"
-				action="#{lotacaoController.incluirLotacao()}" />					
+				action="#{lotacaoController.incluirLotacao()}" disabled="#{empresaController.somenteLeitura}" />					
 			
 		</h:panelGrid>   
 	</p:fieldset>
