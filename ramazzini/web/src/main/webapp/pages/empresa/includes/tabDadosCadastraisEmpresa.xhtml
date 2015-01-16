@@ -5,7 +5,7 @@
    xmlns:h="http://java.sun.com/jsf/html"
    xmlns:p="http://primefaces.org/ui">
    
-	<h:panelGrid columns="8" cellpadding="5">
+	<h:panelGrid columns="6" cellpadding="5">
 		<p:outputLabel for="nome" value="#{msgs['label.nomeFantasia']}:" />
 		<p:inputText id="nome" value="#{empresaController.empresa.nomeFantasia}" 
 			required="false" maxlength="50" styleClass="nome50"/>
@@ -117,10 +117,7 @@
 		</h:panelGrid>
 	</p:fieldset>
 	
-	<h:panelGrid columns="8" cellpadding="5">
-		<p:outputLabel for="email" value="#{msgs['label.email']}:" />
-		<p:inputText id="email" value="#{empresaController.empresa.email}" 
-			maxlength="200" required="false" />
+	<h:panelGrid columns="6" cellpadding="5">
 			
 		<p:outputLabel for="telefone1" value="#{msgs['label.telefone']} 1:" />
 		<p:inputText id="telefone1" value="#{empresaController.empresa.telefone1}" 
@@ -133,6 +130,11 @@
 		<p:outputLabel for="pessoaContato" value="#{msgs['label.contato']}:" />
 		<p:inputText id="pessoaContato" value="#{empresaController.empresa.pessoaContato}" 
 			maxlength="50" required="false" />
+			
+		<p:outputLabel for="email" value="#{msgs['label.email']}:" />
+		<p:inputText id="email" value="#{empresaController.empresa.email}" 
+			maxlength="200" required="false" />
+			
 	</h:panelGrid>	
 		
 </ui:composition>

@@ -9,12 +9,13 @@
 		<h:panelGrid columns="4" cellpadding="10" id="panelGridLotacaoPesquisa">
 		
 			<p:outputLabel for="nomeLotacaoPesquisa" value="#{msgs['label.lotacao']}" />
-			<p:inputText id="nomeLotacaoPesquisa" 
-				value="#{lotacaoController.nomeLotacaoPesquisa}" required="false"/>
+			<p:inputText id="nomeLotacaoPesquisa" value="#{lotacaoController.nomeLotacaoPesquisa}" 
+				required="false"  styleClass="nome100"/>
 							
 			<p:commandButton action="#{lotacaoController.pesquisar()}" 
 				icon="ui-icon-search" ajax="true" update="panelGridLotacaoPesquisa, gridLotacoes" 
-				process="@this, panelGridLotacaoPesquisa" />
+				process="@this, panelGridLotacaoPesquisa" 
+				disabled="#{empresaController.acaoInclusao}"/>
 			
 			<p:commandButton 
 				id="botaoIncluirLotacao" icon="ui-icon-circle-plus" value="#{msgs['botao.incluir']}"
@@ -52,9 +53,9 @@
 				<p:commandLink title="#{msgs['label.visualizar']}" action="#{lotacaoController.visualizarLotacao(lotacao)}"
 					styleClass="ui-icon ui-icon-search" />
 				<p:commandLink title="#{msgs['label.editar']}" action="#{lotacaoController.alterarLotacao(lotacao)}"
-					styleClass="ui-icon ui-icon-pencil" />
+					disabled="#{empresaController.somenteLeitura}" styleClass="ui-icon ui-icon-pencil" />
 				<p:commandLink title="#{msgs['label.excluir']}" action="#{lotacaoController.removerLotacao(lotacao)}"
-					styleClass="ui-icon ui-icon-closethick" update="gridLotacoes">
+					disabled="#{empresaController.somenteLeitura}" styleClass="ui-icon ui-icon-closethick" update="gridLotacoes">
 					<p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['label.confirmacaoExclusao']}" icon="ui-icon-alert" />
 				</p:commandLink>	
 			</p:panelGrid>
