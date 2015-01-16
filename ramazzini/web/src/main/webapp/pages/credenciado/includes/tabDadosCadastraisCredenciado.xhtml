@@ -9,58 +9,43 @@
 
 		<h:outputLabel for="ativoCheck" value="#{msgs['label.ativo']}:" />
 		<p:selectBooleanCheckbox id="ativoCheck"
-			value="#{credenciadoController.novoCredenciado.ativo}" />
+			value="#{credenciadoController.credenciado.ativo}" />
 
 		<p:outputLabel for="horario"
 			value="#{msgs['label.horarioAtendimento']}:" />
 		<p:inputText id="horario"
-			value="#{credenciadoController.novoCredenciado.horarioAtendimento}"
-			styleClass="nome50"/>
+			value="#{credenciadoController.credenciado.horarioAtendimento}"
+			styleClass="nome50" maxlength="200"/>
 	</h:panelGrid>
 
 	<p:fieldset legend="#{msgs['label.endereco']}">
-
-		<h:panelGrid columns="6" cellpadding="10">
-			
-			<p:outputLabel for="cep" value="#{msgs['label.CEP']}:" />
-			<p:inputMask id="cep"
-				value="#{credenciadoController.novoCredenciado.endereco.cep}"
-				mask="#{msgs['pattern.cep']}" required="true" styleClass="cep"/>
-				
+		<h:panelGrid columns="6" cellpadding="5">	
 			<p:outputLabel for="logradouro" value="#{msgs['label.logradouro']}:" />
-			<p:inputText id="logradouro"
-				value="#{credenciadoController.novoCredenciado.endereco.logradouro}"
-				required="true" styleClass="nome50"/>
-			
-			<p:outputLabel for="numero" value="#{msgs['label.numero']}:" />
-			<p:inputText id="numero"
-				value="#{credenciadoController.novoCredenciado.endereco.numeroLogradouro}"
-				required="true" />
-			
-			<p:outputLabel for="complemento" value="#{msgs['label.complemento']}:" />
-			<p:inputText id="complemento"
-				value="#{credenciadoController.novoCredenciado.endereco.complementoLogradouro}"/>
+			<p:inputText id="logradouro" value="#{credenciadoController.credenciado.endereco.logradouro}" 
+				maxlength="100" required="false" />
 				
-			<p:outputLabel for="bairro" value="#{msgs['label.bairro']}:" />
-			<p:inputText id="bairro"
-				value="#{credenciadoController.novoCredenciado.endereco.bairro}"
-				required="true" />
-			
+			<p:outputLabel for="logradouroNumero" value="#{msgs['label.numeroLogradouro']}:" />
+			<p:inputText id="logradouroNumero" value="#{credenciadoController.credenciado.endereco.numeroLogradouro}" 
+				maxlength="20" required="false" />
+		
+			<p:outputLabel for="logradouroComplemento" value="#{msgs['label.complementoLogradouro']}:" />
+			<p:inputText id="logradouroComplemento" value="#{credenciadoController.credenciado.endereco.complementoLogradouro}" 
+				maxlength="20" required="false" />
+
+			<p:outputLabel for="logradouroBairro" value="#{msgs['label.bairro']}:" />
+			<p:inputText id="logradouroBairro" value="#{credenciadoController.credenciado.endereco.bairro}" 
+				maxlength="50" required="false" />
+		
 			<p:outputLabel for="cidade" value="#{msgs['label.cidade']}:" />
-			<p:inputText id="cidade"
-				value="#{credenciadoController.novoCredenciado.endereco.cidade}"
-				required="true" />
+			<p:inputText id="cidade" value="#{credenciadoController.credenciado.endereco.cidade}" 
+				maxlength="100" required="false" />
 			
-			<p:outputLabel for="uf" value="#{msgs['label.unidadeFederativa']}:" />
-					<p:selectOneMenu id="uf"
-						value="#{credenciadoController.novoCredenciado.endereco.unidadeFederativa}">
-						<f:selectItems value="#{credenciadoController.unidadesFederativas}" var="uf"
-							itemLabel="#{uf.stringChave}" itemValue="#{uf.value}" />
-					</p:selectOneMenu>		
-			
-			<p:outputLabel for="uf" value="#{msgs['label.referenciaEndereco']}:" />
-	   		<p:inputTextarea id="referenciaEndereco" rows="3" cols="33" value="#{credenciadoController.novoCredenciado.endereco.referenciaEndereco}"/>
-					
+			<p:outputLabel for="uf" value="#{msgs['label.uf']}:" />
+			<p:selectOneMenu id="uf"
+				value="#{credenciadoController.credenciado.endereco.unidadeFederativa}">
+				<f:selectItems value="#{empresaController.ufs}" var="uf"
+					itemLabel="#{uf.stringChave}" itemValue="#{uf.value}" />
+			</p:selectOneMenu>
 		</h:panelGrid>
 	</p:fieldset>
 </ui:composition>

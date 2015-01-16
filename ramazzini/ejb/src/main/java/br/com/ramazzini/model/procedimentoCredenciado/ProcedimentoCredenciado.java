@@ -45,6 +45,15 @@ public class ProcedimentoCredenciado extends AbstractEntidade implements Seriali
 	
 	@Column(name = "vl_custo" , columnDefinition = "float8")
 	private BigDecimal precoCusto;
+	
+	public ProcedimentoCredenciado() {
+	}
+
+	public ProcedimentoCredenciado(Procedimento procedimento,
+			Credenciado credenciado) {
+		this.procedimento = procedimento;
+		this.credenciado = credenciado;
+	}
 
 	public Long getId() {
 		return id;

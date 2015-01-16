@@ -13,6 +13,7 @@ import javax.inject.Named;
 import br.com.ramazzini.model.credenciado.Credenciado;
 import br.com.ramazzini.model.empresa.UnidadeFederativa;
 import br.com.ramazzini.model.procedimento.Procedimento;
+import br.com.ramazzini.model.procedimentoCredenciado.ProcedimentoCredenciado;
 import br.com.ramazzini.service.CredenciadoService;
 import br.com.ramazzini.service.ProcedimentoService;
 import br.com.ramazzini.util.UtilMensagens;
@@ -24,7 +25,7 @@ public class CredenciadoController extends AbstractBean implements Serializable 
 	private static final long serialVersionUID = 1L;
 	
 	private static final String PAGINA_PESQUISAR_CREDENCIADO = "pesquisarCredenciado.jsf?faces-redirect=true";
-	private static final String PAGINA_ALTERAR_CREDENCIADO = "alterarCredenciado.jsf?faces-redirect=true";
+	private static final String PAGINA_CADASTRO_CREDENCIADO = "cadastroCredenciado.jsf?faces-redirect=true";
 
 	private @Inject Conversation conversation;
 	
@@ -34,13 +35,11 @@ public class CredenciadoController extends AbstractBean implements Serializable 
     @Inject
     private ProcedimentoService procedimentoService;      
 	
-	private Credenciado novoCredenciado;
+	private Credenciado credenciado;
 	
 	private List<Credenciado> credenciados;
 	
 	private String nomeCredenciadoPesquisa;
-	
-	private Credenciado credenciadoSelecionado;
 	
 	private Procedimento procedimentoSelecionado;
 	
@@ -49,26 +48,40 @@ public class CredenciadoController extends AbstractBean implements Serializable 
 	@PostConstruct
 	public void init() {
 
-		novoCredenciado = new Credenciado();	
+		credenciado = new Credenciado();	
 		
 		if (conversation.isTransient()) {
 			conversation.begin();
 		}
 	}
+	public String incluirCredenciado() {
+		
+		this.credenciado = new Credenciado();
+		return cadastroCredenciado(credenciado, Boolean.FALSE);
+	}    
+    
+    public String alterarCredenciado(Credenciado credenciado){
+    	
+    	return cadastroCredenciado(credenciado, Boolean.FALSE);
+    }
+    
+    public String visualizarCredenciado(Credenciado credenciado){
+    	
+    	return cadastroCredenciado(credenciado, Boolean.TRUE);
+    } 
+    
+	private String cadastroCredenciado(Credenciado credenciado, Boolean somenteLeitura) {
+    	setCredenciado(credenciado);
+    	setSomenteLeitura(somenteLeitura);    	
+    	return PAGINA_CADASTRO_CREDENCIADO;    	
+    }
 	
 	public String salvar() {
 		
-		credenciadoService.salvar(novoCredenciado);
+		credenciadoService.salvar(credenciado);
 		credenciados = credenciadoService.recuperarTodos("nome");
 		return PAGINA_PESQUISAR_CREDENCIADO;
 	}
-	
-	public String atualizar() {
-		
-		credenciadoService.salvar(credenciadoSelecionado);
-		credenciados = credenciadoService.recuperarTodos("nome");
-		return PAGINA_PESQUISAR_CREDENCIADO;
-	}	
 	
     public void pesquisar() throws Exception {
 		
@@ -78,21 +91,7 @@ public class CredenciadoController extends AbstractBean implements Serializable 
 			credenciados = credenciadoService.recuperarPorNome(nomeCredenciadoPesquisa);
 		}      
     }  	
-    
-    public String visualizar(Credenciado credenciado){
-    	
-    	setCredenciadoSelecionado(credenciado);
-    	setSomenteLeitura(Boolean.TRUE);
-    	return PAGINA_ALTERAR_CREDENCIADO;
-    }
-    
-    public String editar(Credenciado credenciado){
-    	
-    	setCredenciadoSelecionado(credenciado);
-    	setSomenteLeitura(Boolean.FALSE);    	
-    	return PAGINA_ALTERAR_CREDENCIADO;
-    }
-    
+     
     public void remover(Credenciado credenciado){
     	
     	try {
@@ -103,6 +102,11 @@ public class CredenciadoController extends AbstractBean implements Serializable 
     		UtilMensagens.mensagemErro("Não foi possível remover a empresa!");
         }
     }   
+    
+    public void incluirProcedimentoCredenciado(){
+    	ProcedimentoCredenciado procedimentoCredenciado = new ProcedimentoCredenciado(procedimentoSelecionado, credenciado);
+    	
+    }
     
     public List<Procedimento> completeProcedimento(String query) {
         List<Procedimento> todosProcedimentos = procedimentoService.recuperarTodos();
@@ -115,16 +119,14 @@ public class CredenciadoController extends AbstractBean implements Serializable 
             }
         }         
         return procedimentosFiltrados;
-    }
-    
-	public Credenciado getNovoCredenciado() {
-		return novoCredenciado;
-	}
+    }	
 
-	public void setNovoCredenciado(Credenciado novoCredenciado) {
-		this.novoCredenciado = novoCredenciado;
+	public Credenciado getCredenciado() {
+		return credenciado;
 	}
-
+	public void setCredenciado(Credenciado credenciado) {
+		this.credenciado = credenciado;
+	}
 	public String getNomeCredenciadoPesquisa() {
 		return nomeCredenciadoPesquisa;
 	}
@@ -132,15 +134,7 @@ public class CredenciadoController extends AbstractBean implements Serializable 
 	public void setNomeCredenciadoPesquisa(String nomeCredenciadoPesquisa) {
 		this.nomeCredenciadoPesquisa = nomeCredenciadoPesquisa;
 	}
-
-	public Credenciado getCredenciadoSelecionado() {
-		return credenciadoSelecionado;
-	}
-
-	public void setCredenciadoSelecionado(Credenciado credenciadoSelecionado) {
-		this.credenciadoSelecionado = credenciadoSelecionado;
-	}
-
+	
 	public List<Credenciado> getCredenciados() {
 		return credenciados;
 	}

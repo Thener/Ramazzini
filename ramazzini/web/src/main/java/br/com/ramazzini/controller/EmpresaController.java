@@ -69,17 +69,17 @@ public class EmpresaController extends AbstractBean implements Serializable {
 	public String incluirEmpresa() {
 		
 		this.empresa = new Empresa();
-		return cadatroEmpresa(empresa, Boolean.FALSE);
+		return cadastroEmpresa(empresa, Boolean.FALSE);
 	}    
     
     public String alterarEmpresa(Empresa empresa){
     	
-    	return cadatroEmpresa(empresa, Boolean.FALSE);
+    	return cadastroEmpresa(empresa, Boolean.FALSE);
     }
     
     public String visualizarEmpresa(Empresa empresa){
     	
-    	return cadatroEmpresa(empresa, Boolean.TRUE);
+    	return cadastroEmpresa(empresa, Boolean.TRUE);
     } 
     
     public void removerEmpresa(Empresa empresa){
@@ -93,7 +93,7 @@ public class EmpresaController extends AbstractBean implements Serializable {
         }
     }     
     
-    private String cadatroEmpresa(Empresa empresa, Boolean somenteLeitura) {
+    private String cadastroEmpresa(Empresa empresa, Boolean somenteLeitura) {
     	setEmpresa(empresa);
     	lotacaoController.setEmpresa(empresa);
     	setSomenteLeitura(somenteLeitura);    	

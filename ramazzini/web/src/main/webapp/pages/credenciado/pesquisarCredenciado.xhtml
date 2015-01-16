@@ -25,8 +25,7 @@
 				
 				<p:commandButton 
 					id="botaoIncluirCredenciado" icon="ui-icon-circle-plus" value="#{msgs['botao.incluir']}"
-					action="incluirCredenciado.jsf?faces-redirect=true" />					
-				
+					action="#{credenciadoController.incluirCredenciado()}" />
 			</h:panelGrid>		
 
 			<p:dataTable var="credenciado" value="#{credenciadoController.credenciados}"
