@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui"
+   template="/WEB-INF/templates/default.xhtml">
+   
+	<ui:define name="content">
+	
+		<p:growl id="growl" showDetail="true" sticky="true" />
+	
+		<h:form id="frmCadastroUsuario">
+		
+			<p:panel id="panelDadosUsuario" header="#{msgs['label.dadosUsuario']}">
+				
+				<h:panelGrid columns="4" cellpadding="10">
+					<p:outputLabel for="nome" value="#{msgs['label.nome']}:" />
+					<p:inputText id="nome"
+						value="#{usuarioController.usuario.nome}" required="true" />
+						
+					<h:outputLabel for="ativoCheck" value="#{msgs['label.ativo']}:" />
+					<p:selectBooleanCheckbox id="ativoCheck"
+						value="#{usuarioController.usuario.ativo}" />						
+				</h:panelGrid>
+				
+				<p:tabView id="tabViewCadastroUsuario">
+				
+					<p:tab title="#{msgs['label.dadosCadastrais']}">
+						<ui:include src="includes/tabDadosCadastraisUsuario.xhtml" />
+					</p:tab>
+					
+					<p:tab title="#{msgs['label.perfis']}" rendered="#{not usuarioController.acaoInclusao}">
+						<ui:include src="includes/tabPerfisUsuario.xhtml" />
+					</p:tab>
+				
+				</p:tabView>
+				
+			</p:panel>
+		
+			<p:toolbar id="toolBar">
+				<f:facet name="left">
+					<p:commandButton id="botaoVoltar" immediate="true"
+						icon="ui-icon-arrowreturnthick-1-w" title="#{msgs['label.voltar']}"
+						action="pesquisarUsuario.jsf?faces-redirect=true">
+					</p:commandButton>
+					<p:commandButton id="salvar" action="#{usuarioController.gravar()}"
+						value="#{msgs['botao.gravar']}" icon="ui-icon-disk" 
+						styleClass="register" update="frmCadastroUsuario" 
+						 disabled="#{usuarioController.somenteLeitura}"/>
+				</f:facet>
+			</p:toolbar>
+		
+		</h:form>		
+		
+	</ui:define>
+</ui:composition>

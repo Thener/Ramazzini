@@ -7,68 +7,75 @@
    template="/WEB-INF/templates/default.xhtml">
    <ui:define name="content">
    
-	<h:form id="frmUsuario">			
-		<p:panel id="panelPesquisa" header="Pesquisa" style="margin-bottom:20px">
+	<h:form id="frmUsuario">
+				
+		<p:panel id="panelPesquisa" header="#{msgs['label.usuario']}" style="margin-bottom:20px">
+		
 			<h:panelGrid columns="4" cellpadding="10">
-				<p:outputLabel for="login" value="Login:" />
+				<p:outputLabel for="login" value="#{msgs['label.login']}:" />
 				<p:inputText id="login" 
 					value="#{usuarioController.loginPesquisa}" required="false"/>
 				<p:commandButton action="#{usuarioController.pesquisar()}"
 					id="botaoPesquisa" update="frmUsuario" icon="ui-icon-search"
-					title="Pesquisa" >
+					title="#{msgs['label.pesquisa']}" >
 					<f:ajax execute="login" render="gridUsuarios"/>
 				</p:commandButton>
 				<p:commandButton 
-					id="botaoAdicionarUsuario" icon="ui-icon-circle-plus" value="#{msgs['botao.incluir']}"s
-					title="Adicionar Usuário" action="#{usuarioController.incluirUsuario()}"
-					rendered="#{usuarioController.controleAcesso.acaoAutorizada('usuario','pesquisarUsuario.jsf','incluirUsuario')}">					
-				</p:commandButton>
+					id="botaoAdicionarUsuario" icon="ui-icon-circle-plus" value="#{msgs['botao.incluir']}"
+					title="#{msgs['botao.incluir']}" action="#{usuarioController.incluirUsuario()}"
+					rendered="#{usuarioController.controleAcesso.acaoAutorizada('usuario','pesquisarUsuario.jsf','incluirUsuario')}" />					
 			</h:panelGrid>
-		
 
 			<p:dataTable var="usuario" value="#{usuarioController.usuarios}"
-				id="gridUsuarios" emptyMessage="#{usuarioController.gridMsg}"
+				id="gridUsuarios" emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}"
 				paginator="true" paginatorPosition="bottom" rows="5">
-				<f:facet name="header"> Usuários </f:facet>
-				<p:column headerText="Id" sortBy="#{usuario.id}" styleClass="coluna1">
+				
+				<f:facet name="header"> #{msgs['label.usuarios']} </f:facet>
+				
+				<p:column headerText="#{msgs['label.codigo']}" sortBy="#{usuario.id}" styleClass="coluna1">
 					<h:outputText value="#{usuario.id}" />
 				</p:column>
 
-				<p:column headerText="Nome" sortBy="#{usuario.nome}" styleClass="coluna2">
+				<p:column headerText="#{msgs['label.nome']}" sortBy="#{usuario.nome}" styleClass="coluna2">
 					<h:outputText value="#{usuario.nome}" />
 				</p:column>
 
-				<p:column headerText="Login" sortBy="#{usuario.login}" styleClass="coluna3">
+				<p:column headerText="#{msgs['label.login']}" sortBy="#{usuario.login}" styleClass="coluna3">
 					<h:outputText value="#{usuario.login}" />
 				</p:column>
 
-				<p:column headerText="Ativo" styleClass="coluna4">
+				<p:column headerText="#{msgs['label.ativo']}" styleClass="coluna4">
 					<p:selectBooleanCheckbox value="#{usuario.ativo}" disabled="true" />
 				</p:column>
 
-				<p:column headerText="Ações" styleClass="coluna5">
+				<p:column headerText="#{msgs['label.acoes']}" styleClass="coluna5">
 					<p:panelGrid columns="3" styleClass="semBorda">					  
-						<p:commandLink title="vizualizar" action="#{usuarioController.visualizar(usuario)}"
+						<p:commandLink title="#{msgs['label.visualizar']}" action="#{usuarioController.visualizarUsuario(usuario)}"
 							styleClass="ui-icon ui-icon-search" 
 								rendered="#{usuarioController.controleAcesso.acaoAutorizada('usuario','pesquisarUsuario.jsf','visualizarUsuario')}" />
-						<p:commandLink title="editar" action="#{usuarioController.editar(usuario)}"
+						<p:commandLink title="#{msgs['label.alterar']}" action="#{usuarioController.alterarUsuario(usuario)}"
 							styleClass="ui-icon ui-icon-pencil" 
 							rendered="#{usuarioController.controleAcesso.acaoAutorizada('usuario','pesquisarUsuario.jsf','alterarUsuario')}" />
-						<p:commandLink title="excluir" action="#{usuarioController.remover(usuario)}"
+						<p:commandLink title="#{msgs['label.excluir']}" action="#{usuarioController.removerUsuario(usuario)}"
 							styleClass="ui-icon ui-icon-closethick" update="gridUsuarios"
 							rendered="#{usuarioController.controleAcesso.acaoAutorizada('usuario','pesquisarUsuario.jsf','excluirUsuario')}">
-							<p:confirm header="Confirmação" message="Tem certeza que deseja excluir o usuário selecionado?" icon="ui-icon-alert" />
+							<p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['mensagem.pergunta.desejaRealmenteExcluir']}" icon="ui-icon-alert" />
 						</p:commandLink>	
 					</p:panelGrid>
 				</p:column>
+				
 			</p:dataTable>
+			
 			<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-				<p:commandButton value="Sim" type="button"
+				<p:commandButton value="#{msgs['label.confirmacaoSim']}" type="button"
 					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-				<p:commandButton value="Não" type="button"
+				<p:commandButton value="#{msgs['label.confirmacaoNao']}" type="button"
 					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 			</p:confirmDialog>
+			
 		</p:panel>
+		
 	</h:form>
+	
 </ui:define>
 </ui:composition>

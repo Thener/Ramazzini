@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui">
+					
+	<h:panelGrid columns="2" cellpadding="10">
+
+		<p:outputLabel for="login" value="#{msgs['label.email']}:" />
+		<p:inputText id="login"
+			value="#{usuarioController.usuario.login}" required="true" />
+
+		<p:outputLabel for="senha" value="#{msgs['label.senha']}:" />
+		<p:password id="senha"
+			value="#{usuarioController.usuario.senha}" required="true" />
+		
+		<p:outputLabel for="perfil" value="#{msgs['label.perfil']}:" 
+			rendered="#{usuarioController.acaoInclusao}"/>
+		<p:selectOneMenu id="perfil" style="width:232px;"						
+			value="#{usuarioController.perfilSelecionado}"
+			converter="entityConverter" required="true"
+			rendered="#{usuarioController.acaoInclusao}">
+			<f:selectItem itemLabel="Selecione o perfil" itemValue=""
+				noSelectionOption="true" />
+			<f:selectItems value="#{usuarioController.perfisDisponiveis}"
+				var="perfil" itemLabel="#{perfil.nome}" />
+		</p:selectOneMenu>
+		
+	</h:panelGrid>
+
+</ui:composition>

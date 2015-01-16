@@ -24,8 +24,8 @@ public class UsuarioController extends AbstractBean implements Serializable {
     
 	private static final long serialVersionUID = 1L;
 	
-	private static final String PAGINA_INCLUIR_USUARIO = "incluirUsuario.jsf?faces-redirect=true";
-	private static final String PAGINA_ALTERAR_ALTERAR_USUARIO = "alterarUsuario.jsf?faces-redirect=true";
+	private static final String PAGINA_CADASTRO_USUARIO = "cadastroUsuario.jsf?faces-redirect=true";
+	private static final String PAGINA_PESQUISAR_USUARIO = "pesquisarUsuario.jsf?faces-redirect=true";
 	
 	private @Inject Conversation conversation;
 
@@ -35,8 +35,7 @@ public class UsuarioController extends AbstractBean implements Serializable {
     @Inject
 	private PerfilService perfilService;
     
-    private Usuario usuarioNovo;    
-    private Usuario usuarioSelecionado;    
+    private Usuario usuario;    
     private List<Usuario> usuarios;
     
     private Perfil perfilSelecionado;
@@ -44,59 +43,43 @@ public class UsuarioController extends AbstractBean implements Serializable {
     private List<Perfil> perfisUsuario;
     
     private String loginPesquisa;
-    private String gridMsg;   
     
     private String senhaAtual;
     private String senhaNova;
     private String senhaNovaConfirmacao;
     
+    private boolean acaoInclusao = Boolean.FALSE;
+    
     private boolean somenteLeitura = Boolean.FALSE;
        
     @PostConstruct  
     public void init() {
-    	usuarios = new ArrayList<Usuario>();
-    	usuarioNovo = new Usuario();
-    	senhaNova = "";
-    	gridMsg = "";
-    	somenteLeitura = Boolean.FALSE; 
+
     	if (conversation.isTransient()) {
 			conversation.begin();
 		}
     }
-          
-    public String salvar() throws Exception {
-        try {
-        	usuarioNovo.setSenha(Md5.hashMd5(usuarioNovo.getSenha())); 
-        	perfisUsuario.add(perfilSelecionado);
-        	perfisDisponiveis.remove(perfilSelecionado);
-        	usuarioNovo.setPerfis(perfisUsuario);
-            usuarioService.salvar(usuarioNovo);
-            UtilMensagens.mensagemInformacao("Usuario salvo com sucesso!");
-            String alterar = editar(usuarioNovo);
-            init();
-            return alterar;
-        } catch (Exception e) {
-        	UtilMensagens.mensagemErro("Não foi possível salvar o Usuário!");
-        	init();
-            return null;
-        }
-    } 
     
-    public void atualizar() throws Exception {
-        try {
+    public String gravar() {
+    	
+    	if (acaoInclusao == Boolean.TRUE) {
+    		perfisUsuario.add(perfilSelecionado);
+    		usuario.setSenha(Md5.hashMd5(usuario.getSenha())); 
+    		usuario.setPerfis(perfisUsuario);
+    		perfisDisponiveis.remove(perfilSelecionado);
+    	} else {
         	if (!senhaNova.isEmpty()){
-        		usuarioSelecionado.setSenha(Md5.hashMd5(senhaNova));
-        	}
-            usuarioService.salvar(usuarioSelecionado);
-            init();
-            UtilMensagens.mensagemInformacao("Usuario alterado com sucesso!");
-        } catch (Exception e) {
-        	UtilMensagens.mensagemErro("Não foi possível alterar o Usuário!");
-        	init();  
-        }
-    }  
+        		usuario.setSenha(Md5.hashMd5(senhaNova));
+        	}    		
+    	}
+    	usuarioService.salvar(usuario);
+    	
+    	usuarios = usuarioService.recuperarTodos("nome");
+    	
+    	return PAGINA_PESQUISAR_USUARIO;
+    }
     
-    public void remover(Usuario usuario){
+    public void removerUsuario(Usuario usuario){
     	try {
     		usuarioService.remover(usuario, usuario.getId());
     		usuarios.remove(usuario);
@@ -110,53 +93,58 @@ public class UsuarioController extends AbstractBean implements Serializable {
     	try {
     		perfisUsuario.remove(perfil);
     		perfisDisponiveis.add(perfil);
-    		usuarioSelecionado.setPerfis(perfisUsuario);
-    		atualizar();
+    		usuario.setPerfis(perfisUsuario);
     		UtilMensagens.mensagemInformacao("Perfil removido com sucesso!");
     	} catch (Exception e) {
     		UtilMensagens.mensagemErro("Não foi possível remover o Perfil!");            
         }            
     }
     
-    public String editar(Usuario usuario){    	
-    	setUsuarioSelecionado(usuarioService.recuperarPorId(usuario.getId()));
-    	setSomenteLeitura(Boolean.FALSE);    	
-    	perfisDisponiveis = perfilService.recuperarPerfisDisponiveisPorUsuario(usuario);
-    	perfisUsuario = perfilService.recuperarTudoPorUsuario(usuario);
-    	return PAGINA_ALTERAR_ALTERAR_USUARIO;
+    public String alterarUsuario(Usuario usuario){    	
+    	setAcaoInclusao(Boolean.FALSE);
+    	return cadastroUsuario(usuarioService.recuperarPorId(usuario.getId()), Boolean.FALSE);    	
     }
     
     public String incluirUsuario(){
-    	perfisDisponiveis = perfilService.recuperarTodosMenosAdmin();
-    	perfisUsuario = new ArrayList<Perfil>();
-    	return PAGINA_INCLUIR_USUARIO;
+    	usuario = new Usuario();
+    	setAcaoInclusao(Boolean.TRUE);
+    	return cadastroUsuario(usuario, Boolean.FALSE);
     }
     
-    public String visualizar(Usuario usuario){
-    	setUsuarioSelecionado(usuario);
-    	setSomenteLeitura(Boolean.TRUE);
-    	perfisDisponiveis = perfilService.recuperarPerfisDisponiveisPorUsuario(usuario);
-    	perfisUsuario = perfilService.recuperarTudoPorUsuario(usuario);
-    	return "alterarUsuario.js?faces-redirect=truef";
+    public String visualizarUsuario(Usuario usuario){
+    	setAcaoInclusao(Boolean.FALSE);
+    	return cadastroUsuario(usuario, Boolean.TRUE);
+    }
+    
+    private String cadastroUsuario(Usuario usuario, boolean somenteLeitura) {
+    	
+    	this.usuario = usuario;
+    	setSomenteLeitura(somenteLeitura);
+    	
+    	if (acaoInclusao == Boolean.TRUE) {
+        	perfisDisponiveis = perfilService.recuperarTodosMenosAdmin();
+        	perfisUsuario = new ArrayList<Perfil>();
+    	} else {
+        	perfisDisponiveis = perfilService.recuperarPerfisDisponiveisPorUsuario(this.usuario);
+        	perfisUsuario = perfilService.recuperarTudoPorUsuario(this.usuario);
+    	}
+   	
+    	return PAGINA_CADASTRO_USUARIO;
     }
     
     public void pesquisar() throws Exception {
-		if (loginPesquisa.isEmpty()){
-			usuarios = usuarioService.recuperarTodos("nome");        		
+    	
+    	if (loginPesquisa == null || loginPesquisa.isEmpty()){
+    		usuarios = usuarioService.recuperarTodos("nome");
 		} else {
-			List<Usuario> usuariosRecuperados = usuarioService.recuperarPorLikeLogin(loginPesquisa);
-			if (!usuariosRecuperados.isEmpty()) {
-				usuarios=usuariosRecuperados;
-			} else {
-				init();
-				gridMsg = "Login informado não cadastrado.";
-			}
-		}      
+			usuarios = usuarioService.recuperarPorLikeLogin(loginPesquisa);
+		} 		
     }  
     
     public void adicionarPerfil(){
+    	
     	perfisUsuario.add(perfilSelecionado);
-    	usuarioSelecionado.setPerfis(perfisUsuario);
+    	usuario.setPerfis(perfisUsuario);
     	perfisDisponiveis.remove(perfilSelecionado);
     }
     
@@ -185,22 +173,6 @@ public class UsuarioController extends AbstractBean implements Serializable {
 	public void setLoginPesquisa(String loginPesquisa) {
 		this.loginPesquisa = loginPesquisa;
 	} 
-
-	public String getGridMsg() {
-		return gridMsg;
-	}
-
-	public void setGridMsg(String gridMsg) {
-		this.gridMsg = gridMsg;
-	}
-
-	public Usuario getUsuarioSelecionado() {
-		return usuarioSelecionado;
-	}
-
-	public void setUsuarioSelecionado(Usuario usuarioSelecionado) {
-		this.usuarioSelecionado = usuarioSelecionado;
-	}
 
 	public boolean isSomenteLeitura() {
 		return somenteLeitura;
@@ -262,7 +234,19 @@ public class UsuarioController extends AbstractBean implements Serializable {
         return usuarios;
     }
 	
-	public Usuario getNovoUsuario() {
-        return usuarioNovo;
-    }
+	public void setAcaoInclusao(boolean acaoInclusao) {
+		this.acaoInclusao = acaoInclusao;
+	}
+	
+	public boolean isAcaoInclusao() {
+		return acaoInclusao;
+	}	
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}	
 }

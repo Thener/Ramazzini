@@ -23,8 +23,8 @@ public class CredenciadoController extends AbstractBean implements Serializable 
 
 	private static final long serialVersionUID = 1L;
 	
-	private static final String PAGINA_PESQUISAR_CREDENCIADO = "pesquisarCredenciado.js?faces-redirect=true";
-	private static final String PAGINA_ALTERAR_CREDENCIADO = "alterarCredenciado.js?faces-redirect=true";
+	private static final String PAGINA_PESQUISAR_CREDENCIADO = "pesquisarCredenciado.jsf?faces-redirect=true";
+	private static final String PAGINA_ALTERAR_CREDENCIADO = "alterarCredenciado.jsf?faces-redirect=true";
 
 	private @Inject Conversation conversation;
 	

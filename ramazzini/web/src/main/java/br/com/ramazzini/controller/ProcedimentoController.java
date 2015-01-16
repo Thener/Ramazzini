@@ -20,8 +20,8 @@ public class ProcedimentoController extends AbstractBean implements Serializable
 
 	private static final long serialVersionUID = 1L;
 	
-	private static final String PAGINA_PESQUISAR_PROCEDIMENTO = "pesquisarProcedimento.js?faces-redirect=true";
-	private static final String PAGINA_CADASTRO_PROCEDIMENTO = "cadastroProcedimento.js?faces-redirect=true";
+	private static final String PAGINA_PESQUISAR_PROCEDIMENTO = "pesquisarProcedimento.jsf?faces-redirect=true";
+	private static final String PAGINA_CADASTRO_PROCEDIMENTO = "cadastroProcedimento.jsf?faces-redirect=true";
 
 	private @Inject Conversation conversation;
 	

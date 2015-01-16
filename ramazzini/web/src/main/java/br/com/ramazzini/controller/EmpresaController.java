@@ -25,8 +25,8 @@ public class EmpresaController extends AbstractBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private static final String PAGINA_PESQUISAR_EMPRESA = "pesquisarEmpresa.js?faces-redirect=true";
-	private static final String PAGINA_CADASTRO_EMPRESA = "cadastroEmpresa.js?faces-redirect=true";
+	private static final String PAGINA_PESQUISAR_EMPRESA = "pesquisarEmpresa.jsf?faces-redirect=true";
+	private static final String PAGINA_CADASTRO_EMPRESA = "cadastroEmpresa.jsf?faces-redirect=true";
 
 	private @Inject Conversation conversation;
 	

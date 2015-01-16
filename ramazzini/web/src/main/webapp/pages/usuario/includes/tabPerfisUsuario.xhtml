@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui">
+
+	<p:panelGrid columns="3" cellpadding="10" rendered="#{not empty usuarioController.perfisDisponiveis}"> 
+		<p:outputLabel for="perfilInclusao" value="#{msgs['label.perfil']}:" />
+		<p:selectOneMenu id="perfilInclusao" readonly="#{usuarioController.somenteLeitura}"
+			value="#{usuarioController.perfilSelecionado}"
+			converter="entityConverter">
+			<f:selectItem itemLabel="Selecione o perfil" itemValue=""
+				noSelectionOption="true" />
+			<f:selectItems value="#{usuarioController.perfisDisponiveis}"
+				var="perfil" itemLabel="#{perfil.nome}" />
+		</p:selectOneMenu>	
+		<p:commandButton action="#{usuarioController.adicionarPerfil()}" value="#{msgs['botao.incluir']}"
+			icon="ui-icon-check" ajax="true" update="gridPerfis" disabled="#{usuarioController.somenteLeitura}"/>
+									
+	</p:panelGrid>
+	
+	<p:separator/>
+	
+	<p:dataTable var="perfil" value="#{usuarioController.perfisUsuario}"
+		id="gridPerfis" emptyMessage="#{msgs['mensagem.info.usuarioSelecionadoNaoPossuiPerfil']}">
+		<f:facet name="header"> #{msgs['label.perfisUsuario']} </f:facet>
+									
+		<p:column headerText="#{msgs['label.perfil']}">
+			<h:outputText value="#{perfil.nome}" />
+		</p:column>
+	
+		<p:column headerText="#{msgs['label.acoes']}" style="width:10%;">
+			<p:panelGrid columns="1" styleClass="semBorda">
+				<p:commandLink title="#{msgs['label.excluir']}" disabled="#{usuarioController.somenteLeitura}"
+					action="#{usuarioController.removerPerfilUsuario(perfil)}"
+					styleClass="ui-icon ui-icon-closethick" update="gridPerfis, :frmCadastroUsuario:tabViewCadastroUsuario:perfilInclusao">
+					<p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['mensagem.pergunta.desejaRealmenteExcluir']}" icon="ui-icon-alert" />
+				</p:commandLink>									
+			</p:panelGrid>
+		</p:column>
+	</p:dataTable>
+		
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+		<p:commandButton value="#{msgs['label.confirmacaoSim']}" type="button"
+			styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+		<p:commandButton value="#{msgs['label.confirmacaoNao']}" type="button"
+			styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+	</p:confirmDialog>
+
+</ui:composition>

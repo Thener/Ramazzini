@@ -18,8 +18,8 @@ public class LotacaoController extends AbstractBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private static final String PAGINA_CADASTRO_LOTACAO = "/pages/lotacao/cadastroLotacao.js?faces-redirect=true";
-	private static final String PAGINA_CADASTRO_EMPRESA = "/pages/empresa/cadastroEmpresa.js?faces-redirect=true";
+	private static final String PAGINA_CADASTRO_LOTACAO = "/pages/lotacao/cadastroLotacao.jsf?faces-redirect=true";
+	private static final String PAGINA_CADASTRO_EMPRESA = "/pages/empresa/cadastroEmpresa.jsf?faces-redirect=true";
 	
     @Inject
     private LotacaoService lotacaoService; 
