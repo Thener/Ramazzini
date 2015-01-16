@@ -25,8 +25,8 @@
 				<h:panelGrid columns="6" cellpadding="10">
 					
 					<p:outputLabel for="nome" value="#{msgs['label.nome']}:" />
-					<p:inputText id="nome"
-						value="#{lotacaoController.lotacao.nome}" maxlength="100" required="true" />
+					<p:inputText id="nome" value="#{lotacaoController.lotacao.nome}" 
+						styleClass="nome100" maxlength="100" required="true" />
 						
 		            <p:outputLabel for="ativoCheck" value="#{msgs['label.ativa']}:" />
 		        	<p:selectBooleanCheckbox id="ativoCheck" value="#{lotacaoController.lotacao.ativa}"/>

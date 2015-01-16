@@ -9,12 +9,13 @@
 		<h:panelGrid columns="4" cellpadding="10" id="panelGridLotacaoPesquisa">
 		
 			<p:outputLabel for="nomeLotacaoPesquisa" value="#{msgs['label.lotacao']}" />
-			<p:inputText id="nomeLotacaoPesquisa" 
-				value="#{lotacaoController.nomeLotacaoPesquisa}" required="false"/>
+			<p:inputText id="nomeLotacaoPesquisa" value="#{lotacaoController.nomeLotacaoPesquisa}" 
+				required="false"  styleClass="nome100"/>
 							
 			<p:commandButton action="#{lotacaoController.pesquisar()}" 
 				icon="ui-icon-search" ajax="true" update="panelGridLotacaoPesquisa, gridLotacoes" 
-				process="@this, panelGridLotacaoPesquisa" />
+				process="@this, panelGridLotacaoPesquisa" 
+				disabled="#{empresaController.acaoInclusao}"/>
 			
 			<p:commandButton 
 				id="botaoIncluirLotacao" icon="ui-icon-circle-plus" value="#{msgs['botao.incluir']}"

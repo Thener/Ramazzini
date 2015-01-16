@@ -11,39 +11,21 @@
 
 		<p:menubar>
 
-			<p:menuitem value="Home" url="/pages/home/home.jsf"
+			<p:menuitem value="#{msgs['menu.label.home']}" url="/pages/home/home.jsf"
 				icon="ui-icon-contact" />
 
-			<p:submenu label="Cadastros" icon="ui-icon-document"
+			<p:submenu label="#{msgs['menu.label.cadastros']}" icon="ui-icon-document"
 				rendered="#{menuController.controleAcesso.moduloAutorizado('usuario/perfil')}">
 				
-				<p:submenu label="Administrativos">
-				
-					<p:menuitem value="Perfis" url="/pages/perfil/pesquisarPerfil.jsf" 
-						rendered="#{menuController.controleAcesso.telaAutorizada('perfil','pesquisarPerfil.jsf')}"/>
-					<p:menuitem value="Usuários" url="/pages/usuario/pesquisarUsuario.jsf"
-						rendered="#{menuController.controleAcesso.telaAutorizada('usuario','pesquisarUsuario.jsf')}" />
-						
-				</p:submenu>
+				<ui:include src="/WEB-INF/menus/menuCadastrosAdministrativos.xhtml" />
 
 				<p:separator />
 				
-				<p:submenu label="Básicos">
-					<p:menuitem value="#{msgs['label.credenciados']}" url="/pages/credenciado/pesquisarCredenciado.jsf" 
-						rendered="#{menuController.controleAcesso.telaAutorizada('credenciado','pesquisarCredenciado.jsf')}"/>
-				
-				
-					<p:menuitem value="Empresas" url="/pages/empresa/pesquisarEmpresa.jsf" 
-						rendered="#{menuController.controleAcesso.telaAutorizada('empresa','pesquisarEmpresa.jsf')}"/>
-
-					<p:menuitem value="Procedimentos" url="/pages/procedimento/pesquisarProcedimento.jsf" 
-						rendered="#{menuController.controleAcesso.telaAutorizada('procedimento','pesquisarProcedimento.jsf')}"/>
-										
-				</p:submenu>
+				<ui:include src="/WEB-INF/menus/menuCadastrosBasicos.xhtml" />
 				
 			</p:submenu>
 
-			<p:menuitem value="Sair" action="#{loginController.logout()}"
+			<p:menuitem value="#{msgs['menu.label.sair']}" action="#{loginController.logout()}"
 				icon="ui-icon-close" />
 
 		</p:menubar>

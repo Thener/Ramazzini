@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+				
+	<p:submenu label="#{msgs['menu.label.basicos']}">
+	
+		<p:menuitem value="#{msgs['menu.label.credenciados']}" url="/pages/credenciado/pesquisarCredenciado.jsf" 
+			rendered="#{menuController.controleAcesso.telaAutorizada('credenciado','pesquisarCredenciado.jsf')}"/>
+
+		<p:menuitem value="#{msgs['menu.label.empresas']}" url="/pages/empresa/pesquisarEmpresa.jsf" 
+			rendered="#{menuController.controleAcesso.telaAutorizada('empresa','pesquisarEmpresa.jsf')}"/>
+
+		<p:menuitem value="#{msgs['menu.label.procedimentos']}" url="/pages/procedimento/pesquisarProcedimento.jsf" 
+			rendered="#{menuController.controleAcesso.telaAutorizada('procedimento','pesquisarProcedimento.jsf')}"/>
+
+		<p:menuitem value="#{msgs['menu.label.servicos']}" url="/pages/servico/pesquisarServico.jsf" 
+			rendered="#{menuController.controleAcesso.telaAutorizada('servicos','pesquisarServico.jsf')}"/>
+
+	</p:submenu>
+
+</html>

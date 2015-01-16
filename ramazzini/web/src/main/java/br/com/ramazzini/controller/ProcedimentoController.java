@@ -43,41 +43,30 @@ public class ProcedimentoController extends AbstractBean implements Serializable
 			conversation.begin();
 		}
 	}
-	
-	public String incluirProcedimento() {
-		
-		procedimento = new Procedimento();
-		return PAGINA_CADASTRO_PROCEDIMENTO;
-	}
-	
-	public String gravarProcedimento() {
-		
-		procedimentoService.salvar(procedimento);
-		procedimentos = procedimentoService.recuperarTodos("nome");
-		return PAGINA_PESQUISAR_PROCEDIMENTO;
-	}
 		
     public void pesquisar() throws Exception {
-		
+
     	if (nomeProcedimentoPesquisa.isEmpty()){
     		procedimentos = procedimentoService.recuperarTodos("nome");
 		} else {
 			procedimentos = procedimentoService.recuperarPorNome(nomeProcedimentoPesquisa);
 		}      
-    }  	
+    }  
+    
+	public String incluirProcedimento() {
+		
+		procedimento = new Procedimento();
+		return cadatroProcedimento(procedimento, Boolean.FALSE);
+	}    
+	
+    public String alterarProcedimento(Procedimento procedimento){
+    	
+    	return cadatroProcedimento(procedimento, Boolean.FALSE);
+    }	
     
     public String visualizarProcedimento(Procedimento procedimento){
     	
-    	setProcedimento(procedimento);
-    	setSomenteLeitura(Boolean.TRUE);
-    	return PAGINA_CADASTRO_PROCEDIMENTO;
-    }
-    
-    public String alterarProcedimento(Procedimento procedimento){
-    	
-    	setProcedimento(procedimento);
-    	setSomenteLeitura(Boolean.FALSE);    	
-    	return PAGINA_CADASTRO_PROCEDIMENTO;
+    	return cadatroProcedimento(procedimento, Boolean.TRUE);
     }
     
     public void removerProcedimento(Procedimento procedimento){
@@ -89,7 +78,21 @@ public class ProcedimentoController extends AbstractBean implements Serializable
     	} catch (Exception e) {
     		UtilMensagens.mensagemErroPorChave("mensagem.erro.naoFoiPossivelExcluirRegistro","o procedimento.");
         }
-    }    
+    }
+    
+	public String gravarProcedimento() {
+		
+		procedimentoService.salvar(procedimento);
+		procedimentos = procedimentoService.recuperarTodos("nome");
+		return PAGINA_PESQUISAR_PROCEDIMENTO;
+	}    
+    
+    private String cadatroProcedimento(Procedimento procedimento, Boolean somenteLeitura) {
+    	
+    	setProcedimento(procedimento);
+    	setSomenteLeitura(somenteLeitura);
+    	return PAGINA_CADASTRO_PROCEDIMENTO;    	
+    }     
 
 	public TipoProcedimento[] getTiposProcedimento() {
 		return TipoProcedimento.values();
