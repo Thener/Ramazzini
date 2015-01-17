@@ -5,7 +5,12 @@
 
 .ui-datatable .colunaAcoes {
 	text-align: center;
-	width: 160px;
+	width: 110px;
+}
+
+.ui-datatable .colunaData {
+	text-align: center;
+	width: 110px;
 }
 
 .coluna1 {  

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui">
+   
+   <!-- 
+   		usando fieldset nativo do html pq o selectOneMenu tem um bug
+   		quando inserido dentro de p:fieldset
+    -->
+   
+	<fieldset> 
+		<legend> #{msgs['label.pesquisa']} </legend>
+		<h:panelGrid columns="4" cellpadding="10" id="panelGridEmpresaServicoPesquisa">
+
+			<p:outputLabel for="pesquisaServico" value="#{msgs['label.servico']}:" />			
+			<p:selectOneMenu id="pesquisaServico"
+				value="#{empresaServicoController.servicoPesquisa}"
+				converter="entityConverter" styleClass="nome50">
+				<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
+					noSelectionOption="true" />
+				<f:selectItems value="#{empresaServicoController.servicos}" var="servico"
+					itemLabel="#{servico.nome}" />
+			</p:selectOneMenu>
+							
+			<p:commandButton action="#{empresaServicoController.pesquisar()}" 
+				icon="ui-icon-search" ajax="true" update="panelGridEmpresaServicoPesquisa, gridServicos" 
+				process="@this, panelGridEmpresaServicoPesquisa" 
+				disabled="#{empresaController.acaoInclusao}"/>
+			
+			<p:commandButton 
+				id="botaoIncluirEmpresaServico" icon="ui-icon-circle-plus" value="#{msgs['botao.incluir']}"
+				action="#{empresaServicoController.incluirEmpresaServico()}" 
+				disabled="#{empresaController.somenteLeitura or empresaController.acaoInclusao}" />					
+			
+		</h:panelGrid>   
+	</fieldset>
+	
+	<p:spacer width="5px" />
+   
+	<p:dataTable value="#{empresaServicoController.getEmpresasServicos()}" var="empresaServico" 
+		id="gridServicos" emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}"
+		paginator="true" paginatorPosition="bottom" rows="5">
+		
+		<f:facet name="header"> #{msgs['label.servicos']} </f:facet>
+	
+		<p:column headerText="#{msgs['label.data']}"  
+			sortBy="#{empresaServico.dataServico}" styleClass="colunaData" >
+			<h:outputText value="#{empresaServico.dataServico}">
+				<f:convertDateTime locale="pt,BR" pattern="#{msgs['pattern.calendar']}" />
+			</h:outputText> 
+		</p:column>
+			
+		<p:column headerText="#{msgs['label.nome']}" sortBy="#{empresaServico.servico.nome}" >
+			<h:outputText value="#{empresaServico.servico.nome}" />
+		</p:column>
+				
+		<p:column headerText="#{msgs['label.descricao']}" sortBy="#{empresaServico.descricao}" >
+			<h:outputText value="#{empresaServico.descricao}" />
+		</p:column>
+
+		<p:column headerText="#{msgs['label.acoes']}" styleClass="colunaAcoes">
+			<p:panelGrid columns="3">					  
+				<p:commandLink title="#{msgs['label.visualizar']}" action="#{empresaServicoController.visualizarEmpresaServico(empresaServico)}"
+					styleClass="ui-icon ui-icon-search" />
+				<p:commandLink title="#{msgs['label.editar']}" action="#{empresaServicoController.alterarEmpresaServico(empresaServico)}"
+					disabled="#{empresaController.somenteLeitura}" styleClass="ui-icon ui-icon-pencil" />
+				<p:commandLink title="#{msgs['label.excluir']}" action="#{empresaServicoController.removerEmpresaServico(empresaServico)}"
+					disabled="#{empresaController.somenteLeitura}" styleClass="ui-icon ui-icon-closethick" update="gridServicos">
+					<p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['label.confirmacaoExclusao']}" icon="ui-icon-alert" />
+				</p:commandLink>	
+			</p:panelGrid>
+		</p:column>
+	
+	</p:dataTable>
+	
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+		<p:commandButton value="#{msgs['label.confirmacaoSim']}" type="button"
+			styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+		<p:commandButton value="#{msgs['label.confirmacaoNao']}" type="button"
+			styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+	</p:confirmDialog>
+			
+</ui:composition>

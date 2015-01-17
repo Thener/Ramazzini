@@ -6,15 +6,19 @@ input.cpf {
 	width: 154px;
 }
 
-input.nome100 {
-	width: 480px;	
+input.hasDatepicker {
+	width: 80px;
 }
 
 input.nome50 {
 	width: 380px;	
 }
 
+input.nome100 {
+	width: 480px;	
+}
+
 input.cep {	
 	max-width: 100px;
-
 }
+

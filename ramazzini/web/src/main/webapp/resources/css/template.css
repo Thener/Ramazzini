@@ -16,10 +16,11 @@ body {
 }
 
 #content {
-
+	margin-top:0px;
 }
 
 #menu {
     display: block;
-    min-height: 50px;	
+    min-height: 38px;	
+    margin-bottom: 3px;
 }

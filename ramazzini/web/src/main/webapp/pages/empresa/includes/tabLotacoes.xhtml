@@ -5,7 +5,7 @@
    xmlns:h="http://java.sun.com/jsf/html"
    xmlns:p="http://primefaces.org/ui">
    
-	<p:fieldset legend="Pesquisa">
+	<p:fieldset legend="#{msgs['label.pesquisa']}">
 		<h:panelGrid columns="4" cellpadding="10" id="panelGridLotacaoPesquisa">
 		
 			<p:outputLabel for="nomeLotacaoPesquisa" value="#{msgs['label.lotacao']}" />
@@ -31,7 +31,7 @@
 		paginator="true" paginatorPosition="bottom" rows="5">
 		
 		<f:facet name="header"> #{msgs['label.lotacoes']} </f:facet>
-	
+		
 		<p:column headerText="#{msgs['label.nome']}" sortBy="#{lotacao.nome}" >
 			<h:outputText value="#{lotacao.nome}" />
 		</p:column>
@@ -48,7 +48,7 @@
 			<h:outputText value="#{lotacao.endereco.cidade}" />
 		</p:column>	
 		
-		<p:column headerText="#{msgs['label.acoes']}">
+		<p:column headerText="#{msgs['label.acoes']}" styleClass="colunaAcoes">
 			<p:panelGrid columns="3">					  
 				<p:commandLink title="#{msgs['label.visualizar']}" action="#{lotacaoController.visualizarLotacao(lotacao)}"
 					styleClass="ui-icon ui-icon-search" />
