@@ -9,9 +9,9 @@ import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import br.com.ramazzini.model.procedimento.Procedimento;
 import br.com.ramazzini.model.servico.Servico;
 import br.com.ramazzini.service.ServicoService;
+import br.com.ramazzini.util.TratarExcecao;
 import br.com.ramazzini.util.UtilMensagens;
 
 @Named
@@ -53,13 +53,13 @@ public class ServicoController extends AbstractBean implements Serializable {
 		}      
     }  	
     
-	public String incluirProcedimento() {
+	public String incluirServico() {
 		
 		servico = new Servico();
 		return cadatroServico(servico, Boolean.FALSE);
 	}
 	
-    public String alterarProcedimento(Procedimento procedimento){
+    public String alterarServico(Servico servico){
     	
     	return cadatroServico(servico, Boolean.FALSE);
     }	
@@ -81,10 +81,17 @@ public class ServicoController extends AbstractBean implements Serializable {
     }
     
 	public String gravarServico() {
-		
-		servicoService.salvar(servico);
-		servicos = servicoService.recuperarTodos("nome");
-		return PAGINA_PESQUISAR_SERVICO;
+
+    	try {
+    		servicoService.salvar(servico);
+    		servicos = servicoService.recuperarTodos("nome");
+    		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeGravadaComSucesso", "Serviço ");
+    		return PAGINA_PESQUISAR_SERVICO;
+    	} catch (Exception e) {
+    		UtilMensagens.mensagemInformacao(new TratarExcecao(e).getMessage());
+    	}
+    	
+    	return null;
 	}    
     
     private String cadatroServico(Servico servico, Boolean somenteLeitura) {
@@ -121,4 +128,5 @@ public class ServicoController extends AbstractBean implements Serializable {
 	public void setServico(Servico servico) {
 		this.servico = servico;
 	}
+
 }

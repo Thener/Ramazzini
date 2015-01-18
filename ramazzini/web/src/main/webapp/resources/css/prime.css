@@ -2,9 +2,38 @@
     border-style: none !important
 }
 
+/*---------- fieldset do prime e nativo do html: manter os css's iguais ----*/  
+
+/*----------- evitar usar do prime quando incluir selectOneMenu */
+
 .ui-fieldset legend {
 	background: none !important;
 	border: none !important;
 	padding: 0px !important;
 	text-shadow: 1px 1px 7px #222;
+}
+
+fieldset {
+	border-radius: 4px;	
+}
+
+fieldset legend {
+	background: none !important;
+	border: none !important;
+	padding: 0px !important;
+	text-shadow: 1px 1px 7px #222;	
+}
+
+/*---------------------------------------*/
+
+.ui-widget {  
+   font-size: 12px !important;  
+}
+
+.ui-selectonemenu {
+	width: 200px;	
+}
+
+.ui-selectonemenu-label {
+	width: 200px;	
 }

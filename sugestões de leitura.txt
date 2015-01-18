@@ -14,3 +14,6 @@ por um arquivo (Ctrl + shift + R), o mesmo arquivo aparecerá duas vezes; então "
 
 5. http://www.developerscrappad.com/139/java/java-ee/ejb3-jpa-entity-many-to-many-relationship/
 Neste link, o autor não usa o mappedBy para criar o ManyToMany; foi apenas com este link que consegui persistir perfil_tela_acao
+
+6. Site que monta expressão regular em várias linguagens:
+http://www.txt2re.com/

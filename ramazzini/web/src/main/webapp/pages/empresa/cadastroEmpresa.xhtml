@@ -35,33 +35,38 @@
 					
 				</h:panelGrid>
 				
-				<p:tabView id="tabViewIncluirEmpresa">
-		        	<p:tab title="#{msgs['label.dadosCadastrais']}">
+				<p:tabView id="tabViewIncluirEmpresa" activeIndex="#{empresaController.tabActiveIndex}">
+					
+		        	<p:tab title="#{msgs['label.dadosCadastrais']}" id="tabDadosCadastraisEmpresa">
 		        		<ui:include src="includes/tabDadosCadastraisEmpresa.xhtml" />
 		        	</p:tab>
-		        	<p:tab title="#{msgs['label.responsaveis']}">
+		        	<p:tab title="#{msgs['label.responsaveis']}" id="tabResponsaveis">
 						<ui:include src="includes/tabResponsaveis.xhtml" />
 		        	</p:tab>
-		        	<p:tab title="#{msgs['label.lotacoes']}">
+		        	<p:tab title="#{msgs['label.lotacoes']}" id="tabLotacoes">
 						<ui:include src="includes/tabLotacoes.xhtml" />
 		        	</p:tab>
-		        	<p:tab title="#{msgs['label.setores']}">
+		        	<p:tab title="#{msgs['label.setores']}" id="tabSetores">
 						<ui:include src="includes/tabSetores.xhtml" />
 		        	</p:tab>
-		        	<p:tab title="#{msgs['label.funcoes']}">
+		        	<p:tab title="#{msgs['label.funcoes']}" id="tabFuncoes">
 						<ui:include src="includes/tabFuncoes.xhtml" />
 		        	</p:tab>
-		        	<p:tab title="#{msgs['label.funcionarios']}">
+		        	<p:tab title="#{msgs['label.funcionarios']}" id="tabFuncionarios">
 						<ui:include src="includes/tabFuncionarios.xhtml" />
 		        	</p:tab>
-		        	<p:tab title="#{msgs['label.orientacoesEspecificas']}">
+		        	<p:tab title="#{msgs['label.orientacoesEspecificas']}" id="tabOrientacoesEspecificas">
 		        		<p:inputTextarea  value="#{empresaController.empresa.orientacoesEspecificas}" 
 		        			style="width:100%; height:300px;" />
 		        	</p:tab>
-		        	<p:tab title="#{msgs['label.observacoes']}">
+		        	<p:tab title="#{msgs['label.observacoes']}" id="tabObservacoes">
 		        		<p:inputTextarea  value="#{empresaController.empresa.observacoesGerais}" 
 		        			style="width:100%; height:300px;" />
 		        	</p:tab>
+		        	<p:tab title="#{msgs['label.servicos']}" id="tabServicos">
+						<ui:include src="includes/tabServicos.xhtml" />
+		        	</p:tab>		        	
+		        	
 		        </p:tabView>
 				
 			</p:panel>
@@ -70,11 +75,11 @@
 			
 				<f:facet name="left">
 					<p:commandButton id="botaoVoltar" immediate="true"
-						icon="ui-icon-arrowreturnthick-1-w" title="Voltar"
+						icon="ui-icon-arrowreturnthick-1-w" title="#{msgs['botao.voltar']}"
 						action="pesquisarEmpresa.jsf?faces-redirect=true">
 					</p:commandButton>
 					<p:commandButton id="salvar" action="#{empresaController.gravarEmpresa()}"
-						value="Salvar" icon="ui-icon-disk" title="Salvar"
+						value="#{msgs['botao.gravar']}" icon="ui-icon-disk" 
 						styleClass="register" update="panelDadosEmpresa" 
 						disabled="#{empresaController.somenteLeitura}"/>
 				</f:facet>

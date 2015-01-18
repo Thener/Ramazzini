@@ -37,16 +37,13 @@ public class Grupo extends AbstractEntidade implements Serializable {
     @Size(min = 1, max = 100)
     private String nome;
     
-    @Column(name = "nm_pessoa_contato")
-    @Size(max = 50)
+    @Column(name = "nm_pessoa_contato", length = 50)
     private String pessoaContato;
     
-    @Column(name = "tf_contato")
-    @Size(max = 20)
+    @Column(name = "tf_contato", length = 20)
     private String telefone;
     
-    @Column(name = "em_grupo")
-    @Size(max = 200)
+    @Column(name = "em_grupo", length = 200)
     private String email;
     
 	@OneToMany(mappedBy="grupo")

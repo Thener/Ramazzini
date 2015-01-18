@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui"
+   template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+	
+		<h:form id="frmAlterarLotacao">
+		
+			<p:growl id="growl" showDetail="false" sticky="false" />
+			
+			<p:panel id="panelDadosServicoEmpresa" header="#{msgs['label.servicosPrestadosEmpresa']}">
+			
+				<h:panelGrid columns="2" cellpadding="10">
+					
+					<p:outputLabel value="#{msgs['label.empresa']}:" />
+					<p:outputLabel value="#{empresaController.empresa.nome}" />
+					
+				</h:panelGrid>
+				
+				<p:separator />
+			
+				<h:panelGrid columns="2" cellpadding="5">
+					
+					<p:outputLabel for="servico" value="#{msgs['label.servico']}:" />			
+					<p:selectOneMenu id="servico"
+						value="#{empresaServicoController.empresaServico.servico}"
+						converter="entityConverter" styleClass="nome50"
+						required="true" requiredMessage="#{msgs['required.servico.obrigatorio']}">
+						<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
+							noSelectionOption="true" />
+						<f:selectItems value="#{empresaServicoController.servicos}" var="servico"
+							itemLabel="#{servico.nome}" />
+					</p:selectOneMenu>
+					
+        			<p:outputLabel for="dataServico" value="#{msgs['label.data']}" />
+        			<p:calendar id="dataServico" value="#{empresaServicoController.empresaServico.dataServico}" 
+        				pattern="#{msgs['pattern.calendar']}" mask="true" styleClass="data" 
+        				required="true" requiredMessage="#{msgs['required.data.obrigatoria']}" />
+        			
+        			<p:outputLabel for="descricaoServico" value="#{msgs['label.descricao']}" />	
+					<p:inputTextarea id="descricaoServico" value="#{empresaServicoController.empresaServico.descricao}" 
+		        		style="width:600%; height:50px !important;" maxlength="200" />        				
+
+				</h:panelGrid>
+
+			</p:panel>
+			
+			<p:toolbar>
+				<f:facet name="left">
+					<p:commandButton immediate="true"
+						icon="ui-icon-arrowreturnthick-1-w" title="#{msgs['botao.voltar']}"
+						action="/pages/empresa/cadastroEmpresa.jsf?faces-redirect=true">
+					</p:commandButton>
+					<p:commandButton action="#{empresaServicoController.gravarEmpresaServico()}"
+						value="#{msgs['botao.gravar']}" icon="ui-icon-disk" title="#{msgs['botao.gravar']}"
+						styleClass="register" update="panelDadosLotacao"
+						disabled="#{empresaServicoController.somenteLeitura}" ajax="false"/>
+				</f:facet>
+			</p:toolbar>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -7,41 +7,32 @@
    template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
 	
-		<h:form id="frmAlterarProcedimento">
-			<p:panel id="panelDadosProcedimento" header="#{msgs['label.dadosProcedimento']}">
+		<h:form id="frmAlterarServico">
+			
+			<p:growl id="growl" showDetail="true" sticky="true" />
+			
+			<p:panel id="panelDadosServico" header="#{msgs['label.servico']}">
+			
 				<h:panelGrid columns="4" cellpadding="10">
+				
 					<p:outputLabel for="nome" value="#{msgs['label.nome']}:" />
-					<p:inputText id="nome"
-						value="#{procedimentoController.procedimento.nome}" maxlength="100" required="true" />
-
-					<p:outputLabel for="nomeAbreviado" value="#{msgs['label.nomeAbreviado']}:" />
-					<p:inputText id="nomeAbreviado"
-						value="#{procedimentoController.procedimento.nomeAbreviado}" maxlength="50" required="false" />
-
-					<p:outputLabel for="sigla" value="#{msgs['label.sigla']}:" />
-					<p:inputText id="sigla"
-						value="#{procedimentoController.procedimento.sigla}" maxlength="10" required="true" />
-
-					<p:outputLabel for="tipoProcedimento" value="#{msgs['label.tipoProcedimento']}:" />
-					<p:selectOneMenu id="tipoProcedimento"
-						value="#{procedimentoController.procedimento.tipoProcedimento}">
-						<f:selectItems value="#{procedimentoController.tiposProcedimento}" var="tipoProcedimento"
-							itemLabel="#{tipoProcedimento.stringChave}" itemValue="#{tipoProcedimento.value}" />
-					</p:selectOneMenu>
+					<p:inputText id="nome" value="#{servicoController.servico.nome}" 
+						 styleClass="nome100" maxlength="100" required="true" />
 					
-					<p:growl id="growl" showDetail="true" sticky="true" />
 				</h:panelGrid>
+				
 			</p:panel>
+			
 			<p:toolbar id="toolBar">
 				<f:facet name="left">
 					<p:commandButton id="botaoVoltar" immediate="true"
-						icon="ui-icon-arrowreturnthick-1-w" title="Voltar"
-						action="pesquisarProcedimento.jsf?faces-redirect=true">
+						icon="ui-icon-arrowreturnthick-1-w" title="#{msgs['botao.voltar']}"
+						action="pesquisarServico.jsf?faces-redirect=true">
 					</p:commandButton>
-					<p:commandButton id="salvar" action="#{procedimentoController.gravarProcedimento()}"
-						value="Salvar" icon="ui-icon-disk" title="#{msgs['botao.gravar']}"
-						styleClass="register" update="panelDadosProcedimento"
-						disabled="#{procedimentoController.somenteLeitura}" />
+					<p:commandButton id="salvar" action="#{servicoController.gravarServico()}"
+						value="#{msgs['botao.gravar']}" icon="ui-icon-disk" 
+						styleClass="register" update="panelDadosServico, growl"
+						disabled="#{servicoController.somenteLeitura}" />
 				</f:facet>
 			</p:toolbar>
 		</h:form>

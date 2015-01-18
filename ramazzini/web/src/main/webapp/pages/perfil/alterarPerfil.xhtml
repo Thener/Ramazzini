@@ -15,40 +15,40 @@
 			<p:panel
 				header="Alterando Perfil: #{perfilController.perfilSelecionado.nome}">
 
-				<p:panelGrid columns="3">
-				
-					<p:outputLabel for="modulo" value="Módulo: " />
-					<p:selectOneMenu id="modulo"
-						value="#{perfilController.moduloSelecionado}"
-						converter="entityConverter">
-						<p:ajax listener="#{perfilController.perfilChange}" update="tela" />
-						<f:selectItem itemLabel="Selecione o módulo" itemValue=""
-							noSelectionOption="true" />
-						<f:selectItems value="#{perfilController.modulos}" var="modulo"
-							itemLabel="#{modulo.nome}" />
-					</p:selectOneMenu>
+				<p:fieldset legend="#{msgs['label.incluir']}:">
+					<p:panelGrid columns="5">
 					
-					<p:outputLabel value="" />
-					
-					<p:outputLabel for="tela" value="Tela: " />
-					<p:selectOneMenu id="tela"
-						value="#{perfilController.telaSelecionada}"
-						converter="entityConverter">
-						<f:selectItem itemLabel="Selecione a tela" itemValue="" />
-						<f:selectItems value="#{perfilController.telas}" var="tela"
-							itemLabel="#{tela.nome}" />
-					</p:selectOneMenu>
-					
-					<h:panelGroup>
-						<p:commandButton action="#{perfilController.autorizarTela()}" value="Incluir"
-								icon="ui-icon-check" ajax="true" update="gridPerfisTelas, messages, filtrarModulos" />
-					</h:panelGroup>
-				</p:panelGrid>
+						<p:outputLabel for="modulo" value="#{msgs['label.modulo']}:" />
+						<p:selectOneMenu id="modulo"
+							value="#{perfilController.moduloSelecionado}"
+							converter="entityConverter">
+							<p:ajax listener="#{perfilController.perfilChange}" update="tela" />
+							<f:selectItem itemLabel="#{msgs['label.selecioneModulo']}" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems value="#{perfilController.modulos}" var="modulo"
+								itemLabel="#{modulo.nome}" />
+						</p:selectOneMenu>
+						
+						<p:outputLabel for="tela" value="#{msgs['label.tela']}:" />
+						<p:selectOneMenu id="tela"
+							value="#{perfilController.telaSelecionada}"
+							converter="entityConverter">
+							<f:selectItem itemLabel="#{msgs['label.selecioneTela']}" itemValue="" />
+							<f:selectItems value="#{perfilController.telas}" var="tela"
+								itemLabel="#{tela.nome}" />
+						</p:selectOneMenu>
+						
+						<h:panelGroup>
+							<p:commandButton action="#{perfilController.autorizarTela()}" value="#{msgs['botao.incluir']}"
+									icon="ui-icon-check" ajax="true" update="gridPerfisTelas, messages, filtrarModulos" />
+						</h:panelGroup>
+					</p:panelGrid>
+				</p:fieldset>
 				
 				<p:separator />
 				
 				<p:panelGrid columns="2">
-					<p:outputLabel for="filtrarModulos" value="Filtrar módulo: " />
+					<p:outputLabel for="filtrarModulos" value="#{msgs['label.filtrarModulo']}:" />
 					<p:selectOneMenu id="filtrarModulos"
 						value="#{perfilController.filtroModulo}"
 						converter="entityConverter">
@@ -60,27 +60,28 @@
 					</p:selectOneMenu>				
 				</p:panelGrid>
 				
-				<p:dataTable id="gridPerfisTelas" var="perfilTela" value="#{perfilController.perfisTelas}">
+				<p:dataTable id="gridPerfisTelas" var="perfilTela" value="#{perfilController.perfisTelas}"
+					emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}">
 
-					<p:column headerText="Nome">
+					<p:column headerText="#{msgs['label.nome']}">
 						<h:outputText value="#{perfilTela.tela.nome}" />
 					</p:column>
 					
-					<p:column headerText="Ativa" style="text-align:center;">
+					<p:column headerText="#{msgs['label.ativa']}" style="text-align:center;">
 						<p:selectBooleanCheckbox value="#{perfilTela.tela.ativa}">
 							<p:ajax update=":form:messages" listener="#{perfilController.ativaDesativaTela(perfilTela)}" />
 						</p:selectBooleanCheckbox>
 					</p:column>						
 					
-					<p:column headerText="Módulo" style="text-align:center;">
+					<p:column headerText="#{msgs['label.modulo']}" style="text-align:center;">
 						<h:outputText value="#{perfilTela.tela.modulo.nome}" />
 					</p:column>	
 					
-					<p:column headerText="Ações" styleClass="coluna5">
+					<p:column headerText="#{msgs['label.acoes']}" styleClass="coluna5">
 						<p:panelGrid columns="3" styleClass="semBorda">
 							<p:commandLink title="excluir" action="#{perfilController.removerPerfilTela(perfilTela)}"
 								styleClass="ui-icon ui-icon-closethick" update="gridPerfisTelas, :form:filtrarModulos">
-								<p:confirm header="Confirmação" message="Tem certeza que deseja excluir o acesso do perfil?" icon="ui-icon-alert" />
+								<p:confirm header="Confirmação" message="#{msgs['mensagem.pergunta.desejaRealmenteExcluir']}" icon="ui-icon-alert" />
 							</p:commandLink>
 							<p:commandLink title="editar" action="#{perfilController.editarPerfilTela(perfilTela)}"
 								styleClass="ui-icon ui-icon-pencil" />								
@@ -90,9 +91,9 @@
 				</p:dataTable>	
 				
 				<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-					<p:commandButton value="Sim" type="button"
+					<p:commandButton value="#{msgs['label.confirmacaoSim']}" type="button"
 						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-					<p:commandButton value="Não" type="button"
+					<p:commandButton value="#{msgs['label.confirmacaoNao']}" type="button"
 						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 				</p:confirmDialog>
 				
@@ -101,7 +102,7 @@
 	    	<p:toolbar id="toolBar">
 				<f:facet name="left">	
 					<p:commandButton id="botaoVoltar" immediate="true"
-						icon="ui-icon-arrowreturnthick-1-w" title="Voltar"
+						icon="ui-icon-arrowreturnthick-1-w" title="#{msgs['botao.voltar']}"
 						action="pesquisarPerfil.jsf?faces-redirect=true" />
 				</f:facet>
 			</p:toolbar>

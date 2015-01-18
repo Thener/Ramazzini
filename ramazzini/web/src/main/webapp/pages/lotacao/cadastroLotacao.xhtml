@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui"
+   template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+	
+		<h:form id="frmAlterarLotacao">
+		
+			<p:growl id="growl" showDetail="true" sticky="true" />
+			
+			<p:panel id="panelDadosLotacao" header="#{msgs['label.lotacao']}">
+			
+				<h:panelGrid columns="2" cellpadding="10">
+					
+					<p:outputLabel value="#{msgs['label.empresa']}:" />
+					<p:outputLabel value="#{empresaController.empresa.nome}" />
+					
+				</h:panelGrid>
+				
+				<p:separator />
+			
+				<h:panelGrid columns="6" cellpadding="10">
+					
+					<p:outputLabel for="nome" value="#{msgs['label.nome']}:" />
+					<p:inputText id="nome" value="#{lotacaoController.lotacao.nome}" 
+						styleClass="nome100" maxlength="100" required="true" />
+						
+		            <p:outputLabel for="ativoCheck" value="#{msgs['label.ativa']}:" />
+		        	<p:selectBooleanCheckbox id="ativoCheck" value="#{lotacaoController.lotacao.ativa}"/>
+						
+					<p:outputLabel for="tipoPessoaLotacao" value="#{msgs['label.tipoPessoa']}:" />
+					<p:selectOneMenu id="tipoPessoaLotacao"
+						value="#{lotacaoController.lotacao.tipoPessoa}">
+						<f:selectItems value="#{empresaController.tiposPessoa}" var="tipoPessoa"
+							itemLabel="#{tipoPessoa.stringChave}" itemValue="#{tipoPessoa.value}" />
+					</p:selectOneMenu>
+				
+				</h:panelGrid>
+				
+				<p:tabView id="tabViewCadastroLotacao">
+		        	<p:tab title="#{msgs['label.dadosCadastrais']}">
+		        		<ui:include src="includes/tabDadosCadastraisLotacao.xhtml" />
+		        	</p:tab>
+		        	<p:tab title="#{msgs['label.orientacoesEspecificas']}">
+		        		<p:inputTextarea  value="#{lotacaoController.lotacao.orientacoesEspecificas}" 
+		        			style="width:100%; height:300px;" />
+		        	</p:tab>		        	
+				</p:tabView>
+				
+			</p:panel>
+			
+			<p:toolbar>
+				<f:facet name="left">
+					<p:commandButton id="botaoVoltar" immediate="true"
+						icon="ui-icon-arrowreturnthick-1-w" title="#{msgs['botao.voltar']}"
+						action="/pages/empresa/cadastroEmpresa.jsf?faces-redirect=true">
+					</p:commandButton>
+					<p:commandButton id="salvar" action="#{lotacaoController.gravarLotacao()}"
+						value="#{msgs['botao.gravar']}" icon="ui-icon-disk" title="#{msgs['botao.gravar']}"
+						styleClass="register" update="panelDadosLotacao"
+						disabled="#{lotacaoController.somenteLeitura}" />
+				</f:facet>
+			</p:toolbar>
+		</h:form>
+	</ui:define>
+</ui:composition>

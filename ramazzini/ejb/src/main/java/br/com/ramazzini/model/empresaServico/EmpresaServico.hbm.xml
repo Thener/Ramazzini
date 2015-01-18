@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+	<query name="EmpresaServico.recuperarPorEmpresa">
+		<![CDATA[
+			select 
+				es
+			from 
+				EmpresaServico es
+			where 
+				es.empresa = :empresa
+			order 
+				by es.servico.nome
+		]]>
+	</query>
+	
+	<query name="EmpresaServico.recuperarPorServico">
+		<![CDATA[
+			select 
+				es
+			from 
+				EmpresaServico es
+			where 
+				es.empresa = :empresa
+			and
+				es.servico = :servico
+			order 
+				by es.servico.nome
+		]]>
+	</query>	
+
+</hibernate-mapping>

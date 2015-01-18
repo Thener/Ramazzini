@@ -46,7 +46,7 @@ public class EmpresaServico extends AbstractEntidade implements Serializable {
 	@Column(name = "ts_data_servico", columnDefinition = "Date")
 	private Date dataServico;	
 	
-	@Column(name = "ds_servico")
+	@Column(name = "ds_servico", length=200)
 	private String descricao;
 
 	public Long getId() {

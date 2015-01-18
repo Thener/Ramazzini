@@ -1,3 +1,7 @@
+input.cep {	
+	max-width: 100px;
+}
+
 input.cnpj {
 	width: 200px;
 }
@@ -6,15 +10,27 @@ input.cpf {
 	width: 154px;
 }
 
-input.nome100 {
+input.email {
 	width: 480px;	
 }
 
-input.nome50 {
-	width: 380px;	
+input.hasDatepicker {
+	width: 80px;
 }
 
-input.cep {	
-	max-width: 100px;
-
+input.nome10 {
+	width: 84px !important;	
 }
+
+input.nome50, span.nome50 input.ui-autocomplete-input {
+	width: 380px !important;	
+}
+
+input.nome100, span.nome100 input.ui-autocomplete-input {
+	width: 480px !important;	
+}
+
+input.telefone {
+	width: 110px !important;	
+}
+

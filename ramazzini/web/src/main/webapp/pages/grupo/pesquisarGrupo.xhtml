@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui"
+   template="/WEB-INF/templates/default.xhtml">
+   <ui:define name="content">
+   
+	<h:form id="frmGrupo">
+	
+		<p:growl id="messages" showDetail="false" sticky="true" />
+	
+		<p:panel id="panelGrupo" header="#{msgs['label.grupos']}" style="margin-bottom:20px">
+		
+			<h:panelGrid columns="4" cellpadding="10">
+			
+				<p:outputLabel for="nomeGrupoPesquisa" value="#{msgs['label.nome']}:" />
+				<p:inputText id="nomeGrupoPesquisa" value="#{grupoController.nomeGrupoPesquisa}" 
+					styleClass="nome100" required="false"/>
+					
+				<p:commandButton action="#{grupoController.pesquisar()}"
+					id="botaoPesquisa" icon="ui-icon-search" title="#{msgs['label.pesquisa']}"
+					update="frmGrupo">
+					<f:ajax execute="nomeGrupoPesquisa" render="gridGrupos"/>
+				</p:commandButton>
+				
+				<p:commandButton 
+					id="botaoIncluirGrupo" icon="ui-icon-circle-plus" value="#{msgs['botao.incluir']}"
+					action="#{grupoController.incluirGrupo()}" />					
+				
+			</h:panelGrid>		
+
+			<p:dataTable var="grupo" value="#{grupoController.grupos}"
+				id="gridGrupos" emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}"
+				paginator="true" paginatorPosition="bottom" rows="5">
+				
+				<f:facet name="header"> #{msgs['label.grupos']} </f:facet>
+
+				<p:column headerText="#{msgs['label.nome']}" sortBy="#{grupo.nome}">
+					<h:outputText value="#{grupo.nome}" />
+				</p:column>
+				
+				<p:column headerText="#{msgs['label.nomePessoaContato']}" sortBy="#{grupo.pessoaContato}">
+					<h:outputText value="#{grupo.pessoaContato}" />
+				</p:column>	
+				
+				<p:column headerText="#{msgs['label.telefone']}">
+					<h:outputText value="#{grupo.telefone}" />
+				</p:column>					
+				
+				<p:column headerText="#{msgs['label.acoes']}" styleClass="colunaAcoes">
+					<p:panelGrid columns="3">					  
+						<p:commandLink title="#{msgs['label.visualizar']}" action="#{grupoController.visualizarGrupo(grupo)}"
+							styleClass="ui-icon ui-icon-search" 
+								rendered="#{grupoController.controleAcesso.acaoAutorizada('grupo','pesquisarGrupo.jsf','visualizarGrupo')}" />
+						<p:commandLink title="#{msgs['label.editar']}" action="#{grupoController.alterarGrupo(grupo)}"
+							styleClass="ui-icon ui-icon-pencil" 
+							rendered="#{grupoController.controleAcesso.acaoAutorizada('grupo','pesquisarGrupo.jsf','alterarGrupo')}" />
+						<p:commandLink title="#{msgs['label.excluir']}" action="#{grupoController.removerGrupo(grupo)}"
+							styleClass="ui-icon ui-icon-closethick" update="gridGrupos, :frmGrupo:messages"
+							rendered="#{grupoController.controleAcesso.acaoAutorizada('grupo','pesquisarGrupo.jsf','excluirGrupo')}">
+							<p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['mensagem.pergunta.desejaRealmenteExcluir']}" icon="ui-icon-alert" />
+						</p:commandLink>	
+					</p:panelGrid>
+				</p:column>							
+
+			</p:dataTable>
+			
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+				<p:commandButton value="#{msgs['label.confirmacaoSim']}" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="#{msgs['label.confirmacaoNao']}" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>			
+			
+		</p:panel>
+
+	</h:form>
+	
+	</ui:define>
+</ui:composition>
