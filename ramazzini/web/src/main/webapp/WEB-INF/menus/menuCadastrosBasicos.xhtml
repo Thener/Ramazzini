@@ -13,11 +13,17 @@
 		<p:menuitem value="#{msgs['menu.label.empresas']}" url="/pages/empresa/pesquisarEmpresa.jsf" 
 			rendered="#{menuController.controleAcesso.telaAutorizada('empresa','pesquisarEmpresa.jsf')}"/>
 
+		<p:menuitem value="#{msgs['menu.label.grupoEmpresas']}" url="/pages/grupo/pesquisarGrupo.jsf" 
+			rendered="#{menuController.controleAcesso.telaAutorizada('grupo','pesquisarGrupo.jsf')}"/>
+
 		<p:menuitem value="#{msgs['menu.label.procedimentos']}" url="/pages/procedimento/pesquisarProcedimento.jsf" 
 			rendered="#{menuController.controleAcesso.telaAutorizada('procedimento','pesquisarProcedimento.jsf')}"/>
 
+		<p:menuitem value="#{msgs['menu.label.riscosOcupacionais']}" url="/pages/riscoOcupacional/pesquisarRiscoOcupacional.jsf" 
+			rendered="#{menuController.controleAcesso.telaAutorizada('riscoOcupacional','pesquisarRiscoOcupacional.jsf')}"/>
+
 		<p:menuitem value="#{msgs['menu.label.servicos']}" url="/pages/servico/pesquisarServico.jsf" 
-			rendered="#{menuController.controleAcesso.telaAutorizada('servicos','pesquisarServico.jsf')}"/>
+			rendered="#{menuController.controleAcesso.telaAutorizada('servico','pesquisarServico.jsf')}"/>
 
 	</p:submenu>
 

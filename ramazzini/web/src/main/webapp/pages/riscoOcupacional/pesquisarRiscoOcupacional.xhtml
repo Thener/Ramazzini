@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui"
+   template="/WEB-INF/templates/default.xhtml">
+   <ui:define name="content">
+   
+	<h:form id="frmRiscoOcupacional">
+	
+		<p:growl id="messages" showDetail="false" sticky="true" />
+	
+		<p:panel id="panelRiscoOcupacional" header="#{msgs['label.riscosOcupacionais']}" style="margin-bottom:20px">
+		
+			<h:panelGrid columns="4" cellpadding="10">
+			
+				<p:outputLabel for="nomeRiscoOcupacionalPesquisa" value="#{msgs['label.nome']}:" />
+				<p:inputText id="nomeRiscoOcupacionalPesquisa" value="#{riscoOcupacionalController.nomeRiscoOcupacionalPesquisa}" 
+					styleClass="nome100" required="false"/>
+					
+				<p:commandButton action="#{riscoOcupacionalController.pesquisar()}"
+					id="botaoPesquisa" icon="ui-icon-search" title="#{msgs['label.pesquisa']}"
+					update="frmRiscoOcupacional">
+					<f:ajax execute="nomeRiscoOcupacionalPesquisa" render="gridRiscosOcupacionais"/>
+				</p:commandButton>
+				
+				<p:commandButton 
+					id="botaoIncluirRiscoOcupacional" icon="ui-icon-circle-plus" value="#{msgs['botao.incluir']}"
+					action="#{riscoOcupacionalController.incluirRiscoOcupacional()}" />					
+				
+			</h:panelGrid>		
+
+			<p:dataTable var="riscoOcupacional" value="#{riscoOcupacionalController.riscosOcupacionais}"
+				id="gridRiscosOcupacionais" emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}"
+				paginator="true" paginatorPosition="bottom" rows="5">
+				
+				<f:facet name="header"> #{msgs['label.riscosOcupacionais']} </f:facet>
+
+				<p:column headerText="#{msgs['label.nome']}" sortBy="#{riscoOcupacional.nome}">
+					<h:outputText value="#{riscoOcupacional.nome}" />
+				</p:column>
+				
+				<p:column headerText="#{msgs['label.tipo']}" sortBy="#{riscoOcupacional.tipoRiscoOcupacional}" styleClass="coluna3">
+					<h:outputText value="#{riscoOcupacional.tipoRiscoOcupacionalEnum.stringChave}" />
+				</p:column>	
+				
+				<p:column headerText="#{msgs['label.acoes']}" styleClass="colunaAcoes">
+					<p:panelGrid columns="3">					  
+						<p:commandLink title="#{msgs['label.visualizar']}" action="#{riscoOcupacionalController.visualizarRiscoOcupacional(riscoOcupacional)}"
+							styleClass="ui-icon ui-icon-search" 
+								rendered="#{riscoOcupacionalController.controleAcesso.acaoAutorizada('riscoOcupacional','pesquisarRiscoOcupacional.jsf','visualizarRiscoOcupacional')}" />
+						<p:commandLink title="#{msgs['label.editar']}" action="#{riscoOcupacionalController.alterarRiscoOcupacional(riscoOcupacional)}"
+							styleClass="ui-icon ui-icon-pencil" 
+							rendered="#{riscoOcupacionalController.controleAcesso.acaoAutorizada('riscoOcupacional','pesquisarRiscoOcupacional.jsf','alterarRiscoOcupacional')}" />
+						<p:commandLink title="#{msgs['label.excluir']}" action="#{riscoOcupacionalController.removerRiscoOcupacional(riscoOcupacional)}"
+							styleClass="ui-icon ui-icon-closethick" update="gridRiscosOcupacionais, :frmRiscoOcupacional:messages"
+							rendered="#{riscoOcupacionalController.controleAcesso.acaoAutorizada('riscoOcupacional','pesquisarRiscoOcupacional.jsf','excluirRiscoOcupacional')}">
+							<p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['mensagem.pergunta.desejaRealmenteExcluir']}" icon="ui-icon-alert" />
+						</p:commandLink>	
+					</p:panelGrid>
+				</p:column>							
+
+			</p:dataTable>
+			
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+				<p:commandButton value="#{msgs['label.confirmacaoSim']}" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="#{msgs['label.confirmacaoNao']}" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>			
+			
+		</p:panel>
+
+	</h:form>
+	
+	</ui:define>
+</ui:composition>

@@ -9,15 +9,15 @@
    
 	<h:form id="frmProcedimento">
 	
-		<p:growl id="messages" />
+		<p:growl id="messages" showDetail="false" sticky="true" />
 	
 		<p:panel id="panelPesquisaProcedimento" header="#{msgs['label.procedimentos']}" style="margin-bottom:20px">
 		
 			<h:panelGrid columns="4" cellpadding="10">
 			
 				<p:outputLabel for="nomeProcedimentoPesquisa" value="#{msgs['label.nome']}:" />
-				<p:inputText id="nomeProcedimentoPesquisa" 
-					value="#{procedimentoController.nomeProcedimentoPesquisa}" required="false"/>
+				<p:inputText id="nomeProcedimentoPesquisa" value="#{procedimentoController.nomeProcedimentoPesquisa}" 
+					styleClass="nome50" required="false"/>
 					
 				<p:commandButton action="#{procedimentoController.pesquisar()}"
 					id="botaoPesquisa" icon="ui-icon-search" title="#{msgs['label.pesquisa']}"
@@ -27,7 +27,7 @@
 				
 				<p:commandButton 
 					id="botaoIncluirProcedimento" icon="ui-icon-circle-plus" value="#{msgs['botao.incluir']}"
-					title="Incluir Usuário" action="#{procedimentoController.incluirProcedimento()}" />					
+					action="#{procedimentoController.incluirProcedimento()}" />					
 				
 			</h:panelGrid>		
 

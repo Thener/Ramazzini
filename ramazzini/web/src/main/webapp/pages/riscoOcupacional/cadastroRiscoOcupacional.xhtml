@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui"
+   template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+	
+		<h:form id="frmCadastroRiscoOcupacional">
+		
+			<p:growl id="messages" showDetail="false" sticky="true" />
+		
+			<p:panel id="panelDadosRiscoOcupacional" header="#{msgs['label.riscoOcupacional']}">
+			
+				<h:panelGrid columns="2" cellpadding="10">
+				
+					<p:outputLabel for="nome" value="#{msgs['label.nome']}:" />
+					<p:inputText id="nome" value="#{riscoOcupacionalController.riscoOcupacional.nome}" 
+						styleClass="nome100" maxlength="100" required="true" />
+
+					<p:outputLabel for="tipoRiscoOcupacional" value="#{msgs['label.tipo']}:" />
+					<p:selectOneMenu id="tipoRiscoOcupacional" value="#{riscoOcupacionalController.riscoOcupacional.tipoRiscoOcupacional}"
+						required="true">
+						<f:selectItems value="#{riscoOcupacionalController.tiposRiscoOcupacional}" var="tipoRiscoOcupacional"
+							itemLabel="#{tipoRiscoOcupacional.stringChave}" itemValue="#{tipoRiscoOcupacional.value}" />
+					</p:selectOneMenu>
+					
+				</h:panelGrid>
+				
+			</p:panel>
+			
+			<p:toolbar id="toolBar">
+				<f:facet name="left">
+					<p:commandButton id="botaoVoltar" immediate="true"
+						icon="ui-icon-arrowreturnthick-1-w" title="#{msgs['botao.voltar']}"
+						action="pesquisarRiscoOcupacional.jsf?faces-redirect=true">
+					</p:commandButton>
+					<p:commandButton id="salvar" action="#{riscoOcupacionalController.gravarRiscoOcupacional()}"
+						value="#{msgs['botao.gravar']}" icon="ui-icon-disk" title="#{msgs['botao.gravar']}"
+						disabled="#{riscoOcupacionalController.somenteLeitura}" />
+				</f:facet>
+			</p:toolbar>
+			
+		</h:form>
+		
+	</ui:define>
+	
+</ui:composition>
