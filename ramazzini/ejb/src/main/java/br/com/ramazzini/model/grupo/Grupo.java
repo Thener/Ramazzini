@@ -3,6 +3,7 @@ package br.com.ramazzini.model.grupo;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -46,7 +47,8 @@ public class Grupo extends AbstractEntidade implements Serializable {
     @Column(name = "em_grupo", length = 200)
     private String email;
     
-	@OneToMany(mappedBy="grupo")
+	@OneToMany(mappedBy="grupo",
+		cascade = CascadeType.ALL)
 	private List<Empresa> empresas;    
 
 	public Long getId() {
@@ -83,6 +85,14 @@ public class Grupo extends AbstractEntidade implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public List<Empresa> getEmpresas() {
+		return empresas;
+	}
+
+	public void setEmpresas(List<Empresa> empresas) {
+		this.empresas = empresas;
 	}    
 
     

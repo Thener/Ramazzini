@@ -49,6 +49,7 @@
 	       	and p.nome != 'administrador'   	
 		]]>
 	</query>	
+	
 	<query name="Perfil.recuperarTodosMenosAdmin">
 		<![CDATA[
 		   select p

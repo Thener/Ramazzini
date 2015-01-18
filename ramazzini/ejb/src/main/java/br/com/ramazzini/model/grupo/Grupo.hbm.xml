@@ -15,5 +15,14 @@
 				by g.nome
 		]]>
 	</query>
+	
+	<query name="Grupo.recuperarTodasEmpresas">
+		<![CDATA[
+			select e from Grupo g
+			right join g.empresas e  
+			where g = :grupo
+			order by e.nome
+		]]>
+	</query>	
 
 </hibernate-mapping>

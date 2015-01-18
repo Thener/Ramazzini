@@ -7,17 +7,51 @@
    
    <p:fieldset legend="#{msgs['label.incluir']}">
    
-		<h:panelGrid columns="2" cellpadding="10">
-			<p:outputLabel value="#{msgs['label.empresa']}: " for="empresa" />
-			<p:autoComplete id="empresa"
+		<h:panelGrid columns="3" cellpadding="10">
+			<p:outputLabel value="#{msgs['label.empresa']}: " for="completeEmpresa" />
+			<p:autoComplete id="completeEmpresa"
 				value="#{grupoController.empresaSelecionada}"
 				completeMethod="#{autoComplete.completeEmpresa}"
 				var="empresa" itemLabel="#{empresa.nome}"
 				itemValue="#{empresa}" converter="entityConverter"
 				forceSelection="true" styleClass="nome50"/>		
+		
+			<p:commandButton action="#{grupoController.incluirEmpresaNoGrupo()}" value="#{msgs['botao.incluir']}"
+				icon="ui-icon-check" ajax="true" update="gridEmpresas" process="@this, completeEmpresa" 
+				disabled="#{grupoController.somenteLeitura or grupoController.acaoInclusao}"/>
+			
 		</h:panelGrid>   
-   
+		   
    </p:fieldset>
+   
+   <p:spacer width="10px" />
+   
+	<p:dataTable var="empresa" value="#{grupoController.empresasDoGrupo}"
+		id="gridEmpresas" emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}">
+		
+		<f:facet name="header"> #{msgs['label.empresasGrupo']} </f:facet>
+									
+		<p:column headerText="#{msgs['label.empresa']}">
+			<h:outputText value="#{empresa.nome}" />
+		</p:column>
+	
+		<p:column headerText="#{msgs['label.acoes']}" styleClass="colunaAcoes">
+			<p:panelGrid columns="1">
+				<p:commandLink title="#{msgs['label.excluir']}" disabled="#{grupoController.somenteLeitura}"
+					action="#{grupoController.removerEmpresaDoGrupo(empresa)}"
+					styleClass="ui-icon ui-icon-closethick" update="gridEmpresas">
+					<p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['mensagem.pergunta.desejaRealmenteExcluir']}" icon="ui-icon-alert" />
+				</p:commandLink>									
+			</p:panelGrid>
+		</p:column>
+	</p:dataTable>
+		
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+		<p:commandButton value="#{msgs['label.confirmacaoSim']}" type="button"
+			styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+		<p:commandButton value="#{msgs['label.confirmacaoNao']}" type="button"
+			styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+	</p:confirmDialog>   
 
 		
 </ui:composition>

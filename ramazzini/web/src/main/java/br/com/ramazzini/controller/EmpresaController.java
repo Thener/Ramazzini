@@ -52,10 +52,6 @@ public class EmpresaController extends AbstractBean implements Serializable {
 	
 	private boolean somenteLeitura = Boolean.FALSE;
 	
-	private boolean acaoInclusao = Boolean.FALSE;
-	private boolean acaoAlteracao = Boolean.FALSE;
-	private boolean acaoVisualizacao = Boolean.FALSE;
-	
 	private Integer tabAtiva;
 	
 	@PostConstruct
@@ -117,7 +113,7 @@ public class EmpresaController extends AbstractBean implements Serializable {
 		
 		empresaService.salvar(empresa);
 		empresas = empresaService.recuperarTodos("nome");
-		return (acaoInclusao) ? alterarEmpresa(empresa) : PAGINA_PESQUISAR_EMPRESA;
+		return (isAcaoInclusao()) ? alterarEmpresa(empresa) : PAGINA_PESQUISAR_EMPRESA;
 	}    
       
 	public List<Empresa> getEmpresas() {
@@ -178,36 +174,6 @@ public class EmpresaController extends AbstractBean implements Serializable {
 	
 	public EmpresaServicoController getEmpresaServicoController() {
 		return empresaServicoController;
-	}
-
-	public boolean isAcaoInclusao() {
-		return acaoInclusao;
-	}
-
-	public void setAcaoInclusao(boolean acaoInclusao) {
-		this.acaoInclusao = acaoInclusao;
-		this.acaoAlteracao = !acaoInclusao;
-		this.acaoVisualizacao = !acaoInclusao;
-	}
-
-	public boolean isAcaoAlteracao() {
-		return acaoAlteracao;
-	}
-
-	public void setAcaoAlteracao(boolean acaoAlteracao) {
-		this.acaoAlteracao = acaoAlteracao;
-		this.acaoInclusao = !acaoAlteracao;
-		this.acaoVisualizacao = !acaoAlteracao;
-	}
-
-	public boolean isAcaoVisualizacao() {
-		return acaoVisualizacao;
-	}
-
-	public void setAcaoVisualizacao(boolean acaoVisualizacao) {
-		this.acaoVisualizacao = acaoVisualizacao;
-		this.acaoInclusao = !acaoVisualizacao;
-		this.acaoAlteracao = !acaoVisualizacao;
 	}
 	
     public Integer getTabActiveIndex() {

@@ -11,6 +11,7 @@ import javax.inject.Named;
 
 import br.com.ramazzini.model.empresa.Empresa;
 import br.com.ramazzini.model.grupo.Grupo;
+import br.com.ramazzini.service.EmpresaService;
 import br.com.ramazzini.service.GrupoService;
 import br.com.ramazzini.util.UtilMensagens;
 
@@ -26,13 +27,18 @@ public class GrupoController extends AbstractBean implements Serializable {
 	private @Inject Conversation conversation;
 	
     @Inject
-    private GrupoService grupoService;  	
+    private GrupoService grupoService;
+    
+    @Inject
+    private EmpresaService empresaService;      
 	
 	private Grupo grupo;
 	
 	private Empresa empresaSelecionada;
 	
 	private List<Grupo> grupos;
+	
+	private List<Empresa> empresasDoGrupo;
 	
 	private String nomeGrupoPesquisa;
 	
@@ -41,6 +47,8 @@ public class GrupoController extends AbstractBean implements Serializable {
 	@PostConstruct
 	public void init() {
 
+		empresasDoGrupo = grupoService.recuperarTodasEmpresas(grupo);
+		
 		if (conversation.isTransient()) {
 			conversation.begin();
 		}
@@ -58,16 +66,25 @@ public class GrupoController extends AbstractBean implements Serializable {
 	public String incluirGrupo() {
 		
 		grupo = new Grupo();
+		setAcaoInclusao(Boolean.TRUE);
 		return cadastroGrupo(grupo, Boolean.FALSE);
-	}    
+	}  
+	
+    public void incluirEmpresaNoGrupo() {
+    	
+    	empresaSelecionada.setGrupo(grupo);
+    	grupo.getEmpresas().add(empresaSelecionada);
+    }	
 	
     public String alterarGrupo(Grupo grupo){
     	
+    	setAcaoAlteracao(Boolean.TRUE);
     	return cadastroGrupo(grupo, Boolean.FALSE);
     }	
     
     public String visualizarGrupo(Grupo grupo){
     	
+    	setAcaoVisualizacao(Boolean.TRUE);
     	return cadastroGrupo(grupo, Boolean.TRUE);
     }
     
@@ -82,20 +99,30 @@ public class GrupoController extends AbstractBean implements Serializable {
         }
     }
     
+    public void removerEmpresaDoGrupo(Empresa empresa) {
+    	empresa.setGrupo(null);
+    	empresaService.salvar(empresa);
+    	grupo.getEmpresas().remove(empresa);
+    }
+    
 	public String gravarGrupo() {
 		
 		grupoService.salvar(grupo);
 		grupos = grupoService.recuperarTodos("nome");
-		return PAGINA_PESQUISAR_GRUPO;
+		return (isAcaoInclusao()) ? alterarGrupo(grupo) : PAGINA_PESQUISAR_GRUPO;
 	}    
     
     private String cadastroGrupo(Grupo grupo, Boolean somenteLeitura) {
     	
+    	if (!grupo.isNovo()) {
+    		empresasDoGrupo = grupoService.recuperarTodasEmpresas(grupo);
+    		grupo.setEmpresas(empresasDoGrupo);
+    	}
     	setGrupo(grupo);
     	setSomenteLeitura(somenteLeitura);
     	return PAGINA_CADASTRO_GRUPO;    	
-    }     
-
+    }
+    
 	public List<Grupo> getGrupos() {
 		return grupos;
 	}
@@ -130,6 +157,14 @@ public class GrupoController extends AbstractBean implements Serializable {
 
 	public void setEmpresaSelecionada(Empresa empresaSelecionada) {
 		this.empresaSelecionada = empresaSelecionada;
+	}
+
+	public List<Empresa> getEmpresasDoGrupo() {
+		return empresasDoGrupo;
+	}
+
+	public void setEmpresasDoGrupo(List<Empresa> empresasDoGrupo) {
+		this.empresasDoGrupo = empresasDoGrupo;
 	}
 	
 	

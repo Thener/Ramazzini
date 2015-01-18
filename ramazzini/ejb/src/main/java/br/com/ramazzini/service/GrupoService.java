@@ -21,6 +21,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 
 import br.com.ramazzini.dao.grupo.GrupoDao;
+import br.com.ramazzini.model.empresa.Empresa;
 import br.com.ramazzini.model.grupo.Grupo;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
 
@@ -32,4 +33,7 @@ public class GrupoService extends AbstractServiceImpl<Grupo> {
     	return ((GrupoDao) getDao()).recuperarPorNome(nome);
     }	
 
+    public List<Empresa> recuperarTodasEmpresas(Grupo grupo) {
+    	return ((GrupoDao) getDao()).recuperarTodasEmpresas(grupo);
+    }    
 }
