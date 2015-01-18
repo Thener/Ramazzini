@@ -44,10 +44,10 @@
 
 				<p:column headerText="#{msgs['label.acoes']}" styleClass="coluna5">
 					<p:panelGrid columns="3" styleClass="semBorda">					  
-						<p:commandLink title="#{msgs['label.visualizar']}" action="#{credenciadoController.visualizar(credenciado)}"
+						<p:commandLink title="#{msgs['label.visualizar']}" action="#{credenciadoController.visualizarCredenciado(credenciado)}"
 							styleClass="ui-icon ui-icon-search" 
 								rendered="#{credenciadoController.controleAcesso.acaoAutorizada('credenciado','pesquisarCredenciado.jsf','visualizarCredenciado')}" />
-						<p:commandLink title="#{msgs['label.editar']}" action="#{credenciadoController.editar(credenciado)}"
+						<p:commandLink title="#{msgs['label.editar']}" action="#{credenciadoController.alterarCredenciado(credenciado)}"
 							styleClass="ui-icon ui-icon-pencil" 
 							rendered="#{credenciadoController.controleAcesso.acaoAutorizada('credenciado','pesquisarCredenciado.jsf','alterarCredenciado')}" />
 						<p:commandLink title="#{msgs['label.excluir']}" action="#{credenciadoController.remover(credenciado)}"

@@ -32,18 +32,20 @@ public class ProcedimentoCredenciadoController extends AbstractBean implements S
     
     private String nomeProcedimentoPesquisa;
        
-	public String incluir() {		
+	public String incluir(Credenciado credenciado) {	
+		this.credenciado = credenciado;
 		this.procedimentoCredenciado = new ProcedimentoCredenciado();
+		this.procedimentoCredenciado.setCredenciado(credenciado);
 		return cadastroProcedimentoCredenciado(procedimentoCredenciado, Boolean.FALSE);
 	}
 	    
     public String alterarProcedimentoCredenciado(ProcedimentoCredenciado procedimentoCredenciado){
-    	
+    	this.procedimentoCredenciado = procedimentoCredenciado;
     	return cadastroProcedimentoCredenciado(procedimentoCredenciado, Boolean.FALSE);
     }
     
     public String visualizarProcedimentoCredenciado(ProcedimentoCredenciado procedimentoCredenciado){
-    	
+    	this.procedimentoCredenciado = procedimentoCredenciado;
     	return cadastroProcedimentoCredenciado(procedimentoCredenciado, Boolean.TRUE);
     }
     
@@ -58,7 +60,7 @@ public class ProcedimentoCredenciadoController extends AbstractBean implements S
     }    
     
     private String cadastroProcedimentoCredenciado(ProcedimentoCredenciado procedimentoCredenciado, Boolean somenteLeitura) {
-    	
+    	 	
     	return PAGINA_CADASTRO_PROCEDIMENTO_CREDENCIADO;    	
     }
     
@@ -68,9 +70,8 @@ public class ProcedimentoCredenciadoController extends AbstractBean implements S
 		return PAGINA_CADASTRO_CREDENCIADO;
 	} 
     
-    public void pesquisar() throws Exception {
-		
-    	if (nomeProcedimentoPesquisa == null || nomeProcedimentoPesquisa.isEmpty()){
+    public void pesquisar(Credenciado credenciado) throws Exception {
+		if (nomeProcedimentoPesquisa == null || nomeProcedimentoPesquisa.isEmpty()){
     		procedimentosCredenciados = procedimentoCredenciadoService.recuperarPorCredenciado(credenciado);
 		} else {
 			procedimentosCredenciados = procedimentoCredenciadoService.recuperarPorNome(credenciado, nomeProcedimentoPesquisa);
@@ -104,5 +105,15 @@ public class ProcedimentoCredenciadoController extends AbstractBean implements S
 	public void setNomeProcedimentoPesquisa(String nomeProcedimentoPesquisa) {
 		this.nomeProcedimentoPesquisa = nomeProcedimentoPesquisa;
 	}
+
+	public ProcedimentoCredenciado getProcedimentoCredenciado() {
+		return procedimentoCredenciado;
+	}
+
+	public void setProcedimentoCredenciado(
+			ProcedimentoCredenciado procedimentoCredenciado) {
+		this.procedimentoCredenciado = procedimentoCredenciado;
+	}
+	
 	
 }

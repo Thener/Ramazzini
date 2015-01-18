@@ -13,13 +13,13 @@
 			<p:inputText id="nomeProcedimetnoPesquisa" 
 				value="#{procedimentoCredenciadoController.nomeProcedimentoPesquisa}" required="false"/>
 							
-			<p:commandButton action="#{procedimentoCredenciadoController.pesquisar()}" 
+			<p:commandButton action="#{procedimentoCredenciadoController.pesquisar(credenciadoController.credenciado)}" 
 				icon="ui-icon-search" ajax="true" update="panelGridProcedimentosCredenciadosPesquisa, gridProcedimentos" 
 				process="@this, panelGridProcedimentosCredenciadosPesquisa" />
 			
 			<p:commandButton 
 				id="botaoIncluir" icon="ui-icon-circle-plus" value="#{msgs['botao.incluir']}"
-				action="#{procedimentoCredenciadoController.incluir()}" disabled="#{credenciadoController.somenteLeitura}" 
+				action="#{procedimentoCredenciadoController.incluir(credenciadoController.credenciado)}" disabled="#{credenciadoController.somenteLeitura or empty credenciadoController.credenciado.id}" 
 				ajax="true" update="panelGridProcedimentosCredenciadosPesquisa, gridProcedimentos" process="@this, panelGridProcedimentosCredenciadosPesquisa" />
 		</h:panelGrid>   
 	</p:fieldset>
@@ -32,10 +32,18 @@
 		
 		<f:facet name="header"> #{msgs['label.procedimentos']} </f:facet>
 	
-		<p:column headerText="#{msgs['label.nome']}" sortBy="#{lotacao.nome}" >
+		<p:column headerText="#{msgs['label.nome']}" sortBy="#{procedimentoCredenciado.procedimento.nome}" >
 			<h:outputText value="#{procedimentoCredenciado.procedimento.nome}" />
 		</p:column>		
 		
+		<p:column headerText="#{msgs['label.precoCusto']}" sortBy="#{procedimentoCredenciado.precoCusto}" >
+			<h:outputText value="#{procedimentoCredenciado.precoCusto}" />
+		</p:column>
+		
+		<p:column headerText="#{msgs['label.precoVenda']}" sortBy="#{procedimentoCredenciado.precoVenda}" >
+			<h:outputText value="#{procedimentoCredenciado.precoVenda}" />
+		</p:column>
+
 		<p:column headerText="#{msgs['label.acoes']}">
 			<p:panelGrid columns="3">					  
 				<p:commandLink title="#{msgs['label.visualizar']}" action="#{procedimentoCredenciadoController.visualizarProcedimentoCredenciado(procedimentoCredenciado)}"
