@@ -11,9 +11,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.ramazzini.model.credenciado.Credenciado;
-import br.com.ramazzini.model.empresa.UnidadeFederativa;
 import br.com.ramazzini.model.procedimento.Procedimento;
-import br.com.ramazzini.model.procedimentoCredenciado.ProcedimentoCredenciado;
 import br.com.ramazzini.service.CredenciadoService;
 import br.com.ramazzini.service.ProcedimentoService;
 import br.com.ramazzini.util.UtilMensagens;
@@ -40,8 +38,6 @@ public class CredenciadoController extends AbstractBean implements Serializable 
 	private List<Credenciado> credenciados;
 	
 	private String nomeCredenciadoPesquisa;
-	
-	private Procedimento procedimentoSelecionado;
 	
 	private boolean somenteLeitura = Boolean.FALSE;
 	
@@ -76,11 +72,11 @@ public class CredenciadoController extends AbstractBean implements Serializable 
     	return PAGINA_CADASTRO_CREDENCIADO;    	
     }
 	
-	public String salvar() {
+	public void salvar() {
 		
 		credenciadoService.salvar(credenciado);
 		credenciados = credenciadoService.recuperarTodos("nome");
-		return PAGINA_PESQUISAR_CREDENCIADO;
+		//return PAGINA_PESQUISAR_CREDENCIADO;
 	}
 	
     public void pesquisar() throws Exception {
@@ -102,11 +98,6 @@ public class CredenciadoController extends AbstractBean implements Serializable 
     		UtilMensagens.mensagemErro("Não foi possível remover a empresa!");
         }
     }   
-    
-    public void incluirProcedimentoCredenciado(){
-    	ProcedimentoCredenciado procedimentoCredenciado = new ProcedimentoCredenciado(procedimentoSelecionado, credenciado);
-    	
-    }
     
     public List<Procedimento> completeProcedimento(String query) {
         List<Procedimento> todosProcedimentos = procedimentoService.recuperarTodos();
@@ -146,16 +137,4 @@ public class CredenciadoController extends AbstractBean implements Serializable 
 	public void setSomenteLeitura(boolean somenteLeitura) {
 		this.somenteLeitura = somenteLeitura;
 	}  
-	
-	public UnidadeFederativa[] getUnidadesFederativas() {
-		return UnidadeFederativa.values();
-	}
-
-	public Procedimento getProcedimentoSelecionado() {
-		return procedimentoSelecionado;
-	}
-
-	public void setProcedimentoSelecionado(Procedimento procedimentoSelecionado) {
-		this.procedimentoSelecionado = procedimentoSelecionado;
-	}	
 }

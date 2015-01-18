@@ -3,17 +3,66 @@
    xmlns:ui="http://java.sun.com/jsf/facelets"
    xmlns:f="http://java.sun.com/jsf/core"
    xmlns:h="http://java.sun.com/jsf/html"
-   xmlns:p="http://primefaces.org/ui">	
+   xmlns:p="http://primefaces.org/ui"
+   xmlns:pe="http://primefaces.org/ui/extensions">	
 	
-	<h:panelGrid columns="2" cellpadding="10">
-		<p:outputLabel value="#{msgs['label.procedimento']}: " for="procedimento" />
-		<p:autoComplete id="procedimento"
-			value="#{credenciadoController.procedimentoSelecionado}"
-			completeMethod="#{credenciadoController.completeProcedimento}"
-			var="procedimento" itemLabel="#{procedimento.nome}"
-			itemValue="#{procedimento}" converter="entityConverter"
-			forceSelection="true" />		
+	<p:fieldset legend="Pesquisa">
+		<h:panelGrid columns="4" cellpadding="10" id="panelGridProcedimentosCredenciadosPesquisa">
 		
-	</h:panelGrid>
+			<p:outputLabel for="nomeProcedimetnoPesquisa" value="#{msgs['label.procedimento']}" />
+			<p:inputText id="nomeProcedimetnoPesquisa" 
+				value="#{procedimentoCredenciadoController.nomeProcedimentoPesquisa}" required="false"/>
+							
+			<p:commandButton action="#{procedimentoCredenciadoController.pesquisar(credenciadoController.credenciado)}" 
+				icon="ui-icon-search" ajax="true" update="panelGridProcedimentosCredenciadosPesquisa, gridProcedimentos" 
+				process="@this, panelGridProcedimentosCredenciadosPesquisa" />
+			
+			<p:commandButton 
+				id="botaoIncluir" icon="ui-icon-circle-plus" value="#{msgs['botao.incluir']}"
+				action="#{procedimentoCredenciadoController.incluir(credenciadoController.credenciado)}" disabled="#{credenciadoController.somenteLeitura or empty credenciadoController.credenciado.id}" 
+				ajax="true" update="panelGridProcedimentosCredenciadosPesquisa, gridProcedimentos" process="@this, panelGridProcedimentosCredenciadosPesquisa" />
+		</h:panelGrid>   
+	</p:fieldset>
+	
+	<p:spacer width="5px" />
+   
+	<p:dataTable var="procedimentoCredenciado" value="#{procedimentoCredenciadoController.procedimentosCredenciados}"
+		id="gridProcedimentos" emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}"
+		paginator="true" paginatorPosition="bottom" rows="5">
+		
+		<f:facet name="header"> #{msgs['label.procedimentos']} </f:facet>
+	
+		<p:column headerText="#{msgs['label.nome']}" sortBy="#{procedimentoCredenciado.procedimento.nome}" >
+			<h:outputText value="#{procedimentoCredenciado.procedimento.nome}" />
+		</p:column>		
+		
+		<p:column headerText="#{msgs['label.precoCusto']}" sortBy="#{procedimentoCredenciado.precoCusto}" >
+			<h:outputText value="#{procedimentoCredenciado.precoCusto}" />
+		</p:column>
+		
+		<p:column headerText="#{msgs['label.precoVenda']}" sortBy="#{procedimentoCredenciado.precoVenda}" >
+			<h:outputText value="#{procedimentoCredenciado.precoVenda}" />
+		</p:column>
 
+		<p:column headerText="#{msgs['label.acoes']}">
+			<p:panelGrid columns="3">					  
+				<p:commandLink title="#{msgs['label.visualizar']}" action="#{procedimentoCredenciadoController.visualizarProcedimentoCredenciado(procedimentoCredenciado)}"
+					styleClass="ui-icon ui-icon-search" />
+				<p:commandLink title="#{msgs['label.editar']}" action="#{procedimentoCredenciadoController.alterarProcedimentoCredenciado(procedimentoCredenciado)}"
+					styleClass="ui-icon ui-icon-pencil" />
+				<p:commandLink title="#{msgs['label.excluir']}" action="#{procedimentoCredenciadoController.removerProcedimentoCredenciado(procedimentoCredenciado)}"
+					styleClass="ui-icon ui-icon-closethick" update="gridProcedimentos">
+					<p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['label.confirmacaoExclusao']}" icon="ui-icon-alert" />
+				</p:commandLink>	
+			</p:panelGrid>
+		</p:column>
+	
+	</p:dataTable>
+	
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+		<p:commandButton value="#{msgs['label.confirmacaoSim']}" type="button"
+			styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+		<p:commandButton value="#{msgs['label.confirmacaoNao']}" type="button"
+			styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+	</p:confirmDialog>	
 </ui:composition>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui"
+   template="/WEB-INF/templates/default.xhtml"
+   xmlns:pe="http://primefaces.org/ui/extensions">
+	<ui:define name="content">
+	
+		<h:form id="frmAlterarProcedimentoCredenciado">
+		
+			<p:growl id="growl" showDetail="true" sticky="true" />
+			
+			<p:panel id="panelDadosProcedimentoCredenciado" header="#{msgs['label.procedimentosCredenciado']}">
+			
+				<h:panelGrid columns="2" cellpadding="10">
+					
+					<p:outputLabel value="#{msgs['label.credenciado']}:" />
+					<p:outputLabel value="#{credenciadoController.credenciado.nome}" />
+					
+				</h:panelGrid>
+				
+				<p:separator />
+			
+				<h:panelGrid columns="6" cellpadding="10">
+					
+					<p:outputLabel value="#{msgs['label.procedimento']}: " for="procedimento" />
+					<p:autoComplete id="procedimento"
+						value="#{procedimentoCredenciadoController.procedimentoCredenciado.procedimento}"
+						var="procedimento" itemLabel="#{procedimento.nome}"
+						completeMethod="#{credenciadoController.completeProcedimento}"
+						itemValue="#{procedimento}" converter="entityConverter"
+						forceSelection="true" />						
+					
+					<p:outputLabel for="precoCusto"
+						value="#{msgs['label.precoCusto']}:" />
+					<pe:inputNumber id="precoCusto"
+						value="#{procedimentoCredenciadoController.procedimentoCredenciado.precoCusto}"
+						symbol="R$ " />
+						
+					<p:outputLabel for="precoVenda"
+						value="#{msgs['label.precoVenda']}:" />
+					<pe:inputNumber id="precoVenda"
+						value="#{procedimentoCredenciadoController.procedimentoCredenciado.precoVenda}"
+						symbol="R$ " />
+					
+				</h:panelGrid>				
+			</p:panel>
+			
+			<p:toolbar>
+				<f:facet name="left">
+					<p:commandButton id="botaoVoltar" immediate="true"
+						icon="ui-icon-arrowreturnthick-1-w" title="Voltar"
+						action="/pages/credenciado/cadastroCredenciado.jsf?faces-redirect=true">
+					</p:commandButton>
+					<p:commandButton id="salvar" action="#{procedimentoCredenciadoController.gravarProcedimentoCredenciado()}"
+						value="Salvar" icon="ui-icon-disk" title="#{msgs['botao.gravar']}"
+						styleClass="register" 
+						disabled="#{credenciadoController.somenteLeitura}" />
+				</f:facet>
+			</p:toolbar>
+		</h:form>
+	</ui:define>
+</ui:composition>

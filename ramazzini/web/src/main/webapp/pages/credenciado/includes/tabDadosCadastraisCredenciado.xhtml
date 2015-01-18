@@ -9,42 +9,42 @@
 
 		<h:outputLabel for="ativoCheck" value="#{msgs['label.ativo']}:" />
 		<p:selectBooleanCheckbox id="ativoCheck"
-			value="#{credenciadoController.credenciado.ativo}" />
+			value="#{credenciadoController.credenciado.ativo}" disabled="#{credenciadoController.somenteLeitura}"/>
 
 		<p:outputLabel for="horario"
 			value="#{msgs['label.horarioAtendimento']}:" />
 		<p:inputText id="horario"
 			value="#{credenciadoController.credenciado.horarioAtendimento}"
-			styleClass="nome50" maxlength="200"/>
+			styleClass="nome50" maxlength="200" readonly="#{credenciadoController.somenteLeitura}"/>
 	</h:panelGrid>
 
 	<p:fieldset legend="#{msgs['label.endereco']}">
 		<h:panelGrid columns="6" cellpadding="5">	
 			<p:outputLabel for="logradouro" value="#{msgs['label.logradouro']}:" />
 			<p:inputText id="logradouro" value="#{credenciadoController.credenciado.endereco.logradouro}" 
-				maxlength="100" required="false" />
+				maxlength="100" required="false" readonly="#{credenciadoController.somenteLeitura}"/>
 				
 			<p:outputLabel for="logradouroNumero" value="#{msgs['label.numeroLogradouro']}:" />
 			<p:inputText id="logradouroNumero" value="#{credenciadoController.credenciado.endereco.numeroLogradouro}" 
-				maxlength="20" required="false" />
+				maxlength="20" required="false" readonly="#{credenciadoController.somenteLeitura}"/>
 		
 			<p:outputLabel for="logradouroComplemento" value="#{msgs['label.complementoLogradouro']}:" />
 			<p:inputText id="logradouroComplemento" value="#{credenciadoController.credenciado.endereco.complementoLogradouro}" 
-				maxlength="20" required="false" />
+				maxlength="20" required="false" readonly="#{credenciadoController.somenteLeitura}"/>
 
 			<p:outputLabel for="logradouroBairro" value="#{msgs['label.bairro']}:" />
 			<p:inputText id="logradouroBairro" value="#{credenciadoController.credenciado.endereco.bairro}" 
-				maxlength="50" required="false" />
+				maxlength="50" required="false" readonly="#{credenciadoController.somenteLeitura}"/>
 		
 			<p:outputLabel for="cidade" value="#{msgs['label.cidade']}:" />
 			<p:inputText id="cidade" value="#{credenciadoController.credenciado.endereco.cidade}" 
-				maxlength="100" required="false" />
+				maxlength="100" required="false" readonly="#{credenciadoController.somenteLeitura}"/>
 			
 			<p:outputLabel for="uf" value="#{msgs['label.uf']}:" />
 			<p:selectOneMenu id="uf"
-				value="#{credenciadoController.credenciado.endereco.unidadeFederativa}">
-				<f:selectItems value="#{empresaController.ufs}" var="uf"
-					itemLabel="#{uf.stringChave}" itemValue="#{uf.value}" />
+				value="#{credenciadoController.credenciado.endereco.unidadeFederativa}" disabled="#{credenciadoController.somenteLeitura}">
+				<f:selectItems value="#{combosEstaticos.unidadesFederativas}" var="uf"
+					itemLabel="#{uf.stringChave}" itemValue="#{uf.value}"/>
 			</p:selectOneMenu>
 		</h:panelGrid>
 	</p:fieldset>

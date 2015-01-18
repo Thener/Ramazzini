@@ -3,33 +3,34 @@
 		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 
-	<query name="Lotacao.recuperarPorEmpresa">
+	<query name="ProcedimentoCredenciado.recuperarPorCredenciado">
 		<![CDATA[
 			select 
-				lot
+				pc
 			from 
-				Lotacao lot
-			left join lot.empresa emp
+				ProcedimentoCredenciado pc
+			left join pc.credenciado c
 			where 
-				emp = :empresa
+				c = :credenciado
 			order 
-				by lot.nome
+				by pc.procedimento.nome
 		]]>
 	</query>
 	
-	<query name="Lotacao.recuperarPorNome">
+	<query name="ProcedimentoCredenciado.recuperarPorNome">
 		<![CDATA[
 			select 
-				lot
+				pc
 			from 
-				Lotacao lot
-			left join lot.empresa emp
+				ProcedimentoCredenciado pc
+			left join pc.credenciado c
+			left join pc.procedimento p
 			where 
-				emp = :empresa
+				c = :credenciado
 			and
-				lower(lot.nome) like lower(:nomeLotacao)
+				lower(p.nome) like lower(:nomeProcedimento)
 			order 
-				by lot.nome
+				by p.nome
 		]]>
 	</query>	
 
