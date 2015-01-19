@@ -76,6 +76,7 @@ public class CredenciadoController extends AbstractBean implements Serializable 
 		
 		credenciadoService.salvar(credenciado);
 		credenciados = credenciadoService.recuperarTodos("nome");
+		
 		//return PAGINA_PESQUISAR_CREDENCIADO;
 	}
 	

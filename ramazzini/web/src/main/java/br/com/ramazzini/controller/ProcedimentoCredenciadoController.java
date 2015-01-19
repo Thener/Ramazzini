@@ -1,8 +1,11 @@
 package br.com.ramazzini.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -31,6 +34,17 @@ public class ProcedimentoCredenciadoController extends AbstractBean implements S
     private Credenciado credenciado;
     
     private String nomeProcedimentoPesquisa;
+    
+    private @Inject Conversation conversation;
+    
+    @PostConstruct  
+    public void init() {
+    	procedimentosCredenciados = new ArrayList<ProcedimentoCredenciado>();
+    	
+    	if (conversation.isTransient()) {
+			conversation.begin();
+		}
+    }
        
 	public String incluir(Credenciado credenciado) {	
 		this.credenciado = credenciado;
@@ -64,10 +78,29 @@ public class ProcedimentoCredenciadoController extends AbstractBean implements S
     	return PAGINA_CADASTRO_PROCEDIMENTO_CREDENCIADO;    	
     }
     
+    public boolean valoresCustoVendaValidos(){
+    	if (getProcedimentoCredenciado().getPrecoCusto().compareTo(getProcedimentoCredenciado().getPrecoVenda()) == 1){
+    		UtilMensagens.mensagemErroPorChave("mensagem.erro.valoresIconsistentes");
+    		return false; 
+    	}
+    	return true;
+    }
+    
+    public boolean procedimentoValido(){
+    	if (getProcedimentosCredenciados(procedimentoCredenciado.getCredenciado()).contains(procedimentoCredenciado.getProcedimento())) {
+    		UtilMensagens.mensagemErroPorChave("mensagem.erro.procedimentoJaCadastrado");
+    		return false; 
+    	}
+    	return true;
+    }
+    
 	public String gravarProcedimentoCredenciado() {
-		
-		procedimentoCredenciadoService.salvar(procedimentoCredenciado);
-		return PAGINA_CADASTRO_CREDENCIADO;
+		if (valoresCustoVendaValidos() && procedimentoValido()){
+			procedimentoCredenciadoService.salvar(procedimentoCredenciado);
+			return PAGINA_CADASTRO_CREDENCIADO;
+		} else {			
+			return null;
+		}			
 	} 
     
     public void pesquisar(Credenciado credenciado) throws Exception {
@@ -78,10 +111,8 @@ public class ProcedimentoCredenciadoController extends AbstractBean implements S
 		}      
     }    
 	
-	public List<ProcedimentoCredenciado> getProcedimentosCredenciados() {
-		if (procedimentosCredenciados == null || procedimentosCredenciados.isEmpty()) {
-			procedimentosCredenciados = procedimentoCredenciadoService.recuperarPorCredenciado(credenciado);
-		}
+	public List<ProcedimentoCredenciado> getProcedimentosCredenciados(Credenciado credenciado) {
+		procedimentosCredenciados = procedimentoCredenciadoService.recuperarPorCredenciado(credenciado);	
 		return procedimentosCredenciados;
 	}
 

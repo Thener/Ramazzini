@@ -29,7 +29,7 @@
 					<p:autoComplete id="procedimento"
 						value="#{procedimentoCredenciadoController.procedimentoCredenciado.procedimento}"
 						var="procedimento" itemLabel="#{procedimento.nome}"
-						completeMethod="#{credenciadoController.completeProcedimento}"
+						completeMethod="#{autoComplete.completeProcedimento}"
 						itemValue="#{procedimento}" converter="entityConverter"
 						forceSelection="true" />						
 					
@@ -57,7 +57,7 @@
 					<p:commandButton id="salvar" action="#{procedimentoCredenciadoController.gravarProcedimentoCredenciado()}"
 						value="Salvar" icon="ui-icon-disk" title="#{msgs['botao.gravar']}"
 						styleClass="register" 
-						disabled="#{credenciadoController.somenteLeitura}" />
+						disabled="#{credenciadoController.somenteLeitura}" update="frmAlterarProcedimentoCredenciado"/>
 				</f:facet>
 			</p:toolbar>
 		</h:form>
