@@ -7,15 +7,17 @@
    xmlns:pe="http://primefaces.org/ui/extensions">	
 	
 	<p:fieldset legend="Pesquisa">
-		<h:panelGrid columns="4" cellpadding="10" id="panelGridProcedimentosCredenciadosPesquisa">
+		<h:panelGrid columns="4" cellpadding="10" id="panelGridProcedimentosCredenciadosPesquisa" >
 		
 			<p:outputLabel for="nomeProcedimetnoPesquisa" value="#{msgs['label.procedimento']}" />
 			<p:inputText id="nomeProcedimetnoPesquisa" 
-				value="#{procedimentoCredenciadoController.nomeProcedimentoPesquisa}" required="false"/>
+				value="#{procedimentoCredenciadoController.nomeProcedimentoPesquisa}" required="false"
+				disabled="#{empty credenciadoController.credenciado.id}"/>
 							
 			<p:commandButton action="#{procedimentoCredenciadoController.pesquisar(credenciadoController.credenciado)}" 
 				icon="ui-icon-search" ajax="true" update="panelGridProcedimentosCredenciadosPesquisa, gridProcedimentos" 
-				process="@this, panelGridProcedimentosCredenciadosPesquisa" />
+				process="@this, panelGridProcedimentosCredenciadosPesquisa" 
+				disabled="#{empty credenciadoController.credenciado.id}"/>
 			
 			<p:commandButton 
 				id="botaoIncluir" icon="ui-icon-circle-plus" value="#{msgs['botao.incluir']}"
@@ -26,9 +28,9 @@
 	
 	<p:spacer width="5px" />
    
-	<p:dataTable var="procedimentoCredenciado" value="#{procedimentoCredenciadoController.procedimentosCredenciados}"
+	<p:dataTable var="procedimentoCredenciado" value="#{procedimentoCredenciadoController.getProcedimentosCredenciados(credenciadoController.credenciado)}"
 		id="gridProcedimentos" emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}"
-		paginator="true" paginatorPosition="bottom" rows="5">
+		paginator="true" paginatorPosition="bottom" rows="5" rendered="#{not empty credenciadoController.credenciado.id}">
 		
 		<f:facet name="header"> #{msgs['label.procedimentos']} </f:facet>
 	
@@ -37,11 +39,15 @@
 		</p:column>		
 		
 		<p:column headerText="#{msgs['label.precoCusto']}" sortBy="#{procedimentoCredenciado.precoCusto}" >
-			<h:outputText value="#{procedimentoCredenciado.precoCusto}" />
+			<h:outputText value="#{procedimentoCredenciado.precoCusto}" >
+				<f:convertNumber pattern="#0.00" locale="pt_BR"/>
+			</h:outputText>
 		</p:column>
 		
 		<p:column headerText="#{msgs['label.precoVenda']}" sortBy="#{procedimentoCredenciado.precoVenda}" >
-			<h:outputText value="#{procedimentoCredenciado.precoVenda}" />
+			<h:outputText value="#{procedimentoCredenciado.precoVenda}" >
+				<f:convertNumber pattern="#0.00" locale="pt_BR"/>
+			</h:outputText>
 		</p:column>
 
 		<p:column headerText="#{msgs['label.acoes']}">
