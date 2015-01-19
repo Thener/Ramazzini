@@ -1,11 +1,8 @@
 package br.com.ramazzini.controller;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -35,31 +32,17 @@ public class ProcedimentoCredenciadoController extends AbstractBean implements S
     
     private String nomeProcedimentoPesquisa;
     
-    private @Inject Conversation conversation;
-    
-    @PostConstruct  
-    public void init() {
-    	procedimentosCredenciados = new ArrayList<ProcedimentoCredenciado>();
-    	
-    	if (conversation.isTransient()) {
-			conversation.begin();
-		}
-    }
-       
-	public String incluir(Credenciado credenciado) {	
-		this.credenciado = credenciado;
+	public String incluir() {	
 		this.procedimentoCredenciado = new ProcedimentoCredenciado();
 		this.procedimentoCredenciado.setCredenciado(credenciado);
 		return cadastroProcedimentoCredenciado(procedimentoCredenciado, Boolean.FALSE);
 	}
 	    
     public String alterarProcedimentoCredenciado(ProcedimentoCredenciado procedimentoCredenciado){
-    	this.procedimentoCredenciado = procedimentoCredenciado;
     	return cadastroProcedimentoCredenciado(procedimentoCredenciado, Boolean.FALSE);
     }
     
     public String visualizarProcedimentoCredenciado(ProcedimentoCredenciado procedimentoCredenciado){
-    	this.procedimentoCredenciado = procedimentoCredenciado;
     	return cadastroProcedimentoCredenciado(procedimentoCredenciado, Boolean.TRUE);
     }
     
@@ -73,8 +56,9 @@ public class ProcedimentoCredenciadoController extends AbstractBean implements S
         }
     }    
     
-    private String cadastroProcedimentoCredenciado(ProcedimentoCredenciado procedimentoCredenciado, Boolean somenteLeitura) {
-    	 	
+    private String cadastroProcedimentoCredenciado(ProcedimentoCredenciado procedimentoCredenciado, Boolean somenteLeitura) {    	 	
+    	setProcedimentoCredenciado(procedimentoCredenciado);
+    	setSomenteLeitura(somenteLeitura);
     	return PAGINA_CADASTRO_PROCEDIMENTO_CREDENCIADO;    	
     }
     
@@ -86,24 +70,17 @@ public class ProcedimentoCredenciadoController extends AbstractBean implements S
     	return true;
     }
     
-    public boolean procedimentoValido(){
-    	if (getProcedimentosCredenciados(procedimentoCredenciado.getCredenciado()).contains(procedimentoCredenciado.getProcedimento())) {
-    		UtilMensagens.mensagemErroPorChave("mensagem.erro.procedimentoJaCadastrado");
-    		return false; 
-    	}
-    	return true;
-    }
-    
 	public String gravarProcedimentoCredenciado() {
-		if (valoresCustoVendaValidos() && procedimentoValido()){
+		if (valoresCustoVendaValidos()){
 			procedimentoCredenciadoService.salvar(procedimentoCredenciado);
+			pesquisar();
 			return PAGINA_CADASTRO_CREDENCIADO;
 		} else {			
 			return null;
 		}			
 	} 
     
-    public void pesquisar(Credenciado credenciado) throws Exception {
+    public void pesquisar(){
 		if (nomeProcedimentoPesquisa == null || nomeProcedimentoPesquisa.isEmpty()){
     		procedimentosCredenciados = procedimentoCredenciadoService.recuperarPorCredenciado(credenciado);
 		} else {
@@ -111,8 +88,8 @@ public class ProcedimentoCredenciadoController extends AbstractBean implements S
 		}      
     }    
 	
-	public List<ProcedimentoCredenciado> getProcedimentosCredenciados(Credenciado credenciado) {
-		procedimentosCredenciados = procedimentoCredenciadoService.recuperarPorCredenciado(credenciado);	
+	public List<ProcedimentoCredenciado> getProcedimentosCredenciados() {
+			
 		return procedimentosCredenciados;
 	}
 

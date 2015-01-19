@@ -21,11 +21,11 @@
 						
 				</h:panelGrid>
 				
-				<p:tabView id="tabViewIncluirCredenciado">
-			        	<p:tab title="#{msgs['label.dadosCadastrais']}">
+				<p:tabView id="tabViewIncluirCredenciado" activeIndex="#{credenciadoController.tabActiveIndex}">
+			        	<p:tab title="#{msgs['label.dadosCadastrais']}" id="tabDadosCadastrais">
 			        		<ui:include src="includes/tabDadosCadastraisCredenciado.xhtml" />
 			        	</p:tab>
-			        	<p:tab title="#{msgs['label.procedimentos']}">
+			        	<p:tab title="#{msgs['label.procedimentos']}" id="tabProcedimentos">
 			        		<ui:include src="includes/tabProcedimentosCredenciado.xhtml" />
 			        	</p:tab>		        	
 			    </p:tabView>

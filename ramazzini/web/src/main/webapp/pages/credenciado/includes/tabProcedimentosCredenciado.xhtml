@@ -14,23 +14,23 @@
 				value="#{procedimentoCredenciadoController.nomeProcedimentoPesquisa}" required="false"
 				disabled="#{empty credenciadoController.credenciado.id}"/>
 							
-			<p:commandButton action="#{procedimentoCredenciadoController.pesquisar(credenciadoController.credenciado)}" 
+			<p:commandButton action="#{procedimentoCredenciadoController.pesquisar()}" 
 				icon="ui-icon-search" ajax="true" update="panelGridProcedimentosCredenciadosPesquisa, gridProcedimentos" 
 				process="@this, panelGridProcedimentosCredenciadosPesquisa" 
 				disabled="#{empty credenciadoController.credenciado.id}"/>
 			
 			<p:commandButton 
 				id="botaoIncluir" icon="ui-icon-circle-plus" value="#{msgs['botao.incluir']}"
-				action="#{procedimentoCredenciadoController.incluir(credenciadoController.credenciado)}" disabled="#{credenciadoController.somenteLeitura or empty credenciadoController.credenciado.id}" 
+				action="#{procedimentoCredenciadoController.incluir()}" disabled="#{credenciadoController.somenteLeitura or credenciadoController.credenciado.novo}" 
 				ajax="true" update="panelGridProcedimentosCredenciadosPesquisa, gridProcedimentos" process="@this, panelGridProcedimentosCredenciadosPesquisa" />
 		</h:panelGrid>   
 	</p:fieldset>
 	
 	<p:spacer width="5px" />
    
-	<p:dataTable var="procedimentoCredenciado" value="#{procedimentoCredenciadoController.getProcedimentosCredenciados(credenciadoController.credenciado)}"
+	<p:dataTable var="procedimentoCredenciado" value="#{procedimentoCredenciadoController.getProcedimentosCredenciados()}"
 		id="gridProcedimentos" emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}"
-		paginator="true" paginatorPosition="bottom" rows="5" rendered="#{not empty credenciadoController.credenciado.id}">
+		paginator="true" paginatorPosition="bottom" rows="5">
 		
 		<f:facet name="header"> #{msgs['label.procedimentos']} </f:facet>
 	

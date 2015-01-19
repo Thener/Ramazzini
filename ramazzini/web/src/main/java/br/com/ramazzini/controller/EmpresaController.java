@@ -108,8 +108,12 @@ public class EmpresaController extends AbstractBean implements Serializable {
 	public String gravarEmpresa() {
 		boolean inclusao = empresa.isNovo();
 		empresaService.salvar(empresa);
-		empresas = empresaService.recuperarTodos("nome");
-		return (inclusao) ? alterarEmpresa(empresa) : PAGINA_PESQUISAR_EMPRESA;
+		if (inclusao) {
+			return alterarEmpresa(empresa);
+		} else {
+			empresas = empresaService.recuperarTodos("nome");
+			return PAGINA_PESQUISAR_EMPRESA;
+		}		
 	}    
       
 	public List<Empresa> getEmpresas() {

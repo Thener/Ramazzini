@@ -1,7 +1,6 @@
 package br.com.ramazzini.controller;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -11,9 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.ramazzini.model.credenciado.Credenciado;
-import br.com.ramazzini.model.procedimento.Procedimento;
 import br.com.ramazzini.service.CredenciadoService;
-import br.com.ramazzini.service.ProcedimentoService;
 import br.com.ramazzini.util.UtilMensagens;
 
 @Named
@@ -27,19 +24,20 @@ public class CredenciadoController extends AbstractBean implements Serializable 
 
 	private @Inject Conversation conversation;
 	
+	@Inject
+	private ProcedimentoCredenciadoController procedimentoCredenciadoController;
+	
     @Inject
     private CredenciadoService credenciadoService;  	
-    
-    @Inject
-    private ProcedimentoService procedimentoService;      
-	
+      
 	private Credenciado credenciado;
 	
 	private List<Credenciado> credenciados;
 	
 	private String nomeCredenciadoPesquisa;
 	
-	private boolean somenteLeitura = Boolean.FALSE;
+	private Integer tabAtiva;
+	
 	
 	@PostConstruct
 	public void init() {
@@ -50,8 +48,8 @@ public class CredenciadoController extends AbstractBean implements Serializable 
 			conversation.begin();
 		}
 	}
-	public String incluirCredenciado() {
-		
+	
+	public String incluirCredenciado() {		
 		this.credenciado = new Credenciado();
 		return cadastroCredenciado(credenciado, Boolean.FALSE);
 	}    
@@ -68,16 +66,20 @@ public class CredenciadoController extends AbstractBean implements Serializable 
     
 	private String cadastroCredenciado(Credenciado credenciado, Boolean somenteLeitura) {
     	setCredenciado(credenciado);
+    	procedimentoCredenciadoController.setCredenciado(credenciado);
     	setSomenteLeitura(somenteLeitura);    	
     	return PAGINA_CADASTRO_CREDENCIADO;    	
     }
 	
-	public void salvar() {
-		
+	public String salvar() {
+		boolean inclusao = credenciado.isNovo();
 		credenciadoService.salvar(credenciado);
-		credenciados = credenciadoService.recuperarTodos("nome");
-		
-		//return PAGINA_PESQUISAR_CREDENCIADO;
+		if (inclusao) {
+			return alterarCredenciado(credenciado);
+		} else {
+			credenciados = credenciadoService.recuperarTodos("nome");
+			return PAGINA_PESQUISAR_CREDENCIADO;
+		}	
 	}
 	
     public void pesquisar() throws Exception {
@@ -98,20 +100,7 @@ public class CredenciadoController extends AbstractBean implements Serializable 
     	} catch (Exception e) {
     		UtilMensagens.mensagemErro("Não foi possível remover a empresa!");
         }
-    }   
-    
-    public List<Procedimento> completeProcedimento(String query) {
-        List<Procedimento> todosProcedimentos = procedimentoService.recuperarTodos();
-        List<Procedimento> procedimentosFiltrados = new ArrayList<Procedimento>();
-         
-        for (int i = 0; i < todosProcedimentos.size(); i++) {
-        	Procedimento skin = todosProcedimentos.get(i);
-            if(skin.getNome().toLowerCase().contains(query)) {
-            	procedimentosFiltrados.add(skin);
-            }
-        }         
-        return procedimentosFiltrados;
-    }	
+    }  
 
 	public Credenciado getCredenciado() {
 		return credenciado;
@@ -131,11 +120,20 @@ public class CredenciadoController extends AbstractBean implements Serializable 
 		return credenciados;
 	}
 
-	public boolean isSomenteLeitura() {
-		return somenteLeitura;
+	public ProcedimentoCredenciadoController getProcedimentoCredenciadoController() {
+		return procedimentoCredenciadoController;
+	}
+	
+	public void setProcedimentoCredenciadoController(
+			ProcedimentoCredenciadoController procedimentoCredenciadoController) {
+		this.procedimentoCredenciadoController = procedimentoCredenciadoController;
 	}
 
-	public void setSomenteLeitura(boolean somenteLeitura) {
-		this.somenteLeitura = somenteLeitura;
-	}  
+	public Integer getTabActiveIndex() {
+        return tabAtiva;
+    }
+
+    public void setTabActiveIndex(Integer tabActiveIndex) {
+        this.tabAtiva = tabActiveIndex;
+    }	 		
 }
