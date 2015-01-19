@@ -15,11 +15,11 @@
 			<p:commandButton action="#{lotacaoController.pesquisar()}" 
 				icon="ui-icon-search" ajax="true" update="panelGridLotacaoPesquisa, gridLotacoes" 
 				process="@this, panelGridLotacaoPesquisa" 
-				disabled="#{empresaController.acaoInclusao}"/>
+				disabled="#{empresaController.empresa.novo}"/>
 			
 			<p:commandButton 
 				id="botaoIncluirLotacao" icon="ui-icon-circle-plus" value="#{msgs['botao.incluir']}"
-				action="#{lotacaoController.incluirLotacao()}" disabled="#{empresaController.somenteLeitura or empresaController.acaoInclusao}" />					
+				action="#{lotacaoController.incluirLotacao()}" disabled="#{empresaController.somenteLeitura or empresaController.empresa.novo}" />					
 			
 		</h:panelGrid>   
 	</p:fieldset>

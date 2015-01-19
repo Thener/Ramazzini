@@ -18,7 +18,7 @@
 		
 			<p:commandButton action="#{grupoController.incluirEmpresaNoGrupo()}" value="#{msgs['botao.incluir']}"
 				icon="ui-icon-check" ajax="true" update="gridEmpresas" process="@this, completeEmpresa" 
-				disabled="#{grupoController.somenteLeitura or grupoController.acaoInclusao}"/>
+				disabled="#{grupoController.somenteLeitura or grupoController.grupo.novo}"/>
 			
 		</h:panelGrid>   
 		   

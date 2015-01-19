@@ -66,7 +66,6 @@ public class GrupoController extends AbstractBean implements Serializable {
 	public String incluirGrupo() {
 		
 		grupo = new Grupo();
-		setAcaoInclusao(Boolean.TRUE);
 		return cadastroGrupo(grupo, Boolean.FALSE);
 	}  
 	
@@ -78,13 +77,11 @@ public class GrupoController extends AbstractBean implements Serializable {
 	
     public String alterarGrupo(Grupo grupo){
     	
-    	setAcaoAlteracao(Boolean.TRUE);
     	return cadastroGrupo(grupo, Boolean.FALSE);
     }	
     
     public String visualizarGrupo(Grupo grupo){
     	
-    	setAcaoVisualizacao(Boolean.TRUE);
     	return cadastroGrupo(grupo, Boolean.TRUE);
     }
     
@@ -106,10 +103,10 @@ public class GrupoController extends AbstractBean implements Serializable {
     }
     
 	public String gravarGrupo() {
-		
+		boolean inclusao = grupo.isNovo();
 		grupoService.salvar(grupo);
 		grupos = grupoService.recuperarTodos("nome");
-		return (isAcaoInclusao()) ? alterarGrupo(grupo) : PAGINA_PESQUISAR_GRUPO;
+		return (inclusao) ? alterarGrupo(grupo) : PAGINA_PESQUISAR_GRUPO;
 	}    
     
     private String cadastroGrupo(Grupo grupo, Boolean somenteLeitura) {
