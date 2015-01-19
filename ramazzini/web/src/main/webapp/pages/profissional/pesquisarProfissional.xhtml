@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui"
+   template="/WEB-INF/templates/default.xhtml">
+   <ui:define name="content">
+   
+	<h:form id="frmProfissional">
+	
+		<p:growl id="messages" showDetail="false" sticky="true" />
+		
+		<p:panel id="panelProfissional" header="#{msgs['label.profissionais']}" style="margin-bottom:20px">
+		
+			<h:panelGrid columns="4" cellpadding="10">
+			
+				<p:outputLabel for="nomeProfissionalPesquisa" value="#{msgs['label.nome']}:" />
+				<p:inputText id="nomeProfissionalPesquisa" value="#{profissionalController.nomeProfissionalPesquisa}" 
+					styleClass="nome100" maxlength="100" required="false"/>
+					
+				<p:commandButton action="#{profissionalController.pesquisar()}"
+					id="botaoPesquisa" icon="ui-icon-search" title="#{msgs['label.pesquisa']}"
+					update="frmProfissional">
+					<f:ajax execute="nomeProfissionalPesquisa" render="gridProfissionais"/>
+				</p:commandButton>
+
+				<p:commandButton 
+					id="botaoIncluirProfissional" icon="ui-icon-circle-plus" value="#{msgs['botao.incluir']}"
+					action="#{profissionalController.incluirProfissional()}" />					
+				
+			</h:panelGrid>		
+
+			<p:dataTable var="profissional" value="#{profissionalController.profissionais}"
+				id="gridProfissionais" emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}"
+				paginator="true" paginatorPosition="bottom" rows="5">
+				
+				<f:facet name="header"> #{msgs['label.profissionais']} </f:facet>
+
+				<p:column headerText="#{msgs['label.nome']}" sortBy="#{profissional.nome}">
+					<h:outputText value="#{profissional.nome}" />
+				</p:column>
+								
+				<p:column headerText="#{msgs['label.ativo']}" styleClass="colunaCheck">
+					<p:selectBooleanCheckbox value="#{profissional.ativo}" disabled="true" />
+				</p:column>
+												
+				<p:column headerText="#{msgs['label.papel']}" sortBy="#{profissional.papelProfissional}">
+					<h:outputText value="#{profissional.papelProfissionalEnum.stringChave}" />
+				</p:column>
+				
+				<p:column headerText="#{msgs['label.telefone']}">
+					<h:outputText value="#{profissional.telefone}" />
+				</p:column>				
+												
+				<p:column headerText="#{msgs['label.acoes']}" styleClass="colunaAcoes">
+					<p:panelGrid columns="3">					  
+						<p:commandLink title="#{msgs['label.visualizar']}" action="#{profissionalController.visualizarProfissional(profissional)}"
+							styleClass="ui-icon ui-icon-search" 
+								rendered="#{profissionalController.controleAcesso.acaoAutorizada('profissional','pesquisarProfissional.jsf','visualizarProfissional')}" />
+						<p:commandLink title="#{msgs['label.editar']}" action="#{profissionalController.alterarProfissional(profissional)}"
+							styleClass="ui-icon ui-icon-pencil" 
+							rendered="#{profissionalController.controleAcesso.acaoAutorizada('profissional','pesquisarProfissional.jsf','alterarProfissional')}" />
+						<p:commandLink title="#{msgs['label.excluir']}" action="#{profissionalController.removerProfissional(profissional)}"
+							styleClass="ui-icon ui-icon-closethick" update="gridProfissionais, :frmProfissional:messages"
+							rendered="#{profissionalController.controleAcesso.acaoAutorizada('profissional','pesquisarProfissional.jsf','excluirProfissional')}">
+							<p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['mensagem.pergunta.desejaRealmenteExcluir']}" icon="ui-icon-alert" />
+						</p:commandLink>	
+					</p:panelGrid>
+				</p:column>							
+
+			</p:dataTable>
+			
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+				<p:commandButton value="#{msgs['label.confirmacaoSim']}" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="#{msgs['label.confirmacaoNao']}" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>			
+			
+		</p:panel>
+
+	</h:form>
+	
+	</ui:define>
+</ui:composition>

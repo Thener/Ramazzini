@@ -13,6 +13,11 @@
 	width: 110px;
 }
 
+.ui-datatable .colunaCheck {
+	width: 50px;
+	text-align: center;
+}
+
 .coluna1 {  
 	width: 50px;
 	text-align: center;  

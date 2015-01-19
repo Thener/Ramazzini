@@ -56,7 +56,7 @@ public class ProfissionalController extends AbstractBean implements Serializable
 		return cadastroProfissional(profissional, Boolean.FALSE);
 	}    
 	
-    public String alterarRiscoOcupacional(Profissional profissional){
+    public String alterarProfissional(Profissional profissional){
     	
     	return cadastroProfissional(profissional, Boolean.FALSE);
     }	

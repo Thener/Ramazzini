@@ -19,6 +19,9 @@
 		<p:menuitem value="#{msgs['menu.label.procedimentos']}" url="/pages/procedimento/pesquisarProcedimento.jsf" 
 			rendered="#{menuController.controleAcesso.telaAutorizada('procedimento','pesquisarProcedimento.jsf')}"/>
 
+		<p:menuitem value="#{msgs['menu.label.profissionais']}" url="/pages/profissional/pesquisarProfissional.jsf" 
+			rendered="#{menuController.controleAcesso.telaAutorizada('profissional','pesquisarProfissional.jsf')}"/>
+
 		<p:menuitem value="#{msgs['menu.label.riscosOcupacionais']}" url="/pages/riscoOcupacional/pesquisarRiscoOcupacional.jsf" 
 			rendered="#{menuController.controleAcesso.telaAutorizada('riscoOcupacional','pesquisarRiscoOcupacional.jsf')}"/>
 

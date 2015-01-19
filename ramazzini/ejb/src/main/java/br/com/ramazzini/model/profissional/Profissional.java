@@ -16,7 +16,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import br.com.ramazzini.model.horarioAtendimento.HorarioAtendimento;
@@ -36,14 +35,11 @@ public class Profissional extends AbstractEntidade implements Serializable {
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "seq_profissional")
     private Long id;
     
-    @Column(name = "nm_profissional")
+    @Column(name = "nm_profissional", length = 100)
     @NotNull
-    @Size(min = 1, max = 100)
     private String nome;
     
-    @Column(name = "nm_abreviado")
-    @NotNull
-    @Size(min = 1, max = 50)
+    @Column(name = "nm_abreviado", length = 50)
     private String nomeAbreviado;
     
 	@Column(name = "sg_papel", length = 3)
