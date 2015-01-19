@@ -70,11 +70,11 @@ public class LotacaoController extends AbstractBean implements Serializable {
 	public String gravarLotacao() {
 		
 		lotacaoService.salvar(lotacao);
-		lotacoes.clear(); // forçar recarregamento
+		pesquisar();
 		return PAGINA_CADASTRO_EMPRESA;
 	}
     
-    public void pesquisar() throws Exception {
+    public void pesquisar() {
 		
     	if (nomeLotacaoPesquisa == null || nomeLotacaoPesquisa.isEmpty()){
     		lotacoes = lotacaoService.recuperarPorEmpresa(empresa);

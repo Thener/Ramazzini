@@ -77,7 +77,7 @@ public class EmpresaServicoController extends AbstractBean implements Serializab
 	public String gravarEmpresaServico() {
 
 		empresaServicoService.salvar(empresaServico);
-		empresasServicos.clear(); // forçar recarregamento
+		pesquisar();
 		return PAGINA_CADASTRO_EMPRESA;
 	}
     
