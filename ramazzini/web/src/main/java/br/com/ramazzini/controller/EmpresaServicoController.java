@@ -39,11 +39,10 @@ public class EmpresaServicoController extends AbstractBean implements Serializab
     
     private Servico servicoPesquisa;
     
-    private boolean somenteLeitura = Boolean.FALSE;
-           
 	public String incluirEmpresaServico() {
 		
-		this.empresaServico = new EmpresaServico();
+		empresaServico = new EmpresaServico();
+		empresaServico.setEmpresa(empresa);
 		return cadatroEmpresaServico(empresaServico, Boolean.FALSE);
 	}
 	    
@@ -77,7 +76,6 @@ public class EmpresaServicoController extends AbstractBean implements Serializab
     
 	public String gravarEmpresaServico() {
 
-    	empresaServico.setEmpresa(empresa);
 		empresaServicoService.salvar(empresaServico);
 		empresasServicos.clear(); // forçar recarregamento
 		return PAGINA_CADASTRO_EMPRESA;
@@ -122,14 +120,6 @@ public class EmpresaServicoController extends AbstractBean implements Serializab
 
 	public void setServicoPesquisa(Servico servicoPesquisa) {
 		this.servicoPesquisa = servicoPesquisa;
-	}
-
-	public boolean isSomenteLeitura() {
-		return somenteLeitura;
-	}
-
-	public void setSomenteLeitura(boolean somenteLeitura) {
-		this.somenteLeitura = somenteLeitura;
 	}
 
 	public List<Servico> getServicos() {

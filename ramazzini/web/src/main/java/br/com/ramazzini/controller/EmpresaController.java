@@ -50,8 +50,6 @@ public class EmpresaController extends AbstractBean implements Serializable {
 	
 	private String nomeEmpresaPesquisa;
 	
-	private boolean somenteLeitura = Boolean.FALSE;
-	
 	private Integer tabAtiva;
 	
 	@PostConstruct
@@ -102,7 +100,8 @@ public class EmpresaController extends AbstractBean implements Serializable {
     	setEmpresa(empresa);
     	lotacaoController.setEmpresa(empresa);
     	empresaServicoController.setEmpresa(empresa);
-    	setSomenteLeitura(somenteLeitura);    	
+    	setSomenteLeitura(somenteLeitura);
+    	setTabActiveIndex(0);
     	return PAGINA_CADASTRO_EMPRESA;    	
     }
     
@@ -123,14 +122,6 @@ public class EmpresaController extends AbstractBean implements Serializable {
 
 	public void setNomeEmpresaPesquisa(String nomeEmpresaPesquisa) {
 		this.nomeEmpresaPesquisa = nomeEmpresaPesquisa;
-	}
-
-	public boolean isSomenteLeitura() {
-		return somenteLeitura;
-	}
-
-	public void setSomenteLeitura(boolean somenteLeitura) {
-		this.somenteLeitura = somenteLeitura;
 	}
     
 	public TipoPessoa[] getTiposPessoa() {

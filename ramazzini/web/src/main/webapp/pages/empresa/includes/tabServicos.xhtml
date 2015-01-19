@@ -24,15 +24,15 @@
 					itemLabel="#{servico.nome}" />
 			</p:selectOneMenu>
 							
-			<p:commandButton action="#{empresaServicoController.pesquisar()}" 
+			<p:commandButton action="#{empresaServicoController.pesquisar(empresaController.empresa)}" 
 				icon="ui-icon-search" ajax="true" update="panelGridEmpresaServicoPesquisa, gridServicos" 
 				process="@this, panelGridEmpresaServicoPesquisa" 
-				disabled="#{empresaController.acaoInclusao}"/>
+				disabled="#{empresaController.empresa.novo}"/>
 			
 			<p:commandButton 
 				id="botaoIncluirEmpresaServico" icon="ui-icon-circle-plus" value="#{msgs['botao.incluir']}"
-				action="#{empresaServicoController.incluirEmpresaServico()}" 
-				disabled="#{empresaController.somenteLeitura or empresaController.acaoInclusao}" />					
+				action="#{empresaServicoController.incluirEmpresaServico(empresaController.empresa)}" 
+				disabled="#{empresaController.somenteLeitura or empresaController.empresa.novo}" />					
 			
 		</h:panelGrid>   
 	</fieldset>
