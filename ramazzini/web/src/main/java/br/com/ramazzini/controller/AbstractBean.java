@@ -10,6 +10,8 @@ public abstract class AbstractBean implements Serializable {
 	    
     private ControleAcesso controleAcesso = new ControleAcesso();
     
+    private boolean somenteLeitura = Boolean.FALSE;
+    
 	private boolean acaoInclusao = Boolean.FALSE;
 	private boolean acaoAlteracao = Boolean.FALSE;
 	private boolean acaoVisualizacao = Boolean.FALSE;    
@@ -18,6 +20,14 @@ public abstract class AbstractBean implements Serializable {
 		return controleAcesso;
 	}
 
+	public boolean isSomenteLeitura() {
+		return somenteLeitura;
+	}
+
+	public void setSomenteLeitura(boolean somenteLeitura) {
+		this.somenteLeitura = somenteLeitura;
+	}
+	
 	public boolean isAcaoInclusao() {
 		return acaoInclusao;
 	}

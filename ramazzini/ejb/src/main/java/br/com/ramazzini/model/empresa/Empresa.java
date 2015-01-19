@@ -132,7 +132,7 @@ public class Empresa extends AbstractEntidade implements Serializable {
 	@OneToMany(mappedBy="empresa")
 	private List<Responsavel> responsaveis; 
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="cd_grupo")
 	private Grupo grupo;
 	
