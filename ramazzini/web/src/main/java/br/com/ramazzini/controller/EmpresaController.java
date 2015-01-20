@@ -42,6 +42,9 @@ public class EmpresaController extends AbstractBean implements Serializable {
     @Inject
     private EmpresaServicoController empresaServicoController;    
     
+    @Inject
+    private ResponsavelController responsavelController;    
+    
 	private Empresa empresa;
 	
 	private List<Empresa> empresas;
@@ -100,6 +103,7 @@ public class EmpresaController extends AbstractBean implements Serializable {
     	setEmpresa(empresa);
     	lotacaoController.setEmpresa(empresa);
     	empresaServicoController.setEmpresa(empresa);
+    	responsavelController.setEmpresa(empresa);
     	setSomenteLeitura(somenteLeitura);
     	setTabActiveIndex(0);
     	return PAGINA_CADASTRO_EMPRESA;    	
@@ -162,13 +166,16 @@ public class EmpresaController extends AbstractBean implements Serializable {
 	public LotacaoController getLotacaoController() {
 		return lotacaoController;
 	}
-
 	
 	public EmpresaServicoController getEmpresaServicoController() {
 		return empresaServicoController;
 	}
 	
-    public Integer getTabActiveIndex() {
+    public ResponsavelController getResponsavelController() {
+		return responsavelController;
+	}
+
+	public Integer getTabActiveIndex() {
         return tabAtiva;
     }
 

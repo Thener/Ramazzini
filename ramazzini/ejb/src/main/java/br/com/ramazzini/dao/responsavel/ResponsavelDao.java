@@ -27,7 +27,7 @@ public class ResponsavelDao extends AbstractDao<Responsavel> {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Responsavel> recuperarPorNome(Empresa empresa, String nomeProfissional) {
+	public List<Responsavel> recuperarPorNomeProfissional(Empresa empresa, String nomeProfissional) {
 		Query query = createNamedQuery(QUERY_RECUPERAR_POR_NOME_PROFISSIONAL);
 		query.setParameter("empresa", empresa);
 		query.setParameter("nomeProfissional", "%"+nomeProfissional+"%");

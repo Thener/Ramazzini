@@ -5,6 +5,58 @@
    xmlns:h="http://java.sun.com/jsf/html"
    xmlns:p="http://primefaces.org/ui">
    
+	<p:fieldset legend="#{msgs['label.pesquisa']}">
+		<h:panelGrid columns="4" cellpadding="10" id="panelGridResponsavelPesquisa">
+		
+			<p:outputLabel for="nomeProfissionalPesquisa" value="#{msgs['label.profissional']}" />
+			<p:inputText id="nomeProfissionalPesquisa" value="#{responsavelController.nomeProfissionalPesquisa}" 
+				required="false"  styleClass="nome100"/>
+							
+			<p:commandButton action="#{responsavelController.pesquisar()}" 
+				icon="ui-icon-search" ajax="true" update="panelGridResponsavelPesquisa, gridResponsaveis" 
+				process="@this, panelGridResponsavelPesquisa" 
+				disabled="#{empresaController.empresa.novo}"/>
+			
+			<p:commandButton 
+				id="botaoIncluirResponsavel" icon="ui-icon-circle-plus" value="#{msgs['botao.incluir']}"
+				action="#{responsavelController.incluirResponsavel()}" disabled="#{empresaController.somenteLeitura or empresaController.empresa.novo}" />					
+			
+		</h:panelGrid>   
+	</p:fieldset>
+	
+	<p:spacer width="5px" />
+   
+	<p:dataTable var="responsavel" value="#{responsavelController.getResponsaveis()}"
+		id="gridResponsaveis" emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}"
+		paginator="true" paginatorPosition="bottom" rows="5">
+		
+		<f:facet name="header"> #{msgs['label.responsaveis']} </f:facet>
+		
+		<p:column headerText="#{msgs['label.nome']}" sortBy="#{responsavel.profissional.nome}" >
+			<h:outputText value="#{responsavel.profissional.nome}" />
+		</p:column>
+				
+		<p:column headerText="#{msgs['label.acoes']}" styleClass="colunaAcoes">
+			<p:panelGrid columns="3">					  
+				<p:commandLink title="#{msgs['label.visualizar']}" action="#{responsavelController.visualizarResponsavel(responsavel)}"
+					styleClass="ui-icon ui-icon-search" />
+				<p:commandLink title="#{msgs['label.editar']}" action="#{responsavelController.alterarResponsavel(responsavel)}"
+					disabled="#{empresaController.somenteLeitura}" styleClass="ui-icon ui-icon-pencil" />
+				<p:commandLink title="#{msgs['label.excluir']}" action="#{responsavelController.removerResponsavel(responsavel)}"
+					disabled="#{empresaController.somenteLeitura}" styleClass="ui-icon ui-icon-closethick" update="gridResponsaveis">
+					<p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['label.confirmacaoExclusao']}" icon="ui-icon-alert" />
+				</p:commandLink>	
+			</p:panelGrid>
+		</p:column>
+	
+	</p:dataTable>
+	
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+		<p:commandButton value="#{msgs['label.confirmacaoSim']}" type="button"
+			styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+		<p:commandButton value="#{msgs['label.confirmacaoNao']}" type="button"
+			styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+	</p:confirmDialog>	   
 
 		
 </ui:composition>

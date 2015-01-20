@@ -53,7 +53,7 @@ public class LotacaoController extends AbstractBean implements Serializable {
     	
     	try {
     		lotacaoService.remover(lotacao, lotacao.getId());
-    		setLotacoes(null);
+    		lotacoes.remove(lotacao);
     		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeExcluidaComSucesso", "Lotação");
     	} catch (Exception e) {
     		UtilMensagens.mensagemErroPorChave("mensagem.erro.naoFoiPossivelExcluirRegistro", "a lotação.");

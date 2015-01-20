@@ -35,12 +35,12 @@ public class Responsavel extends AbstractEntidade implements Serializable {
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "seq_responsavel")
     private Long id;
     
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@NotNull
 	@JoinColumn(name="cd_empresa")
 	private Empresa empresa;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@NotNull
 	@JoinColumn(name="cd_profissional")
 	private Profissional profissional;	

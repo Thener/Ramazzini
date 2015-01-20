@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui"
+   template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+	
+		<h:form id="frmCadastroResponsavel">
+		
+			<p:growl id="growl" showDetail="false" sticky="true" />
+			
+			<p:panel id="panelDadosResponsavel" header="#{msgs['label.responsavel']}">
+			
+				<h:panelGrid columns="2" cellpadding="10">
+					
+					<p:outputLabel value="#{msgs['label.empresa']}:" />
+					<p:outputLabel value="#{responsavelController.empresa.nome}" />
+					
+				</h:panelGrid>
+				
+				<p:separator />
+			
+				<h:panelGrid columns="6" cellpadding="10">
+					
+					<p:outputLabel for="profissional" value="#{msgs['label.profissional']}:" />			
+					<p:selectOneMenu id="profissional"
+						value="#{responsavelController.responsavel.profissional}"
+						converter="entityConverter" styleClass="nome50"
+						required="true" requiredMessage="#{msgs['required.profissional.obrigatorio']}">
+						<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
+							noSelectionOption="true" />
+						<f:selectItems value="#{combosDinamicos.profissionais}" var="profissional"
+							itemLabel="#{profissional.nome}" />
+					</p:selectOneMenu>
+				
+				</h:panelGrid>
+				
+			</p:panel>
+			
+			<p:toolbar>
+				<f:facet name="left">
+					<p:commandButton id="botaoVoltar" immediate="true"
+						icon="ui-icon-arrowreturnthick-1-w" title="#{msgs['botao.voltar']}"
+						action="/pages/empresa/cadastroEmpresa.jsf?faces-redirect=true">
+					</p:commandButton>
+					<p:commandButton id="salvar" action="#{responsavelController.gravarResponsavel()}"
+						value="#{msgs['botao.gravar']}" icon="ui-icon-disk" title="#{msgs['botao.gravar']}"
+						styleClass="register" update="panelDadosResponsavel"
+						disabled="#{responsavelController.somenteLeitura}" />
+				</f:facet>
+			</p:toolbar>
+		</h:form>
+	</ui:define>
+</ui:composition>
