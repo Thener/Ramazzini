@@ -7,6 +7,9 @@
 				
 	<p:submenu label="#{msgs['menu.label.basicos']}">
 	
+		<p:menuitem value="#{msgs['menu.label.cnae']}" url="/pages/cnae/pesquisarCnae.jsf" 
+			rendered="#{menuController.controleAcesso.telaAutorizada('cane','pesquisarCnae.jsf')}"/>
+	
 		<p:menuitem value="#{msgs['menu.label.credenciados']}" url="/pages/credenciado/pesquisarCredenciado.jsf" 
 			rendered="#{menuController.controleAcesso.telaAutorizada('credenciado','pesquisarCredenciado.jsf')}"/>
 

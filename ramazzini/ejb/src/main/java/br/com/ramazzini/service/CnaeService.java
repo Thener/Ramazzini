@@ -16,8 +16,11 @@
  */
 package br.com.ramazzini.service;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 
+import br.com.ramazzini.dao.cnae.CnaeDao;
 import br.com.ramazzini.model.cnae.Cnae;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
 
@@ -25,6 +28,8 @@ import br.com.ramazzini.service.util.AbstractServiceImpl;
 @Stateless
 public class CnaeService extends AbstractServiceImpl<Cnae> {
 
-		
+	 public List<Cnae> recuperarPorNumero(String numero) {
+	    	return ((CnaeDao) getDao()).recuperarPorNumero(numero);
+	    }	
 
 }

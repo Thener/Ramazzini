@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui"
+   template="/WEB-INF/templates/default.xhtml">
+   <ui:define name="content">
+   
+	<h:form id="frmCnae">
+	
+		<p:growl id="messages" showDetail="false" sticky="true" />
+	
+		<p:panel id="panelPesquisaCnae" header="#{msgs['label.cnaes']}" style="margin-bottom:20px">
+		
+			<h:panelGrid columns="4" cellpadding="10">
+			
+				<p:outputLabel for="numeroCnaePesquisa" value="#{msgs['label.numero']}:" />
+				<p:inputText id="numeroCnaePesquisa" value="#{cnaeController.numeroCnaePesquisa}" 
+					styleClass="nome50" required="false"/>
+					
+				<p:commandButton action="#{cnaeController.pesquisar()}"
+					id="botaoPesquisa" icon="ui-icon-search" title="#{msgs['label.pesquisa']}"
+					update="frmCnae">
+					<f:ajax execute="numeroCnaePesquisa" render="gridCnaes"/>
+				</p:commandButton>
+				
+				<p:commandButton 
+					id="botaoIncluirCnae" icon="ui-icon-circle-plus" value="#{msgs['botao.incluir']}"
+					action="#{cnaeController.incluirCnae()}" />					
+				
+			</h:panelGrid>		
+
+			<p:dataTable var="cnae" value="#{cnaeController.cnaes}"
+				id="gridCnaes" emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}"
+				paginator="true" paginatorPosition="bottom" rows="5">
+				
+				<f:facet name="header"> #{msgs['label.cnaes']} </f:facet>
+
+				<p:column headerText="#{msgs['label.nome']}" sortBy="#{cnae.numero}" styleClass="coluna2">
+					<h:outputText value="#{cnae.numero}" />
+				</p:column>
+
+				<p:column headerText="#{msgs['label.nomeAbreviado']}" sortBy="#{cnae.grauRisco}" styleClass="coluna3">
+					<h:outputText value="#{cnae.grauRisco}" />
+				</p:column>				
+				
+				<p:column headerText="#{msgs['label.acoes']}" styleClass="coluna5">
+					<p:panelGrid columns="3" styleClass="semBorda">					  
+						<p:commandLink title="#{msgs['label.visualizar']}" action="#{cnaeController.visualizarCnae(cnae)}"
+							styleClass="ui-icon ui-icon-search" 
+								rendered="#{cnaeController.controleAcesso.acaoAutorizada('cnae','pesquisarCnae.jsf','visualizarCnae')}" />
+						<p:commandLink title="#{msgs['label.editar']}" action="#{cnaeController.alterarCnae(cnae)}"
+							styleClass="ui-icon ui-icon-pencil" 
+							rendered="#{cnaeController.controleAcesso.acaoAutorizada('cnae','pesquisarCnae.jsf','alterarCnae')}" />
+						<p:commandLink title="#{msgs['label.excluir']}" action="#{cnaeController.removerCnae(cnae)}"
+							styleClass="ui-icon ui-icon-closethick" update="gridCnaes, :frmCnae:messages"
+							rendered="#{cnaeController.controleAcesso.acaoAutorizada('cnae','pesquisarCnae.jsf','excluirCnae')}">
+							<p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['mensagem.pergunta.desejaRealmenteExcluir']}" icon="ui-icon-alert" />
+						</p:commandLink>	
+					</p:panelGrid>
+				</p:column>							
+
+			</p:dataTable>
+			
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+				<p:commandButton value="#{msgs['label.confirmacaoSim']}" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="#{msgs['label.confirmacaoNao']}" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>			
+			
+		</p:panel>
+
+	</h:form>
+	
+	</ui:define>
+</ui:composition>

@@ -33,4 +33,7 @@ input.nome100, span.nome100 input.ui-autocomplete-input {
 input.telefone {
 	width: 110px !important;	
 }
+textarea.tam100 {
+	width: 480px !important;
+}
 
