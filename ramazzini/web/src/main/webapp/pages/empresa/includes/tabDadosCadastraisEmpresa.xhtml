@@ -31,11 +31,12 @@
 		<p:inputMask mask="#{msgs['pattern.cpf']}" id="cpf" value="#{empresaController.empresa.cpf}" required="false" styleClass="cpf" />
 		
 		<p:outputLabel for="cnae" value="#{msgs['label.cnae']}:" />
-		<p:selectOneMenu id="cnae"
+		<p:selectOneMenu id="cnae" converter="entityConverter"
 			value="#{empresaController.empresa.cnae}">
+			<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
+				noSelectionOption="true" />	
 			<f:selectItems value="#{empresaController.cnaes}" var="cnae"
-				itemLabel="#{cnae.numero}" itemValue="#{cnae}" 
-				converter="entityConverter" />
+				itemLabel="#{cnae.numero}" itemValue="#{cnae}" />
 		</p:selectOneMenu>		
 	</h:panelGrid>
 	

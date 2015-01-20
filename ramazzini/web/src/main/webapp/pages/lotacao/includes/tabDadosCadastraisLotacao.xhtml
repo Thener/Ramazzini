@@ -28,11 +28,12 @@
 			maxlength="50" required="false" />			
 			
 		<p:outputLabel for="cnaeLotacao" value="#{msgs['label.cnae']}:" />
-		<p:selectOneMenu id="cnaeLotacao"
+		<p:selectOneMenu id="cnaeLotacao"  converter="entityConverter"
 			value="#{lotacaoController.lotacao.cnae}">
+			<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
+				noSelectionOption="true" />	
 			<f:selectItems value="#{empresaController.cnaes}" var="cnae"
-				itemLabel="#{cnae.numero}" itemValue="#{cnae}" 
-				converter="entityConverter" />
+				itemLabel="#{cnae.numero}" itemValue="#{cnae}" />
 		</p:selectOneMenu>					
 				
 	</h:panelGrid>

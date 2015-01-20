@@ -77,7 +77,7 @@ public class Empresa extends AbstractEntidade implements Serializable {
 	@Column(name = "no_cpf", length = 14)
 	private String cpf;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="cd_cnae")
 	private Cnae cnae;	
 	

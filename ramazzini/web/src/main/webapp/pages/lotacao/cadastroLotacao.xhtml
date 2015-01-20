@@ -59,7 +59,8 @@
 						action="/pages/empresa/cadastroEmpresa.jsf?faces-redirect=true">
 					</p:commandButton>
 					<p:commandButton id="salvar" action="#{lotacaoController.gravarLotacao()}"
-						value="#{msgs['botao.gravar']}" icon="ui-icon-disk" title="#{msgs['botao.gravar']}"
+						value="#{msgs['botao.gravar']}" icon="ui-icon-disk" 
+						title="#{msgs['botao.gravar']}" ajax="false"
 						disabled="#{lotacaoController.somenteLeitura}" />
 				</f:facet>
 			</p:toolbar>

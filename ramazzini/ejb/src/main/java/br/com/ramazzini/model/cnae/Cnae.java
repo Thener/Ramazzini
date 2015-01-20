@@ -32,9 +32,8 @@ public class Cnae extends AbstractEntidade implements Serializable {
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "seq_cnae")
     private Long id;
     
-    @Column(name = "no_cnae")
+    @Column(name = "no_cnae", length = 10)
     @NotNull
-    @Size(min = 1, max = 10)
     private String numero;
     
     @Column(name = "te_atividades", columnDefinition="TEXT")

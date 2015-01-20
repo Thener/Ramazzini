@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui"
+   template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+	
+		<h:form id="frmCadastroFuncao">
+		
+			<p:growl id="growl" showDetail="false" sticky="true" />
+			
+			<p:panel id="panelDadosFuncao" header="#{msgs['label.funcao']}">
+			
+				<h:panelGrid columns="2" cellpadding="10">
+					
+					<p:outputLabel value="#{msgs['label.empresa']}:" />
+					<p:outputLabel value="#{funcaoController.empresa.nome}" />
+					
+				</h:panelGrid>
+				
+				<p:separator />
+			
+				<h:panelGrid columns="6" cellpadding="10">
+					
+					<p:outputLabel for="nome" value="#{msgs['label.nome']}:" />
+					<p:inputText id="nome" value="#{funcaoController.funcao.nome}" 
+						styleClass="nome100" maxlength="100" required="true" />
+
+				
+				</h:panelGrid>
+				
+				<p:tabView id="tabViewCadastroFuncao">
+		        	<p:tab title="#{msgs['label.dadosCadastrais']}">
+		        		<ui:include src="includes/tabDadosCadastraisFuncao.xhtml" />
+		        	</p:tab>		        	
+				</p:tabView>
+				
+			</p:panel>
+			
+			<p:toolbar>
+				<f:facet name="left">
+					<p:commandButton id="botaoVoltar" immediate="true"
+						icon="ui-icon-arrowreturnthick-1-w" title="#{msgs['botao.voltar']}"
+						action="/pages/empresa/cadastroEmpresa.jsf?faces-redirect=true">
+					</p:commandButton>
+					<p:commandButton id="salvar" action="#{funcaoController.gravarFuncao()}"
+						value="#{msgs['botao.gravar']}" icon="ui-icon-disk" title="#{msgs['botao.gravar']}"
+						disabled="#{funcaoController.somenteLeitura}" />
+				</f:facet>
+			</p:toolbar>
+		</h:form>
+	</ui:define>
+</ui:composition>

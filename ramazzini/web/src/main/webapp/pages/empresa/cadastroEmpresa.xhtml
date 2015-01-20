@@ -79,7 +79,7 @@
 						action="pesquisarEmpresa.jsf?faces-redirect=true">
 					</p:commandButton>
 					<p:commandButton id="salvar" action="#{empresaController.gravarEmpresa()}"
-						value="#{msgs['botao.gravar']}" icon="ui-icon-disk" 
+						value="#{msgs['botao.gravar']}" icon="ui-icon-disk" ajax="false" 
 						styleClass="register" update="panelDadosEmpresa" 
 						disabled="#{empresaController.somenteLeitura}"/>
 				</f:facet>

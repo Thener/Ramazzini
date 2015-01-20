@@ -19,7 +19,8 @@
 			
 			<p:commandButton 
 				id="botaoIncluirResponsavel" icon="ui-icon-circle-plus" value="#{msgs['botao.incluir']}"
-				action="#{responsavelController.incluirResponsavel()}" disabled="#{empresaController.somenteLeitura or empresaController.empresa.novo}" />					
+				action="#{responsavelController.incluirResponsavel()}" ajax="false" 
+				disabled="#{empresaController.somenteLeitura or empresaController.empresa.novo}" />					
 			
 		</h:panelGrid>   
 	</p:fieldset>
