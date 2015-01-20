@@ -7,25 +7,20 @@
    template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
 	
-		<h:form id="frmCadastroCnae">
+		<h:form id="frmCadastroCbo">
 		
 			<p:growl id="messages" showDetail="false" sticky="true" />
 		
-			<p:panel id="panelDadosCnae" header="#{msgs['label.cnae']}">
+			<p:panel id="panelDadosCbo" header="#{msgs['label.cbo']}">
 			
-				<h:panelGrid columns="4" cellpadding="10">
-				
+				<h:panelGrid columns="4" cellpadding="10">				
 					<p:outputLabel for="numero" value="#{msgs['label.numero']}:" />
-					<p:inputText id="numero" value="#{cnaeController.cnae.numero}"
-						maxlength="10" required="true" readonly="#{cnaeController.somenteLeitura}"/>
-
-					<p:outputLabel for="grauRisco" value="#{msgs['label.grauRisco']}:" />
-					<p:spinner id="grauRisco" value="#{cnaeController.cnae.grauRisco}" max="4" min="1" readonly="#{cnaeController.somenteLeitura}"/>
-					
+					<p:inputText id="numero" value="#{cboController.cbo.numero}"
+						maxlength="10" required="true" readonly="#{cboController.somenteLeitura}"/>						
 				</h:panelGrid>
 				<h:panelGrid columns="2" cellpadding="10">
 					<p:outputLabel for="atividades" value="#{msgs['label.atividades']}:" />			
-					<p:inputTextarea id="atividades" value="#{cnaeController.cnae.atividades}" styleClass="tam100" readonly="#{cnaeController.somenteLeitura}"/>
+					<p:inputTextarea id="atividades" value="#{cboController.cbo.atividades}" styleClass="tam100" readonly="#{cboController.somenteLeitura}"/>
 				</h:panelGrid>
 				
 			</p:panel>
@@ -36,12 +31,12 @@
 				
 					<p:commandButton id="botaoVoltar" immediate="true"
 						icon="ui-icon-arrowreturnthick-1-w" title="#{msgs['botao.voltar']}"
-						action="pesquisarCnae.jsf?faces-redirect=true">
+						action="pesquisarCbo.jsf?faces-redirect=true">
 					</p:commandButton>
-					<p:commandButton id="salvar" action="#{cnaeController.gravarCnae()}"
+					<p:commandButton id="salvar" action="#{cboController.gravarCbo()}"
 						value="#{msgs['botao.gravar']}" icon="ui-icon-disk" title="#{msgs['botao.gravar']}"
-						styleClass="register" update="panelDadosCnae"
-						disabled="#{cnaeController.somenteLeitura}" />
+						styleClass="register" update="panelDadosCbo"
+						disabled="#{cboController.somenteLeitura}" />
 				</f:facet>
 				
 			</p:toolbar>

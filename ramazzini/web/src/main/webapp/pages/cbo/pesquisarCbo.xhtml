@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui"
+   template="/WEB-INF/templates/default.xhtml">
+   <ui:define name="content">
+   
+	<h:form id="frmCbo">
+	
+		<p:growl id="messages" showDetail="false" sticky="true" />
+	
+		<p:panel id="panelPesquisaCbo" header="#{msgs['label.cbos']}" style="margin-bottom:20px">
+		
+			<h:panelGrid columns="4" cellpadding="10">
+			
+				<p:outputLabel for="numeroCboPesquisa" value="#{msgs['label.numero']}:" />
+				<p:inputText id="numeroCboPesquisa" value="#{cboController.numeroCboPesquisa}" 
+					styleClass="nome10" required="false"/>
+					
+				<p:commandButton action="#{cboController.pesquisar()}"
+					id="botaoPesquisa" icon="ui-icon-search" title="#{msgs['label.pesquisa']}"
+					update="frmCbo">
+					<f:ajax execute="numeroCboPesquisa" render="gridCbos"/>
+				</p:commandButton>
+				
+				<p:commandButton 
+					id="botaoIncluirCbo" icon="ui-icon-circle-plus" value="#{msgs['botao.incluir']}"
+					action="#{cboController.incluirCbo()}" />					
+				
+			</h:panelGrid>		
+
+			<p:dataTable var="cbo" value="#{cboController.cbos}"
+				id="gridCbos" emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}"
+				paginator="true" paginatorPosition="bottom" rows="5">
+				
+				<f:facet name="header"> #{msgs['label.cbos']} </f:facet>
+
+				<p:column headerText="#{msgs['label.numero']}" sortBy="#{cbo.numero}" styleClass="coluna2">
+					<h:outputText value="#{cbo.numero}" />
+				</p:column>							
+				
+				<p:column headerText="#{msgs['label.acoes']}" styleClass="coluna5">
+					<p:panelGrid columns="3" styleClass="semBorda">					  
+						<p:commandLink title="#{msgs['label.visualizar']}" action="#{cboController.visualizarCbo(cbo)}"
+							styleClass="ui-icon ui-icon-search" 
+								rendered="#{cboController.controleAcesso.acaoAutorizada('cbo','pesquisarCbo.jsf','visualizarCbo')}" />
+						<p:commandLink title="#{msgs['label.editar']}" action="#{cboController.alterarCbo(cbo)}"
+							styleClass="ui-icon ui-icon-pencil" 
+							rendered="#{cboController.controleAcesso.acaoAutorizada('cbo','pesquisarCbo.jsf','alterarCbo')}" />
+						<p:commandLink title="#{msgs['label.excluir']}" action="#{cboController.removerCbo(cbo)}"
+							styleClass="ui-icon ui-icon-closethick" update="gridCbos, :frmCbo:messages"
+							rendered="#{cboController.controleAcesso.acaoAutorizada('cbo','pesquisarCbo.jsf','excluirCbo')}">
+							<p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['mensagem.pergunta.desejaRealmenteExcluir']}" icon="ui-icon-alert" />
+						</p:commandLink>	
+					</p:panelGrid>
+				</p:column>							
+
+			</p:dataTable>
+			
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+				<p:commandButton value="#{msgs['label.confirmacaoSim']}" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="#{msgs['label.confirmacaoNao']}" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>			
+			
+		</p:panel>
+
+	</h:form>
+	
+	</ui:define>
+</ui:composition>
