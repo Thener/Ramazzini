@@ -37,9 +37,8 @@ public class Funcionario extends AbstractEntidade implements Serializable {
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "seq_funcionario")
     private Long id;
     
-    @Column(name = "nm_funcionario")
+    @Column(name = "nm_funcionario", length = 100)
     @NotNull
-    @Size(min = 1, max = 100)
     private String nome;
     
 	@ManyToOne
@@ -63,16 +62,13 @@ public class Funcionario extends AbstractEntidade implements Serializable {
 	@Column(name = "dt_nascimento", columnDefinition = "Date")
 	private Date dataNascimento;	
 	
-	@Column(name = "no_ctps")
-	@Size(max = 20)
+	@Column(name = "no_ctps", length = 20)
 	private String ctps;
 	
-	@Column(name = "no_nit")
-	@Size(max = 20)
+	@Column(name = "no_nit", length = 20)
 	private String nit;	
 	
-	@Column(name = "no_rg")
-	@Size(max = 20)
+	@Column(name = "no_rg", length = 20)
 	private String rg;
 	
 	@Column(name = "sg_sexo", length = 1)

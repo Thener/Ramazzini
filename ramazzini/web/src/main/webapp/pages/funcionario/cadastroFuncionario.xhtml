@@ -7,16 +7,16 @@
    template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
 	
-		<h:form id="frmCadastroLotacao">
+		<h:form id="frmCadastroFuncionario">
 		
-			<p:growl id="growl" showDetail="true" sticky="true" />
+			<p:growl id="growl" showDetail="false" sticky="true" />
 			
-			<p:panel id="panelDadosLotacao" header="#{msgs['label.lotacao']}">
+			<p:panel id="panelDadosFuncionario" header="#{msgs['label.funcionario']}">
 			
 				<h:panelGrid columns="2" cellpadding="10">
 					
 					<p:outputLabel value="#{msgs['label.empresa']}:" />
-					<p:outputLabel value="#{empresaController.empresa.nome}" />
+					<p:outputLabel value="#{funcionarioController.empresa.nome}" />
 					
 				</h:panelGrid>
 				
@@ -25,28 +25,21 @@
 				<h:panelGrid columns="6" cellpadding="10">
 					
 					<p:outputLabel for="nome" value="#{msgs['label.nome']}:" />
-					<p:inputText id="nome" value="#{lotacaoController.lotacao.nome}" 
+					<p:inputText id="nome" value="#{funcionarioController.funcionario.nome}" 
 						styleClass="nome100" maxlength="100" required="true" />
 						
-		            <p:outputLabel for="ativoCheck" value="#{msgs['label.ativa']}:" />
-		        	<p:selectBooleanCheckbox id="ativoCheck" value="#{lotacaoController.lotacao.ativa}"/>
-						
-					<p:outputLabel for="tipoPessoaLotacao" value="#{msgs['label.tipoPessoa']}:" />
-					<p:selectOneMenu id="tipoPessoaLotacao"
-						value="#{lotacaoController.lotacao.tipoPessoa}">
-						<f:selectItems value="#{empresaController.tiposPessoa}" var="tipoPessoa"
-							itemLabel="#{tipoPessoa.stringChave}" itemValue="#{tipoPessoa.value}" />
+					<p:outputLabel for="situacaoFuncionario" value="#{msgs['label.situacao']}:" />
+					<p:selectOneMenu id="situacaoFuncionario"
+						value="#{funcionarioController.funcionario.situacaoFuncionario}">
+						<f:selectItems value="#{combosEstaticos.situacoesFuncionario}" var="situacaoFuncionario"
+							itemLabel="#{situacaoFuncionario.stringChave}" itemValue="#{situacaoFuncionario.value}" />
 					</p:selectOneMenu>
 				
 				</h:panelGrid>
 				
-				<p:tabView id="tabViewCadastroLotacao">
+				<p:tabView id="tabViewCadastroFuncionario">
 		        	<p:tab title="#{msgs['label.dadosCadastrais']}">
-		        		<ui:include src="includes/tabDadosCadastraisLotacao.xhtml" />
-		        	</p:tab>
-		        	<p:tab title="#{msgs['label.orientacoesEspecificas']}">
-		        		<p:inputTextarea  value="#{lotacaoController.lotacao.orientacoesEspecificas}" 
-		        			style="width:100%; height:300px;" />
+		        		<ui:include src="includes/tabDadosCadastraisFuncionario.xhtml" />
 		        	</p:tab>		        	
 				</p:tabView>
 				
@@ -58,9 +51,9 @@
 						icon="ui-icon-arrowreturnthick-1-w" title="#{msgs['botao.voltar']}"
 						action="/pages/empresa/cadastroEmpresa.jsf?faces-redirect=true">
 					</p:commandButton>
-					<p:commandButton id="salvar" action="#{lotacaoController.gravarLotacao()}"
+					<p:commandButton id="salvar" action="#{funcionarioController.gravarFuncionario()}"
 						value="#{msgs['botao.gravar']}" icon="ui-icon-disk" title="#{msgs['botao.gravar']}"
-						disabled="#{lotacaoController.somenteLeitura}" />
+						disabled="#{funcionarioController.somenteLeitura}" />
 				</f:facet>
 			</p:toolbar>
 		</h:form>
