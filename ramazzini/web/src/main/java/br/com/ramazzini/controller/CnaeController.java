@@ -41,10 +41,10 @@ public class CnaeController extends AbstractBean implements Serializable {
 		}
 	}
 		
-    public void pesquisar() throws Exception {
+    public void pesquisar() {
 
     	if (numeroCnaePesquisa.isEmpty()){
-    		cnaes = cnaeService.recuperarTodos("nome");
+    		cnaes = cnaeService.recuperarTodos("numero");
 		} else {
 			cnaes = cnaeService.recuperarPorNumero(numeroCnaePesquisa);
 		}      

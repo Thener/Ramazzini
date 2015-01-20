@@ -17,7 +17,7 @@
 			
 				<p:outputLabel for="numeroCnaePesquisa" value="#{msgs['label.numero']}:" />
 				<p:inputText id="numeroCnaePesquisa" value="#{cnaeController.numeroCnaePesquisa}" 
-					styleClass="nome50" required="false"/>
+					styleClass="nome10" required="false"/>
 					
 				<p:commandButton action="#{cnaeController.pesquisar()}"
 					id="botaoPesquisa" icon="ui-icon-search" title="#{msgs['label.pesquisa']}"
@@ -41,7 +41,8 @@
 					<h:outputText value="#{cnae.numero}" />
 				</p:column>
 
-				<p:column headerText="#{msgs['label.nomeAbreviado']}" sortBy="#{cnae.grauRisco}" styleClass="coluna3">
+				<p:column headerText="#{msgs['label.grauRisco']}" sortBy="#{cnae.grauRisco}" 
+					styleClass="coluna3 colunaCentralizada">
 					<h:outputText value="#{cnae.grauRisco}" />
 				</p:column>				
 				
