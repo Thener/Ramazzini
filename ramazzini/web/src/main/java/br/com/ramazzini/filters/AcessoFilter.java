@@ -28,6 +28,8 @@ public class AcessoFilter implements Filter {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
 		
+		request.setCharacterEncoding("UTF-8");
+		
 		HttpSession session = request.getSession();
 		
 		ControleAcesso controleAcesso = new ControleAcesso();
