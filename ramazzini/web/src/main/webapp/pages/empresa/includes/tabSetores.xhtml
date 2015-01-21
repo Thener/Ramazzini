@@ -5,6 +5,58 @@
    xmlns:h="http://java.sun.com/jsf/html"
    xmlns:p="http://primefaces.org/ui">
    
-
+	<p:fieldset legend="#{msgs['label.pesquisa']}">
+		<h:panelGrid columns="4" cellpadding="5" id="panelGridSetorPesquisa">
+		
+			<p:outputLabel for="nomeSetorPesquisa" value="#{msgs['label.setor']}" />
+			<p:inputText id="nomeSetorPesquisa" value="#{setorController.nomeSetorPesquisa}" 
+				maxlength="100" required="false"  styleClass="nome100"/>
+							
+			<p:commandButton action="#{setorController.pesquisar()}" 
+				icon="ui-icon-search" ajax="true" update="panelGridSetorPesquisa, gridSetores" 
+				process="@this, panelGridSetorPesquisa" 
+				disabled="#{empresaController.empresa.novo}"/>
+			
+			<p:commandButton 
+				id="botaoIncluirSetor" icon="ui-icon-circle-plus" value="#{msgs['botao.incluir']}"
+				action="#{setorController.incluirSetor()}" 
+				disabled="#{empresaController.somenteLeitura or empresaController.empresa.novo}" ajax="false"/>					
+			
+		</h:panelGrid>   
+	</p:fieldset>
+	
+	<p:spacer width="5px" />
+   
+	<p:dataTable var="setor" value="#{setorController.getSetores()}"
+		id="gridSetores" emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}"
+		paginator="true" paginatorPosition="bottom" rows="5">
+		
+		<f:facet name="header"> #{msgs['label.setores']} </f:facet>
+		
+		<p:column headerText="#{msgs['label.nome']}" sortBy="#{setor.nome}" >
+			<h:outputText value="#{setor.nome}" />
+		</p:column>
+				
+		<p:column headerText="#{msgs['label.acoes']}" styleClass="colunaAcoes">
+			<p:panelGrid columns="3">					  
+				<p:commandLink title="#{msgs['label.visualizar']}" action="#{setorController.visualizarSetor(setor)}"
+					styleClass="ui-icon ui-icon-search" />
+				<p:commandLink title="#{msgs['label.editar']}" action="#{setorController.alterarSetor(setor)}"
+					disabled="#{empresaController.somenteLeitura}" styleClass="ui-icon ui-icon-pencil" />
+				<p:commandLink title="#{msgs['label.excluir']}" action="#{setorController.removerSetor(setor)}"
+					disabled="#{empresaController.somenteLeitura}" styleClass="ui-icon ui-icon-closethick" update="gridSetores">
+					<p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['label.confirmacaoExclusao']}" icon="ui-icon-alert" />
+				</p:commandLink>	
+			</p:panelGrid>
+		</p:column>
+	
+	</p:dataTable>
+	
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+		<p:commandButton value="#{msgs['label.confirmacaoSim']}" type="button"
+			styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+		<p:commandButton value="#{msgs['label.confirmacaoNao']}" type="button"
+			styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+	</p:confirmDialog>
 		
 </ui:composition>

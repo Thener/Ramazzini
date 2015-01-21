@@ -5,6 +5,27 @@
    xmlns:h="http://java.sun.com/jsf/html"
    xmlns:p="http://primefaces.org/ui">
    
+	<h:panelGrid columns="2" cellpadding="5">
+			
+		<p:outputLabel for="setor" value="#{msgs['label.setor']}:" />
+		<p:selectOneMenu id="setor" converter="entityConverter"
+			value="#{funcaoController.funcao.setor}">
+			<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
+				noSelectionOption="true" />	
+			<f:selectItems value="#{combosDinamicos.getSetores(funcaoController.empresa)}" 
+				var="setor" itemLabel="#{setor.nome}" itemValue="#{setor}" />
+		</p:selectOneMenu>	
+		
+		<p:outputLabel for="cboFuncao" value="#{msgs['label.cbo']}:" />
+		<p:selectOneMenu id="cboFuncao" converter="entityConverter"
+			value="#{funcaoController.funcao.cbo}">
+			<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
+				noSelectionOption="true" />	
+			<f:selectItems value="#{combosDinamicos.cbos}" 
+				var="dbo" itemLabel="#{cbo.numero}" itemValue="#{cbo}" />
+		</p:selectOneMenu>
 
+
+	</h:panelGrid>
 		
 </ui:composition>

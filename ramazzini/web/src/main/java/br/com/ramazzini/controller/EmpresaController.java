@@ -49,7 +49,10 @@ public class EmpresaController extends AbstractBean implements Serializable {
     private FuncionarioController funcionarioController;   
 
     @Inject
-    private FuncaoController funcaoController;    
+    private FuncaoController funcaoController;  
+
+    @Inject
+    private SetorController setorController;    
     
 	private Empresa empresa;
 	
@@ -112,6 +115,7 @@ public class EmpresaController extends AbstractBean implements Serializable {
     	responsavelController.setEmpresa(empresa);
     	funcionarioController.setEmpresa(empresa);
     	funcaoController.setEmpresa(empresa);
+    	setorController.setEmpresa(empresa);
     	setSomenteLeitura(somenteLeitura);
     	setTabActiveIndex(0);
     	return PAGINA_CADASTRO_EMPRESA;    	

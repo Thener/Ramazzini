@@ -7,41 +7,28 @@
    template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
 	
-		<h:form id="frmCadastroFuncao">
+		<h:form id="frmCadastroSetor">
 		
 			<p:growl id="growl" showDetail="false" sticky="true" />
 			
-			<p:panel id="panelDadosFuncao" header="#{msgs['label.funcao']}">
+			<p:panel id="panelDadosSetor" header="#{msgs['label.setor']}">
 			
 				<h:panelGrid columns="2" cellpadding="5">
 					
 					<p:outputLabel value="#{msgs['label.empresa']}:" />
-					<p:outputLabel value="#{funcaoController.empresa.nome}" />
+					<p:outputLabel value="#{setorController.empresa.nome}" />
 					
 				</h:panelGrid>
 				
 				<p:separator />
 			
-				<h:panelGrid columns="4" cellpadding="10">
+				<h:panelGrid columns="2" cellpadding="10">
 					
 					<p:outputLabel for="nome" value="#{msgs['label.nome']}:" />
-					<p:inputText id="nome" value="#{funcaoController.funcao.nome}" 
+					<p:inputText id="nome" value="#{setorController.setor.nome}" 
 						styleClass="nome100" maxlength="100" required="true" />
-						
-					<h:outputLabel for="ativoCheck" value="#{msgs['label.ativa']}:" />
-					<p:selectBooleanCheckbox id="ativoCheck"
-						value="#{funcaoController.funcao.ativa}" />						
 				
 				</h:panelGrid>
-				
-				<p:tabView id="tabViewCadastroFuncao">
-		        	<p:tab title="#{msgs['label.dadosCadastrais']}">
-		        		<ui:include src="includes/tabDadosCadastraisFuncao.xhtml" />
-		        	</p:tab>
-		        	<p:tab title="#{msgs['label.riscosOcupacionais']}">
-		        		<ui:include src="includes/tabRiscosOcupacionaisFuncao.xhtml" />
-		        	</p:tab>
-				</p:tabView>
 				
 			</p:panel>
 			
@@ -51,9 +38,9 @@
 						icon="ui-icon-arrowreturnthick-1-w" title="#{msgs['botao.voltar']}"
 						action="/pages/empresa/cadastroEmpresa.jsf?faces-redirect=true">
 					</p:commandButton>
-					<p:commandButton id="salvar" action="#{funcaoController.gravarFuncao()}"
+					<p:commandButton id="salvar" action="#{setorController.gravarSetor()}"
 						value="#{msgs['botao.gravar']}" icon="ui-icon-disk" title="#{msgs['botao.gravar']}"
-						disabled="#{funcaoController.somenteLeitura}" ajax="false" />
+						disabled="#{setorController.somenteLeitura}" />
 				</f:facet>
 			</p:toolbar>
 		</h:form>
