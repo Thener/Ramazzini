@@ -8,16 +8,21 @@
 	<h:panelGrid columns="2" cellpadding="5">
 			
 		<p:outputLabel value="#{msgs['label.funcao']}:" />
-		<p:outputLabel value="Acrescentar aqui combo de função, buscando de combosDinamicos e passando empresa como parametro" />
-				
+		<p:selectOneMenu id="funcaoFuncionario" value="#{funcionarioController.funcionario.funcao}"
+			converter="entityConverter">
+			<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
+				noSelectionOption="true" />			
+			<f:selectItems value="#{combosDinamicos.getFuncoes(funcionarioController.empresa)}" var="funcao"
+				itemLabel="#{funcao.nome}" itemValue="#{funcao}" />
+		</p:selectOneMenu>
+						
 		<p:outputLabel for="lotacaoFuncionario" value="#{msgs['label.lotacao']}:" />
-		<p:selectOneMenu id="lotacaoFuncionario"
-			value="#{funcionarioController.funcionario.lotacao}">
+		<p:selectOneMenu id="lotacaoFuncionario" value="#{funcionarioController.funcionario.lotacao}"
+			converter="entityConverter">
 			<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
 				noSelectionOption="true" />			
 			<f:selectItems value="#{combosDinamicos.getLotacoes(funcionarioController.empresa)}" var="lotacao"
-				itemLabel="#{lotacao.nome}" itemValue="#{lotacao}" 
-				converter="entityConverter" />
+				itemLabel="#{lotacao.nome}" itemValue="#{lotacao}" />
 		</p:selectOneMenu>
 		
 		<p:outputLabel for="dataAdmissao" value="#{msgs['label.dataAdmissao']}" />

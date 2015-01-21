@@ -36,6 +36,18 @@
 		<p:column headerText="#{msgs['label.nome']}" sortBy="#{funcao.nome}" >
 			<h:outputText value="#{funcao.nome}" />
 		</p:column>
+		
+		<p:column headerText="#{msgs['label.ativa']}" styleClass="colunaCentralizada">
+			<p:selectBooleanCheckbox value="#{funcao.ativa}" disabled="true" styleClass="colunaCentralizada" />
+		</p:column>	
+		
+		<p:column headerText="#{msgs['label.cbo']}" sortBy="#{funcao.cbo.numero}" styleClass="colunaCentralizada">
+			<h:outputText value="#{funcao.cbo.numero}" />
+		</p:column>
+		
+		<p:column headerText="#{msgs['label.setor']}" sortBy="#{funcao.setor.nome}" >
+			<h:outputText value="#{funcao.setor.nome}" />
+		</p:column>		
 				
 		<p:column headerText="#{msgs['label.acoes']}" styleClass="colunaAcoes">
 			<p:panelGrid columns="3">					  

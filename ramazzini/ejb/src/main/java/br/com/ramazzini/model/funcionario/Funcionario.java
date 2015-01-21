@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -46,11 +47,11 @@ public class Funcionario extends AbstractEntidade implements Serializable {
 	@JoinColumn(name="cd_empresa")
 	private Empresa empresa;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="cd_funcao")
 	private Funcao funcao;	
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="cd_lotacao")
 	private Lotacao lotacao;
 	
@@ -75,7 +76,7 @@ public class Funcionario extends AbstractEntidade implements Serializable {
     @NotNull 
     private String sexo;
 	
-	@Column(name = "st_funcionario", length = 1)
+	@Column(name = "st_funcionario", length = 2)
     @NotNull 
     private String situacaoFuncionario;
 	

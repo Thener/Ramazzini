@@ -53,7 +53,7 @@
 					</p:commandButton>
 					<p:commandButton id="salvar" action="#{funcionarioController.gravarFuncionario()}"
 						value="#{msgs['botao.gravar']}" icon="ui-icon-disk" title="#{msgs['botao.gravar']}"
-						disabled="#{funcionarioController.somenteLeitura}" />
+						disabled="#{funcionarioController.somenteLeitura}" ajax="false" />
 				</f:facet>
 			</p:toolbar>
 		</h:form>
