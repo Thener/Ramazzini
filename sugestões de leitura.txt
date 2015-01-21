@@ -17,3 +17,5 @@ Neste link, o autor não usa o mappedBy para criar o ManyToMany; foi apenas com e
 
 6. Site que monta expressão regular em várias linguagens:
 http://www.txt2re.com/
+
+7. Quando encontramos o problema de acentuação no banco: http://stackoverflow.com/questions/10721342/utf-8-form-submit-in-jsf-is-corrupting-data
