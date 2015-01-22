@@ -47,7 +47,7 @@ public class GrupoController extends AbstractBean implements Serializable {
 	@PostConstruct
 	public void init() {
 
-		empresasDoGrupo = grupoService.recuperarTodasEmpresas(grupo);
+		//empresasDoGrupo = grupoService.recuperarTodasEmpresas(grupo);
 		
 		if (conversation.isTransient()) {
 			conversation.begin();

@@ -31,6 +31,20 @@
 			order 
 				by f.nome
 		]]>
-	</query>		
+	</query>
+	
+	<query name="Funcao.recuperarRiscosOcupacionais">
+		<![CDATA[
+			select 
+				riscos
+			from 
+				Funcao f
+			right join f.riscosOcupacionais riscos
+			where 
+				f = :funcao
+			order 
+				by riscos.nome
+		]]>
+	</query>
 
 </hibernate-mapping>

@@ -5,11 +5,52 @@
    xmlns:h="http://java.sun.com/jsf/html"
    xmlns:p="http://primefaces.org/ui">
    
-	<h:panelGrid columns="2" cellpadding="5">
+	<p:fieldset legend="#{msgs['label.incluir']}">
+   
+		<h:panelGrid columns="3" cellpadding="10">
+			<p:outputLabel value="#{msgs['label.riscoOcupacional']}: " for="completeRiscoOcupacional" />
+			<p:autoComplete id="completeRiscoOcupacional"
+				value="#{funcaoController.riscoOcupacionalSelecionado}"
+				completeMethod="#{autoComplete.completeRiscoOcupacional}"
+				var="riscoOcupacional" itemLabel="#{riscoOcupacional.nome}"
+				itemValue="#{riscoOcupacional}" converter="entityConverter"
+				forceSelection="true" styleClass="nome50"/>		
+		
+			<p:commandButton action="#{funcaoController.incluirRiscoOcupacional()}" value="#{msgs['botao.incluir']}"
+				icon="ui-icon-check" ajax="true" update="gridRiscosOcupacionais" process="@this, completeRiscoOcupacional" 
+				disabled="#{funcaoController.somenteLeitura or funcaoController.funcao.novo}"/>
 			
-
-
-
-	</h:panelGrid>
+		</h:panelGrid>   
+		   
+   </p:fieldset>
+   
+   <p:spacer width="10px" />
+   
+	<p:dataTable var="riscoOcupacional" value="#{funcaoController.riscosOcupacionais}"
+		id="gridRiscosOcupacionais" emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}">
+		
+		<f:facet name="header"> #{msgs['label.riscosOcupacionais']} </f:facet>
+									
+		<p:column headerText="#{msgs['label.riscoOcupacional']}">
+			<h:outputText value="#{riscoOcupacional.nome}" />
+		</p:column>
+	
+		<p:column headerText="#{msgs['label.acoes']}" styleClass="colunaAcoes">
+			<p:panelGrid columns="1">
+				<p:commandLink title="#{msgs['label.excluir']}" disabled="#{funcaoController.somenteLeitura}"
+					action="#{funcaoController.removerRiscoOcupacional(riscoOcupacional)}"
+					styleClass="ui-icon ui-icon-closethick" update="gridRiscosOcupacionais">
+					<p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['mensagem.pergunta.desejaRealmenteExcluir']}" icon="ui-icon-alert" />
+				</p:commandLink>									
+			</p:panelGrid>
+		</p:column>
+	</p:dataTable>
+		
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+		<p:commandButton value="#{msgs['label.confirmacaoSim']}" type="button"
+			styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+		<p:commandButton value="#{msgs['label.confirmacaoNao']}" type="button"
+			styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+	</p:confirmDialog>  
 		
 </ui:composition>

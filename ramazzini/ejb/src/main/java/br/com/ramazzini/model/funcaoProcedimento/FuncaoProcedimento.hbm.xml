@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+	<query name="FuncaoProcedimento.recuperarPorFuncao">
+		<![CDATA[
+			select 
+				fp
+			from 
+				FuncaoProcedimento fp
+			where 
+				fp.funcao = :funcao
+			order 
+				by fp.funcao.nome
+		]]>
+	</query>
+	
+	<query name="FuncaoProcedimento.recuperarPorProcedimento">
+		<![CDATA[
+			select 
+				fp
+			from 
+				FuncaoProcedimento fp
+			where 
+				fp.funcao = :funcao
+			and
+				fp.procedimento = :procedimento
+			order 
+				by fp.procedimento.nome
+		]]>
+	</query>	
+
+</hibernate-mapping>

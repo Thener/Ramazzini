@@ -9,6 +9,7 @@ import javax.inject.Named;
 
 import br.com.ramazzini.model.empresa.Empresa;
 import br.com.ramazzini.model.funcao.Funcao;
+import br.com.ramazzini.model.riscoOcupacional.RiscoOcupacional;
 import br.com.ramazzini.service.FuncaoService;
 import br.com.ramazzini.util.UtilMensagens;
 
@@ -31,6 +32,10 @@ public class FuncaoController extends AbstractBean implements Serializable {
     private Funcao funcao;
     
     private String nomeFuncaoPesquisa;
+    
+    private RiscoOcupacional riscoOcupacionalSelecionado;
+    
+    private List<RiscoOcupacional> riscosOcupacionais;
     
 	public String incluirFuncao() {
 		
@@ -62,6 +67,11 @@ public class FuncaoController extends AbstractBean implements Serializable {
     
     private String cadastroFuncao(Funcao funcao, Boolean somenteLeitura) {
 
+    	if (!funcao.isNovo()) {
+    		riscosOcupacionais = funcaoService.recuperarRiscosOcupacionais(funcao);
+    		funcao.setRiscosOcupacionais(riscosOcupacionais);
+    	}
+    	riscoOcupacionalSelecionado = null;
     	setFuncao(funcao);
     	setSomenteLeitura(somenteLeitura);
     	return PAGINA_CADASTRO_FUNCAO;    	
@@ -81,6 +91,18 @@ public class FuncaoController extends AbstractBean implements Serializable {
 		} else {
 			funcoes = funcaoService.recuperarPorNome(empresa, nomeFuncaoPesquisa);
 		}      
+    }  
+    
+    public void incluirRiscoOcupacional() {
+    	
+    	if (riscoOcupacionalSelecionado != null) {
+    		funcao.getRiscosOcupacionais().add(riscoOcupacionalSelecionado);
+    	}
+    }    
+    
+    public void removerRiscoOcupacional(RiscoOcupacional riscoOcupacional) {
+    	riscosOcupacionais.remove(riscoOcupacional);
+    	funcao.getRiscosOcupacionais().remove(riscoOcupacional);
     }    
 	
 	public List<Funcao> getFuncoes() {
@@ -114,6 +136,23 @@ public class FuncaoController extends AbstractBean implements Serializable {
 
 	public void setNomeFuncaoPesquisa(String nomeFuncaoPesquisa) {
 		this.nomeFuncaoPesquisa = nomeFuncaoPesquisa;
+	}
+
+	public RiscoOcupacional getRiscoOcupacionalSelecionado() {
+		return riscoOcupacionalSelecionado;
+	}
+
+	public void setRiscoOcupacionalSelecionado(
+			RiscoOcupacional riscoOcupacionalSelecionado) {
+		this.riscoOcupacionalSelecionado = riscoOcupacionalSelecionado;
+	}
+
+	public List<RiscoOcupacional> getRiscosOcupacionais() {
+		return riscosOcupacionais;
+	}
+
+	public void setRiscosOcupacionais(List<RiscoOcupacional> riscosOcupacionais) {
+		this.riscosOcupacionais = riscosOcupacionais;
 	}
 
 }

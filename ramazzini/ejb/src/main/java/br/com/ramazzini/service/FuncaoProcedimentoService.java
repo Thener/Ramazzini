@@ -20,25 +20,22 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 
-import br.com.ramazzini.dao.funcao.FuncaoDao;
-import br.com.ramazzini.model.empresa.Empresa;
+import br.com.ramazzini.dao.funcaoProcedimento.FuncaoProcedimentoDao;
 import br.com.ramazzini.model.funcao.Funcao;
-import br.com.ramazzini.model.riscoOcupacional.RiscoOcupacional;
+import br.com.ramazzini.model.funcaoProcedimento.FuncaoProcedimento;
+import br.com.ramazzini.model.procedimento.Procedimento;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
 
 // The @Stateless annotation eliminates the need for manual transaction demarcation
 @Stateless
-public class FuncaoService extends AbstractServiceImpl<Funcao> {
+public class FuncaoProcedimentoService extends AbstractServiceImpl<FuncaoProcedimento> {
 
-    public List<Funcao> recuperarPorEmpresa(Empresa empresa) {
-    	return (!empresa.isNovo()) ? ((FuncaoDao) getDao()).recuperarPorEmpresa(empresa) : null;
+    public List<FuncaoProcedimento> recuperarPorFuncao(Funcao funcao) {
+    	return (!funcao.isNovo()) ? ((FuncaoProcedimentoDao) getDao()).recuperarPorFuncao(funcao) : null;
     }	
     
-    public List<Funcao> recuperarPorNome(Empresa empresa, String nomeFuncao) {
-    	return ((FuncaoDao) getDao()).recuperarPorNome(empresa, nomeFuncao);
+    public List<FuncaoProcedimento> recuperarPorServico(Funcao funcao, Procedimento procedimento) {
+    	return ((FuncaoProcedimentoDao) getDao()).recuperarPorProcedimento(funcao, procedimento);
     }    
 
-    public List<RiscoOcupacional> recuperarRiscosOcupacionais(Funcao funcao) {
-    	return ((FuncaoDao) getDao()).recuperarRiscosOcupacionais(funcao);
-    }    
 }
