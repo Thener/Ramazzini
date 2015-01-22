@@ -1,4 +1,4 @@
-package br.com.ramazzini.controller;
+package br.com.ramazzini.controller.seguranca;
 
 import java.io.Serializable;
 import java.util.Map;

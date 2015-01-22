@@ -1,4 +1,4 @@
-package br.com.ramazzini.controller;
+package br.com.ramazzini.controller.seguranca;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,6 +13,7 @@ import javax.inject.Named;
 import org.primefaces.event.TransferEvent;
 import org.primefaces.model.DualListModel;
 
+import br.com.ramazzini.controller.util.AbstractBean;
 import br.com.ramazzini.model.acao.Acao;
 import br.com.ramazzini.model.modulo.Modulo;
 import br.com.ramazzini.model.perfil.Perfil;

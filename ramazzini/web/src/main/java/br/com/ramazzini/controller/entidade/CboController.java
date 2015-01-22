@@ -1,4 +1,4 @@
-package br.com.ramazzini.controller;
+package br.com.ramazzini.controller.entidade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -9,6 +9,7 @@ import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import br.com.ramazzini.controller.util.AbstractBean;
 import br.com.ramazzini.model.cbo.Cbo;
 import br.com.ramazzini.service.entidade.CboService;
 import br.com.ramazzini.util.UtilMensagens;

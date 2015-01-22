@@ -1,4 +1,4 @@
-package br.com.ramazzini.controller;
+package br.com.ramazzini.controller.seguranca;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -11,6 +11,7 @@ import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import br.com.ramazzini.controller.util.AbstractBean;
 import br.com.ramazzini.model.perfil.Perfil;
 import br.com.ramazzini.model.usuario.Usuario;
 import br.com.ramazzini.service.seguranca.PerfilService;

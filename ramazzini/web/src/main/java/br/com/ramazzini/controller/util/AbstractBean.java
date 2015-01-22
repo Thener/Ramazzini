@@ -1,4 +1,4 @@
-package br.com.ramazzini.controller;
+package br.com.ramazzini.controller.util;
 
 import java.io.Serializable;
 

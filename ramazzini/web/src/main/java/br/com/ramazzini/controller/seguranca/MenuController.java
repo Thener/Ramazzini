@@ -1,8 +1,10 @@
-package br.com.ramazzini.controller;
+package br.com.ramazzini.controller.seguranca;
 
 import java.io.Serializable;
 
 import javax.inject.Named;
+
+import br.com.ramazzini.controller.util.AbstractBean;
 
 @Named
 public class MenuController extends AbstractBean implements Serializable {
