@@ -25,6 +25,9 @@ public class FuncaoController extends AbstractBean implements Serializable {
     @Inject
     private FuncaoService funcaoService; 
     
+    @Inject
+    private FuncaoProcedimentoController funcaoProcedimentoController;    
+    
     private List<Funcao> funcoes;
     
     private Empresa empresa;
@@ -36,6 +39,8 @@ public class FuncaoController extends AbstractBean implements Serializable {
     private RiscoOcupacional riscoOcupacionalSelecionado;
     
     private List<RiscoOcupacional> riscosOcupacionais;
+    
+    private Integer tabAtiva;
     
 	public String incluirFuncao() {
 		
@@ -72,6 +77,7 @@ public class FuncaoController extends AbstractBean implements Serializable {
     		funcao.setRiscosOcupacionais(riscosOcupacionais);
     	}
     	riscoOcupacionalSelecionado = null;
+    	funcaoProcedimentoController.setFuncao(funcao);
     	setFuncao(funcao);
     	setSomenteLeitura(somenteLeitura);
     	return PAGINA_CADASTRO_FUNCAO;    	
@@ -155,4 +161,15 @@ public class FuncaoController extends AbstractBean implements Serializable {
 		this.riscosOcupacionais = riscosOcupacionais;
 	}
 
+	public FuncaoProcedimentoController getFuncaoProcedimentoController() {
+		return funcaoProcedimentoController;
+	}
+
+	public Integer getTabActiveIndex() {
+        return tabAtiva;
+    }
+
+    public void setTabActiveIndex(Integer tabActiveIndex) {
+        this.tabAtiva = tabActiveIndex;
+    }	
 }

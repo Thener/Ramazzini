@@ -5,11 +5,64 @@
    xmlns:h="http://java.sun.com/jsf/html"
    xmlns:p="http://primefaces.org/ui">
    
-	<h:panelGrid columns="2" cellpadding="5">
+	<fieldset> 
+		<legend> #{msgs['label.pesquisa']} </legend>
+		<h:panelGrid columns="4" cellpadding="10" id="panelGridFuncaoProcedimentoPesquisa">
+
+			<p:outputLabel value="#{msgs['label.procedimento']}: " for="completeProcedimento" />
+			<p:autoComplete id="completeProcedimento"
+				value="#{funcaoProcedimentoController.procedimentoPesquisa}"
+				completeMethod="#{autoComplete.completeProcedimento}"
+				var="procedimento" itemLabel="#{procedimento.nome}"
+				itemValue="#{procedimento}" converter="entityConverter"
+				forceSelection="true" styleClass="nome50"/>
+							
+			<p:commandButton action="#{funcaoProcedimentoController.pesquisar()}" 
+				icon="ui-icon-search" ajax="true" update="panelGridFuncaoProcedimentoPesquisa, gridProcedimentos" 
+				process="@this, panelGridFuncaoProcedimentoPesquisa" 
+				disabled="#{funcaoController.funcao.novo}"/>
 			
-
-
-
-	</h:panelGrid>
+			<p:commandButton 
+				id="botaoIncluirFuncaoProcedimento" icon="ui-icon-circle-plus" value="#{msgs['botao.incluir']}"
+				action="#{funcaoProcedimentoController.incluirFuncaoProcedimento()}" ajax="false"
+				disabled="#{funcaoController.somenteLeitura or funcaoController.funcao.novo}" />					
+			
+		</h:panelGrid>   
+	</fieldset>
+	
+	<p:spacer width="5px" />
+   
+	<p:dataTable value="#{funcaoProcedimentoController.funcoesProcedimentos}" var="funcaoProcedimento" 
+		id="gridProcedimentos" emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}"
+		paginator="true" paginatorPosition="bottom" rows="5">
+		
+		<f:facet name="header"> #{msgs['label.procedimentos']} </f:facet>
+	
+		<p:column headerText="#{msgs['label.data']}"  
+			sortBy="#{funcaoProcedimento.procedimento.nome}" >
+			<h:outputText value="#{funcaoProcedimento.procedimento.nome}" />
+		</p:column>
+			
+		<p:column headerText="#{msgs['label.acoes']}" styleClass="colunaAcoes">
+			<p:panelGrid columns="3">					  
+				<p:commandLink title="#{msgs['label.visualizar']}" action="#{funcaoProcedimentoController.visualizarFuncaoProcedimento(funcaoProcedimento)}"
+					styleClass="ui-icon ui-icon-search" />
+				<p:commandLink title="#{msgs['label.editar']}" action="#{funcaoProcedimentoController.alterarFuncaoProcedimento(funcaoProcedimento)}"
+					disabled="#{empresaController.somenteLeitura}" styleClass="ui-icon ui-icon-pencil" />
+				<p:commandLink title="#{msgs['label.excluir']}" action="#{funcaoProcedimentoController.removerFuncaoProcedimento(funcaoProcedimento)}"
+					disabled="#{empresaController.somenteLeitura}" styleClass="ui-icon ui-icon-closethick" update="gridProcedimentos">
+					<p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['label.confirmacaoExclusao']}" icon="ui-icon-alert" />
+				</p:commandLink>	
+			</p:panelGrid>
+		</p:column>
+	
+	</p:dataTable>
+	
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+		<p:commandButton value="#{msgs['label.confirmacaoSim']}" type="button"
+			styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+		<p:commandButton value="#{msgs['label.confirmacaoNao']}" type="button"
+			styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+	</p:confirmDialog>
 		
 </ui:composition>

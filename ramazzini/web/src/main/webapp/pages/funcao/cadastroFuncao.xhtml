@@ -34,7 +34,7 @@
 				
 				</h:panelGrid>
 				
-				<p:tabView id="tabViewCadastroFuncao">
+				<p:tabView id="tabViewCadastroFuncao"  activeIndex="#{funcaoController.tabActiveIndex}">
 		        	<p:tab title="#{msgs['label.dadosCadastrais']}">
 		        		<ui:include src="includes/tabDadosCadastraisFuncao.xhtml" />
 		        	</p:tab>

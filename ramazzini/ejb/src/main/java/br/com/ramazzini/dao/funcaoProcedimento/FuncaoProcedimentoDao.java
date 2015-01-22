@@ -13,8 +13,8 @@ import br.com.ramazzini.model.procedimento.Procedimento;
 
 public class FuncaoProcedimentoDao extends AbstractDao<FuncaoProcedimento> {
 
-	private static final String QUERY_RECUPERAR_POR_FUNCAO = "EmpresaServico.recuperarPorFuncao";
-	private static final String QUERY_RECUPERAR_POR_PROCEDIMENTO = "EmpresaServico.recuperarPorProcedimento";
+	private static final String QUERY_RECUPERAR_POR_FUNCAO = "FuncaoProcedimento.recuperarPorFuncao";
+	private static final String QUERY_RECUPERAR_POR_PROCEDIMENTO = "FuncaoProcedimento.recuperarPorProcedimento";
 	
 	@SuppressWarnings("unchecked")
 	public List<FuncaoProcedimento> recuperarPorFuncao(Funcao funcao) {

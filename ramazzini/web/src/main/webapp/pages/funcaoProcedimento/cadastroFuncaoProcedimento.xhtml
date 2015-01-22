@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui"
+   template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+	
+		<h:form id="frmCadastroFuncaoProcedimento">
+		
+			<p:growl id="growl" showDetail="false" sticky="false" />
+			
+			<p:panel id="panelDadosFuncaoProcedimento" header="#{msgs['label.procedimentos']}">
+			
+				<h:panelGrid columns="2" cellpadding="10">
+					
+					<p:outputLabel value="#{msgs['label.empresa']}:" />
+					<p:outputLabel value="#{funcaoController.empresa.nome}" />
+					
+					<p:outputLabel value="#{msgs['label.funcao']}:" />
+					<p:outputLabel value="#{funcaoController.funcao.nome}" />					
+					
+				</h:panelGrid>
+				
+				<p:separator />
+			
+				<h:panelGrid columns="2" cellpadding="5">
+
+					<p:outputLabel value="#{msgs['label.procedimento']}: " for="completeProcedimento" />
+					<p:autoComplete id="completeProcedimento"
+						value="#{funcaoProcedimentoController.funcaoProcedimento.procedimento}"
+						completeMethod="#{autoComplete.completeProcedimento}"
+						var="procedimento" itemLabel="#{procedimento.nome}"
+						itemValue="#{procedimento}" converter="entityConverter"
+						forceSelection="true" styleClass="nome50"
+						required="true" requiredMessage="#{msgs['required.procedimenro.obrigatorio']}"
+						disabled="#{not funcaoProcedimentoController.funcaoProcedimento.novo}"/>					
+
+				</h:panelGrid>
+
+			</p:panel>
+			
+			<p:toolbar>
+				<f:facet name="left">
+					<p:commandButton immediate="true"
+						icon="ui-icon-arrowreturnthick-1-w" title="#{msgs['botao.voltar']}"
+						action="/pages/funcao/cadastroFuncao.jsf?faces-redirect=true">
+					</p:commandButton>
+					<p:commandButton action="#{funcaoProcedimentoController.gravarFuncaoProcedimento()}"
+						value="#{msgs['botao.gravar']}" icon="ui-icon-disk" title="#{msgs['botao.gravar']}"
+						styleClass="register" update="panelDadosLotacao"
+						disabled="#{funcaoProcedimentoController.somenteLeitura}" ajax="false"/>
+				</f:facet>
+			</p:toolbar>
+		</h:form>
+	</ui:define>
+</ui:composition>
