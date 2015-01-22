@@ -13,8 +13,8 @@ import javax.inject.Named;
 
 import br.com.ramazzini.model.perfil.Perfil;
 import br.com.ramazzini.model.usuario.Usuario;
-import br.com.ramazzini.service.PerfilService;
-import br.com.ramazzini.service.UsuarioService;
+import br.com.ramazzini.service.seguranca.PerfilService;
+import br.com.ramazzini.service.seguranca.UsuarioService;
 import br.com.ramazzini.util.Md5;
 import br.com.ramazzini.util.UtilMensagens;
 

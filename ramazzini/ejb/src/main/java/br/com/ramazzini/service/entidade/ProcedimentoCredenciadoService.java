@@ -14,28 +14,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package br.com.ramazzini.service;
+package br.com.ramazzini.service.entidade;
 
 import java.util.List;
 
 import javax.ejb.Stateless;
 
-import br.com.ramazzini.dao.empresaServico.EmpresaServicoDao;
-import br.com.ramazzini.model.empresa.Empresa;
-import br.com.ramazzini.model.empresaServico.EmpresaServico;
-import br.com.ramazzini.model.servico.Servico;
+import br.com.ramazzini.dao.procedimentoCredenciado.ProcedimentoCredenciadoDao;
+import br.com.ramazzini.model.credenciado.Credenciado;
+import br.com.ramazzini.model.procedimentoCredenciado.ProcedimentoCredenciado;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
 
 // The @Stateless annotation eliminates the need for manual transaction demarcation
 @Stateless
-public class EmpresaServicoService extends AbstractServiceImpl<EmpresaServico> {
-
-    public List<EmpresaServico> recuperarPorEmpresa(Empresa empresa) {
-    	return (!empresa.isNovo()) ? ((EmpresaServicoDao) getDao()).recuperarPorEmpresa(empresa) : null;
+public class ProcedimentoCredenciadoService extends AbstractServiceImpl<ProcedimentoCredenciado> {
+	public List<ProcedimentoCredenciado> recuperarPorCredenciado(Credenciado credenciado) {
+    	return ((ProcedimentoCredenciadoDao) getDao()).recuperarPorCredenciado(credenciado);
     }	
     
-    public List<EmpresaServico> recuperarPorServico(Empresa empresa, Servico servico) {
-    	return ((EmpresaServicoDao) getDao()).recuperarPorServico(empresa, servico);
+    public List<ProcedimentoCredenciado> recuperarPorNome(Credenciado credenciado, String nomeProcedimento) {
+    	return ((ProcedimentoCredenciadoDao) getDao()).recuperarPorNome(credenciado, nomeProcedimento);
     }    
-
+	
 }

@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.ramazzini.model.cnae.Cnae;
-import br.com.ramazzini.service.CnaeService;
+import br.com.ramazzini.service.entidade.CnaeService;
 import br.com.ramazzini.util.UtilMensagens;
 
 @Named

@@ -9,7 +9,7 @@ import javax.inject.Named;
 
 import br.com.ramazzini.model.empresa.Empresa;
 import br.com.ramazzini.model.funcionario.Funcionario;
-import br.com.ramazzini.service.FuncionarioService;
+import br.com.ramazzini.service.entidade.FuncionarioService;
 import br.com.ramazzini.util.UtilMensagens;
 
 @Named

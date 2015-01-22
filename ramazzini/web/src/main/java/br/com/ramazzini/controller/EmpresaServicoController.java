@@ -10,8 +10,8 @@ import javax.inject.Named;
 import br.com.ramazzini.model.empresa.Empresa;
 import br.com.ramazzini.model.empresaServico.EmpresaServico;
 import br.com.ramazzini.model.servico.Servico;
-import br.com.ramazzini.service.EmpresaServicoService;
-import br.com.ramazzini.service.ServicoService;
+import br.com.ramazzini.service.entidade.EmpresaServicoService;
+import br.com.ramazzini.service.entidade.ServicoService;
 import br.com.ramazzini.util.UtilMensagens;
 
 @Named

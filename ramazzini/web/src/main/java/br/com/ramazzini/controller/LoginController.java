@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import br.com.ramazzini.model.usuario.Usuario;
-import br.com.ramazzini.service.UsuarioService;
+import br.com.ramazzini.service.seguranca.UsuarioService;
 import br.com.ramazzini.util.UtilMensagens;
 
 @Named

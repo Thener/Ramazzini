@@ -14,22 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package br.com.ramazzini.service;
+package br.com.ramazzini.service.entidade;
 
 import java.util.List;
 
 import javax.ejb.Stateless;
 
-import br.com.ramazzini.dao.cnae.CnaeDao;
-import br.com.ramazzini.model.cnae.Cnae;
+import br.com.ramazzini.dao.funcaoProcedimento.FuncaoProcedimentoDao;
+import br.com.ramazzini.model.funcao.Funcao;
+import br.com.ramazzini.model.funcaoProcedimento.FuncaoProcedimento;
+import br.com.ramazzini.model.procedimento.Procedimento;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
 
 // The @Stateless annotation eliminates the need for manual transaction demarcation
 @Stateless
-public class CnaeService extends AbstractServiceImpl<Cnae> {
+public class FuncaoProcedimentoService extends AbstractServiceImpl<FuncaoProcedimento> {
 
-	 public List<Cnae> recuperarPorNumero(String numero) {
-	    	return ((CnaeDao) getDao()).recuperarPorNumero(numero);
-	    }	
+    public List<FuncaoProcedimento> recuperarPorFuncao(Funcao funcao) {
+    	return (!funcao.isNovo()) ? ((FuncaoProcedimentoDao) getDao()).recuperarPorFuncao(funcao) : null;
+    }	
+    
+    public List<FuncaoProcedimento> recuperarPorProcedimento(Funcao funcao, Procedimento procedimento) {
+    	return ((FuncaoProcedimentoDao) getDao()).recuperarPorProcedimento(funcao, procedimento);
+    }    
 
 }

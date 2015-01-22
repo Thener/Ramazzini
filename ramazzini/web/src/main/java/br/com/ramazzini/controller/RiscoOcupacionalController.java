@@ -11,7 +11,7 @@ import javax.inject.Named;
 
 import br.com.ramazzini.model.riscoOcupacional.RiscoOcupacional;
 import br.com.ramazzini.model.riscoOcupacional.TipoRiscoOcupacional;
-import br.com.ramazzini.service.RiscoOcupacionalService;
+import br.com.ramazzini.service.entidade.RiscoOcupacionalService;
 import br.com.ramazzini.util.UtilMensagens;
 
 @Named

@@ -18,11 +18,11 @@ import br.com.ramazzini.model.modulo.Modulo;
 import br.com.ramazzini.model.perfil.Perfil;
 import br.com.ramazzini.model.perfilTela.PerfilTela;
 import br.com.ramazzini.model.tela.Tela;
-import br.com.ramazzini.service.AcaoService;
-import br.com.ramazzini.service.ModuloService;
-import br.com.ramazzini.service.PerfilService;
-import br.com.ramazzini.service.PerfilTelaService;
-import br.com.ramazzini.service.TelaService;
+import br.com.ramazzini.service.seguranca.AcaoService;
+import br.com.ramazzini.service.seguranca.ModuloService;
+import br.com.ramazzini.service.seguranca.PerfilService;
+import br.com.ramazzini.service.seguranca.PerfilTelaService;
+import br.com.ramazzini.service.seguranca.TelaService;
 import br.com.ramazzini.util.UtilMensagens;
 
 @Named

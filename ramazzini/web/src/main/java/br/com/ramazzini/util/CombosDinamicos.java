@@ -11,11 +11,11 @@ import br.com.ramazzini.model.funcao.Funcao;
 import br.com.ramazzini.model.lotacao.Lotacao;
 import br.com.ramazzini.model.profissional.Profissional;
 import br.com.ramazzini.model.setor.Setor;
-import br.com.ramazzini.service.CboService;
-import br.com.ramazzini.service.FuncaoService;
-import br.com.ramazzini.service.LotacaoService;
-import br.com.ramazzini.service.ProfissionalService;
-import br.com.ramazzini.service.SetorService;
+import br.com.ramazzini.service.entidade.CboService;
+import br.com.ramazzini.service.entidade.FuncaoService;
+import br.com.ramazzini.service.entidade.LotacaoService;
+import br.com.ramazzini.service.entidade.ProfissionalService;
+import br.com.ramazzini.service.entidade.SetorService;
 
 @Named("combosDinamicos")
 public class CombosDinamicos {

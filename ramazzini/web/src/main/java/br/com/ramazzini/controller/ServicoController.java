@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.ramazzini.model.servico.Servico;
-import br.com.ramazzini.service.ServicoService;
+import br.com.ramazzini.service.entidade.ServicoService;
 import br.com.ramazzini.util.TratarExcecao;
 import br.com.ramazzini.util.UtilMensagens;
 

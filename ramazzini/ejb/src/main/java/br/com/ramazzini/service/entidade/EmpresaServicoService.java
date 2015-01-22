@@ -14,22 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package br.com.ramazzini.service;
+package br.com.ramazzini.service.entidade;
 
 import java.util.List;
 
 import javax.ejb.Stateless;
 
-import br.com.ramazzini.dao.cbo.CboDao;
-import br.com.ramazzini.model.cbo.Cbo;
+import br.com.ramazzini.dao.empresaServico.EmpresaServicoDao;
+import br.com.ramazzini.model.empresa.Empresa;
+import br.com.ramazzini.model.empresaServico.EmpresaServico;
+import br.com.ramazzini.model.servico.Servico;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
 
 // The @Stateless annotation eliminates the need for manual transaction demarcation
 @Stateless
-public class CboService extends AbstractServiceImpl<Cbo> {
+public class EmpresaServicoService extends AbstractServiceImpl<EmpresaServico> {
 
-	 public List<Cbo> recuperarPorNumero(String numero) {
-	    	return ((CboDao) getDao()).recuperarPorNumero(numero);
-	    }	
+    public List<EmpresaServico> recuperarPorEmpresa(Empresa empresa) {
+    	return (!empresa.isNovo()) ? ((EmpresaServicoDao) getDao()).recuperarPorEmpresa(empresa) : null;
+    }	
+    
+    public List<EmpresaServico> recuperarPorServico(Empresa empresa, Servico servico) {
+    	return ((EmpresaServicoDao) getDao()).recuperarPorServico(empresa, servico);
+    }    
 
 }

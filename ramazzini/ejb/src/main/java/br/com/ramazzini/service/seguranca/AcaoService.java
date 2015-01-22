@@ -14,22 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package br.com.ramazzini.service;
+package br.com.ramazzini.service.seguranca;
 
 import java.util.List;
 
 import javax.ejb.Stateless;
 
-import br.com.ramazzini.dao.profissional.ProfissionalDao;
-import br.com.ramazzini.model.profissional.Profissional;
+import br.com.ramazzini.dao.acao.AcaoDao;
+import br.com.ramazzini.model.acao.Acao;
+import br.com.ramazzini.model.tela.Tela;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
 
 // The @Stateless annotation eliminates the need for manual transaction demarcation
 @Stateless
-public class ProfissionalService extends AbstractServiceImpl<Profissional> {
+public class AcaoService extends AbstractServiceImpl<Acao> {
 
-    public List<Profissional> recuperarPorNome(String nome) {
-    	return ((ProfissionalDao) getDao()).recuperarPorNome(nome);
-    }	
-
+    public List<Acao> recuperarPorTela(Tela tela) {
+    	return ((AcaoDao) getDao()).recuperarPorTela(tela);
+    } 
 }

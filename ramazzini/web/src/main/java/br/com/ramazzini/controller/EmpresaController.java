@@ -15,8 +15,8 @@ import br.com.ramazzini.model.empresa.SituacaoEmpresa;
 import br.com.ramazzini.model.empresa.TipoPcmso;
 import br.com.ramazzini.model.empresa.TipoPessoa;
 import br.com.ramazzini.model.empresa.UnidadeFederativa;
-import br.com.ramazzini.service.CnaeService;
-import br.com.ramazzini.service.EmpresaService;
+import br.com.ramazzini.service.entidade.CnaeService;
+import br.com.ramazzini.service.entidade.EmpresaService;
 import br.com.ramazzini.util.UtilMensagens;
 
 @Named

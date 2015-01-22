@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.ramazzini.model.credenciado.Credenciado;
-import br.com.ramazzini.service.CredenciadoService;
+import br.com.ramazzini.service.entidade.CredenciadoService;
 import br.com.ramazzini.util.UtilMensagens;
 
 @Named

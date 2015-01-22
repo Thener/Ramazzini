@@ -14,27 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package br.com.ramazzini.service;
+package br.com.ramazzini.service.entidade;
 
 import java.util.List;
 
 import javax.ejb.Stateless;
 
-import br.com.ramazzini.dao.lotacao.LotacaoDao;
-import br.com.ramazzini.model.empresa.Empresa;
-import br.com.ramazzini.model.lotacao.Lotacao;
+import br.com.ramazzini.dao.profissional.ProfissionalDao;
+import br.com.ramazzini.model.profissional.Profissional;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
 
 // The @Stateless annotation eliminates the need for manual transaction demarcation
 @Stateless
-public class LotacaoService extends AbstractServiceImpl<Lotacao> {
+public class ProfissionalService extends AbstractServiceImpl<Profissional> {
 
-    public List<Lotacao> recuperarPorEmpresa(Empresa empresa) {
-    	return (!empresa.isNovo()) ? ((LotacaoDao) getDao()).recuperarPorEmpresa(empresa) : null;
+    public List<Profissional> recuperarPorNome(String nome) {
+    	return ((ProfissionalDao) getDao()).recuperarPorNome(nome);
     }	
-    
-    public List<Lotacao> recuperarPorNome(Empresa empresa, String nomeLotacao) {
-    	return ((LotacaoDao) getDao()).recuperarPorNome(empresa, nomeLotacao);
-    }    
 
 }

@@ -14,30 +14,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package br.com.ramazzini.service;
+package br.com.ramazzini.service.entidade;
 
 import java.util.List;
 
 import javax.ejb.Stateless;
 
-import br.com.ramazzini.dao.modulo.ModuloDao;
-import br.com.ramazzini.model.modulo.Modulo;
-import br.com.ramazzini.model.perfil.Perfil;
-import br.com.ramazzini.model.usuario.Usuario;
+import br.com.ramazzini.dao.funcao.FuncaoDao;
+import br.com.ramazzini.model.empresa.Empresa;
+import br.com.ramazzini.model.funcao.Funcao;
+import br.com.ramazzini.model.riscoOcupacional.RiscoOcupacional;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
 
 // The @Stateless annotation eliminates the need for manual transaction demarcation
 @Stateless
-public class ModuloService extends AbstractServiceImpl<Modulo> {
+public class FuncaoService extends AbstractServiceImpl<Funcao> {
 
-    public List<Modulo> recuperarPorPerfil(Perfil perfil) {
-        
-        return ((ModuloDao) getDao()).recuperarPorPerfil(perfil);
-    }
+    public List<Funcao> recuperarPorEmpresa(Empresa empresa) {
+    	return (!empresa.isNovo()) ? ((FuncaoDao) getDao()).recuperarPorEmpresa(empresa) : null;
+    }	
     
-    public List<Modulo> recuperarPorUsuario(Usuario usuario) {
-    	
-    	return ((ModuloDao) getDao()).recuperarPorUsuario(usuario);
-    }
-    
+    public List<Funcao> recuperarPorNome(Empresa empresa, String nomeFuncao) {
+    	return ((FuncaoDao) getDao()).recuperarPorNome(empresa, nomeFuncao);
+    }    
+
+    public List<RiscoOcupacional> recuperarRiscosOcupacionais(Funcao funcao) {
+    	return ((FuncaoDao) getDao()).recuperarRiscosOcupacionais(funcao);
+    }    
 }

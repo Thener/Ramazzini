@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.ramazzini.model.profissional.Profissional;
-import br.com.ramazzini.service.ProfissionalService;
+import br.com.ramazzini.service.entidade.ProfissionalService;
 import br.com.ramazzini.util.UtilMensagens;
 
 @Named

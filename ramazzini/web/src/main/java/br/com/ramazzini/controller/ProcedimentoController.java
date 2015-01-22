@@ -11,7 +11,7 @@ import javax.inject.Named;
 
 import br.com.ramazzini.model.procedimento.Procedimento;
 import br.com.ramazzini.model.procedimento.TipoProcedimento;
-import br.com.ramazzini.service.ProcedimentoService;
+import br.com.ramazzini.service.entidade.ProcedimentoService;
 import br.com.ramazzini.util.UtilMensagens;
 
 @Named

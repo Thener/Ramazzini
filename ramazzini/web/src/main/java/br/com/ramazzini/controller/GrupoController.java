@@ -11,8 +11,8 @@ import javax.inject.Named;
 
 import br.com.ramazzini.model.empresa.Empresa;
 import br.com.ramazzini.model.grupo.Grupo;
-import br.com.ramazzini.service.EmpresaService;
-import br.com.ramazzini.service.GrupoService;
+import br.com.ramazzini.service.entidade.EmpresaService;
+import br.com.ramazzini.service.entidade.GrupoService;
 import br.com.ramazzini.util.UtilMensagens;
 
 @Named

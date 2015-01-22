@@ -14,26 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package br.com.ramazzini.service;
+package br.com.ramazzini.service.entidade;
 
 import java.util.List;
 
 import javax.ejb.Stateless;
 
-import br.com.ramazzini.dao.procedimentoCredenciado.ProcedimentoCredenciadoDao;
-import br.com.ramazzini.model.credenciado.Credenciado;
-import br.com.ramazzini.model.procedimentoCredenciado.ProcedimentoCredenciado;
+import br.com.ramazzini.dao.procedimento.ProcedimentoDao;
+import br.com.ramazzini.model.procedimento.Procedimento;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
 
 // The @Stateless annotation eliminates the need for manual transaction demarcation
 @Stateless
-public class ProcedimentoCredenciadoService extends AbstractServiceImpl<ProcedimentoCredenciado> {
-	public List<ProcedimentoCredenciado> recuperarPorCredenciado(Credenciado credenciado) {
-    	return ((ProcedimentoCredenciadoDao) getDao()).recuperarPorCredenciado(credenciado);
+public class ProcedimentoService extends AbstractServiceImpl<Procedimento> {
+
+    public List<Procedimento> recuperarPorNome(String nome) {
+    	return ((ProcedimentoDao) getDao()).recuperarPorNome(nome);
     }	
-    
-    public List<ProcedimentoCredenciado> recuperarPorNome(Credenciado credenciado, String nomeProcedimento) {
-    	return ((ProcedimentoCredenciadoDao) getDao()).recuperarPorNome(credenciado, nomeProcedimento);
-    }    
-	
+
 }

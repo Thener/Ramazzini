@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.ramazzini.model.cbo.Cbo;
-import br.com.ramazzini.service.CboService;
+import br.com.ramazzini.service.entidade.CboService;
 import br.com.ramazzini.util.UtilMensagens;
 
 @Named

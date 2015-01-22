@@ -10,8 +10,8 @@ import javax.inject.Named;
 import br.com.ramazzini.model.funcao.Funcao;
 import br.com.ramazzini.model.funcaoProcedimento.FuncaoProcedimento;
 import br.com.ramazzini.model.procedimento.Procedimento;
-import br.com.ramazzini.service.FuncaoProcedimentoService;
-import br.com.ramazzini.service.ProcedimentoService;
+import br.com.ramazzini.service.entidade.FuncaoProcedimentoService;
+import br.com.ramazzini.service.entidade.ProcedimentoService;
 import br.com.ramazzini.util.UtilMensagens;
 
 @Named

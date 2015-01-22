@@ -10,7 +10,7 @@ import javax.inject.Named;
 import br.com.ramazzini.model.empresa.Empresa;
 import br.com.ramazzini.model.funcao.Funcao;
 import br.com.ramazzini.model.riscoOcupacional.RiscoOcupacional;
-import br.com.ramazzini.service.FuncaoService;
+import br.com.ramazzini.service.entidade.FuncaoService;
 import br.com.ramazzini.util.UtilMensagens;
 
 @Named
