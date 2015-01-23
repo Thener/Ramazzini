@@ -37,17 +37,17 @@ public class LotacaoController extends AbstractBean implements Serializable {
 		
 		lotacao = new Lotacao();
 		lotacao.setEmpresa(empresa);
-		return cadatroLotacao(lotacao, Boolean.FALSE);
+		return cadastroLotacao(lotacao, Boolean.FALSE);
 	}
 	    
     public String alterarLotacao(Lotacao lotacao){
     	
-    	return cadatroLotacao(lotacao, Boolean.FALSE);
+    	return cadastroLotacao(lotacao, Boolean.FALSE);
     }
     
     public String visualizarLotacao(Lotacao lotacao){
     	
-    	return cadatroLotacao(lotacao, Boolean.TRUE);
+    	return cadastroLotacao(lotacao, Boolean.TRUE);
     }
     
     public void removerLotacao(Lotacao lotacao){
@@ -61,7 +61,7 @@ public class LotacaoController extends AbstractBean implements Serializable {
         }
     }    
     
-    private String cadatroLotacao(Lotacao lotacao, Boolean somenteLeitura) {
+    private String cadastroLotacao(Lotacao lotacao, Boolean somenteLeitura) {
 
     	setLotacao(lotacao);
     	setSomenteLeitura(somenteLeitura);

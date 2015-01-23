@@ -18,8 +18,16 @@ input.hasDatepicker {
 	width: 80px;
 }
 
+input.hora {
+	width: 40px !important;
+}
+
 span.idade input {
 	width: 40px !important;
+}
+
+span.intervaloMinutos input {
+	width: 35px !important;
 }
 
 input.nome10 {

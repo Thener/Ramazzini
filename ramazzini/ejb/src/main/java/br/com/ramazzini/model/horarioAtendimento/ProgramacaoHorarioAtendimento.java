@@ -46,7 +46,7 @@ public class ProgramacaoHorarioAtendimento extends AbstractEntidade implements S
     @NotNull 	
 	private Integer intervalo;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@NotNull
 	@JoinColumn(name="cd_horario_atendimento", nullable=false)
 	private HorarioAtendimento horarioAtendimento;	

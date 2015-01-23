@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui"
+   template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+	
+		<ui:include src="includes/dialogProgramacao.xhtml" />
+	
+		<h:form id="frmCadastroHorarioAtendimento">
+		
+			<p:growl id="messages" showDetail="false" sticky="true" />
+		
+			<p:panel id="panelDadosHorarioAtendimento" header="#{msgs['label.horarioAtendimento']}">
+			
+				<h:panelGrid columns="2" cellpadding="5">
+				
+					<p:outputLabel for="nome" value="#{msgs['label.nome']}:" />
+					<p:inputText id="nome" value="#{horarioAtendimentoController.horarioAtendimento.nome}" 
+						styleClass="nome100" maxlength="100" required="true" />
+
+				</h:panelGrid>
+				
+				<p:spacer width="5px" />
+				
+				<p:fieldset legend="#{msgs['label.programacoes']}">
+			   
+				   	<p:commandButton value="#{msgs['botao.incluir']}"  
+				   		 icon="ui-icon-circle-plus" ajax="true"
+				   		 onclick="PF('dialogProgramacao').show();" 
+				   		 disabled="#{horarioAtendimentoController.somenteLeitura 
+				   		 	or horarioAtendimentoController.horarioAtendimento.novo}">
+				   		 	
+				   		 <f:ajax execute="#{programacaoHorarioAtendimentoController.incluirProgramacao()}" />
+				   	</p:commandButton>
+				   		 
+					<p:dataTable var="programacao" value="#{programacaoHorarioAtendimentoController.programacoes}"
+						id="gridProgramacoes" emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}"
+						paginator="true" paginatorPosition="bottom" rows="5" style="margin-top:10px;">
+						
+						<f:facet name="header"> #{msgs['label.programacoes']} </f:facet>
+						
+						<p:column headerText="#{msgs['label.diaSemana']}" sortBy="#{programacao.diaSemana}" >
+							<h:outputText value="#{programacao.diaSemanaEnum.stringChave}" />
+						</p:column>
+								
+						<p:column headerText="#{msgs['label.acoes']}" styleClass="colunaAcoes">
+							<p:panelGrid columns="3">					  
+								<p:commandLink title="#{msgs['label.visualizar']}" action="#{programacaoHorarioAtendimentoController.visualizarProgramacao(programacao)}"
+									styleClass="ui-icon ui-icon-search" />
+								<p:commandLink title="#{msgs['label.editar']}" action="#{programacaoHorarioAtendimentoController.alterarProgramacao(programacao)}"
+									disabled="#{empresaController.somenteLeitura}" styleClass="ui-icon ui-icon-pencil" />
+								<p:commandLink title="#{msgs['label.excluir']}" action="#{programacaoHorarioAtendimentoController.removerProgramacao(programacao)}"
+									disabled="#{empresaController.somenteLeitura}" styleClass="ui-icon ui-icon-closethick" update="gridProgramacoes">
+									<p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['label.confirmacaoExclusao']}" icon="ui-icon-alert" />
+								</p:commandLink>	
+							</p:panelGrid>
+						</p:column>
+					
+					</p:dataTable>
+					
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+						<p:commandButton value="#{msgs['label.confirmacaoSim']}" type="button"
+							styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+						<p:commandButton value="#{msgs['label.confirmacaoNao']}" type="button"
+							styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+					</p:confirmDialog>	
+				
+				</p:fieldset>				
+				
+			</p:panel>
+			
+			<p:toolbar id="toolBar">
+				<f:facet name="left">
+					<p:commandButton id="botaoVoltar" immediate="true" 
+						icon="ui-icon-arrowreturnthick-1-w" title="#{msgs['botao.voltar']}"
+						action="pesquisarHorarioAtendimento.jsf?faces-redirect=true">
+					</p:commandButton>
+					<p:commandButton id="salvar" action="#{horarioAtendimentoController.gravarHorarioAtendimento()}"
+						value="#{msgs['botao.gravar']}" icon="ui-icon-disk" title="#{msgs['botao.gravar']}"
+						disabled="#{horarioAtendimentoController.somenteLeitura}" ajax="false" />
+				</f:facet>
+			</p:toolbar>
+			
+		</h:form>
+		
+	</ui:define>
+	
+</ui:composition>

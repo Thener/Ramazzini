@@ -32,9 +32,8 @@ public class HorarioAtendimento extends AbstractEntidade implements Serializable
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "seq_horario_atendimento")
     private Long id;
     
-    @Column(name = "nm_horario_atendimento")
+    @Column(name = "nm_horario_atendimento", length = 100)
     @NotNull
-    @Size(min = 1, max = 100)
     private String nome;
 
 	@OneToMany(mappedBy="horarioAtendimento")

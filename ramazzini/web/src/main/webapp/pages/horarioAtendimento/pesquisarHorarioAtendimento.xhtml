@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui"
+   template="/WEB-INF/templates/default.xhtml">
+   <ui:define name="content">
+   
+	<h:form id="frmHorarioAtendimento">
+	
+		<p:growl id="messages" showDetail="false" sticky="true" />
+		
+		<p:panel id="panelHorarioAtendimento" header="#{msgs['label.horariosAtendimento']}"  style="margin-bottom:20px">
+		
+			<h:panelGrid columns="4" cellpadding="5">
+			
+				<p:outputLabel for="nomeHorarioAtendimentoPesquisa" value="#{msgs['label.nome']}:" />
+				<p:inputText id="nomeHorarioAtendimentoPesquisa" value="#{horarioAtendimentoController.nomeHorarioAtendimentoPesquisa}" 
+					styleClass="nome100" maxlength="100" required="false"/>
+					
+				<p:commandButton action="#{horarioAtendimentoController.pesquisar()}"
+					id="botaoPesquisa" icon="ui-icon-search" title="#{msgs['label.pesquisa']}"
+					update="frmHorarioAtendimento">
+					<f:ajax execute="nomeHorarioAtendimentoPesquisa" render="gridHorariosAtendimento"/>
+				</p:commandButton>
+
+				<p:commandButton 
+					id="botaoIncluirHorarioAtendimento" icon="ui-icon-circle-plus" value="#{msgs['botao.incluir']}"
+					action="#{horarioAtendimentoController.incluirHorarioAtendimento()}" />					
+				
+			</h:panelGrid>		
+
+			<p:dataTable var="horarioAtendimento" value="#{horarioAtendimentoController.horariosAtendimento}"
+				id="gridHorariosAtendimento" emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}"
+				paginator="true" paginatorPosition="bottom" rows="5">
+				
+				<f:facet name="header"> #{msgs['label.horariosAtendimento']} </f:facet>
+
+				<p:column headerText="#{msgs['label.nome']}" sortBy="#{horarioAtendimento.nome}">
+					<h:outputText value="#{horarioAtendimento.nome}" />
+				</p:column>
+												
+				<p:column headerText="#{msgs['label.acoes']}" styleClass="colunaAcoes">
+					<p:panelGrid columns="3">					  
+						<p:commandLink title="#{msgs['label.visualizar']}" action="#{horarioAtendimentoController.visualizarHorarioAtendimento(horarioAtendimento)}"
+							styleClass="ui-icon ui-icon-search" 
+								rendered="#{horarioAtendimentoController.controleAcesso.acaoAutorizada('horarioAtendimento','pesquisarHorarioAtendimento.jsf','visualizarHorarioAtendimento')}" />
+						<p:commandLink title="#{msgs['label.editar']}" action="#{horarioAtendimentoController.alterarHorarioAtendimento(horarioAtendimento)}"
+							styleClass="ui-icon ui-icon-pencil" 
+							rendered="#{horarioAtendimentoController.controleAcesso.acaoAutorizada('horarioAtendimento','pesquisarHorarioAtendimento.jsf','alterarHorarioAtendimento')}" />
+						<p:commandLink title="#{msgs['label.excluir']}" action="#{horarioAtendimentoController.removerHorarioAtendimento(horarioAtendimento)}"
+							styleClass="ui-icon ui-icon-closethick" update="gridHorariosAtendimento, :frmHorarioAtendimento:messages"
+							rendered="#{horarioAtendimentoController.controleAcesso.acaoAutorizada('horarioAtendimento','pesquisarHorarioAtendimento.jsf','excluirHorarioAtendimento')}">
+							<p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['mensagem.pergunta.desejaRealmenteExcluir']}" icon="ui-icon-alert" />
+						</p:commandLink>	
+					</p:panelGrid>
+				</p:column>							
+
+			</p:dataTable>
+			
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+				<p:commandButton value="#{msgs['label.confirmacaoSim']}" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="#{msgs['label.confirmacaoNao']}" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>			
+			
+		</p:panel>
+
+	</h:form>
+	
+	</ui:define>
+</ui:composition>
