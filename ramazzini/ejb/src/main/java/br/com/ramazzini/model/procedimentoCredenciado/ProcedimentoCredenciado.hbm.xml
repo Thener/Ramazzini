@@ -17,7 +17,21 @@
 		]]>
 	</query>
 	
-	<query name="ProcedimentoCredenciado.recuperarPorNome">
+	<query name="ProcedimentoCredenciado.recuperarPorProcedimento">
+		<![CDATA[
+			select 
+				pc
+			from 
+				ProcedimentoCredenciado pc
+			left join pc.procedimento p
+			where 
+				p = :procedimento
+			order 
+				by pc.credenciado.nome
+		]]>
+	</query>
+	
+	<query name="ProcedimentoCredenciado.recuperarPorNomeProcedimento">
 		<![CDATA[
 			select 
 				pc
@@ -31,6 +45,23 @@
 				lower(p.nome) like lower(:nomeProcedimento)
 			order 
 				by p.nome
+		]]>
+	</query>
+	
+	<query name="ProcedimentoCredenciado.recuperarPorNomeCredenciado">
+		<![CDATA[
+			select 
+				pc
+			from 
+				ProcedimentoCredenciado pc
+			left join pc.credenciado c
+			left join pc.procedimento p
+			where 
+				p = :procedimento
+			and
+				lower(c.nome) like lower(:nomeCredenciado)
+			order 
+				by c.nome
 		]]>
 	</query>
 

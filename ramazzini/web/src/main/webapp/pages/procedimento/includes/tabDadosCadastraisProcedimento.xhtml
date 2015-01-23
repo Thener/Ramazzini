@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui">
+					
+	<h:panelGrid columns="2" cellpadding="10">
+		<p:outputLabel for="nomeAbreviado"
+			value="#{msgs['label.nomeAbreviado']}:" />
+		<p:inputText id="nomeAbreviado"
+			value="#{procedimentoController.procedimento.nomeAbreviado}"
+			styleClass="nome50" maxlength="50" required="false" />
+
+		<p:outputLabel for="sigla" value="#{msgs['label.sigla']}:" />
+		<p:inputText id="sigla"
+			value="#{procedimentoController.procedimento.sigla}"
+			styleClass="nome10" maxlength="10" required="true" />
+
+		<p:outputLabel for="tipoProcedimento"
+			value="#{msgs['label.tipoProcedimento']}:" />
+		<p:selectOneMenu id="tipoProcedimento"
+			value="#{procedimentoController.procedimento.tipoProcedimento}"
+			required="true">
+			<f:selectItems value="#{procedimentoController.tiposProcedimento}"
+				var="tipoProcedimento" itemLabel="#{tipoProcedimento.stringChave}"
+				itemValue="#{tipoProcedimento.value}" />
+		</p:selectOneMenu>
+	</h:panelGrid>
+</ui:composition>

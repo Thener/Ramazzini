@@ -3,39 +3,38 @@
    xmlns:ui="http://java.sun.com/jsf/facelets"
    xmlns:f="http://java.sun.com/jsf/core"
    xmlns:h="http://java.sun.com/jsf/html"
-   xmlns:p="http://primefaces.org/ui"
-   xmlns:pe="http://primefaces.org/ui/extensions">	
-	
+   xmlns:p="http://primefaces.org/ui">
+
 	<p:fieldset legend="Pesquisa">
-		<h:panelGrid columns="4" cellpadding="10" id="panelGridProcedimentosCredenciadosPesquisa" >
+		<h:panelGrid columns="4" cellpadding="10" id="panelGridCredenciadosProcedimentosPesquisa" >
 		
-			<p:outputLabel for="nomeProcedimetnoPesquisa" value="#{msgs['label.procedimento']}" />
+			<p:outputLabel for="nomeProcedimetnoPesquisa" value="#{msgs['label.credenciado']}" />
 			<p:inputText id="nomeProcedimetnoPesquisa" 
 				value="#{procedimentoCredenciadoController.nomeProcedimentoPesquisa}" required="false"
-				disabled="#{empty credenciadoController.credenciado.id}"/>
+				disabled="#{procedimentoController.procedimento.novo}"/>
 							
-			<p:commandButton action="#{procedimentoCredenciadoController.pesquisarPorCredenciado()}" 
-				icon="ui-icon-search" ajax="true" update="panelGridProcedimentosCredenciadosPesquisa, gridProcedimentos" 
-				process="@this, panelGridProcedimentosCredenciadosPesquisa" 
-				disabled="#{empty credenciadoController.credenciado.id}"/>
+			<p:commandButton action="#{procedimentoCredenciadoController.pesquisarPorProcedimento()}" 
+				icon="ui-icon-search" ajax="true" update="panelGridCredenciadosProcedimentosPesquisa, gridCredenciados" 
+				process="@this, panelGridCredenciadosProcedimentosPesquisa" 
+				disabled="#{procedimentoController.procedimento.novo}"/>
 			
 			<p:commandButton 
 				id="botaoIncluir" icon="ui-icon-circle-plus" value="#{msgs['botao.incluir']}"
 				action="#{procedimentoCredenciadoController.incluir()}" disabled="#{credenciadoController.somenteLeitura or credenciadoController.credenciado.novo}" 
-				ajax="true" update="panelGridProcedimentosCredenciadosPesquisa, gridProcedimentos" process="@this, panelGridProcedimentosCredenciadosPesquisa" />
+				ajax="true" update="panelGridCredenciadosProcedimentosPesquisa, gridCredenciados" process="@this, panelGridCredenciadosProcedimentosPesquisa" />
 		</h:panelGrid>   
 	</p:fieldset>
 	
 	<p:spacer width="5px" />
    
 	<p:dataTable var="procedimentoCredenciado" value="#{procedimentoCredenciadoController.getProcedimentosCredenciados()}"
-		id="gridProcedimentos" emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}"
+		id="gridCredenciados" emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}"
 		paginator="true" paginatorPosition="bottom" rows="5">
 		
 		<f:facet name="header"> #{msgs['label.procedimentos']} </f:facet>
 	
 		<p:column headerText="#{msgs['label.nome']}" sortBy="#{procedimentoCredenciado.procedimento.nome}" >
-			<h:outputText value="#{procedimentoCredenciado.procedimento.nome}" />
+			<h:outputText value="#{procedimentoCredenciado.credenciado.nome}" />
 		</p:column>		
 		
 		<p:column headerText="#{msgs['label.precoCusto']}" sortBy="#{procedimentoCredenciado.precoCusto}" >
@@ -57,7 +56,7 @@
 				<p:commandLink title="#{msgs['label.editar']}" action="#{procedimentoCredenciadoController.alterarProcedimentoCredenciado(procedimentoCredenciado)}"
 					styleClass="ui-icon ui-icon-pencil" />
 				<p:commandLink title="#{msgs['label.excluir']}" action="#{procedimentoCredenciadoController.removerProcedimentoCredenciado(procedimentoCredenciado)}"
-					styleClass="ui-icon ui-icon-closethick" update="gridProcedimentos">
+					styleClass="ui-icon ui-icon-closethick" update="gridCredenciados">
 					<p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['label.confirmacaoExclusao']}" icon="ui-icon-alert" />
 				</p:commandLink>	
 			</p:panelGrid>
@@ -71,4 +70,5 @@
 		<p:commandButton value="#{msgs['label.confirmacaoNao']}" type="button"
 			styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 	</p:confirmDialog>	
+
 </ui:composition>

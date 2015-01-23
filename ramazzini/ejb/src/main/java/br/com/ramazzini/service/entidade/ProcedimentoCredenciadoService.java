@@ -22,18 +22,26 @@ import javax.ejb.Stateless;
 
 import br.com.ramazzini.dao.procedimentoCredenciado.ProcedimentoCredenciadoDao;
 import br.com.ramazzini.model.credenciado.Credenciado;
+import br.com.ramazzini.model.procedimento.Procedimento;
 import br.com.ramazzini.model.procedimentoCredenciado.ProcedimentoCredenciado;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
 
 // The @Stateless annotation eliminates the need for manual transaction demarcation
 @Stateless
 public class ProcedimentoCredenciadoService extends AbstractServiceImpl<ProcedimentoCredenciado> {
-	public List<ProcedimentoCredenciado> recuperarPorCredenciado(Credenciado credenciado) {
-    	return ((ProcedimentoCredenciadoDao) getDao()).recuperarPorCredenciado(credenciado);
+	public List<ProcedimentoCredenciado> recuperarPor(Credenciado credenciado) {
+    	return ((ProcedimentoCredenciadoDao) getDao()).recuperarPor(credenciado);
+    }	
+	public List<ProcedimentoCredenciado> recuperarPor(Procedimento procedimento) {
+    	return ((ProcedimentoCredenciadoDao) getDao()).recuperarPor(procedimento);
     }	
     
     public List<ProcedimentoCredenciado> recuperarPorNome(Credenciado credenciado, String nomeProcedimento) {
     	return ((ProcedimentoCredenciadoDao) getDao()).recuperarPorNome(credenciado, nomeProcedimento);
-    }    
+    } 
+    
+    public List<ProcedimentoCredenciado> recuperarPorNome(Procedimento procedimento, String nomeCredenciado) {
+    	return ((ProcedimentoCredenciadoDao) getDao()).recuperarPorNome(procedimento, nomeCredenciado);
+    }   
 	
 }
