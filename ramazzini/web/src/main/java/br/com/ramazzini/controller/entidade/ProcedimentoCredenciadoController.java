@@ -9,6 +9,7 @@ import javax.inject.Named;
 
 import br.com.ramazzini.controller.util.AbstractBean;
 import br.com.ramazzini.model.credenciado.Credenciado;
+import br.com.ramazzini.model.procedimento.Procedimento;
 import br.com.ramazzini.model.procedimentoCredenciado.ProcedimentoCredenciado;
 import br.com.ramazzini.service.entidade.ProcedimentoCredenciadoService;
 import br.com.ramazzini.util.UtilMensagens;
@@ -31,11 +32,16 @@ public class ProcedimentoCredenciadoController extends AbstractBean implements S
     
     private Credenciado credenciado;
     
+    private Procedimento procedimento;
+    
     private String nomeProcedimentoPesquisa;
+    
+    private String nomeCredenciadoPesquisa;
     
 	public String incluir() {	
 		this.procedimentoCredenciado = new ProcedimentoCredenciado();
 		this.procedimentoCredenciado.setCredenciado(credenciado);
+		this.procedimentoCredenciado.setProcedimento(procedimento);
 		return cadastroProcedimentoCredenciado(procedimentoCredenciado, Boolean.FALSE);
 	}
 	    
@@ -74,20 +80,28 @@ public class ProcedimentoCredenciadoController extends AbstractBean implements S
 	public String gravarProcedimentoCredenciado() {
 		if (valoresCustoVendaValidos()){
 			procedimentoCredenciadoService.salvar(procedimentoCredenciado);
-			pesquisar();
+			pesquisarPorCredenciado();
 			return PAGINA_CADASTRO_CREDENCIADO;
 		} else {			
 			return null;
 		}			
 	} 
     
-    public void pesquisar(){
+    public void pesquisarPorCredenciado(){
 		if (nomeProcedimentoPesquisa == null || nomeProcedimentoPesquisa.isEmpty()){
-    		procedimentosCredenciados = procedimentoCredenciadoService.recuperarPorCredenciado(credenciado);
+    		procedimentosCredenciados = procedimentoCredenciadoService.recuperarPor(credenciado);
 		} else {
 			procedimentosCredenciados = procedimentoCredenciadoService.recuperarPorNome(credenciado, nomeProcedimentoPesquisa);
 		}      
-    }    
+    }  
+    
+    public void pesquisarPorProcedimento(){
+		if (nomeProcedimentoPesquisa == null || nomeProcedimentoPesquisa.isEmpty()){
+    		procedimentosCredenciados = procedimentoCredenciadoService.recuperarPor(procedimento);
+		} else {
+			procedimentosCredenciados = procedimentoCredenciadoService.recuperarPorNome(procedimento, nomeCredenciadoPesquisa);
+		}      
+    }      
 	
 	public List<ProcedimentoCredenciado> getProcedimentosCredenciados() {
 			
@@ -106,6 +120,16 @@ public class ProcedimentoCredenciadoController extends AbstractBean implements S
 		setProcedimentosCredenciados(null); // se está mudando o credenciado, então zerar a lista.
 		this.credenciado = credenciado;
 	}
+	
+
+	public Procedimento getProcedimento() {
+		return procedimento;
+	}
+
+	public void setProcedimento(Procedimento procedimento) {
+		setProcedimentosCredenciados(null); // se está mudando, então zerar a lista.
+		this.procedimento = procedimento;
+	}
 
 	public String getNomeProcedimentoPesquisa() {
 		return nomeProcedimentoPesquisa;
@@ -113,6 +137,14 @@ public class ProcedimentoCredenciadoController extends AbstractBean implements S
 
 	public void setNomeProcedimentoPesquisa(String nomeProcedimentoPesquisa) {
 		this.nomeProcedimentoPesquisa = nomeProcedimentoPesquisa;
+	}
+	
+	public String getNomeCredenciadoPesquisa() {
+		return nomeCredenciadoPesquisa;
+	}
+
+	public void setNomeCredenciadoPesquisa(String nomeCredenciadoPesquisa) {
+		this.nomeCredenciadoPesquisa = nomeCredenciadoPesquisa;
 	}
 
 	public ProcedimentoCredenciado getProcedimentoCredenciado() {

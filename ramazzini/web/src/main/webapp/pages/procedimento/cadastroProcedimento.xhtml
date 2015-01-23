@@ -18,23 +18,20 @@
 					<p:outputLabel for="nome" value="#{msgs['label.nome']}:" />
 					<p:inputText id="nome" value="#{procedimentoController.procedimento.nome}" 
 						styleClass="nome100" maxlength="100" required="true" />
-
-					<p:outputLabel for="nomeAbreviado" value="#{msgs['label.nomeAbreviado']}:" />
-					<p:inputText id="nomeAbreviado" value="#{procedimentoController.procedimento.nomeAbreviado}" 
-						styleClass="nome50" maxlength="50" required="false" />
-
-					<p:outputLabel for="sigla" value="#{msgs['label.sigla']}:" />
-					<p:inputText id="sigla" value="#{procedimentoController.procedimento.sigla}" 
-						styleClass="nome10" maxlength="10" required="true" />
-
-					<p:outputLabel for="tipoProcedimento" value="#{msgs['label.tipoProcedimento']}:" />
-					<p:selectOneMenu id="tipoProcedimento" value="#{procedimentoController.procedimento.tipoProcedimento}"
-						required="true">
-						<f:selectItems value="#{procedimentoController.tiposProcedimento}" var="tipoProcedimento"
-							itemLabel="#{tipoProcedimento.stringChave}" itemValue="#{tipoProcedimento.value}" />
-					</p:selectOneMenu>
 					
 				</h:panelGrid>
+				
+				<p:tabView id="tabViewCadastroProcedimento">
+				
+					<p:tab title="#{msgs['label.dadosCadastrais']}">
+						<ui:include src="includes/tabDadosCadastraisProcedimento.xhtml" />
+					</p:tab>
+					
+					<p:tab title="#{msgs['label.credenciados']}" id="tabCredenciados" >
+						<ui:include src="includes/tabCredenciadosProcedimento.xhtml" />
+					</p:tab>
+				
+				</p:tabView>
 				
 			</p:panel>
 			

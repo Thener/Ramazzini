@@ -26,6 +26,9 @@ public class ProcedimentoController extends AbstractBean implements Serializable
 
 	private @Inject Conversation conversation;
 	
+	@Inject
+	private ProcedimentoCredenciadoController procedimentoCredenciadoController;
+	
     @Inject
     private ProcedimentoService procedimentoService;  	
 	
@@ -57,17 +60,17 @@ public class ProcedimentoController extends AbstractBean implements Serializable
 	public String incluirProcedimento() {
 		
 		procedimento = new Procedimento();
-		return cadatroProcedimento(procedimento, Boolean.FALSE);
+		return cadastroProcedimento(procedimento, Boolean.FALSE);
 	}    
 	
     public String alterarProcedimento(Procedimento procedimento){
     	
-    	return cadatroProcedimento(procedimento, Boolean.FALSE);
+    	return cadastroProcedimento(procedimento, Boolean.FALSE);
     }	
     
     public String visualizarProcedimento(Procedimento procedimento){
     	
-    	return cadatroProcedimento(procedimento, Boolean.TRUE);
+    	return cadastroProcedimento(procedimento, Boolean.TRUE);
     }
     
     public void removerProcedimento(Procedimento procedimento){
@@ -88,8 +91,8 @@ public class ProcedimentoController extends AbstractBean implements Serializable
 		return PAGINA_PESQUISAR_PROCEDIMENTO;
 	}    
     
-    private String cadatroProcedimento(Procedimento procedimento, Boolean somenteLeitura) {
-    	
+    private String cadastroProcedimento(Procedimento procedimento, Boolean somenteLeitura) {
+    	procedimentoCredenciadoController.setProcedimento(procedimento);
     	setProcedimento(procedimento);
     	setSomenteLeitura(somenteLeitura);
     	return PAGINA_CADASTRO_PROCEDIMENTO;    	
