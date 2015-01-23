@@ -75,6 +75,7 @@ public class HorarioAtendimentoController extends AbstractBean implements Serial
 	public String gravarHorarioAtendimento() {
 		
 		boolean inclusao = horarioAtendimento.isNovo();
+		horarioAtendimento.setProgramacoes(programacaoHorarioAtendimentoController.getProgramacoes());
 		horarioAtendimentoService.salvar(horarioAtendimento);
 		if (inclusao) {
 			return alterarHorarioAtendimento(horarioAtendimento);

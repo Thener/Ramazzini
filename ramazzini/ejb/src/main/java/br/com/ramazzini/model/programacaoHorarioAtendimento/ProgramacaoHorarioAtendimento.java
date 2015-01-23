@@ -1,4 +1,4 @@
-package br.com.ramazzini.model.horarioAtendimento;
+package br.com.ramazzini.model.programacaoHorarioAtendimento;
 
 import java.io.Serializable;
 
@@ -15,6 +15,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import br.com.ramazzini.model.horarioAtendimento.DiaSemana;
+import br.com.ramazzini.model.horarioAtendimento.HorarioAtendimento;
 import br.com.ramazzini.model.util.AbstractEntidade;
 
 @SequenceGenerator(name = "seq_prog_horario_atendimento", sequenceName = "seq_prog_horario_atendimento", allocationSize = 1)

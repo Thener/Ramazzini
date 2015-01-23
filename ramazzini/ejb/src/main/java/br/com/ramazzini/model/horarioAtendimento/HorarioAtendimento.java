@@ -3,6 +3,7 @@ package br.com.ramazzini.model.horarioAtendimento;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,10 +14,10 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import br.com.ramazzini.model.profissional.Profissional;
+import br.com.ramazzini.model.programacaoHorarioAtendimento.ProgramacaoHorarioAtendimento;
 import br.com.ramazzini.model.util.AbstractEntidade;
 
 @SequenceGenerator(name = "seq_horario_atendimento", sequenceName = "seq_horario_atendimento", allocationSize = 1)
@@ -36,7 +37,8 @@ public class HorarioAtendimento extends AbstractEntidade implements Serializable
     @NotNull
     private String nome;
 
-	@OneToMany(mappedBy="horarioAtendimento")
+	@OneToMany(mappedBy="horarioAtendimento",
+			cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	private List<ProgramacaoHorarioAtendimento> programacoes;
 	
 	@OneToMany(mappedBy="horarioAtendimento")

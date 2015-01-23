@@ -9,9 +9,8 @@ import javax.inject.Named;
 
 import br.com.ramazzini.controller.util.AbstractBean;
 import br.com.ramazzini.model.horarioAtendimento.HorarioAtendimento;
-import br.com.ramazzini.model.horarioAtendimento.ProgramacaoHorarioAtendimento;
+import br.com.ramazzini.model.programacaoHorarioAtendimento.ProgramacaoHorarioAtendimento;
 import br.com.ramazzini.service.entidade.ProgramacaoHorarioAtendimentoService;
-import br.com.ramazzini.util.UtilMensagens;
 
 @Named
 @ConversationScoped
@@ -50,13 +49,7 @@ public class ProgramacaoHorarioAtendimentoController extends AbstractBean implem
     
     public void removerProgramacao(ProgramacaoHorarioAtendimento programacao){
     	
-    	try {
-    		programacaoHorarioAtendimentoService.remover(programacao, programacao.getId());
-    		programacoes.remove(programacao);
-    		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeExcluidaComSucesso", "Lotação");
-    	} catch (Exception e) {
-    		UtilMensagens.mensagemErroPorChave("mensagem.erro.naoFoiPossivelExcluirRegistro", "a lotação.");
-        }
+    	programacoes.remove(programacao);
     }    
     
     private String cadastroProgramacao(ProgramacaoHorarioAtendimento programacao, Boolean somenteLeitura) {
@@ -66,10 +59,10 @@ public class ProgramacaoHorarioAtendimentoController extends AbstractBean implem
     	return PAGINA_CADASTRO_PROGRAMACAO;    	
     }
     
-	public void gravarProgramacao() {
+	public void adicionarProgramacao() {
 		
-		programacaoHorarioAtendimentoService.salvar(programacao);
-		//return PAGINA_CADASTRO_HORARIO_ATENDIMENTO;
+		programacoes.add(programacao);
+		incluirProgramacao();
 	}
 	
 	public List<ProgramacaoHorarioAtendimento> getProgramacoes() {
@@ -85,7 +78,7 @@ public class ProgramacaoHorarioAtendimentoController extends AbstractBean implem
 	}
 
 	public void setHorarioAtendimento(HorarioAtendimento horarioAtendimento) {
-		setProgramacoes(null); // se está mudando a empresa, então zerar a lista.
+		setProgramacoes(programacaoHorarioAtendimentoService.recuperarPorHorarioAtendimento(horarioAtendimento)); // se está mudando a empresa, então recarregar a lista.
 		this.horarioAtendimento = horarioAtendimento;
 	}
 

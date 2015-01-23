@@ -4,10 +4,9 @@
    xmlns:f="http://java.sun.com/jsf/core"
    xmlns:h="http://java.sun.com/jsf/html"
    xmlns:p="http://primefaces.org/ui"
+   xmlns:pe="http://primefaces.org/ui/extensions"
    template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
-	
-		<ui:include src="includes/dialogProgramacao.xhtml" />
 	
 		<h:form id="frmCadastroHorarioAtendimento">
 		
@@ -27,18 +26,16 @@
 				
 				<p:fieldset legend="#{msgs['label.programacoes']}">
 			   
-				   	<p:commandButton value="#{msgs['botao.incluir']}"  
+				   	<p:commandButton actionListener="#{programacaoHorarioAtendimentoController.incluirProgramacao()}" 
+				   		value="#{msgs['botao.incluir']}"  
 				   		 icon="ui-icon-circle-plus" ajax="true"
 				   		 onclick="PF('dialogProgramacao').show();" 
 				   		 disabled="#{horarioAtendimentoController.somenteLeitura 
-				   		 	or horarioAtendimentoController.horarioAtendimento.novo}">
-				   		 	
-				   		 <f:ajax execute="#{programacaoHorarioAtendimentoController.incluirProgramacao()}" />
-				   	</p:commandButton>
+				   		 	or horarioAtendimentoController.horarioAtendimento.novo}" />
 				   		 
 					<p:dataTable var="programacao" value="#{programacaoHorarioAtendimentoController.programacoes}"
 						id="gridProgramacoes" emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}"
-						paginator="true" paginatorPosition="bottom" rows="5" style="margin-top:10px;">
+						paginator="true" paginatorPosition="bottom" rows="50" style="margin-top:10px;">
 						
 						<f:facet name="header"> #{msgs['label.programacoes']} </f:facet>
 						
@@ -46,6 +43,21 @@
 							<h:outputText value="#{programacao.diaSemanaEnum.stringChave}" />
 						</p:column>
 								
+						<p:column headerText="#{msgs['label.horaInicial']}" 
+							sortBy="#{programacao.horaInicio}" styleClass="colunaCentralizada">
+							<h:outputText value="#{programacao.horaInicio}" />
+						</p:column>
+						
+						<p:column headerText="#{msgs['label.horaFinal']}" 
+							sortBy="#{programacao.horaFim}" styleClass="colunaCentralizada" >
+							<h:outputText value="#{programacao.horaFim}" />
+						</p:column>		
+						
+						<p:column headerText="#{msgs['label.intervalo']}" 
+							sortBy="#{programacao.intervalo}" styleClass="colunaCentralizada" >
+							<h:outputText value="#{programacao.intervalo}" />
+						</p:column>										
+														
 						<p:column headerText="#{msgs['label.acoes']}" styleClass="colunaAcoes">
 							<p:panelGrid columns="3">					  
 								<p:commandLink title="#{msgs['label.visualizar']}" action="#{programacaoHorarioAtendimentoController.visualizarProgramacao(programacao)}"
@@ -85,6 +97,57 @@
 			</p:toolbar>
 			
 		</h:form>
+		
+		<p:dialog header="#{msgs['label.horarioAtendimento']}" widgetVar="dialogProgramacao" 
+			modal="true" height="240" width="400" resizable="false">
+			
+			<h:form id="frmCadastroProgramacaoHorarioAtendimento">
+			
+				<p:panel id="panelDadosHorarioAtendimento" header="#{msgs['label.programacao']}">
+				
+					<h:panelGrid columns="2" cellpadding="5">
+					
+						<p:outputLabel for="diaSemana" value="#{msgs['label.diaSemana']}" />
+						<p:selectOneMenu id="diaSemana"
+							value="#{programacaoHorarioAtendimentoController.programacao.diaSemana}">
+							<f:selectItems value="#{combosEstaticos.diasSemana}" var="diaSemana"
+								itemLabel="#{diaSemana.stringChave}" itemValue="#{diaSemana.value}" />
+						</p:selectOneMenu>
+						
+						<p:outputLabel for="horaInicio" value="#{msgs['label.horaInicial']}" />
+						<p:inputMask id="horaInicio" value="#{programacaoHorarioAtendimentoController.programacao.horaInicio}" 
+							mask="99:99" styleClass="hora"/>
+							
+						<p:outputLabel for="horaFim" value="#{msgs['label.horaFinal']}" />
+						<p:inputMask id="horaFim" value="#{programacaoHorarioAtendimentoController.programacao.horaFim}" 
+							mask="99:99" styleClass="hora"/>					
+					
+						<p:outputLabel for="intervalo" value="#{msgs['label.intervalo']}" />
+						<pe:inputNumber id="intervalo" maxValue="120" decimalPlaces="0" styleClass="intervaloMinutos"
+							value="#{programacaoHorarioAtendimentoController.programacao.intervalo}"/>
+												
+					</h:panelGrid>		
+		    
+			    </p:panel>
+		    
+				<p:toolbar id="toolBar">
+					<f:facet name="left">					
+					   	<p:commandButton title="#{msgs['botao.voltar']}" type="button" 
+					   		 icon="ui-icon-arrowreturnthick-1-w" onclick="PF('dialogProgramacao').hide();"/>					
+						
+						<p:commandButton id="botaoSalvarDialogProgramacao" 
+							actionListener="#{programacaoHorarioAtendimentoController.adicionarProgramacao()}"
+							value="#{msgs['botao.incluir']}" icon="ui-icon-circle-plus" title="#{msgs['botao.incluir']}"
+							disabled="#{programacaoHorarioAtendimentoController.somenteLeitura}" ajax="true"
+							onclick="PF('dialogProgramacao').hide();" 
+							update=":frmCadastroHorarioAtendimento:gridProgramacoes, frmCadastroProgramacaoHorarioAtendimento"/>
+							
+					</f:facet>
+				</p:toolbar>
+				
+			</h:form>	    
+		    
+		</p:dialog>		
 		
 	</ui:define>
 	

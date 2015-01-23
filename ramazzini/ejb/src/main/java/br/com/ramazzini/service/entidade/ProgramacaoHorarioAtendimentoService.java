@@ -16,15 +16,21 @@
  */
 package br.com.ramazzini.service.entidade;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 
-import br.com.ramazzini.model.horarioAtendimento.ProgramacaoHorarioAtendimento;
+import br.com.ramazzini.dao.programacaoHorarioAtendimento.ProgramacaoHorarioAtendimentoDao;
+import br.com.ramazzini.model.horarioAtendimento.HorarioAtendimento;
+import br.com.ramazzini.model.programacaoHorarioAtendimento.ProgramacaoHorarioAtendimento;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
 
 // The @Stateless annotation eliminates the need for manual transaction demarcation
 @Stateless
 public class ProgramacaoHorarioAtendimentoService extends AbstractServiceImpl<ProgramacaoHorarioAtendimento> {
 
-    
+    public List<ProgramacaoHorarioAtendimento> recuperarPorHorarioAtendimento(HorarioAtendimento horarioAtendimento) {
+    	return (!horarioAtendimento.isNovo()) ? ((ProgramacaoHorarioAtendimentoDao) getDao()).recuperarPorHorarioAtendimento(horarioAtendimento) : null;
+    }	
 
 }
