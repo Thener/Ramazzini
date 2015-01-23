@@ -13,17 +13,15 @@
 			<p:growl id="growl" showDetail="true" sticky="true" />
 			
 			<p:panel id="panelDadosProcedimentoCredenciado" header="#{msgs['label.procedimentosCredenciado']}">
-			
-				<h:panelGrid columns="2" cellpadding="10">
-					
-					<p:outputLabel value="#{msgs['label.credenciado']}:" />
-					<p:outputLabel value="#{credenciadoController.credenciado.nome}" />
-					
-				</h:panelGrid>
-				
-				<p:separator />
-			
-				<h:panelGrid columns="6" cellpadding="10">
+							
+				<h:panelGrid columns="4" cellpadding="10">
+					<p:outputLabel value="#{msgs['label.credenciado']}: " for="credenciado" />
+					<p:autoComplete id="credenciado"
+						value="#{procedimentoCredenciadoController.procedimentoCredenciado.credenciado}"
+						var="credenciado" itemLabel="#{credenciado.nome}"
+						completeMethod="#{autoComplete.completeCredenciado}"
+						itemValue="#{credenciado}" converter="entityConverter"
+						forceSelection="true" />						
 					
 					<p:outputLabel value="#{msgs['label.procedimento']}: " for="procedimento" />
 					<p:autoComplete id="procedimento"

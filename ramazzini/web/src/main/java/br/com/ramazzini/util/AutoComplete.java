@@ -5,9 +5,11 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import br.com.ramazzini.model.credenciado.Credenciado;
 import br.com.ramazzini.model.empresa.Empresa;
 import br.com.ramazzini.model.procedimento.Procedimento;
 import br.com.ramazzini.model.riscoOcupacional.RiscoOcupacional;
+import br.com.ramazzini.service.entidade.CredenciadoService;
 import br.com.ramazzini.service.entidade.EmpresaService;
 import br.com.ramazzini.service.entidade.ProcedimentoService;
 import br.com.ramazzini.service.entidade.RiscoOcupacionalService;
@@ -22,6 +24,9 @@ public class AutoComplete {
     ProcedimentoService procedimentoService;
     
     @Inject
+    CredenciadoService credenciadoService;
+    
+    @Inject
     RiscoOcupacionalService riscoOcupacionalService;    
     
     public List<Empresa> completeEmpresa(String query) {
@@ -33,6 +38,12 @@ public class AutoComplete {
     public List<Procedimento> completeProcedimento(String query) {            
         if (!query.isEmpty())
         	return procedimentoService.recuperarPorNome(query);
+        return null;
+    }
+    
+    public List<Credenciado> completeCredenciado(String query) {            
+        if (!query.isEmpty())
+        	return credenciadoService.recuperarPorNome(query);
         return null;
     }
     
