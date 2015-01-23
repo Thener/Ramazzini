@@ -18,6 +18,10 @@ input.hasDatepicker {
 	width: 80px;
 }
 
+span.idade input {
+	width: 40px !important;
+}
+
 input.nome10 {
 	width: 84px !important;	
 }
@@ -30,10 +34,13 @@ input.nome100, span.nome100 input.ui-autocomplete-input {
 	width: 480px !important;	
 }
 
+span.retornoMeses input {
+	width: 40px !important;
+}
+
 input.telefone {
 	width: 110px !important;	
 }
 textarea.tam100 {
 	width: 480px !important;
 }
-

@@ -67,10 +67,7 @@ public class FuncaoProcedimento extends AbstractEntidade implements Serializable
 	
 	@Column(name = "no_retorno_periodico")
 	private Integer retornoPeriodico;
-	
-	@Column(name = "no_retorno_demissional")
-	private Integer retornoDemissional;
-	
+		
 	@Column(name = "no_retorno_mudanca_funcao")
 	private Integer retornoMudancaFuncao;
 	
@@ -159,14 +156,6 @@ public class FuncaoProcedimento extends AbstractEntidade implements Serializable
 
 	public void setRetornoPeriodico(Integer retornoPeriodico) {
 		this.retornoPeriodico = retornoPeriodico;
-	}
-
-	public Integer getRetornoDemissional() {
-		return retornoDemissional;
-	}
-
-	public void setRetornoDemissional(Integer retornoDemissional) {
-		this.retornoDemissional = retornoDemissional;
 	}
 
 	public Integer getRetornoMudancaFuncao() {

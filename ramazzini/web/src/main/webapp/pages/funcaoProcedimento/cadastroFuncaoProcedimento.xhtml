@@ -4,28 +4,29 @@
    xmlns:f="http://java.sun.com/jsf/core"
    xmlns:h="http://java.sun.com/jsf/html"
    xmlns:p="http://primefaces.org/ui"
-   template="/WEB-INF/templates/default.xhtml">
+   template="/WEB-INF/templates/default.xhtml"
+   xmlns:pe="http://primefaces.org/ui/extensions">
 	<ui:define name="content">
 	
 		<h:form id="frmCadastroFuncaoProcedimento">
 		
 			<p:growl id="growl" showDetail="false" sticky="false" />
 			
-			<p:panel id="panelDadosFuncaoProcedimento" header="#{msgs['label.procedimentos']}">
+			<p:panel id="panelDadosFuncaoProcedimento" header="#{msgs['label.procedimentoFuncao']}">
 			
-				<h:panelGrid columns="2" cellpadding="10">
+				<h:panelGrid columns="2" cellpadding="2">
 					
 					<p:outputLabel value="#{msgs['label.empresa']}:" />
-					<p:outputLabel value="#{funcaoController.empresa.nome}" />
+					<p:outputLabel value="#{funcaoController.empresa.nome}" style="font-weight: bold;"/>
 					
 					<p:outputLabel value="#{msgs['label.funcao']}:" />
-					<p:outputLabel value="#{funcaoController.funcao.nome}" />					
+					<p:outputLabel value="#{funcaoController.funcao.nome}" style="font-weight: bold;" />					
 					
 				</h:panelGrid>
 				
 				<p:separator />
 			
-				<h:panelGrid columns="2" cellpadding="5">
+				<h:panelGrid columns="4" cellpadding="5">
 
 					<p:outputLabel value="#{msgs['label.procedimento']}: " for="completeProcedimento" />
 					<p:autoComplete id="completeProcedimento"
@@ -35,9 +36,53 @@
 						itemValue="#{procedimento}" converter="entityConverter"
 						forceSelection="true" styleClass="nome50"
 						required="true" requiredMessage="#{msgs['required.procedimenro.obrigatorio']}"
-						disabled="#{not funcaoProcedimentoController.funcaoProcedimento.novo}"/>					
-
+						disabled="#{not funcaoProcedimentoController.funcaoProcedimento.novo}"/>
+					
+					<p:outputLabel value="#{msgs['label.idadeExigencia']}: " />	
+					<pe:inputNumber maxValue="150" decimalPlaces="0" styleClass="idade"
+						value="#{funcaoProcedimentoController.funcaoProcedimento.idadeExigencia}"/>
+						
 				</h:panelGrid>
+				
+				<p:fieldset legend="#{msgs['label.configuracoes']}">
+				
+					<h:panelGrid columns="4" cellpadding="5" columnClasses="colunaAlinhadaDireita">
+					
+						<h:outputLabel value="#{msgs['label.realizaAdmissional']}:"  />
+						<p:selectBooleanCheckbox value="#{funcaoProcedimentoController.funcaoProcedimento.realizaAdmissional}" />
+						
+						<p:outputLabel value="#{msgs['label.retornoEmMeses']}: " />	
+						<pe:inputNumber maxValue="120" decimalPlaces="0" styleClass="retornoMeses"
+							value="#{funcaoProcedimentoController.funcaoProcedimento.retornoAdmissional}"/>	
+							
+						<h:outputLabel value="#{msgs['label.realizaPeriodico']}:" />
+						<p:selectBooleanCheckbox value="#{funcaoProcedimentoController.funcaoProcedimento.realizaPeriodico}" />
+						
+						<p:outputLabel value="#{msgs['label.retornoEmMeses']}: " />	
+						<pe:inputNumber maxValue="120" decimalPlaces="0" styleClass="retornoMeses"
+							value="#{funcaoProcedimentoController.funcaoProcedimento.retornoPeriodico}"/>	
+							
+						<h:outputLabel value="#{msgs['label.realizaMudancaFuncao']}:" />
+						<p:selectBooleanCheckbox value="#{funcaoProcedimentoController.funcaoProcedimento.realizaMudancaFuncao}" />
+						
+						<p:outputLabel value="#{msgs['label.retornoEmMeses']}: " />	
+						<pe:inputNumber maxValue="120" decimalPlaces="0" styleClass="retornoMeses"
+							value="#{funcaoProcedimentoController.funcaoProcedimento.retornoMudancaFuncao}"/>	
+							
+						<h:outputLabel value="#{msgs['label.realizaRetornoTrabalho']}:" />
+						<p:selectBooleanCheckbox value="#{funcaoProcedimentoController.funcaoProcedimento.realizaRetornoTrabalho}" />
+						
+						<p:outputLabel value="#{msgs['label.retornoEmMeses']}: " />	
+						<pe:inputNumber maxValue="120" decimalPlaces="0" styleClass="retornoMeses"
+							value="#{funcaoProcedimentoController.funcaoProcedimento.retornoRetornoTrabalho}"/>
+	
+						<h:outputLabel value="#{msgs['label.realizaDemissional']}:" />
+						<p:selectBooleanCheckbox value="#{funcaoProcedimentoController.funcaoProcedimento.realizaDemissional}" />
+	
+					</h:panelGrid>
+				
+				</p:fieldset>
+				
 
 			</p:panel>
 			
