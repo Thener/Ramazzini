@@ -6,6 +6,10 @@
 	xmlns:p="http://primefaces.org/ui">
 				
 	<p:submenu label="#{msgs['menu.label.agenda']}">
+
+		<p:menuitem value="#{msgs['menu.label.feriados']}" url=""/>
+		
+		<p:separator />
 	
 		<p:menuitem value="#{msgs['menu.label.horarioAtendimento']}" url="/pages/horarioAtendimento/pesquisarHorarioAtendimento.jsf" 
 			rendered="#{menuController.controleAcesso.telaAutorizada('horarioAtendimento','pesquisarHorarioAtendimento.jsf')}"/>
