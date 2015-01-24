@@ -28,6 +28,18 @@
 				<ui:include src="/WEB-INF/menus/menuCadastrosBasicos.xhtml" />
 				
 			</p:submenu>
+			
+			<p:submenu label="#{msgs['menu.label.agenda']}" icon="ui-icon-note">
+				
+				<ui:include src="/WEB-INF/menus/menuAgenda.xhtml" />
+				
+			</p:submenu>			
+			
+			<p:submenu label="#{msgs['menu.label.apoio']}" icon="ui-icon-person">
+				
+				<ui:include src="/WEB-INF/menus/menuApoioPesquisas.xhtml" />
+				
+			</p:submenu>			
 
 			<p:menuitem value="#{msgs['menu.label.sair']}" action="#{loginController.logout()}"
 				icon="ui-icon-close" />
