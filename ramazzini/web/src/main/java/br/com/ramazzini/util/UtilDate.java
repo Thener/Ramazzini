@@ -11,4 +11,8 @@ public class UtilDate {
 		return Days.daysBetween(new DateTime(dataInicial), new DateTime(dataFinal)).getDays();
 	}
 	
+	public static Date somarDias(Date dt, int dias) {
+		return new DateTime(dt).plusDays(dias).toDate();
+	}
+	
 }

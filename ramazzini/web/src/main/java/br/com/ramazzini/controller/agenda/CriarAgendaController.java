@@ -35,6 +35,15 @@ public class CriarAgendaController extends AbstractBean implements Serializable 
 			return;			
 		}
 		
+		Date dtInicial = dataInicialSelecionada;
+		
+		while (dtInicial.compareTo(dataFinalSelecionada) <= 0) {
+			
+			
+			
+			dtInicial = UtilDate.somarDias(dtInicial, 1);
+		}
+		
 	}
 
 	public Profissional getProfissionalSelecionado() {

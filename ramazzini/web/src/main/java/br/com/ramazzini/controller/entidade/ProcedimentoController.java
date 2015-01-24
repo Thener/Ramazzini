@@ -37,9 +37,7 @@ public class ProcedimentoController extends AbstractBean implements Serializable
 	private List<Procedimento> procedimentos;
 	
 	private String nomeProcedimentoPesquisa;
-	
-	private boolean somenteLeitura = Boolean.FALSE;
-	
+		
 	private Integer tabAtiva;
 	
 	@PostConstruct
@@ -114,14 +112,6 @@ public class ProcedimentoController extends AbstractBean implements Serializable
 
 	public void setNomeProcedimentoPesquisa(String nomeProcedimentoPesquisa) {
 		this.nomeProcedimentoPesquisa = nomeProcedimentoPesquisa;
-	}
-
-	public boolean isSomenteLeitura() {
-		return somenteLeitura;
-	}
-
-	public void setSomenteLeitura(boolean somenteLeitura) {
-		this.somenteLeitura = somenteLeitura;
 	}
 
 	public Procedimento getProcedimento() {

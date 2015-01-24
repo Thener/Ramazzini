@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui"
+   template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+	
+	<p:growl id="messages" showDetail="false" sticky="false" />
+	
+		<h:form id="frmConfiguracaoSistema">
+			
+			<p:panel id="panelConfiguracaoSistema" header="#{msgs['label.configuracoes']}">
+
+				<p:fieldset legend="#{msgs['label.agenda']}">
+
+					<h:panelGrid columns="6" cellpadding="5">
+					
+						<p:outputLabel value="#{msgs['parametroSistema.agenda.CriarAgendaAosSabados']}" />
+						<p:selectOneMenu value="#{parametroController.parametroAgendaCriarSabado.valor}">
+							<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""/>
+							<f:selectItem itemLabel="#{msgs['label.nao']}" itemValue="0"/>
+							<f:selectItem itemLabel="#{msgs['label.sim']}" itemValue="1"/>
+						</p:selectOneMenu>
+						
+						<p:outputLabel value="#{msgs['parametroSistema.agenda.CriarAgendaAosDomingos']}" />
+						<p:selectOneMenu value="#{parametroController.parametroAgendaCriarDomingo.valor}">
+							<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""/>
+							<f:selectItem itemLabel="#{msgs['label.nao']}" itemValue="0"/>
+							<f:selectItem itemLabel="#{msgs['label.sim']}" itemValue="1"/>
+						</p:selectOneMenu>
+						
+						<p:outputLabel value="#{msgs['parametroSistema.agenda.CriarAgendaNosFeriados']}" />
+						<p:selectOneMenu value="#{parametroController.parametroAgendaCriarFeriado.valor}">
+							<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""/>
+							<f:selectItem itemLabel="#{msgs['label.nao']}" itemValue="0"/>
+							<f:selectItem itemLabel="#{msgs['label.sim']}" itemValue="1"/>
+						</p:selectOneMenu>
+						
+					</h:panelGrid>
+				
+				</p:fieldset>
+				
+				<p:fieldset legend="#{msgs['label.controleAcesso']}" style="margin-top:5px;">
+
+					<h:panelGrid columns="6" cellpadding="5">
+					
+						<p:outputLabel value="#{msgs['parametroSistema.acesso.NumeroMaxTentativasLogin']}" />
+						<p:inputMask mask="9?9" maxlength="2" placeHolder=" " styleClass="nome5"
+							value="#{parametroController.parametroAcessoNumTentativasLogin.valor}" />							
+													
+					</h:panelGrid>
+				
+				</p:fieldset>				
+				
+			</p:panel>
+			
+			<p:toolbar>
+				<f:facet name="left">
+				
+				    <p:commandButton value="#{msgs['botao.gravar']}" actionListener="#{parametroController.gravar()}" 
+				    		update="panelConfiguracaoSistema, :messages" icon="ui-icon-disk">
+				        <p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['confimacao.alteracaoParametros']}" 
+				        	icon="ui-icon-alert" />
+				    </p:commandButton>
+				 
+				    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+				        <p:commandButton value="#{msgs['label.confirmacaoSim']}" type="button" 
+				        	styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				        <p:commandButton value="#{msgs['label.confirmacaoNao']}" type="button" 
+				        	styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				    </p:confirmDialog>
+						
+				</f:facet>
+			</p:toolbar>
+			
+		</h:form>
+		
+	</ui:define>
+	
+</ui:composition>
