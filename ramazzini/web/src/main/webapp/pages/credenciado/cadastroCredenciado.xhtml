@@ -11,13 +11,18 @@
 			<p:growl id="growl" showDetail="true" sticky="true" />		
 			<p:panel id="panelDadosCredenciado" header="#{msgs['label.credenciado']}">
 			
-				<h:panelGrid columns="2" cellpadding="20">
+				<h:panelGrid columns="4" cellpadding="10">
 				
 					<p:outputLabel for="nome" value="#{msgs['label.nome']}:" />
 					
 					<p:inputText id="nome"
 						value="#{credenciadoController.credenciado.nome}"
 						required="true" styleClass="nome50" readonly="#{credenciadoController.somenteLeitura}"/>
+						
+					<h:outputLabel for="ativoCheck" value="#{msgs['label.ativo']}:" />
+					<p:selectBooleanCheckbox id="ativoCheck"
+						value="#{credenciadoController.credenciado.ativo}" disabled="#{credenciadoController.somenteLeitura}"/>
+						
 						
 				</h:panelGrid>
 				

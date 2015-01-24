@@ -5,7 +5,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 				
-	<p:submenu label="#{msgs['menu.label.pesquisasGerais']}">
+	<p:submenu label="#{msgs['menu.label.pesquisasGerais']}" icon="ui-icon-search">
 	
 		<p:menuitem value="#{msgs['menu.label.funcionarios']}" url="/pages/funcionario/pesquisaGeralFuncionario.jsf" 
 			rendered="#{menuController.controleAcesso.telaAutorizada('funcionario','pesquisaGeralFuncionario.jsf')}"/>

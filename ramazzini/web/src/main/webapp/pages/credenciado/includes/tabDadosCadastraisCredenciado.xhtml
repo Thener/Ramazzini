@@ -5,19 +5,6 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">	
 
-	<h:panelGrid columns="6" cellpadding="10">			
-
-		<h:outputLabel for="ativoCheck" value="#{msgs['label.ativo']}:" />
-		<p:selectBooleanCheckbox id="ativoCheck"
-			value="#{credenciadoController.credenciado.ativo}" disabled="#{credenciadoController.somenteLeitura}"/>
-
-		<p:outputLabel for="horario"
-			value="#{msgs['label.horarioAtendimento']}:" />
-		<p:inputText id="horario"
-			value="#{credenciadoController.credenciado.horarioAtendimento}"
-			styleClass="nome50" maxlength="200" readonly="#{credenciadoController.somenteLeitura}"/>
-	</h:panelGrid>
-
 	<p:fieldset legend="#{msgs['label.endereco']}">
 		<h:panelGrid columns="6" cellpadding="5">	
 			<p:outputLabel for="logradouro" value="#{msgs['label.logradouro']}:" />
@@ -48,4 +35,21 @@
 			</p:selectOneMenu>
 		</h:panelGrid>
 	</p:fieldset>
+	
+	<p:spacer width="10px"/>
+	
+	<h:panelGrid columns="2" cellpadding="5">			
+
+		<p:outputLabel for="horario" value="#{msgs['label.horarioAtendimento']}:" /> 
+		<p:inputText id="horario"
+			value="#{credenciadoController.credenciado.horarioAtendimento}"
+			styleClass="nome100" maxlength="200" readonly="#{credenciadoController.somenteLeitura}"/>
+			
+		<p:outputLabel for="referenciaEndereco" value="#{msgs['label.referenciaEndereco']}:" />
+		<p:inputText id="referenciaEndereco"
+			value="#{credenciadoController.credenciado.endereco.referenciaEndereco}"
+			styleClass="nome100" maxlength="200" readonly="#{credenciadoController.somenteLeitura}"/>			
+			
+	</h:panelGrid>
+		
 </ui:composition>
