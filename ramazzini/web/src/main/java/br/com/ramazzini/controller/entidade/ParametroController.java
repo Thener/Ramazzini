@@ -28,7 +28,9 @@ public class ParametroController extends AbstractBean implements Serializable {
 	
 	private Parametro parametroAgendaCriarDomingo;
 
-	private Parametro parametroAgendaCriarFeriado;	
+	private Parametro parametroAgendaCriarFeriado;
+	
+	private Parametro parametroAcessoNumTentativasLogin;	
 		
 	@PostConstruct
 	public void init() {
@@ -40,6 +42,7 @@ public class ParametroController extends AbstractBean implements Serializable {
 		parametroAgendaCriarSabado = parametroService.recuperarPorNome(ParametroSistema.AGENDA_CRIAR_SABADO.getValue());
 		parametroAgendaCriarDomingo = parametroService.recuperarPorNome(ParametroSistema.AGENDA_CRIAR_DOMINGO.getValue());
 		parametroAgendaCriarFeriado = parametroService.recuperarPorNome(ParametroSistema.AGENDA_CRIAR_FERIADO.getValue());
+		parametroAcessoNumTentativasLogin = parametroService.recuperarPorNome(ParametroSistema.ACESSO_NUM_MAX_TENTATIVAS_LOGIN.getValue());
 	}
 	
 	public void gravar() {
@@ -47,6 +50,7 @@ public class ParametroController extends AbstractBean implements Serializable {
 		parametroService.salvar(parametroAgendaCriarSabado);
 		parametroService.salvar(parametroAgendaCriarDomingo);
 		parametroService.salvar(parametroAgendaCriarFeriado);
+		parametroService.salvar(parametroAcessoNumTentativasLogin);
 		
 		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.dadosGravadosComSucesso","Parâmetros");
 	}
@@ -73,6 +77,15 @@ public class ParametroController extends AbstractBean implements Serializable {
 
 	public void setParametroAgendaCriarFeriado(Parametro parametroAgendaCriarFeriado) {
 		this.parametroAgendaCriarFeriado = parametroAgendaCriarFeriado;
+	}
+
+	public Parametro getParametroAcessoNumTentativasLogin() {
+		return parametroAcessoNumTentativasLogin;
+	}
+
+	public void setParametroAcessoNumTentativasLogin(
+			Parametro parametroAcessoNumTentativasLogin) {
+		this.parametroAcessoNumTentativasLogin = parametroAcessoNumTentativasLogin;
 	}
 
 

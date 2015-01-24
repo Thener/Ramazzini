@@ -15,23 +15,23 @@
 
 				<p:fieldset legend="#{msgs['label.agenda']}">
 
-					<h:panelGrid columns="2" cellpadding="5">
+					<h:panelGrid columns="6" cellpadding="5">
 					
-						<p:outputLabel value="#{msgs['parametroSistema.CriarAgendaAosSabados']}" />
+						<p:outputLabel value="#{msgs['parametroSistema.agenda.CriarAgendaAosSabados']}" />
 						<p:selectOneMenu value="#{parametroController.parametroAgendaCriarSabado.valor}">
 							<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""/>
 							<f:selectItem itemLabel="#{msgs['label.nao']}" itemValue="0"/>
 							<f:selectItem itemLabel="#{msgs['label.sim']}" itemValue="1"/>
 						</p:selectOneMenu>
 						
-						<p:outputLabel value="#{msgs['parametroSistema.CriarAgendaAosDomingos']}" />
+						<p:outputLabel value="#{msgs['parametroSistema.agenda.CriarAgendaAosDomingos']}" />
 						<p:selectOneMenu value="#{parametroController.parametroAgendaCriarDomingo.valor}">
 							<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""/>
 							<f:selectItem itemLabel="#{msgs['label.nao']}" itemValue="0"/>
 							<f:selectItem itemLabel="#{msgs['label.sim']}" itemValue="1"/>
 						</p:selectOneMenu>
 						
-						<p:outputLabel value="#{msgs['parametroSistema.CriarAgendaNosFeriados']}" />
+						<p:outputLabel value="#{msgs['parametroSistema.agenda.CriarAgendaNosFeriados']}" />
 						<p:selectOneMenu value="#{parametroController.parametroAgendaCriarFeriado.valor}">
 							<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""/>
 							<f:selectItem itemLabel="#{msgs['label.nao']}" itemValue="0"/>
@@ -41,6 +41,18 @@
 					</h:panelGrid>
 				
 				</p:fieldset>
+				
+				<p:fieldset legend="#{msgs['label.controleAcesso']}" style="margin-top:5px;">
+
+					<h:panelGrid columns="6" cellpadding="5">
+					
+						<p:outputLabel value="#{msgs['parametroSistema.acesso.NumeroMaxTentativasLogin']}" />
+						<p:inputMask mask="9?9" maxlength="2" placeHolder=" " styleClass="nome5"
+							value="#{parametroController.parametroAcessoNumTentativasLogin.valor}" />							
+													
+					</h:panelGrid>
+				
+				</p:fieldset>				
 				
 			</p:panel>
 			

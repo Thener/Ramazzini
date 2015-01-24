@@ -30,7 +30,11 @@ span.intervaloMinutos input {
 	width: 35px !important;
 }
 
-input.nome10 {
+input.nome5, span.nome5 input.ui-spinner-input, span.nome5 input.pe-inputNumber {
+	width: 64px !important;	
+}
+
+input.nome10, span.nome10 input.ui-spinner-input {
 	width: 84px !important;	
 }
 
