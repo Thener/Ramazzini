@@ -20,14 +20,15 @@ import javax.ejb.Stateless;
 
 import br.com.ramazzini.dao.parametro.ParametroDao;
 import br.com.ramazzini.model.parametro.Parametro;
+import br.com.ramazzini.model.parametro.ParametroSistema;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
 
 // The @Stateless annotation eliminates the need for manual transaction demarcation
 @Stateless
 public class ParametroService extends AbstractServiceImpl<Parametro> {
 
-    public Parametro recuperarPorNome(String nome) {
-    	return ((ParametroDao) getDao()).recuperarPorNome(nome);
+    public Parametro recuperarPorParametroSistema(ParametroSistema parametroSistema) {
+    	return ((ParametroDao) getDao()).recuperarPorParametroSistema(parametroSistema);
     }	
   
 }

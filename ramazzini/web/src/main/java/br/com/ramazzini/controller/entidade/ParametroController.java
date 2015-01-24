@@ -39,10 +39,10 @@ public class ParametroController extends AbstractBean implements Serializable {
 			conversation.begin();
 		}
 		
-		parametroAgendaCriarSabado = parametroService.recuperarPorNome(ParametroSistema.AGENDA_CRIAR_SABADO.getValue());
-		parametroAgendaCriarDomingo = parametroService.recuperarPorNome(ParametroSistema.AGENDA_CRIAR_DOMINGO.getValue());
-		parametroAgendaCriarFeriado = parametroService.recuperarPorNome(ParametroSistema.AGENDA_CRIAR_FERIADO.getValue());
-		parametroAcessoNumTentativasLogin = parametroService.recuperarPorNome(ParametroSistema.ACESSO_NUM_MAX_TENTATIVAS_LOGIN.getValue());
+		parametroAgendaCriarSabado = parametroService.recuperarPorParametroSistema(ParametroSistema.AGENDA_CRIAR_SABADO);
+		parametroAgendaCriarDomingo = parametroService.recuperarPorParametroSistema(ParametroSistema.AGENDA_CRIAR_DOMINGO);
+		parametroAgendaCriarFeriado = parametroService.recuperarPorParametroSistema(ParametroSistema.AGENDA_CRIAR_FERIADO);
+		parametroAcessoNumTentativasLogin = parametroService.recuperarPorParametroSistema(ParametroSistema.ACESSO_NUM_MAX_TENTATIVAS_LOGIN);
 	}
 	
 	public void gravar() {

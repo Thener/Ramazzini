@@ -4,10 +4,15 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.enterprise.context.ConversationScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.ramazzini.controller.util.AbstractBean;
+import br.com.ramazzini.model.horarioAtendimento.DiaSemana;
+import br.com.ramazzini.model.parametro.Parametro;
+import br.com.ramazzini.model.parametro.ParametroSistema;
 import br.com.ramazzini.model.profissional.Profissional;
+import br.com.ramazzini.service.entidade.ParametroService;
 import br.com.ramazzini.util.UtilDate;
 import br.com.ramazzini.util.UtilMensagens;
 
@@ -17,6 +22,9 @@ public class CriarAgendaController extends AbstractBean implements Serializable 
 
 	private static final long serialVersionUID = 1L;
 	
+    @Inject
+    private ParametroService parametroService;
+    
 	private Profissional profissionalSelecionado;
 	
 	private Date dataInicialSelecionada;
@@ -35,11 +43,22 @@ public class CriarAgendaController extends AbstractBean implements Serializable 
 			return;			
 		}
 		
+		Parametro criarSabado = parametroService.recuperarPorParametroSistema(ParametroSistema.AGENDA_CRIAR_SABADO);
+		Parametro criarDomingo = parametroService.recuperarPorParametroSistema(ParametroSistema.AGENDA_CRIAR_DOMINGO);
+		
 		Date dtInicial = dataInicialSelecionada;
 		
 		while (dtInicial.compareTo(dataFinalSelecionada) <= 0) {
 			
+			if (UtilDate.diaDaSemana(dtInicial).equals(DiaSemana.SABADO)
+				&& criarSabado.getValor().equals("0")) {
+				continue;
+			} 
 			
+			if (UtilDate.diaDaSemana(dtInicial).equals(DiaSemana.DOMINGO)
+				&& criarDomingo.getValor().equals("0")) {
+				continue;
+			}
 			
 			dtInicial = UtilDate.somarDias(dtInicial, 1);
 		}
