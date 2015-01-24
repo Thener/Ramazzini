@@ -50,12 +50,13 @@
 				<f:facet name="left">
 					<p:commandButton id="botaoVoltar" immediate="true"
 						icon="ui-icon-arrowreturnthick-1-w" title="Voltar"
-						action="/pages/credenciado/cadastroCredenciado.jsf?faces-redirect=true">
+						action="#{procedimentoCredenciadoController.voltar()}" 
+						ajax="true" update="panelDadosProcedimentoCredenciado" process="@this, panelDadosProcedimentoCredenciado">
 					</p:commandButton>
 					<p:commandButton id="salvar" action="#{procedimentoCredenciadoController.gravarProcedimentoCredenciado()}"
 						value="Salvar" icon="ui-icon-disk" title="#{msgs['botao.gravar']}"
 						styleClass="register" 
-						disabled="#{credenciadoController.somenteLeitura}" update="frmAlterarProcedimentoCredenciado"/>
+						disabled="#{procedimentoCredenciadoController.somenteLeitura}" update="frmAlterarProcedimentoCredenciado"/>
 				</f:facet>
 			</p:toolbar>
 		</h:form>

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import br.com.ramazzini.model.acao.Acao;
@@ -18,10 +19,9 @@ import br.com.ramazzini.model.tela.Tela;
 @RequestScoped
 public class ControleAcesso implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;	
 	
-    private HttpSession session;
-	
+	private HttpSession session;
     public ControleAcesso(){}
     
 	public boolean acaoAutorizada(String modulo, String tela, String acao) {
@@ -237,4 +237,9 @@ public class ControleAcesso implements Serializable {
 		}
 		return session;
 	}
+
+	public String getUriRequisicao() {
+		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		return request.getRequestURI();
+	}	
 }

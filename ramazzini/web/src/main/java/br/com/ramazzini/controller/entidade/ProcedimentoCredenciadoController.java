@@ -21,8 +21,8 @@ public class ProcedimentoCredenciadoController extends AbstractBean implements S
 	private static final long serialVersionUID = 1L;
 	
 	private static final String PAGINA_CADASTRO_PROCEDIMENTO_CREDENCIADO = "/pages/procedimentoCredenciado/cadastroProcedimentoCredenciado.jsf?faces-redirect=true";
-	private static final String PAGINA_CADASTRO_CREDENCIADO = "/pages/credenciado/cadastroCredenciado.jsf?faces-redirect=true";
-	
+												 
+	private String uriRequisicao; 
     @Inject
     private ProcedimentoCredenciadoService procedimentoCredenciadoService; 
     
@@ -64,6 +64,7 @@ public class ProcedimentoCredenciadoController extends AbstractBean implements S
     }    
     
     private String cadastroProcedimentoCredenciado(ProcedimentoCredenciado procedimentoCredenciado, Boolean somenteLeitura) {    	 	
+    	uriRequisicao = getControleAcesso().getUriRequisicao();
     	setProcedimentoCredenciado(procedimentoCredenciado);
     	setSomenteLeitura(somenteLeitura);
     	return PAGINA_CADASTRO_PROCEDIMENTO_CREDENCIADO;    	
@@ -81,12 +82,16 @@ public class ProcedimentoCredenciadoController extends AbstractBean implements S
 		if (valoresCustoVendaValidos()){
 			procedimentoCredenciadoService.salvar(procedimentoCredenciado);
 			pesquisarPorCredenciado();
-			return PAGINA_CADASTRO_CREDENCIADO;
+			return voltar();
 		} else {			
 			return null;
 		}			
 	} 
-    
+
+	public String voltar() {				
+		return uriRequisicao.substring(14)+"?faces-redirect=true";
+	}
+	
     public void pesquisarPorCredenciado(){
 		if (nomeProcedimentoPesquisa == null || nomeProcedimentoPesquisa.isEmpty()){
     		procedimentosCredenciados = procedimentoCredenciadoService.recuperarPor(credenciado);
@@ -119,8 +124,7 @@ public class ProcedimentoCredenciadoController extends AbstractBean implements S
 	public void setCredenciado(Credenciado credenciado) {
 		setProcedimentosCredenciados(null); // se está mudando o credenciado, então zerar a lista.
 		this.credenciado = credenciado;
-	}
-	
+	}	
 
 	public Procedimento getProcedimento() {
 		return procedimento;
@@ -155,6 +159,4 @@ public class ProcedimentoCredenciadoController extends AbstractBean implements S
 			ProcedimentoCredenciado procedimentoCredenciado) {
 		this.procedimentoCredenciado = procedimentoCredenciado;
 	}
-	
-	
 }
