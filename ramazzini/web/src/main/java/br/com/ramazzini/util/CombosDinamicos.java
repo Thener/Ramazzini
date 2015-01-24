@@ -8,11 +8,13 @@ import javax.inject.Named;
 import br.com.ramazzini.model.cbo.Cbo;
 import br.com.ramazzini.model.empresa.Empresa;
 import br.com.ramazzini.model.funcao.Funcao;
+import br.com.ramazzini.model.horarioAtendimento.HorarioAtendimento;
 import br.com.ramazzini.model.lotacao.Lotacao;
 import br.com.ramazzini.model.profissional.Profissional;
 import br.com.ramazzini.model.setor.Setor;
 import br.com.ramazzini.service.entidade.CboService;
 import br.com.ramazzini.service.entidade.FuncaoService;
+import br.com.ramazzini.service.entidade.HorarioAtendimentoService;
 import br.com.ramazzini.service.entidade.LotacaoService;
 import br.com.ramazzini.service.entidade.ProfissionalService;
 import br.com.ramazzini.service.entidade.SetorService;
@@ -25,6 +27,9 @@ public class CombosDinamicos {
     
     @Inject
     FuncaoService funcaoService;
+    
+    @Inject
+    HorarioAtendimentoService horarioAtendimentoService;    
     
     @Inject
     LotacaoService lotacaoService; 
@@ -42,6 +47,10 @@ public class CombosDinamicos {
 	public List<Funcao> getFuncoes(Empresa empresa) {
 		return funcaoService.recuperarPorEmpresa(empresa);
 	}
+	
+	public List<HorarioAtendimento> getHorariosAtendimento() {
+		return horarioAtendimentoService.recuperarTodos("nome");
+	}	
 	
 	public List<Lotacao> getLotacoes(Empresa empresa) {
 		return lotacaoService.recuperarPorEmpresa(empresa);

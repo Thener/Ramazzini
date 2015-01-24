@@ -13,7 +13,7 @@
 		
 			<p:panel id="panelDadosProfissional" header="#{msgs['label.profissional']}">
 			
-				<h:panelGrid columns="2" cellpadding="10">
+				<h:panelGrid columns="2" cellpadding="5">
 				
 					<p:outputLabel for="nome" value="#{msgs['label.nome']}:" />
 					<p:inputText id="nome" value="#{profissionalController.profissional.nome}" 
@@ -44,7 +44,16 @@
 						
 					<p:outputLabel for="telefone" value="#{msgs['label.telefone']}:" />
 					<p:inputText id="telefone" value="#{profissionalController.profissional.telefone}" 
-						styleClass="telefone" maxlength="20" required="false" />						
+						styleClass="telefone" maxlength="20" required="false" />	
+						
+					<p:outputLabel for="horario" value="#{msgs['label.horarioAgenda']}:" />
+					<p:selectOneMenu id="horario" converter="entityConverter"
+						value="#{profissionalController.profissional.horarioAtendimento}">
+						<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
+							noSelectionOption="true" />	
+						<f:selectItems value="#{combosDinamicos.horariosAtendimento}" var="horarioAtendimento"
+							itemLabel="#{horarioAtendimento.nome}" itemValue="#{horarioAtendimento}" />
+					</p:selectOneMenu>
 					
 					<h:outputLabel for="ativoCheck" value="#{msgs['label.ativo']}:" />
 					<p:selectBooleanCheckbox id="ativoCheck"
