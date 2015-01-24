@@ -10,6 +10,7 @@ import br.com.ramazzini.model.empresa.Empresa;
 import br.com.ramazzini.model.funcao.Funcao;
 import br.com.ramazzini.model.horarioAtendimento.HorarioAtendimento;
 import br.com.ramazzini.model.lotacao.Lotacao;
+import br.com.ramazzini.model.profissional.PapelProfissional;
 import br.com.ramazzini.model.profissional.Profissional;
 import br.com.ramazzini.model.setor.Setor;
 import br.com.ramazzini.service.entidade.CboService;
@@ -59,6 +60,10 @@ public class CombosDinamicos {
 	public List<Profissional> getProfissionais() {
 		return profissionalService.recuperarTodos("nome");
 	}
+	
+	public List<Profissional> getProfissionaisMedicos() {
+		return profissionalService.recuperarPorPapelProfissional(PapelProfissional.MEDICO, Boolean.TRUE);
+	}	
 	
 	public List<Setor> getSetores(Empresa empresa) {
 		return setorService.recuperarPorEmpresa(empresa);

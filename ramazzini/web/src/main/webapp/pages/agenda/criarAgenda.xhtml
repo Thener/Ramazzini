@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui"
+   template="/WEB-INF/templates/default.xhtml">
+   
+   <ui:define name="content">
+   
+   <p:growl id="messages" showDetail="false" sticky="true" />
+   
+	<h:form id="frmCriarAgenda">
+	
+		<p:panel id="panelCriarAgenda" header="#{msgs['label.criarAgenda']}">
+		
+			<h:panelGrid columns="6" cellpadding="5" id="panelGridDados">
+			
+				<p:outputLabel for="profissional" value="#{msgs['label.profissional']}:" />			
+				<p:selectOneMenu id="profissional"
+					value="#{criarAgendaController.profissionalSelecionado}"
+					converter="entityConverter" styleClass="nome50"
+					required="true" requiredMessage="#{msgs['required.profissional.obrigatorio']}">
+					<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
+						noSelectionOption="true" />
+					<f:selectItems value="#{combosDinamicos.profissionaisMedicos}" var="profissional"
+						itemLabel="#{profissional.nome}" />
+				</p:selectOneMenu>	
+				
+       			<p:outputLabel for="dataInicial" value="#{msgs['label.dataInicial']}" />
+       			<p:calendar id="dataInicial" value="#{criarAgendaController.dataInicialSelecionada}" 
+       				pattern="#{msgs['pattern.calendar']}" mask="true" styleClass="data" 
+       				required="true" requiredMessage="#{msgs['required.dataInicial.obrigatoria']}" />
+       				
+       			<p:outputLabel for="dataFinal" value="#{msgs['label.dataFinal']}" />
+       			<p:calendar id="dataFinal" value="#{criarAgendaController.dataFinalSelecionada}" 
+       				pattern="#{msgs['pattern.calendar']}" mask="true" styleClass="data" 
+       				required="true" requiredMessage="#{msgs['required.dataFinal.obrigatoria']}" />       				
+				
+			</h:panelGrid>		
+			
+		</p:panel>
+		
+		<p:toolbar id="toolBar">
+		
+			<f:facet name="left">
+				
+			    <p:commandButton value="#{msgs['botao.criar']}" actionListener="#{criarAgendaController.criarAgenda()}" 
+			    		update="panelGridDados, :messages" icon="ui-icon-gear">
+			        <p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['confimacao.criacaoAgenda']}" 
+			        	icon="ui-icon-alert" />
+			    </p:commandButton>
+			 
+			    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+			        <p:commandButton value="#{msgs['label.confirmacaoSim']}" type="button" 
+			        	styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+			        <p:commandButton value="#{msgs['label.confirmacaoNao']}" type="button" 
+			        	styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			    </p:confirmDialog>				
+				
+			</f:facet>
+			
+		</p:toolbar>	
+		
+	</h:form>
+	
+	</ui:define>
+	
+</ui:composition>

@@ -21,6 +21,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 
 import br.com.ramazzini.dao.profissional.ProfissionalDao;
+import br.com.ramazzini.model.profissional.PapelProfissional;
 import br.com.ramazzini.model.profissional.Profissional;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
 
@@ -31,5 +32,9 @@ public class ProfissionalService extends AbstractServiceImpl<Profissional> {
     public List<Profissional> recuperarPorNome(String nome) {
     	return ((ProfissionalDao) getDao()).recuperarPorNome(nome);
     }	
+    
+    public List<Profissional> recuperarPorPapelProfissional(PapelProfissional papelProfissional, boolean ativo) {
+    	return ((ProfissionalDao) getDao()).recuperarPorPapelProfissional(papelProfissional.getValue(), ativo);
+    }    
 
 }
