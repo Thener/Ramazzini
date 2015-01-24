@@ -240,6 +240,6 @@ public class ControleAcesso implements Serializable {
 
 	public String getUriRequisicao() {
 		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-		return request.getRequestURI();
+		return request.getRequestURI().substring(14);
 	}	
 }

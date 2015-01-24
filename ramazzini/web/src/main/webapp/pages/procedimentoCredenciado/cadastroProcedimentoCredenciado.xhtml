@@ -21,7 +21,7 @@
 						var="credenciado" itemLabel="#{credenciado.nome}"
 						completeMethod="#{autoComplete.completeCredenciado}"
 						itemValue="#{credenciado}" converter="entityConverter"
-						forceSelection="true" />						
+						forceSelection="true" readonly="#{procedimentoCredenciadoController.somenteLeitura}"/>						
 					
 					<p:outputLabel value="#{msgs['label.procedimento']}: " for="procedimento" />
 					<p:autoComplete id="procedimento"
@@ -29,19 +29,19 @@
 						var="procedimento" itemLabel="#{procedimento.nome}"
 						completeMethod="#{autoComplete.completeProcedimento}"
 						itemValue="#{procedimento}" converter="entityConverter"
-						forceSelection="true" />						
+						forceSelection="true" readonly="#{procedimentoCredenciadoController.somenteLeitura}"/>						
 					
 					<p:outputLabel for="precoCusto"
 						value="#{msgs['label.precoCusto']}:" />
 					<pe:inputNumber id="precoCusto"
 						value="#{procedimentoCredenciadoController.procedimentoCredenciado.precoCusto}"
-						symbol="R$ " />
+						symbol="R$ " readonly="#{procedimentoCredenciadoController.somenteLeitura}"/>
 						
 					<p:outputLabel for="precoVenda"
 						value="#{msgs['label.precoVenda']}:" />
 					<pe:inputNumber id="precoVenda"
 						value="#{procedimentoCredenciadoController.procedimentoCredenciado.precoVenda}"
-						symbol="R$ " />
+						symbol="R$ " readonly="#{procedimentoCredenciadoController.somenteLeitura}"/>
 					
 				</h:panelGrid>				
 			</p:panel>
