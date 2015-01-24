@@ -40,6 +40,8 @@ public class ProcedimentoController extends AbstractBean implements Serializable
 	
 	private boolean somenteLeitura = Boolean.FALSE;
 	
+	private Integer tabAtiva;
+	
 	@PostConstruct
 	public void init() {
 
@@ -129,7 +131,13 @@ public class ProcedimentoController extends AbstractBean implements Serializable
 	public void setProcedimento(Procedimento procedimento) {
 		this.procedimento = procedimento;
 	}
+	
+	public Integer getTabActiveIndex() {
+        return tabAtiva;
+    }
+
+    public void setTabActiveIndex(Integer tabActiveIndex) {
+        this.tabAtiva = tabActiveIndex;
+    }	 
     
-	
-	
 }

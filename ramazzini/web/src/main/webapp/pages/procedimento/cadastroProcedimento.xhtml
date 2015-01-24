@@ -21,7 +21,7 @@
 					
 				</h:panelGrid>
 				
-				<p:tabView id="tabViewCadastroProcedimento">
+				<p:tabView id="tabViewCadastroProcedimento" activeIndex="#{procedimentoController.tabActiveIndex}">
 				
 					<p:tab title="#{msgs['label.dadosCadastrais']}">
 						<ui:include src="includes/tabDadosCadastraisProcedimento.xhtml" />
