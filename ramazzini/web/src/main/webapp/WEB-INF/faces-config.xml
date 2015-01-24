@@ -26,4 +26,9 @@
 				<var>msgs</var>				
 			</resource-bundle>
 		</application>
+		
+		<lifecycle>
+    		<phase-listener>br.com.ramazzini.filters.PhaseListnerRamazzini</phase-listener>
+		</lifecycle>
+		
 </faces-config>

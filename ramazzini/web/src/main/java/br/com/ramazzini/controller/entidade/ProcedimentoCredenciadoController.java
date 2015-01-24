@@ -89,7 +89,7 @@ public class ProcedimentoCredenciadoController extends AbstractBean implements S
 	} 
 
 	public String voltar() {				
-		return uriRequisicao.substring(14)+"?faces-redirect=true";
+		return uriRequisicao+"?faces-redirect=true";
 	}
 	
     public void pesquisarPorCredenciado(){
