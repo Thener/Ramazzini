@@ -49,10 +49,6 @@ public class UsuarioController extends AbstractBean implements Serializable {
     private String senhaNova;
     private String senhaNovaConfirmacao;
     
-    private boolean acaoInclusao = Boolean.FALSE;
-    
-    private boolean somenteLeitura = Boolean.FALSE;
-       
     @PostConstruct  
     public void init() {
 
@@ -83,18 +79,15 @@ public class UsuarioController extends AbstractBean implements Serializable {
     }
     
     public String alterarUsuario(Usuario usuario){    	
-    	setAcaoInclusao(Boolean.FALSE);
     	return cadastroUsuario(usuarioService.recuperarPorId(usuario.getId()), Boolean.FALSE);    	
     }
     
     public String incluirUsuario(){
     	usuario = new Usuario();
-    	setAcaoInclusao(Boolean.TRUE);
     	return cadastroUsuario(usuario, Boolean.FALSE);
     }
     
     public String visualizarUsuario(Usuario usuario){
-    	setAcaoInclusao(Boolean.FALSE);
     	return cadastroUsuario(usuario, Boolean.TRUE);
     }
     
@@ -103,7 +96,7 @@ public class UsuarioController extends AbstractBean implements Serializable {
     	this.usuario = usuario;
     	setSomenteLeitura(somenteLeitura);
     	
-    	if (acaoInclusao == Boolean.TRUE) {
+    	if (usuario.isNovo()) {
         	perfisDisponiveis = perfilService.recuperarTodosMenosAdmin();
         	perfisUsuario = new ArrayList<Perfil>();
     	} else {
@@ -116,7 +109,7 @@ public class UsuarioController extends AbstractBean implements Serializable {
     
     public String gravarUsuario() {
     	
-    	if (acaoInclusao == Boolean.TRUE) {
+    	if (usuario.isNovo() == Boolean.TRUE) {
     		perfisUsuario.add(perfilSelecionado);
     		usuario.setSenha(Md5.hashMd5(usuario.getSenha())); 
     		usuario.setPerfis(perfisUsuario);
@@ -174,14 +167,6 @@ public class UsuarioController extends AbstractBean implements Serializable {
 	public void setLoginPesquisa(String loginPesquisa) {
 		this.loginPesquisa = loginPesquisa;
 	} 
-
-	public boolean isSomenteLeitura() {
-		return somenteLeitura;
-	}
-
-	public void setSomenteLeitura(boolean somenteLeitura) {
-		this.somenteLeitura = somenteLeitura;
-	}
 	
 	public Perfil getPerfilSelecionado() {
 		return perfilSelecionado;
@@ -235,14 +220,6 @@ public class UsuarioController extends AbstractBean implements Serializable {
         return usuarios;
     }
 	
-	public void setAcaoInclusao(boolean acaoInclusao) {
-		this.acaoInclusao = acaoInclusao;
-	}
-	
-	public boolean isAcaoInclusao() {
-		return acaoInclusao;
-	}	
-
 	public Usuario getUsuario() {
 		return usuario;
 	}

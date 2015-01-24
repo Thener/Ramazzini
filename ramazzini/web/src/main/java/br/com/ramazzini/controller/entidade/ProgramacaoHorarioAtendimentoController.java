@@ -18,9 +18,6 @@ public class ProgramacaoHorarioAtendimentoController extends AbstractBean implem
 
 	private static final long serialVersionUID = 1L;
 	
-	private static final String PAGINA_CADASTRO_PROGRAMACAO = "/pages/horarioAtendimento/cadastroProgramacaoHorarioAtendimento.jsf?faces-redirect=true";
-	//private static final String PAGINA_CADASTRO_HORARIO_ATENDIMENTO = "/pages/horarioAtendimento/cadastroHorarioAtendimento.jsf?faces-redirect=true";
-	
     @Inject
     private ProgramacaoHorarioAtendimentoService programacaoHorarioAtendimentoService; 
     
@@ -34,31 +31,26 @@ public class ProgramacaoHorarioAtendimentoController extends AbstractBean implem
 		
 		programacao = new ProgramacaoHorarioAtendimento();
 		programacao.setHorarioAtendimento(horarioAtendimento);
-		//return cadastroProgramacao(programacao, Boolean.FALSE);
+		setSomenteLeitura(Boolean.FALSE);
 	}
 	    
-    public String alterarProgramacao(ProgramacaoHorarioAtendimento programacao){
+    public void alterarProgramacao(ProgramacaoHorarioAtendimento programacao){
     	
-    	return cadastroProgramacao(programacao, Boolean.FALSE);
+    	setSomenteLeitura(Boolean.FALSE);
+    	setProgramacaoHorarioAtendimento(programacao);
     }
     
-    public String visualizarProgramacao(ProgramacaoHorarioAtendimento programacao){
+    public void visualizarProgramacao(ProgramacaoHorarioAtendimento programacao){
     	
-    	return cadastroProgramacao(programacao, Boolean.TRUE);
+    	setSomenteLeitura(Boolean.TRUE);
+    	setProgramacaoHorarioAtendimento(programacao);
     }
     
     public void removerProgramacao(ProgramacaoHorarioAtendimento programacao){
     	
     	programacoes.remove(programacao);
     }    
-    
-    private String cadastroProgramacao(ProgramacaoHorarioAtendimento programacao, Boolean somenteLeitura) {
-
-    	setProgramacaoHorarioAtendimento(programacao);
-    	setSomenteLeitura(somenteLeitura);
-    	return PAGINA_CADASTRO_PROGRAMACAO;    	
-    }
-    
+        
 	public void adicionarProgramacao() {
 		
 		programacoes.add(programacao);

@@ -38,7 +38,7 @@ public class HorarioAtendimento extends AbstractEntidade implements Serializable
     private String nome;
 
 	@OneToMany(mappedBy="horarioAtendimento",
-			cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+			cascade = CascadeType.ALL, orphanRemoval=true)
 	private List<ProgramacaoHorarioAtendimento> programacoes;
 	
 	@OneToMany(mappedBy="horarioAtendimento")

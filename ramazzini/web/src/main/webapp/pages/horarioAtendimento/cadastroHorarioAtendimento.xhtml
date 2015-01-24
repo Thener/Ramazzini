@@ -6,7 +6,7 @@
    xmlns:p="http://primefaces.org/ui"
    xmlns:pe="http://primefaces.org/ui/extensions"
    template="/WEB-INF/templates/default.xhtml">
-	<ui:define name="content">
+	<ui:define name="content" prependId="false">
 	
 		<h:form id="frmCadastroHorarioAtendimento">
 		
@@ -31,7 +31,8 @@
 				   		 icon="ui-icon-circle-plus" ajax="true"
 				   		 onclick="PF('dialogProgramacao').show();" 
 				   		 disabled="#{horarioAtendimentoController.somenteLeitura 
-				   		 	or horarioAtendimentoController.horarioAtendimento.novo}" />
+				   		 	or horarioAtendimentoController.horarioAtendimento.novo}" 
+				   		 update=":frmCadastroProgramacaoHorarioAtendimento"/>
 				   		 
 					<p:dataTable var="programacao" value="#{programacaoHorarioAtendimentoController.programacoes}"
 						id="gridProgramacoes" emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}"
@@ -60,12 +61,14 @@
 														
 						<p:column headerText="#{msgs['label.acoes']}" styleClass="colunaAcoes">
 							<p:panelGrid columns="3">					  
-								<p:commandLink title="#{msgs['label.visualizar']}" action="#{programacaoHorarioAtendimentoController.visualizarProgramacao(programacao)}"
-									styleClass="ui-icon ui-icon-search" />
-								<p:commandLink title="#{msgs['label.editar']}" action="#{programacaoHorarioAtendimentoController.alterarProgramacao(programacao)}"
-									disabled="#{empresaController.somenteLeitura}" styleClass="ui-icon ui-icon-pencil" />
+								<p:commandLink title="#{msgs['label.visualizar']}" styleClass="ui-icon ui-icon-search"
+									actionListener="#{programacaoHorarioAtendimentoController.visualizarProgramacao(programacao)}" 
+									onclick="PF('dialogProgramacao').show();" update=":frmCadastroProgramacaoHorarioAtendimento" />
+								<p:commandLink title="#{msgs['label.editar']}" actionListener="#{programacaoHorarioAtendimentoController.alterarProgramacao(programacao)}"
+									disabled="#{horarioAtendimentoController.somenteLeitura}" styleClass="ui-icon ui-icon-pencil" 
+									onclick="PF('dialogProgramacao').show();" update=":frmCadastroProgramacaoHorarioAtendimento" />
 								<p:commandLink title="#{msgs['label.excluir']}" action="#{programacaoHorarioAtendimentoController.removerProgramacao(programacao)}"
-									disabled="#{empresaController.somenteLeitura}" styleClass="ui-icon ui-icon-closethick" update="gridProgramacoes">
+									disabled="#{horarioAtendimentoController.somenteLeitura}" styleClass="ui-icon ui-icon-closethick" update="gridProgramacoes">
 									<p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['label.confirmacaoExclusao']}" icon="ui-icon-alert" />
 								</p:commandLink>	
 							</p:panelGrid>
@@ -84,7 +87,7 @@
 				
 			</p:panel>
 			
-			<p:toolbar id="toolBar">
+			<p:toolbar>
 				<f:facet name="left">
 					<p:commandButton id="botaoVoltar" immediate="true" 
 						icon="ui-icon-arrowreturnthick-1-w" title="#{msgs['botao.voltar']}"
@@ -103,7 +106,7 @@
 			
 			<h:form id="frmCadastroProgramacaoHorarioAtendimento">
 			
-				<p:panel id="panelDadosHorarioAtendimento" header="#{msgs['label.programacao']}">
+				<p:panel id="panelDadosProgramacao" header="#{msgs['label.programacao']}">
 				
 					<h:panelGrid columns="2" cellpadding="5">
 					
@@ -130,17 +133,25 @@
 		    
 			    </p:panel>
 		    
-				<p:toolbar id="toolBar">
+				<p:toolbar>
 					<f:facet name="left">					
 					   	<p:commandButton title="#{msgs['botao.voltar']}" type="button" 
 					   		 icon="ui-icon-arrowreturnthick-1-w" onclick="PF('dialogProgramacao').hide();"/>					
 						
-						<p:commandButton id="botaoSalvarDialogProgramacao" 
+						<p:commandButton id="botaoIncluirDialogProgramacao" 
 							actionListener="#{programacaoHorarioAtendimentoController.adicionarProgramacao()}"
 							value="#{msgs['botao.incluir']}" icon="ui-icon-circle-plus" title="#{msgs['botao.incluir']}"
 							disabled="#{programacaoHorarioAtendimentoController.somenteLeitura}" ajax="true"
 							onclick="PF('dialogProgramacao').hide();" 
-							update=":frmCadastroHorarioAtendimento:gridProgramacoes, frmCadastroProgramacaoHorarioAtendimento"/>
+							update=":frmCadastroHorarioAtendimento:gridProgramacoes, frmCadastroProgramacaoHorarioAtendimento"
+							rendered="#{programacaoHorarioAtendimentoController.programacao.novo}"/>
+							
+						<p:commandButton id="botaoSalvarDialogProgramacao" 
+							value="#{msgs['botao.confirmar']}" icon="ui-icon-disk" title="#{msgs['botao.incluir']}"
+							disabled="#{programacaoHorarioAtendimentoController.somenteLeitura}" ajax="true"
+							onclick="PF('dialogProgramacao').hide();" 
+							update=":frmCadastroHorarioAtendimento:gridProgramacoes, frmCadastroProgramacaoHorarioAtendimento"
+							rendered="#{not programacaoHorarioAtendimentoController.programacao.novo}"/>							
 							
 					</f:facet>
 				</p:toolbar>
