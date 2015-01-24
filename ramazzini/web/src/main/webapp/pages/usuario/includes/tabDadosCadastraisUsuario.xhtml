@@ -12,21 +12,21 @@
 			value="#{usuarioController.usuario.login}" required="true" />
 
 		<p:outputLabel for="senha" value="#{msgs['label.senha']}:" 
-			rendered="#{usuarioController.acaoInclusao}" />
+			rendered="#{usuarioController.usuario.novo}" />
 		<p:password id="senha" value="#{usuarioController.usuario.senha}" 
-			required="true" rendered="#{usuarioController.acaoInclusao}" />
+			required="true" rendered="#{usuarioController.usuario.novo}" />
 			
 		<p:outputLabel for="senhaNova" value="Nova senha:" 
-			rendered="#{not usuarioController.acaoInclusao}" />
+			rendered="#{not usuarioController.usuario.novo}" />
 		<p:password id="senhaNova" value="#{usuarioController.senhaNova}" 
-			rendered="#{not usuarioController.acaoInclusao}" />
+			rendered="#{not usuarioController.usuario.novo}" />
 			
 		<p:outputLabel for="perfil" value="#{msgs['label.perfil']}:" 
-			rendered="#{usuarioController.acaoInclusao}"/>
+			rendered="#{usuarioController.usuario.novo}"/>
 		<p:selectOneMenu id="perfil" style="width:232px;"						
 			value="#{usuarioController.perfilSelecionado}"
 			converter="entityConverter" required="true"
-			rendered="#{usuarioController.acaoInclusao}">
+			rendered="#{usuarioController.usuario.novo}">
 			<f:selectItem itemLabel="Selecione o perfil" itemValue=""
 				noSelectionOption="true" />
 			<f:selectItems value="#{usuarioController.perfisDisponiveis}"

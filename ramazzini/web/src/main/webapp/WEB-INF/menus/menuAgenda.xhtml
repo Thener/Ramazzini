@@ -6,10 +6,12 @@
 	xmlns:p="http://primefaces.org/ui">
 				
 	
-	<p:menuitem value="#{msgs['menu.label.marcacao']}" url="/pages/agenda/marcacao.jsf" 
+	<p:menuitem value="#{msgs['menu.label.marcacao']}" url="/pages/agenda/marcacao.jsf" icon="ui-icon-flag"
 		rendered="#{menuController.controleAcesso.telaAutorizada('agenda','marcacao.jsf')}"/>
 
-	<p:menuitem value="#{msgs['menu.label.criar']}" url="/pages/agenda/criarAgenda.jsf"
+	<p:separator />
+	
+	<p:menuitem value="#{msgs['menu.label.criar']}" url="/pages/agenda/criarAgenda.jsf" icon="ui-icon-check"
 		rendered="#{menuController.controleAcesso.telaAutorizada('agenda','criarAgenda.jsf')}" />
 
 </html>

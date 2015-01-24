@@ -31,7 +31,7 @@
 					</p:tab>
 					
 					<p:tab title="#{msgs['label.perfis']}" id="tabPerfisUsuario" 
-						rendered="#{not usuarioController.acaoInclusao}">
+						rendered="#{not usuarioController.usuario.novo}">
 						<ui:include src="includes/tabPerfisUsuario.xhtml" />
 					</p:tab>
 				

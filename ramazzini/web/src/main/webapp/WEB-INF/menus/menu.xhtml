@@ -29,20 +29,45 @@
 				
 			</p:submenu>
 			
-			<p:submenu label="#{msgs['menu.label.agenda']}" icon="ui-icon-note">
+			<p:submenu label="#{msgs['menu.label.agenda']}" icon="ui-icon-calendar">
 				
 				<ui:include src="/WEB-INF/menus/menuAgenda.xhtml" />
 				
-			</p:submenu>			
+			</p:submenu>
+			
+			<p:submenu label="#{msgs['menu.label.relatorios']}" icon="ui-icon-print">
+				
+				<ui:include src="/WEB-INF/menus/menuRelatoriosPcmso.xhtml" />
+				
+				<p:separator />
+				
+				<ui:include src="/WEB-INF/menus/menuRelatoriosDeficienteFisico.xhtml" />
+				
+				<p:separator />
+				
+				<ui:include src="/WEB-INF/menus/menuRelatoriosEtiquetas.xhtml" />				
+				
+			</p:submenu>
 			
 			<p:submenu label="#{msgs['menu.label.apoio']}" icon="ui-icon-person">
 				
 				<ui:include src="/WEB-INF/menus/menuApoioPesquisas.xhtml" />
 				
+				<p:separator />
+				
+				<ui:include src="/WEB-INF/menus/menuApoioSistema.xhtml" />
+				
+				<p:separator />
+				
+				<ui:include src="/WEB-INF/menus/menuApoioUsuario.xhtml" />				
+				
 			</p:submenu>			
 
+			<p:menuitem value="#{msgs['menu.label.sobre']}" url="/publico/sobre.jsf"
+				icon="ui-icon-info" />
+
 			<p:menuitem value="#{msgs['menu.label.sair']}" action="#{loginController.logout()}"
-				icon="ui-icon-close" />
+				icon="ui-icon-power" />
 
 		</p:menubar>
 	</h:form>
