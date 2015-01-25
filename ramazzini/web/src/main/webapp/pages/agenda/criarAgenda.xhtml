@@ -14,18 +14,24 @@
 	
 		<p:panel id="panelCriarAgenda" header="#{msgs['label.criarAgenda']}">
 		
-			<h:panelGrid columns="6" cellpadding="5" id="panelGridDados">
+			<h:panelGrid columns="2" cellpadding="5" id="panelGridDados">
 			
-				<p:outputLabel for="profissional" value="#{msgs['label.profissional']}:" />			
-				<p:selectOneMenu id="profissional"
-					value="#{criarAgendaController.profissionalSelecionado}"
-					converter="entityConverter" styleClass="nome50"
-					required="true" requiredMessage="#{msgs['required.profissional.obrigatorio']}">
-					<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
-						noSelectionOption="true" />
-					<f:selectItems value="#{combosDinamicos.profissionaisMedicos}" var="profissional"
-						itemLabel="#{profissional.nome}" />
-				</p:selectOneMenu>	
+				<p:outputLabel for="profissional" value="#{msgs['label.profissional']}:" />
+				<h:panelGroup>
+					<h:panelGrid columns="2">			
+						<p:selectOneMenu id="profissional"
+							value="#{criarAgendaController.profissionalSelecionado}"
+							converter="entityConverter" styleClass="nome50"
+							required="true" requiredMessage="#{msgs['required.profissional.obrigatorio']}">
+							<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems value="#{combosDinamicos.profissionaisMedicos}" var="profissional"
+								itemLabel="#{profissional.nome}" />
+							<p:ajax update="nomeHorario" />
+						</p:selectOneMenu>
+						<p:outputLabel id="nomeHorario" value="#{criarAgendaController.profissionalSelecionado.horarioAtendimento.nome}" />
+					</h:panelGrid>
+				</h:panelGroup>	
 				
        			<p:outputLabel for="dataInicial" value="#{msgs['label.dataInicial']}" />
        			<p:calendar id="dataInicial" value="#{criarAgendaController.dataInicialSelecionada}" 

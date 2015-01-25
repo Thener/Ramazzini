@@ -66,7 +66,7 @@ public class CriarAgendaController extends AbstractBean implements Serializable 
 		programacoes = programacaoHorarioAtendimentoService.recuperarPorHorarioAtendimento(profissionalSelecionado.getHorarioAtendimento());
 		
 		if (programacoes.isEmpty()) {
-			UtilMensagens.mensagemErro("mensagem.erro.programacaoNaoExistente");
+			UtilMensagens.mensagemErroPorChave("mensagem.erro.programacaoNaoExistente");
 			return;
 		}
 		
