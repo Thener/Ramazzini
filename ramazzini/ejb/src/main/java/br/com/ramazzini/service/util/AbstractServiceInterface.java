@@ -100,9 +100,8 @@ public interface AbstractServiceInterface<T extends AbstractEntidade> {
 	/**
 	 * 
 	 * @param listaEntidades
-	 * @param usuarioLogado
 	 * @return
 	 */
-	List<T> salvarLista(List<T> listaEntidades, Usuario usuarioLogado);
+	List<T> salvarLista(List<T> listaEntidades);
 	
 }

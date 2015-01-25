@@ -52,23 +52,12 @@ public final class TimeFactory {
 		return new DateTime(dt).plusDays(dias).toDate();
 	}
 	
-	/*
-	public static void somarMinutos(String hora, int minutos) {
-		
-		Date d = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("DD/MM/yyyy hh:mm");
-		
-		try {
-			d = sdf.parse("01/01/2015 "+hora);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+	public static Date somarMinutos(Date dataHora, int minutos) {
 		
 		Calendar cal = Calendar.getInstance();  
-		cal.setTime(d);
+		cal.setTime(dataHora);
 		cal.add(Calendar.MINUTE, minutos);
 		
-		System.out.println(cal.getTime());
+		return cal.getTime();
 	}
-	*/	
 }

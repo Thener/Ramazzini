@@ -1,5 +1,6 @@
 package br.com.ramazzini.service.util;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -118,9 +119,13 @@ public abstract class AbstractServiceImpl<T extends AbstractEntidade>
 		// TODO Auto-generated method stub
 		
 	}
-	public List<T> salvarLista(List<T> listaEntidade,
-			Usuario usuarioLogado) {
-		return null;
+	public List<T> salvarLista(List<T> listaEntidade) {
+		List<T> listaSalva = new ArrayList<T>();
+		for (T entidade : listaEntidade) {
+			salvar(entidade);
+			listaSalva.add(entidade);
+		}
+		return listaSalva;
 	}
 	
 	public Usuario getUsuarioLogado() {

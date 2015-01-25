@@ -103,9 +103,9 @@ public class EmpresaController extends AbstractBean implements Serializable {
     	try {
     		empresaService.remover(empresa, empresa.getId());
     		empresas.remove(empresa);
-    		UtilMensagens.mensagemInformacao("Empresa removido com sucesso!");
+    		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeExcluidaComSucesso","Empresa");
     	} catch (Exception e) {
-    		UtilMensagens.mensagemErro("Não foi possível remover a empresa!");
+    		UtilMensagens.mensagemErroPorChave("mensagem.erro.naoFoiPossivelExcluirRegistro","a empresa.");
         }
     }     
     

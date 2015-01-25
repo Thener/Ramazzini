@@ -51,10 +51,11 @@ public class Agenda extends AbstractEntidade implements Serializable {
 	@Temporal(TemporalType.DATE)
 	@Column(name = "dt_agenda", columnDefinition = "Date")
 	private Date dataAgenda;	
-	
-	@Column(name = "hr_agenda", length = 5)
-    @NotNull 	
-	private String horaAgenda;
+		
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "hr_agenda", columnDefinition = "timestamp without time zone")
+	@NotNull
+	private Date horaAgenda;	
 	
 	@Column(name = "st_marcacao_agenda", length = 2)
     @NotNull 
@@ -95,11 +96,11 @@ public class Agenda extends AbstractEntidade implements Serializable {
 		this.dataAgenda = dataAgenda;
 	}
 
-	public String getHoraAgenda() {
+	public Date getHoraAgenda() {
 		return horaAgenda;
 	}
 
-	public void setHoraAgenda(String horaAgenda) {
+	public void setHoraAgenda(Date horaAgenda) {
 		this.horaAgenda = horaAgenda;
 	}
 
