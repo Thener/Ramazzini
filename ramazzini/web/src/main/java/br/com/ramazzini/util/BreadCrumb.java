@@ -1,34 +1,26 @@
 package br.com.ramazzini.util;
 
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.ConversationScoped;
-import javax.inject.Named;
-
 import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.MenuModel;
 
-import br.com.ramazzini.controller.util.AbstractBean;
-
-import java.io.Serializable;
-
-@Named
-@ConversationScoped
-public class BreadCrumb extends AbstractBean implements Serializable {
+/**
+ * Classe que implementa o padrão Singleton para manter uma lista com o histórico de navegação
+ * @author Thener
+ *
+ */
+public class BreadCrumb{
+	private static BreadCrumb instancia;	
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private MenuModel modelo;
+	private MenuModel modelo =  new DefaultMenuModel();	
 	
-	@PostConstruct  
-    public void init() {
-		modelo = new DefaultMenuModel();
-		DefaultMenuItem item = new DefaultMenuItem("Home", "ui-icon-home", "/pages/home/home.jsf");
-        modelo.addElement(item);
-    }
-
+	public static synchronized BreadCrumb getInstance(){
+		if (instancia == null) {
+			instancia = new BreadCrumb();			
+		} 
+		return instancia;
+	}
+	
 	public MenuModel getModelo() {
 		return modelo;
 	}
@@ -38,6 +30,28 @@ public class BreadCrumb extends AbstractBean implements Serializable {
 	}
 	
 	public void addItem(DefaultMenuItem item) {
-		modelo.addElement(item);;
+		removerExcesso();		
+		if (!getUltimoElemento().getValue().equals(item.getValue())){
+			modelo.addElement(item);
+		}
+	}
+
+	private void removerExcesso() {
+		int tamanho = modelo.getElements().size();		
+		if (tamanho == 8){
+			modelo.getElements().remove(1);
+		}
+	}
+	public DefaultMenuItem getUltimoElemento() {
+		int tamanho = modelo.getElements().size();		
+		return (DefaultMenuItem)modelo.getElements().get(tamanho-1);
+	}
+	public void clear(){
+		modelo.getElements().clear();
+	}
+	
+	public void addItemInicial(){
+		DefaultMenuItem itemInicial = new DefaultMenuItem("Home", "ui-icon-home", "/pages/home/home.jsf");
+        modelo.addElement(itemInicial);
 	}
 }

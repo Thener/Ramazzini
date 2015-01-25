@@ -3,38 +3,36 @@ package br.com.ramazzini.filters;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
-import javax.inject.Inject;
 
 import org.primefaces.model.menu.DefaultMenuItem;
 
-import br.com.ramazzini.service.entidade.EmpresaService;
 import br.com.ramazzini.util.BreadCrumb;
 import br.com.ramazzini.util.ControleAcesso;
 
 public class PhaseListnerRamazzini implements PhaseListener {
 	
-	@Inject
-	private BreadCrumb breadCrumb;
 	
-	@Inject
-    private EmpresaService empresaService;
-	
+	private BreadCrumb breadCrumb = BreadCrumb.getInstance();
 	
 	private ControleAcesso controleAcesso = new ControleAcesso();
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Override
 	public void afterPhase(PhaseEvent arg0) {
-		if (breadCrumb != null){
-			DefaultMenuItem item = new DefaultMenuItem();
-	        String URL = getControleAcesso().getUriRequisicao();
+			addMenuItem();	        
+	}
+
+	private void addMenuItem() {
+		DefaultMenuItem item = new DefaultMenuItem();
+		String URL = getControleAcesso().getUriRequisicao();
+		if (URL.equals("/index.xhtml") || URL.equals("/index.jsf")){
+			breadCrumb.clear();
+			breadCrumb.addItemInicial();
+		} else {			
 			item.setValue(getTela(URL));
-	        item.setUrl(URL);
-	        breadCrumb.addItem(item);
+			item.setUrl(URL);
+			breadCrumb.addItem(item);
 		}
 	}
 
@@ -50,10 +48,6 @@ public class PhaseListnerRamazzini implements PhaseListener {
 	
 	public ControleAcesso getControleAcesso() {
 		return controleAcesso;
-	}
-
-	public void setControleAcesso(ControleAcesso controleAcesso) {
-		this.controleAcesso = controleAcesso;
 	}
 	
 	private static String getTela(String uri) {
