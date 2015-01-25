@@ -22,6 +22,8 @@
 				p			
 			from 
 				Profissional p
+			left join
+				p.horarioAtendimento 				
 			where 
 				p.papelProfissional = :papelProfissional
 			and

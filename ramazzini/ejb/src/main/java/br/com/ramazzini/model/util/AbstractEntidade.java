@@ -25,13 +25,13 @@ public abstract class AbstractEntidade implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "ts_inclusao", columnDefinition = "Date")
+	@Column(name = "ts_inclusao", columnDefinition = "timestamp without time zone")
 	@Basic(fetch = FetchType.LAZY)
 	private Date dataInclusao;
 
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "ts_alteracao", columnDefinition = "Date")
+	@Column(name = "ts_alteracao", columnDefinition = "timestamp without time zone")
 	@Basic(fetch = FetchType.LAZY)
 	private Date dataAlteracao;
 

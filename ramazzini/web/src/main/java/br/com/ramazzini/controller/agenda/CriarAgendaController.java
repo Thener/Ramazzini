@@ -13,7 +13,7 @@ import br.com.ramazzini.model.parametro.Parametro;
 import br.com.ramazzini.model.parametro.ParametroSistema;
 import br.com.ramazzini.model.profissional.Profissional;
 import br.com.ramazzini.service.entidade.ParametroService;
-import br.com.ramazzini.util.UtilDate;
+import br.com.ramazzini.util.TimeFactory;
 import br.com.ramazzini.util.UtilMensagens;
 
 @Named
@@ -38,7 +38,7 @@ public class CriarAgendaController extends AbstractBean implements Serializable 
 			return;
 		}
 		
-		if (UtilDate.diasEntreDuasDatas(dataInicialSelecionada, dataFinalSelecionada) > 30) {
+		if (TimeFactory.diasEntreDuasDatas(dataInicialSelecionada, dataFinalSelecionada) > 30) {
 			UtilMensagens.mensagemErroPorChave("mensagem.info.periodoMaximoDe","30 dias.");
 			return;			
 		}
@@ -50,19 +50,18 @@ public class CriarAgendaController extends AbstractBean implements Serializable 
 		
 		while (dtInicial.compareTo(dataFinalSelecionada) <= 0) {
 			
-			if (UtilDate.diaDaSemana(dtInicial).equals(DiaSemana.SABADO)
+			if (TimeFactory.diaDaSemana(dtInicial).equals(DiaSemana.SABADO)
 				&& criarSabado.getValor().equals("0")) {
 				continue;
 			} 
 			
-			if (UtilDate.diaDaSemana(dtInicial).equals(DiaSemana.DOMINGO)
+			if (TimeFactory.diaDaSemana(dtInicial).equals(DiaSemana.DOMINGO)
 				&& criarDomingo.getValor().equals("0")) {
 				continue;
 			}
 			
-			dtInicial = UtilDate.somarDias(dtInicial, 1);
+			dtInicial = TimeFactory.somarDias(dtInicial, 1);
 		}
-		
 	}
 
 	public Profissional getProfissionalSelecionado() {
