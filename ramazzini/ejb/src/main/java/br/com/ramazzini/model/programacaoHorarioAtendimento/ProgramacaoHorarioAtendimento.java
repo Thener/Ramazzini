@@ -1,6 +1,7 @@
 package br.com.ramazzini.model.programacaoHorarioAtendimento;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -36,13 +39,15 @@ public class ProgramacaoHorarioAtendimento extends AbstractEntidade implements S
     @NotNull 
     private String diaSemana;
 	
-	@Column(name = "hr_inicio", length = 5)
-    @NotNull 	
-	private String horaInicio;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "hr_inicio", columnDefinition = "timestamp without time zone")
+	@NotNull
+	private Date horaInicio;
 	
-	@Column(name = "hr_fim", length = 5)
-    @NotNull 	
-	private String horaFim;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "hr_fim", columnDefinition = "timestamp without time zone")
+	@NotNull	
+	private Date horaFim;
 
 	@Column(name = "no_intervalo")
     @NotNull 	
@@ -73,19 +78,19 @@ public class ProgramacaoHorarioAtendimento extends AbstractEntidade implements S
 		setDiaSemana(diaSemana.getValue());
 	}
 
-	public String getHoraInicio() {
+	public Date getHoraInicio() {
 		return horaInicio;
 	}
 
-	public void setHoraInicio(String horaInicio) {
+	public void setHoraInicio(Date horaInicio) {
 		this.horaInicio = horaInicio;
 	}
 
-	public String getHoraFim() {
+	public Date getHoraFim() {
 		return horaFim;
 	}
 
-	public void setHoraFim(String horaFim) {
+	public void setHoraFim(Date horaFim) {
 		this.horaFim = horaFim;
 	}
 
@@ -104,6 +109,4 @@ public class ProgramacaoHorarioAtendimento extends AbstractEntidade implements S
 	public void setHorarioAtendimento(HorarioAtendimento horarioAtendimento) {
 		this.horarioAtendimento = horarioAtendimento;
 	}	
-    
-	
 }

@@ -46,12 +46,12 @@
 								
 						<p:column headerText="#{msgs['label.horaInicial']}" 
 							sortBy="#{programacao.horaInicio}" styleClass="colunaCentralizada">
-							<h:outputText value="#{programacao.horaInicio}" />
+							<h:outputText value="#{programacaoHorarioAtendimentoController.getHoraInicio(programacao) }" />
 						</p:column>
 						
 						<p:column headerText="#{msgs['label.horaFinal']}" 
 							sortBy="#{programacao.horaFim}" styleClass="colunaCentralizada" >
-							<h:outputText value="#{programacao.horaFim}" />
+							<h:outputText value="#{programacaoHorarioAtendimentoController.getHoraFim(programacao)}" />
 						</p:column>		
 						
 						<p:column headerText="#{msgs['label.intervalo']}" 
@@ -117,13 +117,13 @@
 								itemLabel="#{diaSemana.stringChave}" itemValue="#{diaSemana.value}" />
 						</p:selectOneMenu>
 						
-						<p:outputLabel for="horaInicio" value="#{msgs['label.horaInicial']}" />
-						<p:inputMask id="horaInicio" value="#{programacaoHorarioAtendimentoController.programacao.horaInicio}" 
-							mask="99:99" styleClass="hora"/>
-							
-						<p:outputLabel for="horaFim" value="#{msgs['label.horaFinal']}" />
-						<p:inputMask id="horaFim" value="#{programacaoHorarioAtendimentoController.programacao.horaFim}" 
-							mask="99:99" styleClass="hora"/>					
+						<p:outputLabel value="#{msgs['label.horaInicial']}" />
+						<pe:timePicker value="#{programacaoHorarioAtendimentoController.programacao.horaInicio}" 
+							widgetVar="spinnerTimeWidgetHoraInicio"/> 
+                   						
+						<p:outputLabel value="#{msgs['label.horaFinal']}" />
+						<pe:timePicker value="#{programacaoHorarioAtendimentoController.programacao.horaFim}" 
+							widgetVar="spinnerTimeWidgetHoraFim"/> 
 					
 						<p:outputLabel for="intervalo" value="#{msgs['label.intervalo']}" />
 						<pe:inputNumber id="intervalo" maxValue="120" decimalPlaces="0" styleClass="intervaloMinutos"
