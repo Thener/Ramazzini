@@ -9,7 +9,6 @@ import javax.persistence.criteria.Order;
 
 import br.com.ramazzini.model.usuario.Usuario;
 import br.com.ramazzini.model.util.AbstractEntidade;
-import br.com.ramazzini.util.TimeFactory;
 
 /**
  * Classe utilitária para ser utilizada para qualquer tipo de entidade.
@@ -37,10 +36,10 @@ public class DaoUtil {
 	public static final AbstractEntidade salvar(EntityManager entityManager, AbstractEntidade entidade, Usuario usuarioLogado) {
 		usuarioLogado = entityManager.find(Usuario.class, usuarioLogado.getId());
 		if (entidade.getId() == null) {
-			entidade.setUsuarioInclusao(usuarioLogado);
+			//entidade.setUsuarioInclusao(usuarioLogado);
 			entityManager.persist(entidade);
 		} else {
-			entidade.setUsuarioAlteracao(usuarioLogado);
+			//entidade.setUsuarioAlteracao(usuarioLogado);
 			entidade = entityManager.merge(entidade);
 		}
 		return entidade;

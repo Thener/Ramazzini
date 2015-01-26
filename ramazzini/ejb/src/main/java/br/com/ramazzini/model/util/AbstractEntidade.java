@@ -100,9 +100,9 @@ public abstract class AbstractEntidade implements Serializable {
 	@PreUpdate
 	public void preUpdate() {
 		setDataAlteracao(TimeFactory.createDataHora());
-		if (getUsuarioAlteracao() == null) {
+		//if (getUsuarioAlteracao() == null) {
 			setUsuarioAlteracao(getUsuarioLogado());
-		}
+		//}
 	}	
 
 	public void setDataAlteracao(Date dataAlteracao) {
