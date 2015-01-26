@@ -76,7 +76,7 @@
 				<f:facet name="left">
 					<p:commandButton id="botaoVoltar" immediate="true"
 						icon="ui-icon-arrowreturnthick-1-w" title="#{msgs['botao.voltar']}"
-						action="pesquisarEmpresa.jsf?faces-redirect=true">
+						action="#{empresaController.voltar()}">
 					</p:commandButton>
 					<p:commandButton id="salvar" action="#{empresaController.gravarEmpresa()}"
 						value="#{msgs['botao.gravar']}" icon="ui-icon-disk" ajax="false" 

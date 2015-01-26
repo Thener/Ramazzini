@@ -11,6 +11,8 @@ public abstract class AbstractBean implements Serializable {
 	    
     private ControleAcesso controleAcesso = new ControleAcesso();
     
+    private String uriRequisicao;
+    
     private BreadCrumb breadCrumb = BreadCrumb.getInstance();
     
     private boolean somenteLeitura = Boolean.FALSE;
@@ -33,5 +35,13 @@ public abstract class AbstractBean implements Serializable {
 
 	public void setBreadCrumb(BreadCrumb breadCrumb) {
 		this.breadCrumb = breadCrumb;
+	}
+
+	public String getUriRequisicao() {
+		return uriRequisicao;
+	}
+
+	public void setUriRequisicao(String uriRequisicao) {
+		this.uriRequisicao = uriRequisicao;
 	}	
 }
