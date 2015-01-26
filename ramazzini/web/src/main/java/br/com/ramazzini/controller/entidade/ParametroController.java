@@ -54,7 +54,7 @@ public class ParametroController extends AbstractBean implements Serializable {
 		
 		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.dadosGravadosComSucesso","Parâmetros");
 	}
-
+	
 	public Parametro getParametroAgendaCriarSabado() {
 		return parametroAgendaCriarSabado;
 	}
@@ -87,9 +87,5 @@ public class ParametroController extends AbstractBean implements Serializable {
 			Parametro parametroAcessoNumTentativasLogin) {
 		this.parametroAcessoNumTentativasLogin = parametroAcessoNumTentativasLogin;
 	}
-
-
-		
-
 	
 }

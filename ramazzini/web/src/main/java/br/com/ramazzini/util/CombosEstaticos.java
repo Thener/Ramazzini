@@ -8,6 +8,8 @@ import br.com.ramazzini.model.funcionario.Sexo;
 import br.com.ramazzini.model.funcionario.SituacaoFuncionario;
 import br.com.ramazzini.model.horarioAtendimento.DiaSemana;
 import br.com.ramazzini.model.profissional.PapelProfissional;
+import br.com.ramazzini.model.util.NaoSim;
+import br.com.ramazzini.model.util.SimNao;
 
 @Named("combosEstaticos") 
 public class CombosEstaticos {	
@@ -26,6 +28,16 @@ public class CombosEstaticos {
 	public Sexo[] getSexo() {
 		return Sexo.values();
 	}
+	
+	@Produces
+	public SimNao[] getSimNao() {
+		return SimNao.values();
+	}
+	
+	@Produces
+	public NaoSim[] getNaoSim() {
+		return NaoSim.values();
+	}	
 	
 	@Produces
 	public SituacaoFuncionario[] getSituacoesFuncionario() {
