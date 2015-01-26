@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui"
+   template="/WEB-INF/templates/default.xhtml">
+   <ui:define name="content">
+   
+	<h:form id="frmPesquisaFuncionario">
+	
+		<p:growl id="messages" showDetail="false" sticky="true" />
+		
+		<p:panel id="panelPesquisaFuncionarios" header="#{msgs['label.funcionarios']}" style="margin-bottom:20px">
+		
+			<h:panelGrid columns="4" cellpadding="10">
+			
+				<p:outputLabel for="nomeFuncionarioPesquisa" value="#{msgs['label.nome']}:" />
+				<p:inputText id="nomeFuncionarioPesquisa" value="#{funcionarioController.nomeFuncionarioPesquisa}" 
+					styleClass="nome100" maxlength="100" required="false"/>
+					
+				<p:commandButton action="#{funcionarioController.pesquisarGeral()}"
+					id="botaoPesquisa" icon="ui-icon-search" title="#{msgs['label.pesquisa']}"
+					update="frmPesquisaFuncionario">
+					<f:ajax execute="nomeFuncionarioPesquisa" render="gridFuncionarios"/>
+				</p:commandButton>
+				
+			</h:panelGrid>		
+
+			<p:dataTable var="funcionario" value="#{funcionarioController.funcionarios}"
+				id="gridFuncionarios" emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}"
+				paginator="true" paginatorPosition="bottom" rows="5">
+				
+				<f:facet name="header"> #{msgs['label.funcionarios']} </f:facet>
+
+					<p:column headerText="#{msgs['label.funcionario']}"
+						sortBy="#{funcionario.nome}">
+
+						<p:commandLink title="#{msgs['label.editar']}"
+							action="#{funcionarioController.alterarFuncionario(funcionario, funcionario.empresa)}"
+							value="#{funcionario.nome}"
+							rendered="#{funcionarioController.controleAcesso.acaoAutorizada('funcionario','pesquisarFuncionario.jsf','alterarFuncionario')}" />
+					</p:column>
+
+					<p:column headerText="#{msgs['label.empresa']}"
+						sortBy="#{funcionario.empresa.nome}">
+
+						<p:commandLink title="#{msgs['label.editar']}"
+							action="#{empresaController.alterarEmpresa(funcionario.empresa)}"
+							value="#{funcionario.empresa.nome}"
+							rendered="#{empresaController.controleAcesso.acaoAutorizada('empresa','pesquisarEmpresa.jsf','alterarEmpresa')}" />
+					</p:column>										
+
+			</p:dataTable>
+							
+		</p:panel>
+
+	</h:form>
+	
+	</ui:define>
+</ui:composition>

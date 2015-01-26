@@ -21,8 +21,7 @@ public class ProcedimentoCredenciadoController extends AbstractBean implements S
 	private static final long serialVersionUID = 1L;
 	
 	private static final String PAGINA_CADASTRO_PROCEDIMENTO_CREDENCIADO = "/pages/procedimentoCredenciado/cadastroProcedimentoCredenciado.jsf?faces-redirect=true";
-												 
-	private String uriRequisicao; 
+	 
     @Inject
     private ProcedimentoCredenciadoService procedimentoCredenciadoService; 
     
@@ -64,7 +63,7 @@ public class ProcedimentoCredenciadoController extends AbstractBean implements S
     }    
     
     private String cadastroProcedimentoCredenciado(ProcedimentoCredenciado procedimentoCredenciado, Boolean somenteLeitura) {    	 	
-    	uriRequisicao = getControleAcesso().getUriRequisicao();
+    	setUriRequisicao(getControleAcesso().getUriRequisicao());
     	setProcedimentoCredenciado(procedimentoCredenciado);
     	setSomenteLeitura(somenteLeitura);
     	return PAGINA_CADASTRO_PROCEDIMENTO_CREDENCIADO;    	
@@ -89,7 +88,7 @@ public class ProcedimentoCredenciadoController extends AbstractBean implements S
 	} 
 
 	public String voltar() {				
-		return uriRequisicao+"?faces-redirect=true";
+		return getUriRequisicao()+"?faces-redirect=true";
 	}
 	
     public void pesquisarPorCredenciado(){

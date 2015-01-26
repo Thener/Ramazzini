@@ -43,7 +43,12 @@ public class FuncionarioController extends AbstractBean implements Serializable 
     public String alterarFuncionario(Funcionario funcionario){
     	
     	return cadatroFuncionario(funcionario, Boolean.FALSE);
-    }
+    }    
+    
+    public String alterarFuncionario(Funcionario funcionario, Empresa empresa){
+    	setEmpresa(empresa);
+    	return cadatroFuncionario(funcionario, Boolean.FALSE);
+    }  
     
     public String visualizarFuncionario(Funcionario funcionario){
     	
@@ -62,9 +67,9 @@ public class FuncionarioController extends AbstractBean implements Serializable 
     }    
     
     private String cadatroFuncionario(Funcionario funcionario, Boolean somenteLeitura) {
-
     	setFuncionario(funcionario);
     	setSomenteLeitura(somenteLeitura);
+    	setUriRequisicao(getControleAcesso().getUriRequisicao());
     	return PAGINA_CADASTRO_FUNCIONARIO;    	
     }
     
@@ -83,11 +88,23 @@ public class FuncionarioController extends AbstractBean implements Serializable 
 			funcionarios = funcionarioService.recuperarPorNome(empresa, nomeFuncionarioPesquisa);
 		}      
     }    
+    
+    public void pesquisarGeral() {		
+    	if (nomeFuncionarioPesquisa == null || nomeFuncionarioPesquisa.isEmpty()){
+    		funcionarios = funcionarioService.recuperarTodos();
+		} else {
+			funcionarios = funcionarioService.recuperarPorNome(nomeFuncionarioPesquisa);
+		}      
+    }    
+    
+    public String voltar() {				
+		return getUriRequisicao()+"?faces-redirect=true";
+	}
 	
 	public List<Funcionario> getFuncionarios() {
 		return funcionarios;
 	}
-
+ 
 	public void setFuncionarios(List<Funcionario> funcionarios) {
 		this.funcionarios = funcionarios;
 	}

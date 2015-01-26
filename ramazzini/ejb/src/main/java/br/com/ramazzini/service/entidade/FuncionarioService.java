@@ -36,5 +36,8 @@ public class FuncionarioService extends AbstractServiceImpl<Funcionario> {
     public List<Funcionario> recuperarPorNome(Empresa empresa, String nomeFuncionario) {
     	return ((FuncionarioDao) getDao()).recuperarPorNome(empresa, nomeFuncionario);
     }    
+    public List<Funcionario> recuperarPorNome(String nomeFuncionario) {
+    	return ((FuncionarioDao) getDao()).recuperarPorNome(nomeFuncionario);
+    }    
 
 }

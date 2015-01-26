@@ -27,7 +27,7 @@ public class EmpresaController extends AbstractBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private static final String PAGINA_PESQUISAR_EMPRESA = "pesquisarEmpresa.jsf?faces-redirect=true";
-	private static final String PAGINA_CADASTRO_EMPRESA = "cadastroEmpresa.jsf?faces-redirect=true";
+	private static final String PAGINA_CADASTRO_EMPRESA = "/pages/empresa/cadastroEmpresa.jsf?faces-redirect=true";
 
 	private @Inject Conversation conversation;
 	
@@ -119,6 +119,7 @@ public class EmpresaController extends AbstractBean implements Serializable {
     	setorController.setEmpresa(empresa);
     	setSomenteLeitura(somenteLeitura);
     	setTabActiveIndex(0);
+    	setUriRequisicao(getControleAcesso().getUriRequisicao());
     	return PAGINA_CADASTRO_EMPRESA;    	
     }
     
@@ -132,6 +133,10 @@ public class EmpresaController extends AbstractBean implements Serializable {
 			return PAGINA_PESQUISAR_EMPRESA;
 		}		
 	}    
+	
+	public String voltar() {				
+		return getUriRequisicao()+"?faces-redirect=true";
+	}
       
 	public List<Empresa> getEmpresas() {
 		return empresas;

@@ -17,7 +17,7 @@
 		]]>
 	</query>
 	
-	<query name="Funcionario.recuperarPorNome">
+	<query name="Funcionario.recuperarPorNomeEmpresa">
 		<![CDATA[
 			select 
 				f
@@ -27,6 +27,20 @@
 			where 
 				emp = :empresa
 			and
+				lower(f.nome) like lower(:nomeFuncionario)
+			order 
+				by f.nome
+		]]>
+	</query>	
+	
+	<query name="Funcionario.recuperarPorNome">
+		<![CDATA[
+			select 
+				f
+			from 
+				Funcionario f
+			left join f.empresa emp
+			where
 				lower(f.nome) like lower(:nomeFuncionario)
 			order 
 				by f.nome
