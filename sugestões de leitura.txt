@@ -23,3 +23,6 @@ http://www.txt2re.com/
 8. Icones
 botões: http://jquery-ui.googlecode.com/svn/tags/1.6rc5/tests/static/icons.html
 links: http://www.petefreitag.com/cheatsheets/jqueryui-icons/
+
+9. Quando não conseguimos recuperar a sessão na classe abstrata AbstractEntidade:
+http://sekhar4j.blogspot.com.br/2014/11/access-httpservletrequest-object-in.html

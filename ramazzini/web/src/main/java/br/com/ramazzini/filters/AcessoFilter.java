@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import br.com.ramazzini.model.usuario.Usuario;
+import br.com.ramazzini.util.Contexto;
 import br.com.ramazzini.util.ControleAcesso;
 
 @WebFilter("/AcessoFilter")
@@ -27,6 +28,8 @@ public class AcessoFilter implements Filter {
 
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
+		
+		Contexto context = Contexto.newInstance((HttpServletRequest) request);
 		
 		request.setCharacterEncoding("UTF-8");
 		
@@ -54,6 +57,8 @@ public class AcessoFilter implements Filter {
 				response.sendRedirect(request.getContextPath() + "/pages/home/acessoNaoAutorizado.jsf");	
 			}
 		}
+		
+		context.release();
 	}
 
 	public void init(FilterConfig fConfig) throws ServletException {}

@@ -3,7 +3,6 @@ package br.com.ramazzini.model.util;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.faces.context.FacesContext;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.FetchType;
@@ -18,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import br.com.ramazzini.model.usuario.Usuario;
+import br.com.ramazzini.util.Contexto;
 import br.com.ramazzini.util.TimeFactory;
 
 
@@ -89,9 +89,9 @@ public abstract class AbstractEntidade implements Serializable {
 	@PrePersist
 	public void prePersist() {
 		setDataInclusao(TimeFactory.createDataHora());
-//		if (getUsuarioInclusao() == null) {
-//			setUsuarioInclusao(getUsuarioLogado());
-//		}
+		if (getUsuarioInclusao() == null) {
+			setUsuarioInclusao(getUsuarioLogado());
+		}
 	}
 
 	/**
@@ -100,9 +100,9 @@ public abstract class AbstractEntidade implements Serializable {
 	@PreUpdate
 	public void preUpdate() {
 		setDataAlteracao(TimeFactory.createDataHora());
-//		if (getUsuarioAlteracao() == null) {
-//			setUsuarioAlteracao(getUsuarioLogado());
-//		}
+		if (getUsuarioAlteracao() == null) {
+			setUsuarioAlteracao(getUsuarioLogado());
+		}
 	}	
 
 	public void setDataAlteracao(Date dataAlteracao) {
@@ -160,7 +160,10 @@ public abstract class AbstractEntidade implements Serializable {
 	}
 	
 	private HttpSession getSession() {
-		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();	    
-		return request.getSession();
+		//HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();	    
+		//return request.getSession();
+		
+		 HttpServletRequest request = Contexto.getCurrentInstance().getRequest(); 
+		 return request.getSession();
 	}
 }
