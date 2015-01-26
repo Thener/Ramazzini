@@ -20,13 +20,17 @@ public class PhaseListnerRamazzini implements PhaseListener {
 
 	@Override
 	public void afterPhase(PhaseEvent arg0) {
-			addMenuItem();	        
+			addMenuItem();	   
+			
 	}
 
 	private void addMenuItem() {
+		// recupera a lista de menu item da sessao
+		// adiciona a correnete
+		//salva lista atualizada na sessão 
 		DefaultMenuItem item = new DefaultMenuItem();
 		String URL = getControleAcesso().getUriRequisicao();
-		if (URL.equals("/index.xhtml") || URL.equals("/index.jsf")){
+		if (URL.equals("/index.xhtml") || URL.equals("/index.jsf") || getTela(URL).equals("home.jsf")){
 			breadCrumb.clear();
 			breadCrumb.addItemInicial();
 		} else {			

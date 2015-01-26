@@ -3,16 +3,23 @@ package br.com.ramazzini.model.util;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.faces.context.FacesContext;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import br.com.ramazzini.model.usuario.Usuario;
+import br.com.ramazzini.util.TimeFactory;
+
 
 /**
  * <p>
@@ -23,13 +30,13 @@ import br.com.ramazzini.model.usuario.Usuario;
 public abstract class AbstractEntidade implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "ts_inclusao", columnDefinition = "timestamp without time zone")
 	@Basic(fetch = FetchType.LAZY)
 	private Date dataInclusao;
-
-
+	
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "ts_alteracao", columnDefinition = "timestamp without time zone")
 	@Basic(fetch = FetchType.LAZY)
@@ -76,28 +83,27 @@ public abstract class AbstractEntidade implements Serializable {
 		return (getId() == null) || Long.valueOf(0).equals(getId());
 	}
 
-//	/**
-//	 * Insere a data de inclusao e usuario de inclusão antes de persistir.
-//	 */
-//	@PrePersist
-//	public void prePersist(Usuario usuarioLogado) {
-//		setDataInclusao(TimeFactory.createDataHora());
+	/**
+	 * Insere a data de inclusao e usuario de inclusão antes de persistir.
+	 */
+	@PrePersist
+	public void prePersist() {
+		setDataInclusao(TimeFactory.createDataHora());
 //		if (getUsuarioInclusao() == null) {
-//			setUsuarioInclusao(usuarioLogado);
+//			setUsuarioInclusao(getUsuarioLogado());
 //		}
-//	}
-//
-//	/**
-//	 * Insere a data e usuário de alteracao antes de um update. 
-//	 */
-//	@PreUpdate
-//	public void preUpdate(Usuario usuarioLogado) {
-//		setDataAlteracao(TimeFactory.createDataHora());
+	}
+
+	/**
+	 * Insere a data e usuário de alteracao antes de um update. 
+	 */
+	@PreUpdate
+	public void preUpdate() {
+		setDataAlteracao(TimeFactory.createDataHora());
 //		if (getUsuarioAlteracao() == null) {
-//			setUsuarioAlteracao(usuarioLogado);
+//			setUsuarioAlteracao(getUsuarioLogado());
 //		}
-//
-//	}	
+	}	
 
 	public void setDataAlteracao(Date dataAlteracao) {
 		this.dataAlteracao = dataAlteracao;
@@ -148,7 +154,13 @@ public abstract class AbstractEntidade implements Serializable {
 			return false;
 		return true;
 	}
-
-
 	
+	public Usuario getUsuarioLogado() {
+		return (Usuario) getSession().getAttribute("usuario");
+	}
+	
+	private HttpSession getSession() {
+		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();	    
+		return request.getSession();
+	}
 }

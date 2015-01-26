@@ -38,11 +38,9 @@ public class DaoUtil {
 		usuarioLogado = entityManager.find(Usuario.class, usuarioLogado.getId());
 		if (entidade.getId() == null) {
 			entidade.setUsuarioInclusao(usuarioLogado);
-			entidade.setDataInclusao(TimeFactory.createDataHora());
 			entityManager.persist(entidade);
 		} else {
 			entidade.setUsuarioAlteracao(usuarioLogado);
-			entidade.setDataAlteracao(TimeFactory.createDataHora());
 			entidade = entityManager.merge(entidade);
 		}
 		return entidade;
