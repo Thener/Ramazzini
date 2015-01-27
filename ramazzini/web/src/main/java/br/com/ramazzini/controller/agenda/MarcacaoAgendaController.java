@@ -11,6 +11,7 @@ import javax.inject.Named;
 
 import br.com.ramazzini.controller.util.AbstractBean;
 import br.com.ramazzini.model.agenda.Agenda;
+import br.com.ramazzini.model.empresa.Empresa;
 import br.com.ramazzini.model.profissional.Profissional;
 import br.com.ramazzini.service.entidade.AgendaService;
 import br.com.ramazzini.util.TimeFactory;
@@ -31,6 +32,14 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
     private Profissional profissionalSelecionado;
     
     private List<Agenda> horarios = new ArrayList<Agenda>();
+    
+    private Agenda agenda;
+    
+    private Empresa empresaSelecionada;
+    
+    public void editarMarcacao() {
+    	
+    }
 	
 	public void onChangeDataSelecionada() {
 		profissionaisDisponiveis = agendaService.recuperarProfissionaisDisponiveisPorData(dataSelecionada);
@@ -62,7 +71,7 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 		
 		return cabecalho;
 	}
-
+	
 	public List<Profissional> getProfissionaisDisponiveis() {
 		return profissionaisDisponiveis;
 	}
@@ -85,6 +94,22 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 
 	public void setHorarios(List<Agenda> horarios) {
 		this.horarios = horarios;
+	}
+
+	public Agenda getAgenda() {
+		return agenda;
+	}
+
+	public void setAgenda(Agenda agenda) {
+		this.agenda = agenda;
+	}
+
+	public Empresa getEmpresaSelecionada() {
+		return empresaSelecionada;
+	}
+
+	public void setEmpresaSelecionada(Empresa empresaSelecionada) {
+		this.empresaSelecionada = empresaSelecionada;
 	}
 	
 	

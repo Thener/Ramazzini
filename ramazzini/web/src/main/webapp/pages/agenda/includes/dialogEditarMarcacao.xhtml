@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui">
+   
+	<p:dialog header="#{msgs['label.agenda']}" widgetVar="dialogDialogEditarMarcacao" 
+		modal="true" height="340" width="550" resizable="false">
+		
+		<h:form id="frmDialogEditarMarcacao">
+		
+			<p:panel id="panelDialogEditarMarcacao" header="#{msgs['label.editar']}">
+			
+				<h:panelGrid columns="2" cellpadding="5">
+				
+					<p:outputLabel value="#{msgs['label.empresa']}: " for="completeEmpresa" />
+					<p:autoComplete id="completeEmpresa"
+						value="#{marcacaoAgendaController.empresaSelecionada}"
+						completeMethod="#{autoComplete.completeEmpresa}"
+						var="empresa" itemLabel="#{empresa.nome}"
+						itemValue="#{empresa}" converter="entityConverter"
+						forceSelection="true" styleClass="nome50">
+						
+						<p:ajax event="itemSelect" process="@this"/>
+					</p:autoComplete>	
+						
+					<p:outputLabel value="#{msgs['label.funcionario']}: " for="completeFuncionario" />
+					<p:autoComplete id="completeFuncionario"
+						value="#{marcacaoAgendaController.agenda.funcionario}"
+						completeMethod="#{autoComplete.completeFuncionario}"
+						var="funcionario" itemLabel="#{funcionario.nome}"
+						itemValue="#{funcionario}" converter="entityConverter"
+						forceSelection="true" styleClass="nome50">
+						<f:attribute name="empresaSelecionada" value="#{marcacaoAgendaController.empresaSelecionada}" />
+					</p:autoComplete>							
+											
+				</h:panelGrid>		
+	    
+		    </p:panel>
+	    
+			<p:toolbar>
+				<f:facet name="left">					
+				   	<p:commandButton title="#{msgs['botao.voltar']}" type="button" 
+				   		 icon="ui-icon-arrowreturnthick-1-w" onclick="PF('dialogDialogEditarMarcacao').hide();"/>							
+						
+				</f:facet>
+			</p:toolbar>
+			
+		</h:form>	    
+	    
+	</p:dialog>	
+	
+	
+</ui:composition>
