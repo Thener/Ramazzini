@@ -1,5 +1,6 @@
 package br.com.ramazzini.util;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -18,6 +19,11 @@ public final class TimeFactory {
 		long time = System.currentTimeMillis();		
 		DateTime date = new DateTime(time);
 		return date.toDate();
+	}
+	
+	public static String converterDataEmTexto(Date data) {
+		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy"); 
+		return formatador.format(data);
 	}
 	
 	public static DiaSemana diaDaSemana(Date dt) {

@@ -1,8 +1,6 @@
 package br.com.ramazzini.controller.entidade;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.enterprise.context.ConversationScoped;
@@ -91,15 +89,5 @@ public class ProgramacaoHorarioAtendimentoController extends AbstractBean implem
 	public String getHoraFim(ProgramacaoHorarioAtendimento programacao) {
 		return getFormattedTime(programacao.getHoraFim(), "hh:mm");
 	}	
-
-    private String getFormattedTime(Date time, String format) {  
-        
-    	if (time == null) {  
-            return null;  
-        }  
-  
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);  
-        return simpleDateFormat.format(time);  
-    }	
 	
 }

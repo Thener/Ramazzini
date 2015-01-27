@@ -3,6 +3,34 @@
 		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 
-
+	<query name="Agenda.recuperarProfissionaisDisponiveisPorData">
+		<![CDATA[
+			select 
+				distinct(p)			
+			from 
+				Agenda a
+			right join a.profissional p
+			where 
+				a.dataAgenda = :data
+			order 
+				by p.nome
+		]]>
+	</query>
+	
+	<query name="Agenda.recuperarPorDataProfissional">
+		<![CDATA[
+			select 
+				a		
+			from 
+				Agenda a
+			left join a.profissional p
+			where 
+				a.dataAgenda = :data
+			and
+				a.profissional = :profissional
+			order 
+				by a.horaAgenda
+		]]>
+	</query>	
 
 </hibernate-mapping>

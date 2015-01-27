@@ -16,15 +16,26 @@
  */
 package br.com.ramazzini.service.entidade;
 
+import java.util.Date;
+import java.util.List;
+
 import javax.ejb.Stateless;
 
+import br.com.ramazzini.dao.agenda.AgendaDao;
 import br.com.ramazzini.model.agenda.Agenda;
+import br.com.ramazzini.model.profissional.Profissional;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
 
 // The @Stateless annotation eliminates the need for manual transaction demarcation
 @Stateless
 public class AgendaService extends AbstractServiceImpl<Agenda> {
 
-   
+    public List<Profissional> recuperarProfissionaisDisponiveisPorData(Date data) {
+    	return ((AgendaDao) getDao()).recuperarProfissionaisDisponiveisPorData(data);
+    }   
+    
+    public List<Agenda> recuperarPorDataProfissional(Date data, Profissional profissional) {
+    	return ((AgendaDao) getDao()).recuperarPorDataProfissional(data, profissional);
+    }    
 
 }

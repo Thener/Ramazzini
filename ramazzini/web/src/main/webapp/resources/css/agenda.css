@@ -1,0 +1,6 @@
+.marcadorProfissional {
+	background: url("#{resource['img/agenda/profissional.png']}") no-repeat;
+	width: 24px;
+	height: 24px;
+	display: block;
+}

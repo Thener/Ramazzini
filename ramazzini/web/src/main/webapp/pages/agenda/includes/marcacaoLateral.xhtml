@@ -5,6 +5,35 @@
    xmlns:h="http://java.sun.com/jsf/html"
    xmlns:p="http://primefaces.org/ui">
    
-	<p:calendar id="inline" value="#{marcacaoAgendaController.dataSelecionada}" mode="inline" />
+	<h:form id="formLateral">
+	
+		<p:calendar value="#{marcacaoAgendaController.dataSelecionada}" mode="inline">
+			<p:ajax event="dateSelect" update=":formHorarios, listaMedicos" 
+				listener="#{marcacaoAgendaController.onChangeDataSelecionada()}" />
+		</p:calendar>
+		
+        <p:selectOneListbox id="listaMedicos" filter="true" filterMatchMode="contains"
+        	value="#{marcacaoAgendaController.profissionalSelecionado}" 
+        	converter="entityConverter" var="profissionalSelecionado"
+        	style="height: 260px; width: 96%;">
+        	
+            <f:selectItems value="#{marcacaoAgendaController.profissionaisDisponiveis}" var="profissional" 
+            	itemLabel="#{profissional.nome}" itemValue="#{profissional}" />
+
+            <p:column>
+                <h:outputText styleClass="marcadorProfissional" />
+            </p:column>
+            
+            <p:column>
+                <h:outputText value="#{profissionalSelecionado.nome}" />
+            </p:column>
+            
+			<p:ajax event="click" update=":formHorarios"
+        		listener="#{marcacaoAgendaController.onChangeProfissionalSelecionado()}" />
+                    
+        </p:selectOneListbox>
+        		
+	</h:form>
+	
 	
 </ui:composition>

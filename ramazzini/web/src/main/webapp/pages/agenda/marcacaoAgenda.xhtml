@@ -6,7 +6,7 @@
    xmlns:p="http://primefaces.org/ui"
    template="/WEB-INF/templates/default.xhtml">
    
-   <ui:define name="content">
+   <ui:define name="content" prependId="false">
 
 		<p:layout>
 
@@ -17,7 +17,7 @@
 				
 		    </p:layoutUnit>
 		 		 
-		    <p:layoutUnit position="center" header="Centro" style="min-height:235px;">
+		    <p:layoutUnit position="center" style="min-height:235px;">
 				
 				<ui:include src="includes/marcacaoCentro.xhtml" />
 				

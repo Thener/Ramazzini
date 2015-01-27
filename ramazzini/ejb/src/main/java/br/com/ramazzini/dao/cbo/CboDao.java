@@ -11,7 +11,7 @@ import br.com.ramazzini.model.cbo.Cbo;
 
 public class CboDao extends AbstractDao<Cbo> {
 
-private static final String QUERY_RECUPERAR_POR_NUMERO = "Cbo.recuperarPorNumero";
+	private static final String QUERY_RECUPERAR_POR_NUMERO = "Cbo.recuperarPorNumero";
 	
 	@SuppressWarnings("unchecked")
 	public List<Cbo> recuperarPorNumero(String numero) {
