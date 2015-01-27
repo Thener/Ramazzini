@@ -231,7 +231,7 @@ public class ControleAcesso implements Serializable {
 		return partes[ partes.length - 2 ];		
 	}
 	
-	private HttpSession getSession() {
+	public HttpSession getSession() {
 		if (session == null) {
 			session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 		}
