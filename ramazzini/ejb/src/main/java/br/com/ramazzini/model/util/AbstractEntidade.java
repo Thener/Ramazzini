@@ -160,6 +160,9 @@ public abstract class AbstractEntidade implements Serializable {
 	}
 	
 	private HttpSession getSession() {
+		//HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();	    
+		//return request.getSession();
+		
 		 HttpServletRequest request = Contexto.getCurrentInstance().getRequest(); 
 		 return request.getSession();
 	}
