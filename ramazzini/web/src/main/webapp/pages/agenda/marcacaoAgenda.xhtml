@@ -9,23 +9,23 @@
    <ui:define name="content" prependId="false">
    
    		<p:growl id="messages" showDetail="false" sticky="true" />
+   		
+		<p:layout style="width: 100%; height: 600px; background-color:white !important;">
 
-		<p:layout>
-
-		    <p:layoutUnit position="west" size="220" header="Left" resizable="true" 
-		    	closable="false" collapsible="true" style="min-height:235px;">
+		    <p:layoutUnit position="west" size="220" header="#{msgs['label.opcoes']}" resizable="true" 
+		    	closable="false" collapsible="true">
 				
 				<ui:include src="includes/marcacaoLateral.xhtml" />
 				
 		    </p:layoutUnit>
 		 		 
-		    <p:layoutUnit position="center" style="min-height:235px;">
+		    <p:layoutUnit position="center" style="min-height:235px;padding:10px;">
 				
 				<ui:include src="includes/marcacaoCentro.xhtml" />
 				
 		    </p:layoutUnit>
 		    
-		</p:layout> 
+		</p:layout>
 		
 		<ui:include src="includes/dialogEditarMarcacao.xhtml" />
 

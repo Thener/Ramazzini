@@ -60,6 +60,7 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 	
 	public void onChangeDataSelecionada() {
 		profissionaisDisponiveis.clear();
+		horarios.clear();
 	}
 	
 	public void onChangeProfissionalSelecionado() {
@@ -89,10 +90,9 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 	public List<Profissional> getProfissionaisDisponiveis() {
 		if (profissionaisDisponiveis.isEmpty()) {
 			profissionaisDisponiveis = agendaService.recuperarProfissionaisDisponiveisPorData(dataSelecionada);
-		}	
+		}
 		if (profissionaisDisponiveis.size() > 0) {
 			profissionalSelecionado = profissionaisDisponiveis.get(0);
-			onChangeProfissionalSelecionado();
 		}		
 		return profissionaisDisponiveis;
 	}
