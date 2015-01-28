@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui"
+   template="/WEB-INF/templates/default.xhtml">
+   <ui:define name="content">
+   
+	<h:form id="frmFeriado">
+	
+		<p:growl id="messages" showDetail="false" sticky="false" />
+	
+		<p:panel id="panelPesquisaFeriado" header="#{msgs['label.feriados']}" style="margin-bottom:20px">
+		
+			<h:panelGrid columns="4" cellpadding="5">
+			
+				<p:outputLabel for="nomeFeriadoPesquisa" value="#{msgs['label.nome']}:" />
+				<p:inputText id="nomeFeriadoPesquisa" value="#{feriadoController.nomeFeriadoPesquisa}" 
+					styleClass="nome50" required="false"/>
+					
+				<p:commandButton action="#{feriadoController.pesquisar()}"
+					id="botaoPesquisa" icon="ui-icon-search" title="#{msgs['label.pesquisa']}"
+					update="frmFeriado">
+					<f:ajax execute="nomeFeriadoPesquisa" render="gridFeriados"/>
+				</p:commandButton>
+				
+				<p:commandButton 
+					id="botaoIncluirFeriado" icon="ui-icon-circle-plus" value="#{msgs['botao.incluir']}"
+					action="#{feriadoController.incluirFeriado()}" />					
+				
+			</h:panelGrid>		
+
+			<p:dataTable var="feriado" value="#{feriadoController.feriados}"
+				id="gridFeriados" emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}"
+				paginator="true" paginatorPosition="bottom" rows="5">
+				
+				<f:facet name="header"> #{msgs['label.feriados']} </f:facet>
+
+				<p:column headerText="#{msgs['label.nome']}" sortBy="#{feriado.nome}">
+					<h:outputText value="#{feriado.nome}" />
+				</p:column>
+				
+				<p:column headerText="#{msgs['label.dia']}" sortBy="#{feriado.dia}" styleClass="colunaCentralizada">
+					<h:outputText value="#{feriado.dia}" />
+				</p:column>				
+		
+				<p:column headerText="#{msgs['label.mes']}" sortBy="#{feriado.mes}" styleClass="colunaCentralizada">
+					<h:outputText value="#{feriado.mesEnum}" />
+				</p:column>		
+				
+				<p:column headerText="#{msgs['label.acoes']}" styleClass="colunaAcoes">
+					<p:panelGrid columns="3" styleClass="semBorda">					  
+						<p:commandLink title="#{msgs['label.visualizar']}" action="#{feriadoController.visualizarFeriado(feriado)}"
+							styleClass="ui-icon ui-icon-search" 
+								rendered="#{feriadoController.controleAcesso.acaoAutorizada('feriado','pesquisarFeriado.jsf','visualizarFeriado')}" />
+						<p:commandLink title="#{msgs['label.editar']}" action="#{feriadoController.alterarFeriado(feriado)}"
+							styleClass="ui-icon ui-icon-pencil" 
+							rendered="#{feriadoController.controleAcesso.acaoAutorizada('feriado','pesquisarFeriado.jsf','alterarFeriado')}" />
+						<p:commandLink title="#{msgs['label.excluir']}" action="#{feriadoController.removerFeriado(feriado)}"
+							styleClass="ui-icon ui-icon-closethick" update="gridFeriados, :frmFeriado:messages"
+							rendered="#{feriadoController.controleAcesso.acaoAutorizada('feriado','pesquisarFeriado.jsf','excluirFeriado')}">
+							<p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['mensagem.pergunta.desejaRealmenteExcluir']}" icon="ui-icon-alert" />
+						</p:commandLink>	
+					</p:panelGrid>
+				</p:column>							
+
+			</p:dataTable>
+			
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+				<p:commandButton value="#{msgs['label.confirmacaoSim']}" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="#{msgs['label.confirmacaoNao']}" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>			
+			
+		</p:panel>
+
+	</h:form>
+	
+	</ui:define>
+</ui:composition>

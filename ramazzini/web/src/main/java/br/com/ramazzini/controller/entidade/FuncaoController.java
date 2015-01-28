@@ -86,9 +86,15 @@ public class FuncaoController extends AbstractBean implements Serializable {
     
 	public String gravarFuncao() {
 		
+		boolean inclusao = funcao.isNovo();
 		funcaoService.salvar(funcao);
-		pesquisar();
-		return PAGINA_CADASTRO_EMPRESA;
+		if (inclusao) {
+			return alterarFuncao(funcao);
+		} else {
+			pesquisar();
+			return PAGINA_CADASTRO_EMPRESA;
+		}		
+		
 	}
     
     public void pesquisar() {

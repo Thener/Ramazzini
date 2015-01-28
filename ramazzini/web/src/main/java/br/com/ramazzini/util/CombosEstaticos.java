@@ -4,6 +4,8 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Named;
 
 import br.com.ramazzini.model.empresa.UnidadeFederativa;
+import br.com.ramazzini.model.feriado.DiasMes;
+import br.com.ramazzini.model.feriado.Mes;
 import br.com.ramazzini.model.funcionario.Sexo;
 import br.com.ramazzini.model.funcionario.SituacaoFuncionario;
 import br.com.ramazzini.model.horarioAtendimento.DiaSemana;
@@ -15,9 +17,19 @@ import br.com.ramazzini.model.util.SimNao;
 public class CombosEstaticos {	
 	
 	@Produces
+	public DiasMes[] getDiasMes() {
+		return DiasMes.values();
+	}	
+	
+	@Produces
 	public DiaSemana[] getDiasSemana() {
 		return DiaSemana.values();
 	}
+	
+	@Produces
+	public Mes[] getMeses() {
+		return Mes.values();
+	}	
 	
 	@Produces
 	public PapelProfissional[] getPapeisProfissional() {

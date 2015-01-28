@@ -8,7 +8,7 @@ public enum GrauRisco {
     RISCO_1(1,"grauRisco.grauRisco1"), 
     RISCO_2(2, "grauRisco.grauRisco2"),
     RISCO_3(3, "grauRisco.grauRisco3"),
-    RISCO_4(5, "grauRisco.grauRisco4");
+    RISCO_4(4, "grauRisco.grauRisco4");
     
     private static final ResourceBundle bundle = ResourceBundle.getBundle("messages");
 

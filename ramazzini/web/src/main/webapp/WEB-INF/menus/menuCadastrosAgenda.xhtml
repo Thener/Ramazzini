@@ -7,7 +7,8 @@
 				
 	<p:submenu label="#{msgs['menu.label.agenda']}">
 
-		<p:menuitem value="#{msgs['menu.label.feriados']}" url=""/>
+		<p:menuitem value="#{msgs['menu.label.feriados']}" url="/pages/feriado/pesquisarFeriado.jsf"
+			rendered="#{menuController.controleAcesso.telaAutorizada('feriado','pesquisarFeriado.jsf')}"/>
 		
 		<p:separator />
 	
