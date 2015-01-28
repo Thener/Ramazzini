@@ -10,6 +10,8 @@ import br.com.ramazzini.model.empresa.Empresa;
 import br.com.ramazzini.model.funcao.Funcao;
 import br.com.ramazzini.model.horarioAtendimento.HorarioAtendimento;
 import br.com.ramazzini.model.lotacao.Lotacao;
+import br.com.ramazzini.model.procedimento.Procedimento;
+import br.com.ramazzini.model.procedimento.TipoProcedimento;
 import br.com.ramazzini.model.profissional.PapelProfissional;
 import br.com.ramazzini.model.profissional.Profissional;
 import br.com.ramazzini.model.setor.Setor;
@@ -17,6 +19,7 @@ import br.com.ramazzini.service.entidade.CboService;
 import br.com.ramazzini.service.entidade.FuncaoService;
 import br.com.ramazzini.service.entidade.HorarioAtendimentoService;
 import br.com.ramazzini.service.entidade.LotacaoService;
+import br.com.ramazzini.service.entidade.ProcedimentoService;
 import br.com.ramazzini.service.entidade.ProfissionalService;
 import br.com.ramazzini.service.entidade.SetorService;
 
@@ -34,6 +37,9 @@ public class CombosDinamicos {
     
     @Inject
     LotacaoService lotacaoService; 
+    
+    @Inject
+    ProcedimentoService procedimentoService;
     
     @Inject
     ProfissionalService profissionalService;
@@ -55,6 +61,14 @@ public class CombosDinamicos {
 	
 	public List<Lotacao> getLotacoes(Empresa empresa) {
 		return lotacaoService.recuperarPorEmpresa(empresa);
+	}	
+
+	public List<Procedimento> getProcedimentos() {
+		return procedimentoService.recuperarTodos("nome");
+	}
+	
+	public List<Procedimento> getProcedimentosTipoExameClinicoOcupacional() {
+		return procedimentoService.recuperarPorTipoProcedimento(TipoProcedimento.EXAME_CLINICO_OCUPACIONAL);
 	}	
 	
 	public List<Profissional> getProfissionais() {

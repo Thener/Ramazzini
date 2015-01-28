@@ -5,29 +5,45 @@
    xmlns:h="http://java.sun.com/jsf/html"
    xmlns:p="http://primefaces.org/ui">
 	
-	<h:form id="formHorarios">
+	<h:form id="frmHorarios">
 	
-		<p:outputLabel id="identificacaoDataAgenda" value="#{marcacaoAgendaController.cabecalhoCentro}" />
+		<p:outputLabel id="identificacaoDataAgenda" value="#{marcacaoAgendaController.cabecalhoCentro}" 
+			styleClass="agendaIdentificacaoData" />
 	
-		<p:dataTable id="gridHorarios" var="agenda" value="#{marcacaoAgendaController.horarios}">
+		<div style="clear:both; padding-top:5px;"></div>
 		
-		    <p:column headerText="#{msgs['label.acoes']}" styleClass="colunaAcoes">
+		<p:dataTable id="gridHorarios" var="agenda" value="#{marcacaoAgendaController.horarios}" 
+			styleClass="agendaGridHorarios" emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}">
+		
+		    <p:column headerText="#{msgs['label.acoes']}" styleClass="agendaColunaAcoes">
 						
 				<p:commandLink title="#{msgs['label.visualizar']}" styleClass="ui-icon ui-icon-circle-plus"
-					actionListener="#{marcacaoAgendaController.editarMarcacao()}" 
+					actionListener="#{marcacaoAgendaController.editarMarcacao(agenda)}" 
 					onclick="PF('dialogDialogEditarMarcacao').show();" update=":frmDialogEditarMarcacao" />
 
 		    </p:column>		
 			
-		    <p:column headerText="#{msgs['label.data']}" styleClass="colunaData">
+		    <p:column headerText="#{msgs['label.data']}" styleClass="agendaColunaData">
 		        <h:outputText value="#{agenda.dataAgenda}">
 		        	<f:convertDateTime locale="pt,BR" pattern="#{msgs['pattern.calendar']}" />
 		        </h:outputText>
 		    </p:column>
 		 
-		    <p:column headerText="#{msgs['label.hora']}" styleClass="colunaHora">
+		    <p:column headerText="#{msgs['label.hora']}" styleClass="agendaColunaHora">
 		        <h:outputText value="#{marcacaoAgendaController.getFormattedTime(agenda.horaAgenda,'hh:mm')}" />
 		    </p:column>
+		    
+		    <p:column headerText="#{msgs['label.funcionario']}" styleClass="agendaColunaFuncionario">
+		        <h:outputText value="#{agenda.funcionario.nome}" />
+		    </p:column>	
+		    
+		    <p:column headerText="#{msgs['label.empresa']}" styleClass="agendaColunaEmpresa">
+		        <h:outputText value="#{agenda.funcionario.empresa.nome}" />
+		    </p:column>	
+		    	    	    
+		    <p:column headerText="#{msgs['label.procedimento']}" styleClass="agendaColunaProcedimento">
+		        <h:outputText value="#{agenda.procedimento.nome}" />
+		    </p:column>	
 		 
 		</p:dataTable>
 	

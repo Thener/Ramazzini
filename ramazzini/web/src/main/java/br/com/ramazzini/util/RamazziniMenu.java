@@ -1,14 +1,10 @@
 package br.com.ramazzini.util;
 
-import java.awt.List;
-import java.util.Iterator;
-
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
-import org.primefaces.model.menu.MenuElement;
 
 public class RamazziniMenu extends DefaultMenuModel{
 

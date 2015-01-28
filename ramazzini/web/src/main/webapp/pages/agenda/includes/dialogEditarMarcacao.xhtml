@@ -14,6 +14,20 @@
 			
 				<h:panelGrid columns="2" cellpadding="5">
 				
+					<p:outputLabel value="#{msgs['label.data']}:" />
+					<p:outputLabel value="#{marcacaoAgendaController.agenda.dataAgenda}" styleClass="agendaNegrito">
+						<f:convertDateTime locale="pt,BR" pattern="#{msgs['pattern.calendar']}" />
+					</p:outputLabel>
+
+					<p:outputLabel value="#{msgs['label.profissional']}:" />
+					<p:outputLabel value="#{marcacaoAgendaController.agenda.profissional.nome}" styleClass="agendaNegrito" />
+				
+				</h:panelGrid>
+				
+				<p:separator />
+			
+				<h:panelGrid columns="2" cellpadding="5">
+				
 					<p:outputLabel value="#{msgs['label.empresa']}: " for="completeEmpresa" />
 					<p:autoComplete id="completeEmpresa"
 						value="#{marcacaoAgendaController.empresaSelecionada}"
@@ -33,7 +47,17 @@
 						itemValue="#{funcionario}" converter="entityConverter"
 						forceSelection="true" styleClass="nome50">
 						<f:attribute name="empresaSelecionada" value="#{marcacaoAgendaController.empresaSelecionada}" />
-					</p:autoComplete>							
+					</p:autoComplete>
+					
+					<p:outputLabel value="#{msgs['label.procedimento']}: " for="completeFuncionario" />
+					<p:selectOneMenu id="procedimentoSelecionado"
+						value="#{marcacaoAgendaController.agenda.procedimento}"
+						converter="entityConverter" styleClass="nome50">
+						<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
+							noSelectionOption="true" />
+						<f:selectItems value="#{combosDinamicos.procedimentosTipoExameClinicoOcupacional}" var="procedimento"
+							itemLabel="#{procedimento.nome}" />
+					</p:selectOneMenu>
 											
 				</h:panelGrid>		
 	    
@@ -44,6 +68,12 @@
 				   	<p:commandButton title="#{msgs['botao.voltar']}" type="button" 
 				   		 icon="ui-icon-arrowreturnthick-1-w" onclick="PF('dialogDialogEditarMarcacao').hide();"/>							
 						
+					<p:commandButton id="botaoGravarMarcacao" ajax="true" 
+						value="#{msgs['botao.gravar']}" icon="ui-icon-disk" title="#{msgs['botao.gravar']}"
+						onclick="PF('dialogDialogEditarMarcacao').hide();"
+						actionListener="#{marcacaoAgendaController.gravarMarcacao}" 
+						update=":frmHorarios:gridHorarios" />
+													
 				</f:facet>
 			</p:toolbar>
 			

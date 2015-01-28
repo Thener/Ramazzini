@@ -8,7 +8,7 @@
 	<h:form id="formLateral">
 	
 		<p:calendar value="#{marcacaoAgendaController.dataSelecionada}" mode="inline">
-			<p:ajax event="dateSelect" update=":formHorarios, listaMedicos" 
+			<p:ajax event="dateSelect" update=":frmHorarios, listaMedicos" 
 				listener="#{marcacaoAgendaController.onChangeDataSelecionada()}" />
 		</p:calendar>
 		
@@ -21,14 +21,14 @@
             	itemLabel="#{profissional.nome}" itemValue="#{profissional}" />
 
             <p:column>
-                <h:outputText styleClass="marcadorProfissional" />
+                <h:outputText styleClass="agendaMarcadorProfissional" />
             </p:column>
             
             <p:column>
                 <h:outputText value="#{profissionalSelecionado.nome}" />
             </p:column>
             
-			<p:ajax event="click" update=":formHorarios"
+			<p:ajax event="click" update=":frmHorarios, :messages" 
         		listener="#{marcacaoAgendaController.onChangeProfissionalSelecionado()}" />
                     
         </p:selectOneListbox>

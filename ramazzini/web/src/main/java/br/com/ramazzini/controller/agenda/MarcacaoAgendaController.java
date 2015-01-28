@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -21,10 +23,12 @@ import br.com.ramazzini.util.TimeFactory;
 public class MarcacaoAgendaController extends AbstractBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
+	private @Inject Conversation conversation;
 
 	private Date dataSelecionada = TimeFactory.createDataHora();
 	
-	private List<Profissional> profissionaisDisponiveis;
+	private List<Profissional> profissionaisDisponiveis = new ArrayList<Profissional>();
 	
     @Inject
     private AgendaService agendaService; 
@@ -37,20 +41,29 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
     
     private Empresa empresaSelecionada;
     
-    public void editarMarcacao() {
-    	
+	@PostConstruct
+	public void init() {
+
+		if (conversation.isTransient()) {
+			conversation.begin();
+		}
+	}    
+    
+    public void editarMarcacao(Agenda agenda) {
+    	this.agenda = agenda;
+   		empresaSelecionada = (agenda.getFuncionario() != null) ? agenda.getFuncionario().getEmpresa() : null;
+    }
+    
+    public void gravarMarcacao() {
+    	agendaService.salvar(agenda);
     }
 	
 	public void onChangeDataSelecionada() {
-		profissionaisDisponiveis = agendaService.recuperarProfissionaisDisponiveisPorData(dataSelecionada);
-		if (!profissionaisDisponiveis.isEmpty()) {
-			profissionalSelecionado = profissionaisDisponiveis.get(0);
-			onChangeProfissionalSelecionado();
-		}
+		profissionaisDisponiveis.clear();
 	}
 	
 	public void onChangeProfissionalSelecionado() {
-		horarios = agendaService.recuperarPorDataProfissional(dataSelecionada, profissionalSelecionado);
+		horarios.clear();
 	}
 	
 	public Date getDataSelecionada() {
@@ -64,6 +77,7 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 	public String getCabecalhoCentro() {
 		
 		String cabecalho = "Data: " + TimeFactory.converterDataEmTexto(dataSelecionada);
+		cabecalho = cabecalho + " :: " + TimeFactory.diaDaSemana(dataSelecionada).getStringChave();
 		
 		if (profissionalSelecionado != null) {
 			cabecalho = cabecalho + " | Profissional: " + profissionalSelecionado.getNome();
@@ -73,6 +87,13 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 	}
 	
 	public List<Profissional> getProfissionaisDisponiveis() {
+		if (profissionaisDisponiveis.isEmpty()) {
+			profissionaisDisponiveis = agendaService.recuperarProfissionaisDisponiveisPorData(dataSelecionada);
+		}	
+		if (profissionaisDisponiveis.size() > 0) {
+			profissionalSelecionado = profissionaisDisponiveis.get(0);
+			onChangeProfissionalSelecionado();
+		}		
 		return profissionaisDisponiveis;
 	}
 
@@ -89,6 +110,9 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 	}
 
 	public List<Agenda> getHorarios() {
+		if (horarios.isEmpty()) {
+			horarios = agendaService.recuperarPorDataProfissional(dataSelecionada, profissionalSelecionado);
+		}
 		return horarios;
 	}
 

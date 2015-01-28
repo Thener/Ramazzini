@@ -22,6 +22,7 @@ import javax.ejb.Stateless;
 
 import br.com.ramazzini.dao.procedimento.ProcedimentoDao;
 import br.com.ramazzini.model.procedimento.Procedimento;
+import br.com.ramazzini.model.procedimento.TipoProcedimento;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
 
 // The @Stateless annotation eliminates the need for manual transaction demarcation
@@ -31,5 +32,9 @@ public class ProcedimentoService extends AbstractServiceImpl<Procedimento> {
     public List<Procedimento> recuperarPorNome(String nome) {
     	return ((ProcedimentoDao) getDao()).recuperarPorNome(nome);
     }	
+    
+    public List<Procedimento> recuperarPorTipoProcedimento(TipoProcedimento tipoProcedimento) {
+    	return ((ProcedimentoDao) getDao()).recuperarPorTipoProcedimento(tipoProcedimento);
+    }    
 
 }
