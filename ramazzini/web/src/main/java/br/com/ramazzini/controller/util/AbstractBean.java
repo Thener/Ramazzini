@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import br.com.ramazzini.util.BreadCrumb;
 import br.com.ramazzini.util.ControleAcesso;
 
 public abstract class AbstractBean implements Serializable {
@@ -14,8 +13,6 @@ public abstract class AbstractBean implements Serializable {
     private ControleAcesso controleAcesso = new ControleAcesso();
     
     private String uriRequisicao;
-    
-    private BreadCrumb breadCrumb = BreadCrumb.getInstance();
     
     private boolean somenteLeitura = Boolean.FALSE;
     
@@ -30,15 +27,7 @@ public abstract class AbstractBean implements Serializable {
 	public void setSomenteLeitura(boolean somenteLeitura) {
 		this.somenteLeitura = somenteLeitura;
 	}
-
-	public BreadCrumb getBreadCrumb() {
-		return breadCrumb;
-	}
-
-	public void setBreadCrumb(BreadCrumb breadCrumb) {
-		this.breadCrumb = breadCrumb;
-	}
-
+	
 	public String getUriRequisicao() {
 		return uriRequisicao;
 	}
