@@ -100,9 +100,7 @@ public abstract class AbstractEntidade implements Serializable {
 	@PreUpdate
 	public void preUpdate() {
 		setDataAlteracao(TimeFactory.createDataHora());
-		//if (getUsuarioAlteracao() == null) {
-			setUsuarioAlteracao(getUsuarioLogado());
-		//}
+		setUsuarioAlteracao(getUsuarioLogado());
 	}	
 
 	public void setDataAlteracao(Date dataAlteracao) {
@@ -123,10 +121,6 @@ public abstract class AbstractEntidade implements Serializable {
 
 	@Override
 	public String toString() {
-		//Long id = getId();
-		//StringBuilder s = new StringBuilder();
-		//s.append(getClass().getName()).append("[id = ").append(id).append(" ]");
-		//return s.toString();
 		return getId().toString();
 	}
 
