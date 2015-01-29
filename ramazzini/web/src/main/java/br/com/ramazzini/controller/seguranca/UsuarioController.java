@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -28,8 +26,6 @@ public class UsuarioController extends AbstractBean implements Serializable {
 	private static final String PAGINA_CADASTRO_USUARIO = "cadastroUsuario.jsf?faces-redirect=true";
 	private static final String PAGINA_PESQUISAR_USUARIO = "pesquisarUsuario.jsf?faces-redirect=true";
 	
-	private @Inject Conversation conversation;
-
 	@Inject
     private UsuarioService usuarioService;  
     
@@ -48,14 +44,6 @@ public class UsuarioController extends AbstractBean implements Serializable {
     private String senhaAtual;
     private String senhaNova;
     private String senhaNovaConfirmacao;
-    
-    @PostConstruct  
-    public void init() {
-
-    	if (conversation.isTransient()) {
-			conversation.begin();
-		}
-    }
     
     public void removerUsuario(Usuario usuario){
     	try {
@@ -122,7 +110,6 @@ public class UsuarioController extends AbstractBean implements Serializable {
     	usuarioService.salvar(usuario);
     	
     	usuarios = usuarioService.recuperarTodos("nome");
-    	
     	return PAGINA_PESQUISAR_USUARIO;
     }    
     

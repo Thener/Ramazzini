@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -24,8 +23,6 @@ public class RiscoOcupacionalController extends AbstractBean implements Serializ
 	private static final String PAGINA_PESQUISAR_RISCO_OCUPACIONAL = "pesquisarRiscoOcupacional.jsf?faces-redirect=true";
 	private static final String PAGINA_CADASTRO_RISCO_OCUPACIONAL = "cadastroRiscoOcupacional.jsf?faces-redirect=true";
 
-	private @Inject Conversation conversation;
-	
     @Inject
     private RiscoOcupacionalService riscoOcupacionalService;  	
 	
@@ -40,9 +37,7 @@ public class RiscoOcupacionalController extends AbstractBean implements Serializ
 	@PostConstruct
 	public void init() {
 
-		if (conversation.isTransient()) {
-			conversation.begin();
-		}
+		beginConversation();
 	}
 		
     public void pesquisar() {

@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -24,8 +23,6 @@ public class ProcedimentoController extends AbstractBean implements Serializable
 	private static final String PAGINA_PESQUISAR_PROCEDIMENTO = "pesquisarProcedimento.jsf?faces-redirect=true";
 	private static final String PAGINA_CADASTRO_PROCEDIMENTO = "cadastroProcedimento.jsf?faces-redirect=true";
 
-	private @Inject Conversation conversation;
-	
 	@Inject
 	private ProcedimentoCredenciadoController procedimentoCredenciadoController;
 	
@@ -43,9 +40,7 @@ public class ProcedimentoController extends AbstractBean implements Serializable
 	@PostConstruct
 	public void init() {
 
-		if (conversation.isTransient()) {
-			conversation.begin();
-		}
+		beginConversation();
 	}
 		
     public void pesquisar() throws Exception {

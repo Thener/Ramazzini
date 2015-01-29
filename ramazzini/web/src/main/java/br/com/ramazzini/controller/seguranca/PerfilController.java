@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -31,8 +30,6 @@ import br.com.ramazzini.util.UtilMensagens;
 public class PerfilController extends AbstractBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
-	private @Inject Conversation conversation;
 
 	@Inject
 	private PerfilService perfilService;
@@ -77,9 +74,7 @@ public class PerfilController extends AbstractBean implements Serializable {
 		perfis = perfilService.recuperarTodos("nome");
 		//setModulos(moduloService.recuperarTodos("nome"));
 
-		if (conversation.isTransient()) {
-			conversation.begin();
-		}
+		beginConversation();
 	}
 
 	public List<Perfil> getPerfis() {

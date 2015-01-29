@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -23,8 +22,6 @@ public class ProfissionalController extends AbstractBean implements Serializable
 	private static final String PAGINA_PESQUISAR_PROFISSIONAL = "pesquisarProfissional.jsf?faces-redirect=true";
 	private static final String PAGINA_CADASTRO_PROFISSIONAL = "cadastroProfissional.jsf?faces-redirect=true";
 
-	private @Inject Conversation conversation;
-	
     @Inject
     private ProfissionalService profissionalService;  	
 	
@@ -37,9 +34,7 @@ public class ProfissionalController extends AbstractBean implements Serializable
 	@PostConstruct
 	public void init() {
 
-		if (conversation.isTransient()) {
-			conversation.begin();
-		}
+		beginConversation();
 	}
 		
     public void pesquisar() {

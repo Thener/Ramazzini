@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -23,8 +22,6 @@ public class CnaeController extends AbstractBean implements Serializable {
 	private static final String PAGINA_PESQUISAR_CNAE = "pesquisarCnae.jsf?faces-redirect=true";
 	private static final String PAGINA_CADASTRO_CNAE = "cadastroCnae.jsf?faces-redirect=true";
 
-	private @Inject Conversation conversation;
-	
     @Inject
     private CnaeService cnaeService;  	
 	
@@ -37,9 +34,7 @@ public class CnaeController extends AbstractBean implements Serializable {
 	@PostConstruct
 	public void init() {
 
-		if (conversation.isTransient()) {
-			conversation.begin();
-		}
+		beginConversation();
 	}
 		
     public void pesquisar() {

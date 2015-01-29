@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -23,8 +22,6 @@ public class CredenciadoController extends AbstractBean implements Serializable 
 	private static final String PAGINA_PESQUISAR_CREDENCIADO = "pesquisarCredenciado.jsf?faces-redirect=true";
 	private static final String PAGINA_CADASTRO_CREDENCIADO = "cadastroCredenciado.jsf?faces-redirect=true";
 
-	private @Inject Conversation conversation;
-	
 	@Inject
 	private ProcedimentoCredenciadoController procedimentoCredenciadoController;
 	
@@ -45,9 +42,7 @@ public class CredenciadoController extends AbstractBean implements Serializable 
 
 		credenciado = new Credenciado();	
 		
-		if (conversation.isTransient()) {
-			conversation.begin();
-		}
+		beginConversation();
 	}
 	
 	public String incluirCredenciado() {		

@@ -26,3 +26,9 @@ links: http://www.petefreitag.com/cheatsheets/jqueryui-icons/
 
 9. Quando não conseguimos recuperar a sessão na classe abstrata AbstractEntidade:
 http://sekhar4j.blogspot.com.br/2014/11/access-httpservletrequest-object-in.html
+
+10. Documentação do JBoss Weld a implementação do CDI que usamos 
+http://docs.jboss.org/weld/reference/1.1.5.Final/pt-BR/html_single/
+
+11. Modelos genéricos interessantes
+https://github.com/czetsuya/crud-faces/tree/master/crud-faces/src/main/java/org/manaty

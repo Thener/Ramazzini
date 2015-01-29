@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -23,8 +22,6 @@ public class HorarioAtendimentoController extends AbstractBean implements Serial
 	private static final String PAGINA_PESQUISAR_HORARIO_ATENDIMENTO = "pesquisarHorarioAtendimento.jsf?faces-redirect=true";
 	private static final String PAGINA_CADASTRO_HORARIO_ATENDIMENTO = "cadastroHorarioAtendimento.jsf?faces-redirect=true";
 
-	private @Inject Conversation conversation;
-	
     @Inject
     private HorarioAtendimentoService horarioAtendimentoService;  
     
@@ -39,10 +36,7 @@ public class HorarioAtendimentoController extends AbstractBean implements Serial
 	
 	@PostConstruct
 	public void init() {
-
-		if (conversation.isTransient()) {
-			conversation.begin();
-		}
+		beginConversation();
 	}
     
 	public String incluirHorarioAtendimento() {

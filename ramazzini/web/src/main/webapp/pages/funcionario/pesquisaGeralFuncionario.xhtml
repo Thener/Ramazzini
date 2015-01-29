@@ -39,7 +39,8 @@
 						<p:commandLink title="#{msgs['label.editar']}"
 							action="#{funcionarioController.alterarFuncionario(funcionario)}"
 							value="#{funcionario.nome}"
-							rendered="#{funcionarioController.controleAcesso.acaoAutorizada('funcionario','pesquisarFuncionario.jsf','alterarFuncionario')}" />
+							rendered="#{funcionarioController.controleAcesso.acaoAutorizada('funcionario','pesquisarFuncionario.jsf','alterarFuncionario')}" >
+						</p:commandLink>
 					</p:column>
 
 					<p:column headerText="#{msgs['label.empresa']}"

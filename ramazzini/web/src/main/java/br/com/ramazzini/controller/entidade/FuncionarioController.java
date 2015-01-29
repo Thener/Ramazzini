@@ -20,7 +20,6 @@ public class FuncionarioController extends AbstractBean implements Serializable 
 	private static final long serialVersionUID = 1L;
 	
 	private static final String PAGINA_CADASTRO_FUNCIONARIO = "/pages/funcionario/cadastroFuncionario.jsf?faces-redirect=true";
-	private static final String PAGINA_CADASTRO_EMPRESA = "/pages/empresa/cadastroEmpresa.jsf?faces-redirect=true";
 	
     @Inject
     private FuncionarioService funcionarioService; 
@@ -72,7 +71,7 @@ public class FuncionarioController extends AbstractBean implements Serializable 
 		
 		funcionarioService.salvar(funcionario);
 		pesquisar();
-		return PAGINA_CADASTRO_EMPRESA;
+		return voltar();
 	}
     
     public void pesquisar() {
@@ -85,11 +84,11 @@ public class FuncionarioController extends AbstractBean implements Serializable 
     }    
     
     public void pesquisarGeral() {		
-    	if (nomeFuncionarioPesquisa == null || nomeFuncionarioPesquisa.isEmpty()){
-    		funcionarios = funcionarioService.recuperarTodos();
-		} else {
+    	if (!nomeFuncionarioPesquisa.isEmpty()){
 			funcionarios = funcionarioService.recuperarPorNome(nomeFuncionarioPesquisa);
-		}      
+		} else {
+			UtilMensagens.mensagemInformacaoPorChave("mensagem.info.nomePesquisaNaoInformado", getValorChaveMsg("label.funcionario"));
+		}
     }    
     
     public String voltar() {				

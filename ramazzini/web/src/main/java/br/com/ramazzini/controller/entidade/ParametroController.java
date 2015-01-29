@@ -3,7 +3,6 @@ package br.com.ramazzini.controller.entidade;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -20,8 +19,6 @@ public class ParametroController extends AbstractBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private @Inject Conversation conversation;
-	
 	private @Inject ParametroService parametroService;
 
 	private Parametro parametroAgendaCriarSabado;
@@ -35,9 +32,7 @@ public class ParametroController extends AbstractBean implements Serializable {
 	@PostConstruct
 	public void init() {
 
-		if (conversation.isTransient()) {
-			conversation.begin();
-		}
+		beginConversation();
 		
 		parametroAgendaCriarSabado = parametroService.recuperarPorParametroSistema(ParametroSistema.AGENDA_CRIAR_SABADO);
 		parametroAgendaCriarDomingo = parametroService.recuperarPorParametroSistema(ParametroSistema.AGENDA_CRIAR_DOMINGO);

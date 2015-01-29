@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -26,11 +25,8 @@ public class EmpresaController extends AbstractBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private static final String PAGINA_PESQUISAR_EMPRESA = "pesquisarEmpresa.jsf?faces-redirect=true";
 	private static final String PAGINA_CADASTRO_EMPRESA = "/pages/empresa/cadastroEmpresa.jsf?faces-redirect=true";
 
-	private @Inject Conversation conversation;
-	
     @Inject
     private EmpresaService empresaService;  	
 	
@@ -68,9 +64,7 @@ public class EmpresaController extends AbstractBean implements Serializable {
 	@PostConstruct
 	public void init() {
 
-		if (conversation.isTransient()) {
-			conversation.begin();
-		}
+		beginConversation();
 	}
 		
     public void pesquisar() throws Exception {
@@ -130,7 +124,7 @@ public class EmpresaController extends AbstractBean implements Serializable {
 			return alterarEmpresa(empresa);
 		} else {
 			empresas = empresaService.recuperarTodos("nome");
-			return PAGINA_PESQUISAR_EMPRESA;
+			return voltar();
 		}		
 	}    
 	

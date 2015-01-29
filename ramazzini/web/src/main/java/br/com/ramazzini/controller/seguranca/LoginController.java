@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -13,18 +12,16 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import br.com.ramazzini.controller.util.AbstractBean;
 import br.com.ramazzini.model.usuario.Usuario;
 import br.com.ramazzini.service.seguranca.UsuarioService;
 import br.com.ramazzini.util.UtilMensagens;
 
 @Named
 @ConversationScoped
-public class LoginController implements Serializable {
+public class LoginController extends AbstractBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
-	@Inject
-	private Conversation conversation;
 
 	@Inject
 	private UsuarioService usuarioService;
@@ -43,15 +40,13 @@ public class LoginController implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		if (conversation.isTransient()) {
-			conversation.begin();
-			String email = recuperarCookie(COOKIE_LEMBRAR_USUARIO);
-			if (email != "") {
-				usuario.setLogin(email);
-				lembrarEmail = true;
-			} else {
-				lembrarEmail = false;
-			}
+		beginConversation();
+		String email = recuperarCookie(COOKIE_LEMBRAR_USUARIO);
+		if (email != "") {
+			usuario.setLogin(email);
+			lembrarEmail = true;
+		} else {
+			lembrarEmail = false;
 		}
 	}
 

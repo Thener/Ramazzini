@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -24,8 +23,6 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 
 	private static final long serialVersionUID = 1L;
 	
-	private @Inject Conversation conversation;
-
 	private Date dataSelecionada = TimeFactory.createDataHora();
 	
 	private List<Profissional> profissionaisDisponiveis = new ArrayList<Profissional>();
@@ -43,10 +40,7 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
     
 	@PostConstruct
 	public void init() {
-
-		if (conversation.isTransient()) {
-			conversation.begin();
-		}
+		beginConversation();
 	}    
     
     public void editarMarcacao(Agenda agenda) {
