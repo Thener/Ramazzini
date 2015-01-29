@@ -9,7 +9,6 @@ public class UtilMensagens {
 	
 	private static ResourceBundle bundle;
 	
-	@Deprecated
 	public static void mensagemErro(String mensagem){
 		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,mensagem,"");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -31,7 +30,6 @@ public class UtilMensagens {
 		mensagemErro(mensagem);
 	}	
 	
-	@Deprecated
 	public static void mensagemInformacao(String mensagem){
 		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,mensagem,"");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -53,7 +51,6 @@ public class UtilMensagens {
 		mensagemInformacao(mensagem);
 	}	
 	
-	@Deprecated
 	public static void mensagemErroAposRedirect(String mensagem){
 		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, mensagem, "");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -76,7 +73,6 @@ public class UtilMensagens {
 		mensagemErroAposRedirect(mensagem);
 	}	
 	
-	@Deprecated
 	public static void mensagemInformacaoAposRedirect(String mensagem){
 		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, mensagem, "");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
