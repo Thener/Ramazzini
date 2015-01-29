@@ -6,6 +6,8 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -81,6 +83,7 @@ public class FeriadoController extends AbstractBean implements Serializable {
 	public String gravarFeriado() {
 		
 		feriadoService.salvar(feriado);
+		UtilMensagens.mensagemInformacaoPorChaveAposRedirect("mensagem.info.dadosGravadosComSucesso","Feriado");
 		feriados = feriadoService.recuperarTodos("nome");
 		return PAGINA_PESQUISAR_FERIADO;
 	}    
