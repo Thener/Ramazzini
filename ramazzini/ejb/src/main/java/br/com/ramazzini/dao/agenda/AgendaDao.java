@@ -15,7 +15,7 @@ public class AgendaDao extends AbstractDao<Agenda> {
 
 	private static final String QUERY_RECUPERAR_PROFISSIONAIS_DISPONIVEIS_POR_DATA =
 		"Agenda.recuperarProfissionaisDisponiveisPorData";
-	private static final String QUERY_RECUPERAR_POR_DATA_PROFISSIONAL = "Agenda.recuperarPorDataProfissional";	
+	private static final String QUERY_RECUPERAR_POR_DATA_AGENDA = "Agenda.recuperarPorDataAgenda";	
 	
 	@SuppressWarnings("unchecked")
 	public List<Profissional> recuperarProfissionaisDisponiveisPorData(Date data) {
@@ -29,10 +29,9 @@ public class AgendaDao extends AbstractDao<Agenda> {
 	}	
 		
 	@SuppressWarnings("unchecked")
-	public List<Agenda> recuperarPorDataProfissional(Date data, Profissional profissional) {
-		Query query = createNamedQuery(QUERY_RECUPERAR_POR_DATA_PROFISSIONAL);
+	public List<Agenda> recuperarPorDataAgenda(Date data) {
+		Query query = createNamedQuery(QUERY_RECUPERAR_POR_DATA_AGENDA);
 		query.setParameter("data", data);
-		query.setParameter("profissional", profissional);
 		try {
 			return query.getResultList();
 		} catch (NoResultException nr) {

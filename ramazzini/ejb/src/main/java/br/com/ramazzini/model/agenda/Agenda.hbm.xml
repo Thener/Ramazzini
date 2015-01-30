@@ -17,17 +17,14 @@
 		]]>
 	</query>
 	
-	<query name="Agenda.recuperarPorDataProfissional">
+	<query name="Agenda.recuperarPorDataAgenda">
 		<![CDATA[
 			select 
 				a		
 			from 
 				Agenda a
-			left join a.profissional p
 			where 
 				a.dataAgenda = :data
-			and
-				a.profissional = :profissional
 			order 
 				by a.horaChegada
 		]]>

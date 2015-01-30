@@ -25,9 +25,7 @@
 	    </p:column>	
 		
 	    <p:column headerText="#{msgs['label.entrada']}" styleClass="agendaColunaHora">
-	        <h:outputText value="#{agenda.horaChegada}">
-	        	<f:convertDateTime locale="pt,BR" pattern="#{msgs['pattern.calendar']}" />
-	        </h:outputText>
+	        <h:outputText value="#{marcacaoAgendaController.getFormattedTime(agenda.horaChegada,'hh:mm')}" />
 	    </p:column>
 
 	    <p:column headerText="#{msgs['label.situacao']}">

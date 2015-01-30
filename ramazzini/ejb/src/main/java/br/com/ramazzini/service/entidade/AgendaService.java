@@ -34,8 +34,8 @@ public class AgendaService extends AbstractServiceImpl<Agenda> {
     	return ((AgendaDao) getDao()).recuperarProfissionaisDisponiveisPorData(data);
     }   
     
-    public List<Agenda> recuperarPorDataProfissional(Date data, Profissional profissional) {
-    	return ((AgendaDao) getDao()).recuperarPorDataProfissional(data, profissional);
+    public List<Agenda> recuperarPorDataAgenda(Date data) {
+    	return ((AgendaDao) getDao()).recuperarPorDataAgenda(data);
     }    
 
 }

@@ -7,11 +7,14 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ConversationScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.ramazzini.controller.util.AbstractBean;
 import br.com.ramazzini.model.agenda.Agenda;
+import br.com.ramazzini.model.agenda.SituacaoMarcacaoAgenda;
 import br.com.ramazzini.model.empresa.Empresa;
+import br.com.ramazzini.service.entidade.AgendaService;
 import br.com.ramazzini.util.TimeFactory;
 
 @Named
@@ -20,6 +23,9 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 
 	private static final long serialVersionUID = 1L;
 	
+    @Inject
+    private AgendaService agendaService; 
+    
 	private Date dataSelecionada = TimeFactory.createDataHora();
 	
 	private List<Agenda> agendamentos = new ArrayList<Agenda>();
@@ -36,13 +42,23 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 	public void incluirAgendamento() {
 		agenda = new Agenda();
 		agenda.setDataAgenda(dataSelecionada);
+		agenda.setHoraChegada(TimeFactory.createDataHora());
+		agenda.setSituacaoMarcacaoAgendaEnum(SituacaoMarcacaoAgenda.MARCADO);
 	}
 	
-	public void gravarAgendamento() {
+	public void editarAgendamento(Agenda agenda) {
 		
 	}
 	
+	public void gravarAgendamento() {
+		agendaService.salvar(agenda);
+		agendamentos.clear();
+	}
+	
 	public List<Agenda> getAgendamentos() {
+		if (agendamentos.isEmpty()) {
+			agendamentos = agendaService.recuperarPorDataAgenda(dataSelecionada);
+		}
 		return agendamentos;
 	}	
 
