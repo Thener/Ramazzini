@@ -14,7 +14,7 @@
    		
    			<h:form id="frmAgenda">
    			
-   				<h:panelGrid columns="3" cellpadding="5">
+   				<h:panelGrid columns="4" cellpadding="5">
    				
 	       			<p:outputLabel for="dataAgenda" value="#{msgs['label.data']}" />
 	       			<p:calendar id="dataAgenda" value="#{marcacaoAgendaController.dataSelecionada}" 
@@ -22,7 +22,14 @@
 	       				<p:ajax event="dateSelect" update="frmAgenda" />
 	       			</p:calendar> 
 	       				
-	       			<p:outputLabel value="#{marcacaoAgendaController.diaSemana}" />   			
+	       			<p:outputLabel value="#{marcacaoAgendaController.diaSemana}" />   
+	       			
+					<p:commandButton 
+						id="botaoIncluirAgendamento" icon="ui-icon-circle-plus" 
+						title="#{msgs['botao.incluirAgendamento']}"
+						actionListener="#{marcacaoAgendaController.incluirAgendamento()}" 
+						onclick="PF('dialogEditarAgendamento').show();" 
+						update=":frmDialogEditarAgendamento" />	       						
    			
    				</h:panelGrid>
    				
@@ -30,10 +37,9 @@
    				
    			</h:form>
    			
-   			<ui:include src="includes/incluirAgendamento.xhtml" />
-   		
    		</p:panel>
    		
+   		<ui:include src="includes/dialogEditarAgendamento.xhtml" />
 
 	</ui:define>
 	

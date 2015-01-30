@@ -19,9 +19,6 @@
 						<f:convertDateTime locale="pt,BR" pattern="#{msgs['pattern.calendar']}" />
 					</p:outputLabel>
 
-					<p:outputLabel value="#{msgs['label.profissional']}:" />
-					<p:outputLabel value="#{marcacaoAgendaController.agenda.profissional.nome}" styleClass="agendaNegrito" />
-				
 				</h:panelGrid>
 				
 				<p:separator />
@@ -66,13 +63,13 @@
 			<p:toolbar>
 				<f:facet name="left">					
 				   	<p:commandButton title="#{msgs['botao.voltar']}" type="button" 
-				   		 icon="ui-icon-arrowreturnthick-1-w" onclick="PF('dialogDialogEditarMarcacao').hide();"/>							
+				   		 icon="ui-icon-arrowreturnthick-1-w" onclick="PF('dialogEditarAgendamento').hide();"/>							
 						
 					<p:commandButton id="botaoGravarMarcacao" ajax="true" 
 						value="#{msgs['botao.gravar']}" icon="ui-icon-disk" title="#{msgs['botao.gravar']}"
-						onclick="PF('dialogDialogEditarMarcacao').hide();"
-						actionListener="#{marcacaoAgendaController.gravarMarcacao}" 
-						update=":frmHorarios:gridHorarios" />
+						onclick="PF('dialogEditarAgendamento').hide();"
+						actionListener="#{marcacaoAgendaController.gravarAgendamento}" 
+						update=":frmAgenda" />
 													
 				</f:facet>
 			</p:toolbar>
