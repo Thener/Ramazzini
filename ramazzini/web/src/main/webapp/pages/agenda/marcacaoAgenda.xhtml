@@ -8,26 +8,32 @@
    
    <ui:define name="content" prependId="false">
    
-   		<p:growl id="messages" showDetail="false" sticky="true" />
+   		<p:growl id="messages" showDetail="false" sticky="false" />
    		
-		<p:layout style="width: 100%; height: 600px; background-color:white !important;">
-
-		    <p:layoutUnit position="west" size="220" header="#{msgs['label.opcoes']}" resizable="true" 
-		    	closable="false" collapsible="true">
-				
-				<ui:include src="includes/marcacaoLateral.xhtml" />
-				
-		    </p:layoutUnit>
-		 		 
-		    <p:layoutUnit position="center" style="min-height:235px;padding:10px;">
-				
-				<ui:include src="includes/marcacaoCentro.xhtml" />
-				
-		    </p:layoutUnit>
-		    
-		</p:layout>
-		
-		<ui:include src="includes/dialogEditarMarcacao.xhtml" />
+   		<p:panel id="panelAgenda" header="#{msgs['label.agenda']}">
+   		
+   			<h:form id="frmAgenda">
+   			
+   				<h:panelGrid columns="3" cellpadding="5">
+   				
+	       			<p:outputLabel for="dataAgenda" value="#{msgs['label.data']}" />
+	       			<p:calendar id="dataAgenda" value="#{marcacaoAgendaController.dataSelecionada}" 
+	       				pattern="#{msgs['pattern.calendar']}" mask="true" styleClass="data" required="false">
+	       				<p:ajax event="dateSelect" update="frmAgenda" />
+	       			</p:calendar> 
+	       				
+	       			<p:outputLabel value="#{marcacaoAgendaController.diaSemana}" />   			
+   			
+   				</h:panelGrid>
+   				
+   				<ui:include src="includes/gridAgendamentos.xhtml" />
+   				
+   			</h:form>
+   			
+   			<ui:include src="includes/incluirAgendamento.xhtml" />
+   		
+   		</p:panel>
+   		
 
 	</ui:define>
 	

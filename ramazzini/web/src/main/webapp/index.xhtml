@@ -10,36 +10,50 @@
 
 		<p:growl id="messages" />
 		
-		<p:dialog header="#{msgs['label.bemVindo']}" height="130" width="274" visible="true"
+		<p:dialog header="#{msgs['label.ramazzini']}" height="210" width="400" visible="true"
 			resizable="false" closable="false">
 
 			<h:form id="login">
 
-				<p:panelGrid columns="2" cellpadding="5">
-					<p:outputLabel value="#{msgs['label.usuario']}:" for="inputUsuario" />
-					<p:inputText id="inputUsuario"
-						value="#{loginController.usuario.login}" />
-
-					<p:outputLabel value="#{msgs['label.senha']}:" for="inputSenha" />
-					<p:password id="inputSenha"
-						value="#{loginController.usuario.senha}" />
+				<p:panel header="#{msgs['label.bemVindo']}">
+				
+					<p:panelGrid columns="2" cellpadding="5">
+						<p:outputLabel value="#{msgs['label.usuario']}:" for="inputUsuario" />
+						<p:inputText id="inputUsuario" styleClass="nome30"
+							value="#{loginController.usuario.login}" />
+	
+						<p:outputLabel value="#{msgs['label.senha']}:" for="inputSenha" />
+						<p:password id="inputSenha" styleClass="nome30"
+							value="#{loginController.usuario.senha}" />
+							
+						<h:outputText value="" />
 						
-					<h:outputText value="" />
-					
-					<h:panelGroup>
-						<p:selectBooleanCheckbox value="#{loginController.lembrarEmail}" />
-						<h:outputText value="#{msgs['label.lembrarUsuario']}" />
-					</h:panelGroup>
-					
-					<f:facet name="footer">
+						<h:panelGroup>
+							<p:selectBooleanCheckbox value="#{loginController.lembrarEmail}" />
+							<h:outputText value="#{msgs['label.lembrarUsuario']}" />
+						</h:panelGroup>
+						
+						<p:outputLabel value=""/>
+						<p:commandLink  onclick="PF('dialogSobre').show();" 
+							value="#{msgs['label.sobre']}" style="float:right;" />
+	
+					</p:panelGrid>
+				
+				</p:panel>
+				
+				<p:toolbar>
+					<f:facet name="left">
 						<p:commandButton action="#{loginController.login()}" value="#{msgs['label.login']}"
 							icon="ui-icon-check" ajax="false" />
-					</f:facet>
-				</p:panelGrid>
-
+					</f:facet>				
+				</p:toolbar>
+				
 			</h:form>
 
 		</p:dialog>
+		
+		<ui:include src="/publico/dialogSobre.xhtml" />
 
 	</ui:define>
+	
 </ui:composition>

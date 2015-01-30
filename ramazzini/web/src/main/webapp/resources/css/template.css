@@ -6,7 +6,7 @@ body {
 }
 
 #container {
-
+	min-height: 600px;
 }
 
 #cabecalho {

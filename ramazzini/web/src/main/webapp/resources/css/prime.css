@@ -26,7 +26,7 @@ fieldset legend {
 
 /*---------------------------------------*/
 
-.ui-widget {  
+.ui-widget, .ui-widget table tr td, .ui-widget table tr th {  
    font-size: 12px !important;  
 }
 

@@ -7,7 +7,7 @@
 
 <h:body>
 
-	<h:form>
+	<h:form style="margin-bottom: 0; padding-bottom: 0;">
 
 		<p:menubar>
 
@@ -67,14 +67,17 @@
 				
 			</p:submenu>			
 
-			<p:menuitem value="#{msgs['menu.label.sobre']}" url="/publico/sobre.jsf"
+			<p:menuitem value="#{msgs['menu.label.sobre']}" onclick="PF('dialogSobre').show();"
 				icon="ui-icon-info" />
 
 			<p:menuitem value="#{msgs['menu.label.sair']}" action="#{loginController.logout()}"
 				icon="ui-icon-power" />
 
 		</p:menubar>
+		
 	</h:form>
+	
+	<ui:include src="/publico/dialogSobre.xhtml" />
 
 </h:body>
 

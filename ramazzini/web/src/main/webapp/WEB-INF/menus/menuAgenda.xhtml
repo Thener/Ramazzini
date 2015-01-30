@@ -9,14 +9,4 @@
 	<p:menuitem value="#{msgs['menu.label.marcacao']}" url="/pages/agenda/marcacaoAgenda.jsf" icon="ui-icon-flag"
 		rendered="#{menuController.controleAcesso.telaAutorizada('agenda','marcacaoAgenda.jsf')}"/>
 
-	<p:separator />
-	
-	<p:menuitem value="#{msgs['menu.label.criar']}" url="/pages/agenda/criarAgenda.jsf" icon="ui-icon-check"
-		rendered="#{menuController.controleAcesso.telaAutorizada('agenda','criarAgenda.jsf')}" />
-		
-	<p:separator />
-	
-	<p:menuitem value="#{msgs['menu.label.excluir']}" url="/pages/agenda/excluirAgenda.jsf" icon="ui-icon-close"
-		rendered="#{menuController.controleAcesso.telaAutorizada('agenda','excluirAgenda.jsf')}" />		
-
 </html>

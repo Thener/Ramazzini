@@ -1,10 +1,3 @@
-.agendaMarcadorProfissional {
-	background: url("#{resource['img/agenda/profissional.png']}") no-repeat;
-	width: 24px;
-	height: 24px;
-	display: block;
-}
-
 .agendaColunaAcoes {
 	width: 40px;
 }
@@ -23,16 +16,8 @@
 	
 }
 
-.agendaGridHorarios tr.ui-datatable-even:hover, .agendaGridHorarios tr.ui-datatable-odd:hover {
+.agendaGridAgendamentos tr.ui-datatable-even:hover, .agendaGridHorarios tr.ui-datatable-odd:hover {
     background: #ADD8E6;
-}
-
-.agendaIdentificacaoData {
-	background: url("#{resource['img/agenda/agenda.png']}") no-repeat;
-    color: #4169e1;
-    float: left;
-    font-size: 23px !important;
-    padding: 0 27px !important;	
 }
 
 .agendaNegrito {

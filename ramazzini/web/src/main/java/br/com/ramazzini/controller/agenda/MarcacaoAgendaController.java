@@ -32,7 +32,7 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
     
     private Profissional profissionalSelecionado;
     
-    private List<Agenda> horarios = new ArrayList<Agenda>();
+    private List<Agenda> agendamentos = new ArrayList<Agenda>();
     
     private Agenda agenda;
     
@@ -43,7 +43,7 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 		beginConversation();
 	}    
     
-    public void editarMarcacao(Agenda agenda) {
+    public void editarAgendamento(Agenda agenda) {
     	this.agenda = agenda;
    		empresaSelecionada = (agenda.getFuncionario() != null) ? agenda.getFuncionario().getEmpresa() : null;
     }
@@ -54,11 +54,11 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 	
 	public void onChangeDataSelecionada() {
 		profissionaisDisponiveis.clear();
-		horarios.clear();
+		agendamentos.clear();
 	}
 	
 	public void onChangeProfissionalSelecionado() {
-		horarios.clear();
+		agendamentos.clear();
 	}
 	
 	public Date getDataSelecionada() {
@@ -103,15 +103,15 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 		this.profissionalSelecionado = profissionalSelecionado;
 	}
 
-	public List<Agenda> getHorarios() {
-		if (horarios.isEmpty()) {
-			horarios = agendaService.recuperarPorDataProfissional(dataSelecionada, profissionalSelecionado);
+	public List<Agenda> getAgendamentos() {
+		if (agendamentos.isEmpty()) {
+			agendamentos = agendaService.recuperarPorDataProfissional(dataSelecionada, profissionalSelecionado);
 		}
-		return horarios;
+		return agendamentos;
 	}
 
-	public void setHorarios(List<Agenda> horarios) {
-		this.horarios = horarios;
+	public void setAgendamentos(List<Agenda> agendamentos) {
+		this.agendamentos = agendamentos;
 	}
 
 	public Agenda getAgenda() {
@@ -129,6 +129,9 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 	public void setEmpresaSelecionada(Empresa empresaSelecionada) {
 		this.empresaSelecionada = empresaSelecionada;
 	}
-	
+
+	public String getDiaSemana() {
+		return TimeFactory.diaDaSemana(dataSelecionada).getStringChave();
+	}
 	
 }

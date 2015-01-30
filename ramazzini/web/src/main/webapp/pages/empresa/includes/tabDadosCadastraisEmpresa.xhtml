@@ -41,9 +41,9 @@
 	</h:panelGrid>
 	
 	<p:fieldset legend="#{msgs['label.grupo']}" rendered="#{empresaController.empresa.grupo != null}">
-		<p:outputLabel for="cpf" value="#{empresaController.empresa.grupo.nome}" />
+		<p:outputLabel value="#{empresaController.empresa.grupo.nome}" />
 	</p:fieldset>
-	<p:spacer width="10px"  rendered="#{empresaController.empresa.grupo != null}" />
+	<p:spacer width="10px" rendered="#{empresaController.empresa.grupo != null}" />
 	
 	<p:fieldset legend="#{msgs['label.enderecoEmpresa']}">
 		<h:panelGrid columns="6" cellpadding="5">	

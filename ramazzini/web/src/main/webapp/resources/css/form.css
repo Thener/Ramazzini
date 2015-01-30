@@ -19,7 +19,7 @@ input.email {
 }
 
 input.hasDatepicker {
-	width: 80px;
+	width: 85px;
 }
 
 input.hora {
@@ -40,6 +40,14 @@ input.nome5, span.nome5 input.ui-spinner-input, span.nome5 input.pe-inputNumber 
 
 input.nome10, span.nome10 input.ui-spinner-input {
 	width: 84px !important;	
+}
+
+input.nome20, span.nome20 input.ui-autocomplete-input {
+	width: 168px !important;	
+}
+
+input.nome30, span.nome30 input.ui-autocomplete-input {
+	width: 252px !important;	
 }
 
 input.nome50, span.nome50 input.ui-autocomplete-input {

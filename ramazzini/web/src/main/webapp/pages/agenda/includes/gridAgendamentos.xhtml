@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui">
+   
+	<p:dataTable id="gridAgendamentos" var="agenda" value="#{marcacaoAgendaController.agendamentos}" 
+		styleClass="agendaGridAgendamentos" emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}">
+	
+	    <p:column headerText="#{msgs['label.acoes']}" styleClass="agendaColunaAcoes">
+					
+			<p:commandLink title="#{msgs['label.visualizar']}" styleClass="ui-icon ui-icon-circle-plus"
+				actionListener="#{marcacaoAgendaController.editarAgendamento(agenda)}" 
+				onclick="PF('dialogEditarAgendamento').show();" update=":frmDialogEditarAgendamento" />
+
+	    </p:column>	
+	    
+	    <p:column headerText="#{msgs['label.empresa']}" styleClass="agendaColunaEmpresa">
+	        <h:outputText value="#{agenda.funcionario.empresa.nome}" />
+	    </p:column>	
+	    	    
+	    <p:column headerText="#{msgs['label.funcionario']}" styleClass="agendaColunaFuncionario">
+	        <h:outputText value="#{agenda.funcionario.nome}" />
+	    </p:column>	
+		
+	    <p:column headerText="#{msgs['label.entrada']}" styleClass="agendaColunaHora">
+	        <h:outputText value="#{agenda.horaChegada}">
+	        	<f:convertDateTime locale="pt,BR" pattern="#{msgs['pattern.calendar']}" />
+	        </h:outputText>
+	    </p:column>
+
+	    <p:column headerText="#{msgs['label.situacao']}">
+	        <h:outputText value="#{agenda.situacaoMarcacaoAgendaEnum.stringChave}" />
+	    </p:column>
+	    
+	    <p:column headerText="#{msgs['label.procedimento']}" styleClass="agendaColunaProcedimento">
+	        <h:outputText value="#{agenda.procedimento.nome}" />
+	    </p:column>	
+	 
+	</p:dataTable>
+	
+</ui:composition>

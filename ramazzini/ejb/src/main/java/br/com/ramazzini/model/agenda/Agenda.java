@@ -53,9 +53,12 @@ public class Agenda extends AbstractEntidade implements Serializable {
 	private Date dataAgenda;	
 		
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "hr_agenda", columnDefinition = "timestamp without time zone")
-	@NotNull
-	private Date horaAgenda;	
+	@Column(name = "hr_chegada", columnDefinition = "timestamp without time zone")
+	private Date horaChegada;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "hr_atendimento", columnDefinition = "timestamp without time zone")
+	private Date horaAtendimento;	
 	
 	@Column(name = "st_marcacao_agenda", length = 2)
     @NotNull 
@@ -64,6 +67,10 @@ public class Agenda extends AbstractEntidade implements Serializable {
     @Column(name = "te_observacoes", length = 200)
     private String observacoes;
 
+	public Long getId() {
+		return id;
+	}
+	
 	public Profissional getProfissional() {
 		return profissional;
 	}
@@ -96,12 +103,20 @@ public class Agenda extends AbstractEntidade implements Serializable {
 		this.dataAgenda = dataAgenda;
 	}
 
-	public Date getHoraAgenda() {
-		return horaAgenda;
+	public Date getHoraChegada() {
+		return horaChegada;
 	}
 
-	public void setHoraAgenda(Date horaAgenda) {
-		this.horaAgenda = horaAgenda;
+	public void setHoraChegada(Date horaChegada) {
+		this.horaChegada = horaChegada;
+	}
+
+	public Date getHoraAtendimento() {
+		return horaAtendimento;
+	}
+
+	public void setHoraAtendimento(Date horaAtendimento) {
+		this.horaAtendimento = horaAtendimento;
 	}
 
 	public String getSituacaoMarcacaoAgenda() {
@@ -111,15 +126,15 @@ public class Agenda extends AbstractEntidade implements Serializable {
 	public void setSituacaoMarcacaoAgenda(String situacaoMarcacaoAgenda) {
 		this.situacaoMarcacaoAgenda = situacaoMarcacaoAgenda;
 	}
-	
+
 	public SituacaoMarcacaoAgenda getSituacaoMarcacaoAgendaEnum() {
 		return (this.situacaoMarcacaoAgenda != null) ? SituacaoMarcacaoAgenda.parse(this.situacaoMarcacaoAgenda) : null;
 	}
 
 	public void setSituacaoMarcacaoAgendaEnum(SituacaoMarcacaoAgenda situacaoMarcacaoAgenda) {
 		setSituacaoMarcacaoAgenda(situacaoMarcacaoAgenda.getValue());
-	}	
-
+	}
+	
 	public String getObservacoes() {
 		return observacoes;
 	}
@@ -128,8 +143,4 @@ public class Agenda extends AbstractEntidade implements Serializable {
 		this.observacoes = observacoes;
 	}
 
-	public Long getId() {
-		return id;
-	}
-	
 }
