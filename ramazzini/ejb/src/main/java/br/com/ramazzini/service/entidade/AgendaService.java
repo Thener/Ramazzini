@@ -23,6 +23,7 @@ import javax.ejb.Stateless;
 
 import br.com.ramazzini.dao.agenda.AgendaDao;
 import br.com.ramazzini.model.agenda.Agenda;
+import br.com.ramazzini.model.profissional.Profissional;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
 
 // The @Stateless annotation eliminates the need for manual transaction demarcation
@@ -35,5 +36,9 @@ public class AgendaService extends AbstractServiceImpl<Agenda> {
 
     public List<Agenda> recuperarPorDataAgendaEsituacao(Date data, String situacaoMarcaoAgenda) {
     	return ((AgendaDao) getDao()).recuperarPorDataAgendaEsituacao(data, situacaoMarcaoAgenda);
-    }    
+    } 
+    
+    public List<Profissional> recuperarProfissionaisPorData(Date data) {
+    	return ((AgendaDao) getDao()).recuperarProfissionaisPorData(data);
+    }
 }

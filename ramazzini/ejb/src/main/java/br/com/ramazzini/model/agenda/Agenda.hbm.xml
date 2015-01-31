@@ -29,6 +29,21 @@
 			order 
 				by a.horaChegada
 		]]>
-	</query>		
+	</query>
+	
+	<query name="Agenda.recuperarProfissionaisPorData">
+		<![CDATA[
+			select 
+				distinct(p)		
+			from 
+				Agenda a
+			right join
+				a.profissional p
+			where 
+				a.dataAgenda = :data
+			order 
+				by p.nome
+		]]>
+	</query>
 
 </hibernate-mapping>

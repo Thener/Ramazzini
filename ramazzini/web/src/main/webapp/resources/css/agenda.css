@@ -17,10 +17,37 @@
 	
 }
 
+.agendaColuna50porCento {
+	width: 50%;	
+	padding: 0 !important;
+}
+
+.agendaFsProfissionaisDisponiveis {
+	width: 97%;
+	min-height: 130px;
+	padding: 0px;
+}
+
+.agendaFsOpcoes {
+	width: 97%;
+	min-height: 130px;
+	padding: 0px;
+}
+
 .agendaGridAgendamentos tr:hover {
     background: #C6E2FF;
 }
 
 .agendaNegrito {
 	font-weight: bold;
+}
+
+.agendaObservacoes {
+   height: 80px;
+    width: 100%;
+}
+
+.agendaLinksVisualizarEditar {
+	float:left;
+	padding-right:5px;
 }

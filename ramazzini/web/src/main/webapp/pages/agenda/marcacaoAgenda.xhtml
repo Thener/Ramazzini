@@ -68,10 +68,18 @@
    				
    				<p:spacer width="15px;" />
    				
-   				<p:fieldset legend="#{msgs['label.profissionaisDisponiveis']}">
-					<h:outputText value="#{marcacaoAgendaController.montarProfissionaisDisponiveis()}" escape="false"/>
-				</p:fieldset>
+   				<p:panelGrid columns="2" style="width:100%" columnClasses="agendaColuna50porCento">
    				
+	   				<p:fieldset styleClass="agendaFsProfissionaisDisponiveis" legend="#{msgs['label.profissionaisDisponiveis']}">
+						<h:outputText value="#{marcacaoAgendaController.montarProfissionaisDisponiveis()}" escape="false"/>
+					</p:fieldset>
+   				
+   					<p:fieldset styleClass="agendaFsOpcoes" legend="#{msgs['label.opcoes']}">
+   						<ui:include src="includes/opcoesAgenda.xhtml" />
+   					</p:fieldset> 
+				
+				</p:panelGrid>
+				
    			</h:form>
    			
    		</p:panel>

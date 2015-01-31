@@ -21,10 +21,27 @@
 	    </p:column>	
 	    
 	    <p:column headerText="#{msgs['label.empresa']}" styleClass="agendaColunaEmpresa">
+			
+			<div class="agendaLinksVisualizarEditar">
+				<p:commandLink title="#{msgs['label.visualizar']}" action="#{empresaController.visualizarEmpresa(agenda.funcionario.empresa)}"
+					styleClass="ui-icon ui-icon-search" rendered="#{marcacaoAgendaController.controleAcesso.acaoAutorizada('empresa','pesquisarEmpresa.jsf','visualizarEmpresa')}" />
+	    	</div>
+			<div class="agendaLinksVisualizarEditar">
+				<p:commandLink title="#{msgs['label.editar']}" action="#{empresaController.alterarEmpresa(agenda.funcionario.empresa)}"
+					styleClass="ui-icon ui-icon-pencil" rendered="#{marcacaoAgendaController.controleAcesso.acaoAutorizada('empresa','pesquisarEmpresa.jsf','alterarEmpresa')}" />
+	    	</div>	    	
 	        <h:outputText value="#{agenda.funcionario.empresa.nome}" />
 	    </p:column>	
 	    	    
 	    <p:column headerText="#{msgs['label.funcionario']}" styleClass="agendaColunaFuncionario">
+			<div class="agendaLinksVisualizarEditar">
+				<p:commandLink title="#{msgs['label.visualizar']}" action="#{funcionarioController.visualizarFuncionario(agenda.funcionario)}"
+					styleClass="ui-icon ui-icon-search" rendered="#{marcacaoAgendaController.controleAcesso.acaoAutorizada('funcionario','pesquisarFuncionario.jsf','visualizarFuncionario')}" />
+	    	</div>
+			<div class="agendaLinksVisualizarEditar">
+				<p:commandLink title="#{msgs['label.editar']}" action="#{funcionarioController.alterarFuncionario(agenda.funcionario)}"
+					styleClass="ui-icon ui-icon-pencil" rendered="#{marcacaoAgendaController.controleAcesso.acaoAutorizada('funcionario','pesquisarFuncionario.jsf','alterarFuncionario')}" />
+	    	</div>	    
 	        <h:outputText value="#{agenda.funcionario.nome}" />
 	    </p:column>	
 		
@@ -39,7 +56,17 @@
 	    <p:column headerText="#{msgs['label.procedimento']}" styleClass="agendaColunaProcedimento colunaCentralizada">
 	        <h:outputText value="#{agenda.procedimento.nome}" />
 	    </p:column>	
+	    
+	    <p:column headerText="#{msgs['label.profissional']}" styleClass="agendaColunaProcedimento colunaCentralizada"
+	    	rendered="#{marcacaoAgendaController.exibirColunaProfissional}">
+	        <h:outputText value="#{agenda.profissional.nome}" />
+	    </p:column>		    
 	 
+	    <p:column headerText="#{msgs['label.observacoes']}" styleClass="agendaColunaProcedimento colunaCentralizada"
+	    	rendered="#{marcacaoAgendaController.exibirColunaObservacoes}">
+	        <h:outputText value="#{agenda.observacoes}" />
+	    </p:column>	
+	    	 
 	</p:dataTable>
 	
 	<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">

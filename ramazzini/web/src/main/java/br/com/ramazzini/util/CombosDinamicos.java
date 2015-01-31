@@ -1,5 +1,6 @@
 package br.com.ramazzini.util;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -15,6 +16,7 @@ import br.com.ramazzini.model.procedimento.TipoProcedimento;
 import br.com.ramazzini.model.profissional.PapelProfissional;
 import br.com.ramazzini.model.profissional.Profissional;
 import br.com.ramazzini.model.setor.Setor;
+import br.com.ramazzini.service.entidade.AgendaService;
 import br.com.ramazzini.service.entidade.CboService;
 import br.com.ramazzini.service.entidade.FuncaoService;
 import br.com.ramazzini.service.entidade.HorarioAtendimentoService;
@@ -26,26 +28,14 @@ import br.com.ramazzini.service.entidade.SetorService;
 @Named("combosDinamicos")
 public class CombosDinamicos {
 
-    @Inject
-    CboService cboService; 
-    
-    @Inject
-    FuncaoService funcaoService;
-    
-    @Inject
-    HorarioAtendimentoService horarioAtendimentoService;    
-    
-    @Inject
-    LotacaoService lotacaoService; 
-    
-    @Inject
-    ProcedimentoService procedimentoService;
-    
-    @Inject
-    ProfissionalService profissionalService;
-    
-    @Inject
-    SetorService setorService;    
+    @Inject AgendaService agendaService;
+    @Inject CboService cboService; 
+    @Inject FuncaoService funcaoService;
+    @Inject HorarioAtendimentoService horarioAtendimentoService;    
+    @Inject LotacaoService lotacaoService; 
+    @Inject ProcedimentoService procedimentoService;
+    @Inject ProfissionalService profissionalService;
+    @Inject SetorService setorService;    
     
 	public List<Cbo> getCbos() {
 		return cboService.recuperarTodos("numero");
@@ -78,6 +68,10 @@ public class CombosDinamicos {
 	public List<Profissional> getProfissionaisMedicos() {
 		return profissionalService.recuperarPorPapelProfissional(PapelProfissional.MEDICO, Boolean.TRUE);
 	}	
+	
+	public List<Profissional> getProfissionaisNaAgenda(Date data) {
+		return agendaService.recuperarProfissionaisPorData(data);
+	}
 	
 	public List<Setor> getSetores(Empresa empresa) {
 		return setorService.recuperarPorEmpresa(empresa);

@@ -8,12 +8,14 @@ import javax.persistence.Query;
 
 import br.com.ramazzini.dao.util.AbstractDao;
 import br.com.ramazzini.model.agenda.Agenda;
+import br.com.ramazzini.model.profissional.Profissional;
 
 
 public class AgendaDao extends AbstractDao<Agenda> {
 
 	private static final String QUERY_RECUPERAR_POR_DATA_AGENDA = "Agenda.recuperarPorDataAgenda";
 	private static final String QUERY_RECUPERAR_POR_DATA_AGENDA_SITUACAO = "Agenda.recuperarPorDataAgendaEsituacao";
+	private static final String QUERY_RECUPERAR_PROFISSIONAIS_POR_DATA = "Agenda.recuperarProfissionaisPorData";
 	
 	@SuppressWarnings("unchecked")
 	public List<Agenda> recuperarPorDataAgenda(Date data) {
@@ -31,6 +33,17 @@ public class AgendaDao extends AbstractDao<Agenda> {
 		Query query = createNamedQuery(QUERY_RECUPERAR_POR_DATA_AGENDA_SITUACAO);
 		query.setParameter("data", data);
 		query.setParameter("situacaoMarcacaoAgenda", situacaoMarcacaoAgenda);
+		try {
+			return query.getResultList();
+		} catch (NoResultException nr) {
+			return null;
+		}
+	}	
+	
+	@SuppressWarnings("unchecked")
+	public List<Profissional> recuperarProfissionaisPorData(Date data) {
+		Query query = createNamedQuery(QUERY_RECUPERAR_PROFISSIONAIS_POR_DATA);
+		query.setParameter("data", data);
 		try {
 			return query.getResultList();
 		} catch (NoResultException nr) {

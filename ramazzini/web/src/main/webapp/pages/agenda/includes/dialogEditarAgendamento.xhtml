@@ -6,7 +6,7 @@
    xmlns:p="http://primefaces.org/ui">
    
 	<p:dialog header="#{msgs['label.agenda']}" widgetVar="dialogEditarAgendamento" 
-		modal="true" height="275" width="550" resizable="false">
+		modal="true" height="405" width="550" resizable="false">
 		
 		<h:form id="frmDialogEditarAgendamento">
 		
@@ -18,6 +18,16 @@
 					<p:outputLabel value="#{marcacaoAgendaController.agenda.dataAgenda}" styleClass="agendaNegrito">
 						<f:convertDateTime locale="pt,BR" pattern="#{msgs['pattern.calendar']}" />
 					</p:outputLabel>
+					
+					<p:outputLabel for="filtrarProfissional" value="#{msgs['label.profissional']}:" />			
+					<p:selectOneMenu id="filtrarProfissional"
+						value="#{marcacaoAgendaController.agenda.profissional}"
+						converter="entityConverter" styleClass="nome50">
+						<f:selectItem itemLabel="#{msgs['label.qualquerProfissional']}" itemValue=""
+							noSelectionOption="true" />
+						<f:selectItems value="#{marcacaoAgendaController.profissionaisDisponiveis}" 
+							var="profissional" itemLabel="#{profissional.nome}" />
+					</p:selectOneMenu>					
 
 				</h:panelGrid>
 				
@@ -62,6 +72,10 @@
 						<f:selectItems value="#{combosDinamicos.procedimentosTipoExameClinicoOcupacional}" var="procedimento"
 							itemLabel="#{procedimento.nome}" />
 					</p:selectOneMenu>
+					
+					<p:outputLabel for="observacoes" value="#{msgs['label.observacoes']}:" />			
+					<p:inputTextarea id="observacoes" value="#{marcacaoAgendaController.agenda.observacoes}" 
+						styleClass="agendaObservacoes" maxlength="200" />
 
 				</h:panelGrid>		
 	    

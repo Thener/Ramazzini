@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui">
+   
+   <p:panelGrid columns="2">
+   
+		<p:outputLabel for="filtrarProfissional" value="#{msgs['label.filtrarProfissional']}:" />			
+		<p:selectOneMenu id="filtrarProfissional"
+			value="#{marcacaoAgendaController.profissionalSelecionado}"
+			converter="entityConverter" styleClass="nome50">
+			<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
+				noSelectionOption="true" />
+			<f:selectItems value="#{combosDinamicos.getProfissionaisNaAgenda(marcacaoAgendaController.dataSelecionada)}" 
+				var="profissional" itemLabel="#{profissional.nome}" />
+		</p:selectOneMenu>
+			
+		<h:outputLabel for="exbibirColunaProfissional" value="#{msgs['label.exbibirColunaProfissional']}:" />
+		<p:selectBooleanCheckbox id="exbibirColunaProfissional"
+			value="#{marcacaoAgendaController.exibirColunaProfissional}">
+			<p:ajax event="change" update="gridAgendamentos"/>
+		</p:selectBooleanCheckbox>
+		
+		<h:outputLabel for="exbibirColunaObservacoes" value="#{msgs['label.exbibirColunaObservacoes']}:" />
+		<p:selectBooleanCheckbox id="exbibirColunaObservacoes"
+			value="#{marcacaoAgendaController.exibirColunaObservacoes}">
+			<p:ajax event="change" update="gridAgendamentos"/>
+		</p:selectBooleanCheckbox>		
+									
+	</p:panelGrid>
+				
+</ui:composition>

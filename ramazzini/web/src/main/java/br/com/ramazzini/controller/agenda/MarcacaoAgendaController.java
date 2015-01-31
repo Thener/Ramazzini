@@ -44,7 +44,13 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 	
 	private int totalAgendamentos;
 	
+	private Profissional profissionalSelecionado;
+	
 	private List<Profissional> profissionaisDisponiveis = new ArrayList<Profissional>();
+	
+	private boolean exibirColunaProfissional = Boolean.FALSE;
+	
+	private boolean exibirColunaObservacoes = Boolean.FALSE;
 	
 	@PostConstruct
 	public void init() {
@@ -87,6 +93,26 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 	public void excluirAgendamento(Agenda agenda) {
 		agendamentos.remove(agenda);
 		agendaService.remover(agenda, agenda.getId());
+	}
+
+	public String montarProfissionaisDisponiveis() {
+		
+		String table = "<table>";
+		for (Profissional p : getProfissionaisDisponiveis()) {
+			String nome = p.getNomeAbreviado();
+			for (ProgramacaoHorarioAtendimento pa : p.getHorarioAtendimento().getProgramacoes()) {
+				table += "<tr>";
+				table += "<td>" + nome + "</td>" ;	
+				table += "<td>" + getFormattedTime(pa.getHoraInicio(),"HH:mm") + "</td>";
+				table += "<td>às</td>";
+				table += "<td>" + getFormattedTime(pa.getHoraFim(),"HH:mm") + "</td>";
+				table += "</tr>";
+				nome = "";
+			}
+			table += "</tr>";
+		}
+		table += "</table>";
+		return table;
 	}
 	
 	public List<Agenda> getAgendamentos() {
@@ -152,23 +178,28 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 		this.totalAgendamentos = agendamentos.size();
 	}
 
-	public String montarProfissionaisDisponiveis() {
-		
-		String table = "<table>";
-		for (Profissional p : getProfissionaisDisponiveis()) {
-			String nome = p.getNomeAbreviado();
-			for (ProgramacaoHorarioAtendimento pa : p.getHorarioAtendimento().getProgramacoes()) {
-				table += "<tr>";
-				table += "<td>" + nome + "</td>" ;	
-				table += "<td>" + getFormattedTime(pa.getHoraInicio(),"HH:mm") + "</td>";
-				table += "<td>às</td>";
-				table += "<td>" + getFormattedTime(pa.getHoraFim(),"HH:mm") + "</td>";
-				table += "</tr>";
-				nome = "";
-			}
-			table += "</tr>";
-		}
-		table += "</table>";
-		return table;
+	public Profissional getProfissionalSelecionado() {
+		return profissionalSelecionado;
 	}
+
+	public void setProfissionalSelecionado(Profissional profissionalSelecionado) {
+		this.profissionalSelecionado = profissionalSelecionado;
+	}
+	
+	public boolean isExibirColunaProfissional() {
+		return exibirColunaProfissional;
+	}
+
+	public void setExibirColunaProfissional(boolean exibirColunaProfissional) {
+		this.exibirColunaProfissional = exibirColunaProfissional;
+	}
+	
+	public boolean isExibirColunaObservacoes() {
+		return exibirColunaObservacoes;
+	}
+
+	public void setExibirColunaObservacoes(boolean exibirColunaObservacoes) {
+		this.exibirColunaObservacoes = exibirColunaObservacoes;
+	}
+
 }
