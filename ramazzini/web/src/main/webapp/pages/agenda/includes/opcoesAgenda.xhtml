@@ -6,17 +6,7 @@
    xmlns:p="http://primefaces.org/ui">
    
    <p:panelGrid columns="2">
-   
-		<p:outputLabel for="filtrarProfissional" value="#{msgs['label.filtrarProfissional']}:" />			
-		<p:selectOneMenu id="filtrarProfissional"
-			value="#{marcacaoAgendaController.profissionalSelecionado}"
-			converter="entityConverter" styleClass="nome50">
-			<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
-				noSelectionOption="true" />
-			<f:selectItems value="#{combosDinamicos.getProfissionaisNaAgenda(marcacaoAgendaController.dataSelecionada)}" 
-				var="profissional" itemLabel="#{profissional.nome}" />
-		</p:selectOneMenu>
-			
+   			
 		<h:outputLabel for="exbibirColunaProfissional" value="#{msgs['label.exbibirColunaProfissional']}:" />
 		<p:selectBooleanCheckbox id="exbibirColunaProfissional"
 			value="#{marcacaoAgendaController.exibirColunaProfissional}">

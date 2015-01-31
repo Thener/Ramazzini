@@ -41,6 +41,29 @@ public class AgendaDao extends AbstractDao<Agenda> {
 	}	
 	
 	@SuppressWarnings("unchecked")
+	public List<Agenda> recuperarPorFiltros(Date data, String situacaoMarcacaoAgenda, Profissional profissional) {
+		String consulta = "select a from Agenda a where 1=1 ";
+		
+		if (data != null) { consulta += " and a.dataAgenda = :data"; }
+		if (!situacaoMarcacaoAgenda.isEmpty()) { consulta += " and a.situacaoMarcacaoAgenda = :situacaoMarcacaoAgenda"; }	
+		if (profissional != null) { consulta += " and a.profissional = :profissional"; }		
+
+		consulta += " order by a.horaChegada";
+		
+		Query query = createQuery(consulta);
+		
+		if (data != null) { query.setParameter("data", data); }
+		if (!situacaoMarcacaoAgenda.isEmpty()) { query.setParameter("situacaoMarcacaoAgenda", situacaoMarcacaoAgenda); }
+		if (profissional != null) { query.setParameter("profissional", profissional); }
+		
+		try {
+			return query.getResultList();
+		} catch (NoResultException nr) {
+			return null;
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
 	public List<Profissional> recuperarProfissionaisPorData(Date data) {
 		Query query = createNamedQuery(QUERY_RECUPERAR_PROFISSIONAIS_POR_DATA);
 		query.setParameter("data", data);

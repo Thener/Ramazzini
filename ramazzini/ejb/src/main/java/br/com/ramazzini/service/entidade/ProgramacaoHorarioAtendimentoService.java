@@ -21,6 +21,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 
 import br.com.ramazzini.dao.programacaoHorarioAtendimento.ProgramacaoHorarioAtendimentoDao;
+import br.com.ramazzini.model.horarioAtendimento.DiaSemana;
 import br.com.ramazzini.model.horarioAtendimento.HorarioAtendimento;
 import br.com.ramazzini.model.programacaoHorarioAtendimento.ProgramacaoHorarioAtendimento;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
@@ -30,7 +31,13 @@ import br.com.ramazzini.service.util.AbstractServiceImpl;
 public class ProgramacaoHorarioAtendimentoService extends AbstractServiceImpl<ProgramacaoHorarioAtendimento> {
 
     public List<ProgramacaoHorarioAtendimento> recuperarPorHorarioAtendimento(HorarioAtendimento horarioAtendimento) {
-    	return (!horarioAtendimento.isNovo()) ? ((ProgramacaoHorarioAtendimentoDao) getDao()).recuperarPorHorarioAtendimento(horarioAtendimento) : null;
-    }	
+    	return (!horarioAtendimento.isNovo()) ? 
+    		((ProgramacaoHorarioAtendimentoDao) getDao()).recuperarPorHorarioAtendimento(horarioAtendimento) : null;
+    }
+    
+    public List<ProgramacaoHorarioAtendimento> recuperarPorHorarioAtendimento(HorarioAtendimento horarioAtendimento, DiaSemana diaSemana) {
+    	return (!horarioAtendimento.isNovo()) ? 
+    		((ProgramacaoHorarioAtendimentoDao) getDao()).recuperarPorHorarioAtendimento(horarioAtendimento, diaSemana) : null;
+    }    
 
 }

@@ -12,12 +12,14 @@
 		
 			<p:panel id="panelDialogEditarAgendamento" header="#{msgs['label.editar']}">
 			
-				<h:panelGrid columns="2" cellpadding="5">
+				<h:panelGrid columns="3" cellpadding="5">
 				
 					<p:outputLabel value="#{msgs['label.data']}:" />
 					<p:outputLabel value="#{marcacaoAgendaController.agenda.dataAgenda}" styleClass="agendaNegrito">
 						<f:convertDateTime locale="pt,BR" pattern="#{msgs['pattern.calendar']}" />
 					</p:outputLabel>
+					
+					<p:outputLabel value="#{marcacaoAgendaController.getFormattedTime(marcacaoAgendaController.agenda.horaChegada, 'HH:mm')}" styleClass="agendaNegrito" />
 					
 					<p:outputLabel for="filtrarProfissional" value="#{msgs['label.profissional']}:" />			
 					<p:selectOneMenu id="filtrarProfissional"
@@ -25,8 +27,8 @@
 						converter="entityConverter" styleClass="nome50">
 						<f:selectItem itemLabel="#{msgs['label.qualquerProfissional']}" itemValue=""
 							noSelectionOption="true" />
-						<f:selectItems value="#{marcacaoAgendaController.profissionaisDisponiveis}" 
-							var="profissional" itemLabel="#{profissional.nome}" />
+						<f:selectItems var="profissional" itemLabel="#{profissional.nome}" 
+							value="#{marcacaoAgendaController.getProfissionaisDisponiveis(marcacaoAgendaController.agenda.profissional)}" />
 					</p:selectOneMenu>					
 
 				</h:panelGrid>

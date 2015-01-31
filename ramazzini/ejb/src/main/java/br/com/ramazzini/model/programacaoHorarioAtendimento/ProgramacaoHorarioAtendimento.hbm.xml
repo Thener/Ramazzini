@@ -12,8 +12,23 @@
 			where 
 				p.horarioAtendimento = :horarioAtendimento
 			order 
-				by p.diaSemana
+				by p.diaSemana, p.horaInicio
 		]]>
 	</query>
+	
+	<query name="ProgramacaoHorarioAtendimento.recuperarPorHorarioAtendimentoDiaSemana">
+		<![CDATA[
+			select 
+				p
+			from 
+				ProgramacaoHorarioAtendimento p
+			where 
+				p.horarioAtendimento = :horarioAtendimento
+			and
+				p.diaSemana = :diaSemana
+			order 
+				by p.diaSemana, p.horaInicio
+		]]>
+	</query>	
 
 </hibernate-mapping>

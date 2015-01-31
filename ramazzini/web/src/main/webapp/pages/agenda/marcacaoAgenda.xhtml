@@ -16,7 +16,7 @@
    			
    				<div style="float: left;">
    				
-	   				<h:panelGrid columns="6" cellpadding="5">
+	   				<h:panelGrid columns="8" cellpadding="5">
 	   				
 		       			<p:outputLabel for="dataAgenda" value="#{msgs['label.data']}" />
 		       			<p:calendar id="dataAgenda" value="#{marcacaoAgendaController.dataSelecionada}" 
@@ -43,6 +43,18 @@
 							<p:ajax event="change" update="frmAgenda" 
 								listener="#{marcacaoAgendaController.onChangeSituacaoMarcacaoAgenda}" />
 						</p:selectOneMenu>
+						
+						<p:outputLabel for="filtrarProfissional" value="#{msgs['label.filtrarProfissional']}:" />			
+						<p:selectOneMenu id="filtrarProfissional"
+							value="#{marcacaoAgendaController.profissionalSelecionado}"
+							converter="entityConverter" styleClass="nome50">
+							<f:selectItem itemLabel="#{msgs['label.qualquerProfissional']}" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems value="#{combosDinamicos.getProfissionaisNaAgenda(marcacaoAgendaController.dataSelecionada)}" 
+								var="profissional" itemLabel="#{profissional.nome}" />
+							<p:ajax event="change" update="gridAgendamentos" process="@this"
+								listener="#{marcacaoAgendaController.onChangeProfissionalSelecionado}" />
+						</p:selectOneMenu>						
 	   			
 	   				</h:panelGrid>
    				
