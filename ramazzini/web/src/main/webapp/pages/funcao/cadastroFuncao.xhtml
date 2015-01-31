@@ -52,7 +52,7 @@
 				<f:facet name="left">
 					<p:commandButton id="botaoVoltar" immediate="true"
 						icon="ui-icon-arrowreturnthick-1-w" title="#{msgs['botao.voltar']}"
-						action="/pages/empresa/cadastroEmpresa.jsf?faces-redirect=true">
+						action="#{funcaoController.voltar()}">
 					</p:commandButton>
 					<p:commandButton id="salvar" action="#{funcaoController.gravarFuncao()}"
 						value="#{msgs['botao.gravar']}" icon="ui-icon-disk" title="#{msgs['botao.gravar']}"
