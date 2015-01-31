@@ -35,8 +35,12 @@ public class FuncaoService extends AbstractServiceImpl<Funcao> {
     }	
     
     public List<Funcao> recuperarPorNome(Empresa empresa, String nomeFuncao) {
-    	return ((FuncaoDao) getDao()).recuperarPorNome(empresa, nomeFuncao);
+    	return ((FuncaoDao) getDao()).recuperarPorNomeEmpresa(empresa, nomeFuncao);
     }    
+    
+    public List<Funcao> recuperarPorNome(String nomeFuncao) {
+    	return ((FuncaoDao) getDao()).recuperarPorNome(nomeFuncao);
+    } 
 
     public List<RiscoOcupacional> recuperarRiscosOcupacionais(Funcao funcao) {
     	return ((FuncaoDao) getDao()).recuperarRiscosOcupacionais(funcao);

@@ -51,7 +51,7 @@ public class FuncaoController extends AbstractBean implements Serializable {
 	}
 	    
     public String alterarFuncao(Funcao funcao){
-    	
+    	setEmpresa(funcao.getEmpresa());
     	return cadastroFuncao(funcao, Boolean.FALSE);
     }
     
@@ -81,6 +81,7 @@ public class FuncaoController extends AbstractBean implements Serializable {
     	funcaoProcedimentoController.setFuncao(funcao);
     	setFuncao(funcao);
     	setSomenteLeitura(somenteLeitura);
+    	setUriRequisicao(getControleAcesso().getUriRequisicao());
     	return PAGINA_CADASTRO_FUNCAO;    	
     }
     
@@ -92,7 +93,7 @@ public class FuncaoController extends AbstractBean implements Serializable {
 			return alterarFuncao(funcao);
 		} else {
 			pesquisar();
-			return PAGINA_CADASTRO_EMPRESA;
+			return voltar();
 		}		
 		
 	}
@@ -106,6 +107,14 @@ public class FuncaoController extends AbstractBean implements Serializable {
 		}      
     }  
     
+    public void pesquisarGeral() {		
+    	if (!nomeFuncaoPesquisa.isEmpty()){
+			funcoes = funcaoService.recuperarPorNome(nomeFuncaoPesquisa);
+		} else {
+			UtilMensagens.mensagemInformacaoPorChave("mensagem.info.nomePesquisaNaoInformado", getValorChaveMsg("label.funcao"));
+		}
+    } 
+    
     public void incluirRiscoOcupacional() {
     	
     	if (riscoOcupacionalSelecionado != null) {
@@ -116,7 +125,11 @@ public class FuncaoController extends AbstractBean implements Serializable {
     public void removerRiscoOcupacional(RiscoOcupacional riscoOcupacional) {
     	riscosOcupacionais.remove(riscoOcupacional);
     	funcao.getRiscosOcupacionais().remove(riscoOcupacional);
-    }    
+    }
+    
+    public String voltar() {				
+		return getUriRequisicao()+"?faces-redirect=true";
+	}
 	
 	public List<Funcao> getFuncoes() {
 		return funcoes;

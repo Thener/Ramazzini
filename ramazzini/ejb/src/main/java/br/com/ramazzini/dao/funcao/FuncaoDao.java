@@ -14,6 +14,7 @@ import br.com.ramazzini.model.riscoOcupacional.RiscoOcupacional;
 public class FuncaoDao extends AbstractDao<Funcao> {
 
 	private static final String QUERY_RECUPERAR_POR_EMPRESA = "Funcao.recuperarPorEmpresa";
+	private static final String QUERY_RECUPERAR_POR_NOME_EMPRESA = "Funcao.recuperarPorNomeEmpresa";
 	private static final String QUERY_RECUPERAR_POR_NOME = "Funcao.recuperarPorNome";
 	private static final String QUERY_RECUPERAR_RISCOS_OCUPACIONAIS = "Funcao.recuperarRiscosOcupacionais";
 	
@@ -29,8 +30,8 @@ public class FuncaoDao extends AbstractDao<Funcao> {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Funcao> recuperarPorNome(Empresa empresa, String nomeFuncao) {
-		Query query = createNamedQuery(QUERY_RECUPERAR_POR_NOME);
+	public List<Funcao> recuperarPorNomeEmpresa(Empresa empresa, String nomeFuncao) {
+		Query query = createNamedQuery(QUERY_RECUPERAR_POR_NOME_EMPRESA);
 		query.setParameter("empresa", empresa);
 		query.setParameter("nomeFuncao", "%"+nomeFuncao+"%");
 		try {
@@ -39,6 +40,17 @@ public class FuncaoDao extends AbstractDao<Funcao> {
 			return null;
 		}
 	}	
+	
+	@SuppressWarnings("unchecked")
+	public List<Funcao> recuperarPorNome(String nomeFuncao) {
+		Query query = createNamedQuery(QUERY_RECUPERAR_POR_NOME);
+		query.setParameter("nomeFuncao", "%"+nomeFuncao+"%");
+		try {
+			return query.getResultList();
+		} catch (NoResultException nr) {
+			return null;
+		}
+	}
 	
 	@SuppressWarnings("unchecked")
 	public List<RiscoOcupacional> recuperarRiscosOcupacionais(Funcao funcao) {
