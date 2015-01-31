@@ -1,5 +1,6 @@
 .agendaColunaAcoes {
-	width: 40px;
+	width: 110px;
+	text-align: center;
 }
 
 .agendaColunaData {
@@ -16,8 +17,8 @@
 	
 }
 
-.agendaGridAgendamentos tr.ui-datatable-even:hover, .agendaGridHorarios tr.ui-datatable-odd:hover {
-    background: #ADD8E6;
+.agendaGridAgendamentos tr:hover {
+    background: #C6E2FF;
 }
 
 .agendaNegrito {

@@ -10,9 +10,13 @@
 	
 	    <p:column headerText="#{msgs['label.acoes']}" styleClass="agendaColunaAcoes">
 					
-			<p:commandLink title="#{msgs['label.visualizar']}" styleClass="ui-icon ui-icon-circle-plus"
-				actionListener="#{marcacaoAgendaController.editarAgendamento(agenda)}" 
-				onclick="PF('dialogEditarAgendamento').show();" update=":frmDialogEditarAgendamento" />
+		    <p:commandButton title="#{msgs['label.editar']}" actionListener="#{marcacaoAgendaController.editarAgendamento(agenda)}"  
+		    	icon="ui-icon-pencil" onclick="PF('dialogEditarAgendamento').show();" update=":frmDialogEditarAgendamento"  />
+
+		    <p:commandButton title="#{msgs['label.excluir']}" actionListener="#{marcacaoAgendaController.excluirAgendamento(agenda)}"  
+		    	icon="ui-icon-close" update="gridAgendamentos">
+		    	<p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['label.confirmacaoExclusao']}" icon="ui-icon-alert" />
+		    </p:commandButton> 
 
 	    </p:column>	
 	    
@@ -28,14 +32,21 @@
 	        <h:outputText value="#{marcacaoAgendaController.getFormattedTime(agenda.horaChegada,'hh:mm')}" />
 	    </p:column>
 
-	    <p:column headerText="#{msgs['label.situacao']}">
+	    <p:column headerText="#{msgs['label.situacao']}" styleClass="colunaCentralizada">
 	        <h:outputText value="#{agenda.situacaoMarcacaoAgendaEnum.stringChave}" />
 	    </p:column>
 	    
-	    <p:column headerText="#{msgs['label.procedimento']}" styleClass="agendaColunaProcedimento">
+	    <p:column headerText="#{msgs['label.procedimento']}" styleClass="agendaColunaProcedimento colunaCentralizada">
 	        <h:outputText value="#{agenda.procedimento.nome}" />
 	    </p:column>	
 	 
 	</p:dataTable>
 	
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+		<p:commandButton value="#{msgs['label.confirmacaoSim']}" type="button"
+			styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+		<p:commandButton value="#{msgs['label.confirmacaoNao']}" type="button"
+			styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+	</p:confirmDialog>
+				
 </ui:composition>

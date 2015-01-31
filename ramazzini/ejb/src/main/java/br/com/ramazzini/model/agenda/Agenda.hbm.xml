@@ -28,6 +28,21 @@
 			order 
 				by a.horaChegada
 		]]>
-	</query>	
+	</query>
+	
+	<query name="Agenda.recuperarPorDataAgendaEsituacao">
+		<![CDATA[
+			select 
+				a		
+			from 
+				Agenda a
+			where 
+				a.dataAgenda = :data
+			and
+				a.situacaoMarcacaoAgenda = :situacaoMarcacaoAgenda
+			order 
+				by a.horaChegada
+		]]>
+	</query>		
 
 </hibernate-mapping>

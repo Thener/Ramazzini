@@ -33,11 +33,21 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 	private Agenda agenda;
 	
 	private Empresa empresaSelecionada;
+	
+	private String situacaoMarcacaoAgenda = SituacaoMarcacaoAgenda.MARCADO.getValue();
 	    
 	@PostConstruct
 	public void init() {
 		beginConversation();
 	}    
+	
+	public void onChangeDataSelecionada() {
+		agendamentos.clear();
+	}
+	
+	public void onChangeSituacaoMarcacaoAgenda() {
+		agendamentos.clear();
+	}
 	
 	public void incluirAgendamento() {
 		agenda = new Agenda();
@@ -47,7 +57,11 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 	}
 	
 	public void editarAgendamento(Agenda agenda) {
-		
+		this.agenda = new Agenda();
+		this.agenda = agenda;
+		if (agenda.getFuncionario() != null) {
+			empresaSelecionada = agenda.getFuncionario().getEmpresa();
+		}
 	}
 	
 	public void gravarAgendamento() {
@@ -55,9 +69,18 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 		agendamentos.clear();
 	}
 	
+	public void excluirAgendamento(Agenda agenda) {
+		agendamentos.remove(agenda);
+		agendaService.remover(agenda, agenda.getId());
+	}
+	
 	public List<Agenda> getAgendamentos() {
 		if (agendamentos.isEmpty()) {
-			agendamentos = agendaService.recuperarPorDataAgenda(dataSelecionada);
+			if (situacaoMarcacaoAgenda.isEmpty()) {
+				agendamentos = agendaService.recuperarPorDataAgenda(dataSelecionada);
+			} else {
+				agendamentos = agendaService.recuperarPorDataAgendaEsituacao(dataSelecionada, situacaoMarcacaoAgenda);
+			}
 		}
 		return agendamentos;
 	}	
@@ -89,6 +112,14 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 	public void setEmpresaSelecionada(Empresa empresaSelecionada) {
 		this.empresaSelecionada = empresaSelecionada;
 	}
-	
+
+	public String getSituacaoMarcacaoAgenda() {
+		return situacaoMarcacaoAgenda;
+	}
+
+	public void setSituacaoMarcacaoAgenda(
+			String situacaoMarcacaoAgenda) {
+		this.situacaoMarcacaoAgenda = situacaoMarcacaoAgenda;
+	}
 	
 }

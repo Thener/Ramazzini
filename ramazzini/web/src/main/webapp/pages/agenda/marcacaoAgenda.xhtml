@@ -14,12 +14,12 @@
    		
    			<h:form id="frmAgenda">
    			
-   				<h:panelGrid columns="4" cellpadding="5">
+   				<h:panelGrid columns="6" cellpadding="5">
    				
 	       			<p:outputLabel for="dataAgenda" value="#{msgs['label.data']}" />
 	       			<p:calendar id="dataAgenda" value="#{marcacaoAgendaController.dataSelecionada}" 
 	       				pattern="#{msgs['pattern.calendar']}" mask="true" styleClass="data" required="false">
-	       				<p:ajax event="dateSelect" update="frmAgenda" />
+	       				<p:ajax event="dateSelect" update="frmAgenda" listener="#{marcacaoAgendaController.onChangeDataSelecionada}" />
 	       			</p:calendar> 
 	       				
 	       			<p:outputLabel value="#{marcacaoAgendaController.diaSemana}" />   
@@ -30,6 +30,16 @@
 						actionListener="#{marcacaoAgendaController.incluirAgendamento()}" 
 						onclick="PF('dialogEditarAgendamento').show();" 
 						update=":frmDialogEditarAgendamento" />	       						
+						
+					<p:outputLabel for="situacaoMarcacaoAgenda" value="#{msgs['label.situacao']}:" />
+					<p:selectOneMenu id="situacaoMarcacaoAgenda"
+						value="#{marcacaoAgendaController.situacaoMarcacaoAgenda}">
+						<f:selectItem itemLabel="#{msgs['label.todasAsSituacoes']}" itemValue=""
+							noSelectionOption="true" />						
+						<f:selectItems value="#{combosEstaticos.situacoesMarcacaoAgenda}" var="sitMarcacao"
+							itemLabel="#{sitMarcacao.stringChave}" itemValue="#{sitMarcacao.value}" />
+						<p:ajax event="change" update="frmAgenda" listener="#{marcacaoAgendaController.onChangeSituacaoMarcacaoAgenda}" />
+					</p:selectOneMenu>
    			
    				</h:panelGrid>
    				

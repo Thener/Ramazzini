@@ -1,8 +1,8 @@
 package br.com.ramazzini.util;
 
-import javax.enterprise.inject.Produces;
 import javax.inject.Named;
 
+import br.com.ramazzini.model.agenda.SituacaoMarcacaoAgenda;
 import br.com.ramazzini.model.empresa.UnidadeFederativa;
 import br.com.ramazzini.model.feriado.DiasMes;
 import br.com.ramazzini.model.feriado.Mes;
@@ -16,47 +16,42 @@ import br.com.ramazzini.model.util.SimNao;
 @Named("combosEstaticos") 
 public class CombosEstaticos {	
 	
-	@Produces
 	public DiasMes[] getDiasMes() {
 		return DiasMes.values();
 	}	
 	
-	@Produces
 	public DiaSemana[] getDiasSemana() {
 		return DiaSemana.values();
 	}
 	
-	@Produces
 	public Mes[] getMeses() {
 		return Mes.values();
 	}	
 	
-	@Produces
 	public PapelProfissional[] getPapeisProfissional() {
 		return PapelProfissional.values();
 	}
 	
-	@Produces
 	public Sexo[] getSexo() {
 		return Sexo.values();
 	}
 	
-	@Produces
 	public SimNao[] getSimNao() {
 		return SimNao.values();
 	}
 	
-	@Produces
 	public NaoSim[] getNaoSim() {
 		return NaoSim.values();
 	}	
 	
-	@Produces
 	public SituacaoFuncionario[] getSituacoesFuncionario() {
 		return SituacaoFuncionario.values();
 	}	
 	
-	@Produces
+	public SituacaoMarcacaoAgenda[] getSituacoesMarcacaoAgenda() {
+		return SituacaoMarcacaoAgenda.values();
+	}	
+	
 	public UnidadeFederativa[] getUnidadesFederativas() {
 		return UnidadeFederativa.values();
 	}
