@@ -2,6 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
+
 	<query name="Tela.recuperarPorModulo">
 		<![CDATA[
             select t
@@ -12,6 +13,7 @@
              order by t.nome
 		]]>
 	</query>
+	
 	<query name="Tela.recuperarPorModuloTela">
 		<![CDATA[
             select t
@@ -20,6 +22,7 @@
              and t.modulo.nome = :nomeModulo
 		]]>
 	</query>
+	
 	<query name="Tela.recuperarTelasNaoPublicas">
 		<![CDATA[
             select t
@@ -28,6 +31,7 @@
              order by :order
 		]]>
 	</query>
+	
 	<query name="Tela.recuperarTelasPublicas">
 		<![CDATA[
             select t
@@ -35,7 +39,8 @@
              where t.publico = true
              order by :order
 		]]>
-	</query>	
+	</query>
+		
 	<query name="Tela.recuperarPorPerfil">
 		<![CDATA[
             select t
@@ -47,4 +52,5 @@
              order by t.nome
 		]]>
 	</query>	
+	
 </hibernate-mapping>

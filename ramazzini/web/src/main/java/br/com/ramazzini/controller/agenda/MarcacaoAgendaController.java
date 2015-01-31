@@ -14,7 +14,10 @@ import br.com.ramazzini.controller.util.AbstractBean;
 import br.com.ramazzini.model.agenda.Agenda;
 import br.com.ramazzini.model.agenda.SituacaoMarcacaoAgenda;
 import br.com.ramazzini.model.empresa.Empresa;
+import br.com.ramazzini.model.profissional.Profissional;
+import br.com.ramazzini.model.programacaoHorarioAtendimento.ProgramacaoHorarioAtendimento;
 import br.com.ramazzini.service.entidade.AgendaService;
+import br.com.ramazzini.service.entidade.ProfissionalService;
 import br.com.ramazzini.util.TimeFactory;
 
 @Named
@@ -24,7 +27,10 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 	private static final long serialVersionUID = 1L;
 	
     @Inject
-    private AgendaService agendaService; 
+    private AgendaService agendaService;
+    
+    @Inject
+    private ProfissionalService profissionalService;    
     
 	private Date dataSelecionada = TimeFactory.createDataHora();
 	
@@ -34,26 +40,35 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 	
 	private Empresa empresaSelecionada;
 	
-	private String situacaoMarcacaoAgenda = SituacaoMarcacaoAgenda.MARCADO.getValue();
-	    
+	private String situacaoMarcacaoAgenda = SituacaoMarcacaoAgenda.AGUARDANDO.getValue();
+	
+	private int totalAgendamentos;
+	
+	private List<Profissional> profissionaisDisponiveis = new ArrayList<Profissional>();
+	
 	@PostConstruct
 	public void init() {
 		beginConversation();
 	}    
 	
 	public void onChangeDataSelecionada() {
-		agendamentos.clear();
+		recarregarAgenda();
 	}
 	
 	public void onChangeSituacaoMarcacaoAgenda() {
+		recarregarAgenda();
+	}
+	
+	public void recarregarAgenda() {
 		agendamentos.clear();
+		profissionaisDisponiveis.clear();
 	}
 	
 	public void incluirAgendamento() {
 		agenda = new Agenda();
 		agenda.setDataAgenda(dataSelecionada);
 		agenda.setHoraChegada(TimeFactory.createDataHora());
-		agenda.setSituacaoMarcacaoAgendaEnum(SituacaoMarcacaoAgenda.MARCADO);
+		agenda.setSituacaoMarcacaoAgendaEnum(SituacaoMarcacaoAgenda.AGUARDANDO);
 	}
 	
 	public void editarAgendamento(Agenda agenda) {
@@ -83,7 +98,14 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 			}
 		}
 		return agendamentos;
-	}	
+	}
+	
+	public List<Profissional> getProfissionaisDisponiveis() {
+		if (profissionaisDisponiveis.isEmpty()) {
+			profissionaisDisponiveis = profissionalService.recuperarPorDiaAtendimento(dataSelecionada);
+		}
+		return profissionaisDisponiveis;
+	}
 
 	public Date getDataSelecionada() {
 		return dataSelecionada;
@@ -121,5 +143,32 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 			String situacaoMarcacaoAgenda) {
 		this.situacaoMarcacaoAgenda = situacaoMarcacaoAgenda;
 	}
-	
+
+	public int getTotalAgendamentos() {
+		return totalAgendamentos;
+	}
+
+	public void contarAgendamentos() {
+		this.totalAgendamentos = agendamentos.size();
+	}
+
+	public String montarProfissionaisDisponiveis() {
+		
+		String table = "<table>";
+		for (Profissional p : getProfissionaisDisponiveis()) {
+			String nome = p.getNomeAbreviado();
+			for (ProgramacaoHorarioAtendimento pa : p.getHorarioAtendimento().getProgramacoes()) {
+				table += "<tr>";
+				table += "<td>" + nome + "</td>" ;	
+				table += "<td>" + getFormattedTime(pa.getHoraInicio(),"HH:mm") + "</td>";
+				table += "<td>às</td>";
+				table += "<td>" + getFormattedTime(pa.getHoraFim(),"HH:mm") + "</td>";
+				table += "</tr>";
+				nome = "";
+			}
+			table += "</tr>";
+		}
+		table += "</table>";
+		return table;
+	}
 }

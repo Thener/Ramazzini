@@ -5,12 +5,11 @@ import java.util.ResourceBundle;
 
 public enum SituacaoMarcacaoAgenda {
 
-    LIVRE("LI","situacaoMarcacaoAgenda.Livre"), 
-    MARCADO("MA", "situacaoMarcacaoAgenda.Marcado"),
     AGUARDANDO("AG", "situacaoMarcacaoAgenda.Aguardando"),
+    EM_ATENDIMENTO("EA", "situacaoMarcacaoAgenda.EmAtendimento"),
     ATENDIDO("AT", "situacaoMarcacaoAgenda.Atendido"),
-    SUSPENSO("SU", "situacaoMarcacaoAgenda.Suspenso"),
-    NAO_COMPARECEU("NC", "situacaoMarcacaoAgenda.NaoCompareceu");
+    NAO_COMPARECEU("NC", "situacaoMarcacaoAgenda.NaoCompareceu"),
+    DESISTENCIA("DS", "situacaoMarcacaoAgenda.Desistencia");
     
     private static final ResourceBundle bundle = ResourceBundle.getBundle("messages");
 

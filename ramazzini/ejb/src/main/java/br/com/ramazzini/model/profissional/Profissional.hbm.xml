@@ -3,6 +3,23 @@
 		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 
+	<query name="Profissional.recuperarPorDiaAtendimento">
+		<![CDATA[
+			select 
+				distinct(p)
+			from 
+				Profissional p
+			right join fetch
+				p.horarioAtendimento ha
+			join fetch
+				ha.programacoes prog
+			where 
+				prog.diaSemana = :diaSemana
+			order 
+				by p.nome
+		]]>
+	</query>
+	
 	<query name="Profissional.recuperarPorNome">
 		<![CDATA[
 			select 

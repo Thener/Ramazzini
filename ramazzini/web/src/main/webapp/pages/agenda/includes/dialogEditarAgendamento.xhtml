@@ -6,7 +6,7 @@
    xmlns:p="http://primefaces.org/ui">
    
 	<p:dialog header="#{msgs['label.agenda']}" widgetVar="dialogEditarAgendamento" 
-		modal="true" height="245" width="550" resizable="false">
+		modal="true" height="275" width="550" resizable="false">
 		
 		<h:form id="frmDialogEditarAgendamento">
 		
@@ -25,6 +25,13 @@
 			
 				<h:panelGrid columns="2" cellpadding="5">
 				
+					<p:outputLabel for="situacaoMarcacaoAgenda" value="#{msgs['label.situacao']}:" />
+					<p:selectOneMenu id="situacaoMarcacaoAgenda"
+						value="#{marcacaoAgendaController.agenda.situacaoMarcacaoAgenda}">
+						<f:selectItems value="#{combosEstaticos.situacoesMarcacaoAgenda}" var="sitMarcacao"
+							itemLabel="#{sitMarcacao.stringChave}" itemValue="#{sitMarcacao.value}" />
+					</p:selectOneMenu>
+									
 					<p:outputLabel value="#{msgs['label.empresa']}: " for="completeEmpresa" />
 					<p:autoComplete id="completeEmpresa"
 						value="#{marcacaoAgendaController.empresaSelecionada}"
@@ -55,7 +62,7 @@
 						<f:selectItems value="#{combosDinamicos.procedimentosTipoExameClinicoOcupacional}" var="procedimento"
 							itemLabel="#{procedimento.nome}" />
 					</p:selectOneMenu>
-											
+
 				</h:panelGrid>		
 	    
 		    </p:panel>

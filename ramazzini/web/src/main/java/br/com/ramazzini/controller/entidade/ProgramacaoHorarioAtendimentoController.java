@@ -83,11 +83,11 @@ public class ProgramacaoHorarioAtendimentoController extends AbstractBean implem
 	}
 	
 	public String getHoraInicio(ProgramacaoHorarioAtendimento programacao) {
-		return getFormattedTime(programacao.getHoraInicio(), "hh:mm");
+		return getFormattedTime(programacao.getHoraInicio(), "HH:mm");
 	}
 	
 	public String getHoraFim(ProgramacaoHorarioAtendimento programacao) {
-		return getFormattedTime(programacao.getHoraFim(), "hh:mm");
+		return getFormattedTime(programacao.getHoraFim(), "HH:mm");
 	}	
 	
 }

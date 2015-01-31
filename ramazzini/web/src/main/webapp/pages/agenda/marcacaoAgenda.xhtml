@@ -14,36 +14,63 @@
    		
    			<h:form id="frmAgenda">
    			
-   				<h:panelGrid columns="6" cellpadding="5">
+   				<div style="float: left;">
    				
-	       			<p:outputLabel for="dataAgenda" value="#{msgs['label.data']}" />
-	       			<p:calendar id="dataAgenda" value="#{marcacaoAgendaController.dataSelecionada}" 
-	       				pattern="#{msgs['pattern.calendar']}" mask="true" styleClass="data" required="false">
-	       				<p:ajax event="dateSelect" update="frmAgenda" listener="#{marcacaoAgendaController.onChangeDataSelecionada}" />
-	       			</p:calendar> 
-	       				
-	       			<p:outputLabel value="#{marcacaoAgendaController.diaSemana}" />   
-	       			
-					<p:commandButton 
-						id="botaoIncluirAgendamento" icon="ui-icon-circle-plus" 
-						title="#{msgs['botao.incluirAgendamento']}"
-						actionListener="#{marcacaoAgendaController.incluirAgendamento()}" 
-						onclick="PF('dialogEditarAgendamento').show();" 
-						update=":frmDialogEditarAgendamento" />	       						
-						
-					<p:outputLabel for="situacaoMarcacaoAgenda" value="#{msgs['label.situacao']}:" />
-					<p:selectOneMenu id="situacaoMarcacaoAgenda"
-						value="#{marcacaoAgendaController.situacaoMarcacaoAgenda}">
-						<f:selectItem itemLabel="#{msgs['label.todasAsSituacoes']}" itemValue=""
-							noSelectionOption="true" />						
-						<f:selectItems value="#{combosEstaticos.situacoesMarcacaoAgenda}" var="sitMarcacao"
-							itemLabel="#{sitMarcacao.stringChave}" itemValue="#{sitMarcacao.value}" />
-						<p:ajax event="change" update="frmAgenda" listener="#{marcacaoAgendaController.onChangeSituacaoMarcacaoAgenda}" />
-					</p:selectOneMenu>
-   			
-   				</h:panelGrid>
+	   				<h:panelGrid columns="6" cellpadding="5">
+	   				
+		       			<p:outputLabel for="dataAgenda" value="#{msgs['label.data']}" />
+		       			<p:calendar id="dataAgenda" value="#{marcacaoAgendaController.dataSelecionada}" 
+		       				pattern="#{msgs['pattern.calendar']}" mask="true" styleClass="data" required="false">
+		       				<p:ajax event="dateSelect" update="frmAgenda" listener="#{marcacaoAgendaController.onChangeDataSelecionada}" />
+		       			</p:calendar> 
+		       				
+		       			<p:outputLabel value="#{marcacaoAgendaController.diaSemana}" />   
+		       			
+						<p:commandButton 
+							id="botaoIncluirAgendamento" icon="ui-icon-circle-plus" 
+							title="#{msgs['botao.incluirAgendamento']}"
+							actionListener="#{marcacaoAgendaController.incluirAgendamento()}" 
+							onclick="PF('dialogEditarAgendamento').show();" 
+							update=":frmDialogEditarAgendamento" />	       						
+							
+						<p:outputLabel for="situacaoMarcacaoAgenda" value="#{msgs['label.situacao']}:" />
+						<p:selectOneMenu id="situacaoMarcacaoAgenda"
+							value="#{marcacaoAgendaController.situacaoMarcacaoAgenda}">
+							<f:selectItem itemLabel="#{msgs['label.todasAsSituacoes']}" itemValue=""
+								noSelectionOption="true" />						
+							<f:selectItems value="#{combosEstaticos.situacoesMarcacaoAgenda}" var="sitMarcacao"
+								itemLabel="#{sitMarcacao.stringChave}" itemValue="#{sitMarcacao.value}" />
+							<p:ajax event="change" update="frmAgenda" 
+								listener="#{marcacaoAgendaController.onChangeSituacaoMarcacaoAgenda}" />
+						</p:selectOneMenu>
+	   			
+	   				</h:panelGrid>
+   				
+   				</div>
+   				
+   				<div style="float: right;">
+   				
+   					<p:remoteCommand name="onload" update="totalAgendamentos" 
+   						action="#{marcacaoAgendaController.contarAgendamentos()}" autoRun="true" />
+   				
+	   				<h:panelGrid columns="2" cellpadding="5">
+	   				
+		       			<p:outputLabel value="#{msgs['label.totalAgendamentos']}" />
+						<p:outputLabel value="#{marcacaoAgendaController.totalAgendamentos}" id="totalAgendamentos" />
+	   			
+	   				</h:panelGrid>   				
+   				
+   				</div>
+   				
+   				<div style="clear:both;"></div>
    				
    				<ui:include src="includes/gridAgendamentos.xhtml" />
+   				
+   				<p:spacer width="15px;" />
+   				
+   				<p:fieldset legend="#{msgs['label.profissionaisDisponiveis']}">
+					<h:outputText value="#{marcacaoAgendaController.montarProfissionaisDisponiveis()}" escape="false"/>
+				</p:fieldset>
    				
    			</h:form>
    			

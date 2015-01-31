@@ -16,6 +16,7 @@
  */
 package br.com.ramazzini.service.entidade;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -29,6 +30,10 @@ import br.com.ramazzini.service.util.AbstractServiceImpl;
 @Stateless
 public class ProfissionalService extends AbstractServiceImpl<Profissional> {
 
+    public List<Profissional> recuperarPorDiaAtendimento(Date data) {
+    	return ((ProfissionalDao) getDao()).recuperarPorDiaAtendimento(data);
+    }	
+    
     public List<Profissional> recuperarPorNome(String nome) {
     	return ((ProfissionalDao) getDao()).recuperarPorNome(nome);
     }	
