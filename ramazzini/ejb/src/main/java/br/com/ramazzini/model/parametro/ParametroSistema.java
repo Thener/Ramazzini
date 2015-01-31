@@ -10,7 +10,11 @@ public enum ParametroSistema {
     AGENDA_CRIAR_DOMINGO("AGENDA.CRIAR_DOMINGO", "parametroSistema.agenda.CriarAgendaAosDomingos", "0"),
     AGENDA_CRIAR_FERIADO("AGENDA.CRIAR_FERIADO", "parametroSistema.agenda.CriarAgendaNosFeriados", "0"),
     //---- CONTROLE DE ACESSO:
-    ACESSO_NUM_MAX_TENTATIVAS_LOGIN("ACESSO.NUM_MAX_TENTATIVAS_LOGIN", "parametroSistema.acesso.NumeroMaxTentativasLogin", "3");
+    ACESSO_NUM_MAX_TENTATIVAS_LOGIN("ACESSO.NUM_MAX_TENTATIVAS_LOGIN", "parametroSistema.acesso.NumeroMaxTentativasLogin", "3"),
+    
+    //---- LOCAL RELATÓRIOS
+    DIR_BASE_RELATORIO("RELATORIO.DIR_BASE_RELATORIO", "parametroSistema.relatorio.diretorioBase", "4");
+
     
     private static final ResourceBundle bundle = ResourceBundle.getBundle("messages");
 
