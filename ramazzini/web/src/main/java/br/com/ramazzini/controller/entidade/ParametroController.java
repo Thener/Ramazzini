@@ -21,11 +21,7 @@ public class ParametroController extends AbstractBean implements Serializable {
 	
 	private @Inject ParametroService parametroService;
 
-	private Parametro parametroAgendaCriarSabado;
-	
-	private Parametro parametroAgendaCriarDomingo;
-
-	private Parametro parametroAgendaCriarFeriado;
+	private Parametro parametroAgendaTempoAtualizacaoAutomatica;
 	
 	private Parametro parametroAcessoNumTentativasLogin;	
 		
@@ -34,44 +30,33 @@ public class ParametroController extends AbstractBean implements Serializable {
 
 		beginConversation();
 		
-		parametroAgendaCriarSabado = parametroService.recuperarPorParametroSistema(ParametroSistema.AGENDA_CRIAR_SABADO);
-		parametroAgendaCriarDomingo = parametroService.recuperarPorParametroSistema(ParametroSistema.AGENDA_CRIAR_DOMINGO);
-		parametroAgendaCriarFeriado = parametroService.recuperarPorParametroSistema(ParametroSistema.AGENDA_CRIAR_FERIADO);
+		parametroAgendaTempoAtualizacaoAutomatica = parametroService.recuperarPorParametroSistema(ParametroSistema.AGENDA_TEMPO_ATUALIZACAO_AUTOMATICA);
 		parametroAcessoNumTentativasLogin = parametroService.recuperarPorParametroSistema(ParametroSistema.ACESSO_NUM_MAX_TENTATIVAS_LOGIN);
 	}
 	
 	public void gravar() {
 		
-		parametroService.salvar(parametroAgendaCriarSabado);
-		parametroService.salvar(parametroAgendaCriarDomingo);
-		parametroService.salvar(parametroAgendaCriarFeriado);
+		parametroService.salvar(parametroAgendaTempoAtualizacaoAutomatica);
 		parametroService.salvar(parametroAcessoNumTentativasLogin);
 		
 		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.dadosGravadosComSucesso","Parâmetros");
 	}
 	
 	public Parametro getParametroAgendaCriarSabado() {
-		return parametroAgendaCriarSabado;
+		return parametroAgendaTempoAtualizacaoAutomatica;
 	}
 
 	public void setParametroAgendaCriarSabado(Parametro parametroAgendaCriarSabado) {
-		this.parametroAgendaCriarSabado = parametroAgendaCriarSabado;
+		this.parametroAgendaTempoAtualizacaoAutomatica = parametroAgendaCriarSabado;
+	}
+	
+	public Parametro getParametroAgendaTempoAtualizacaoAutomatica() {
+		return parametroAgendaTempoAtualizacaoAutomatica;
 	}
 
-	public Parametro getParametroAgendaCriarDomingo() {
-		return parametroAgendaCriarDomingo;
-	}
-
-	public void setParametroAgendaCriarDomingo(Parametro parametroAgendaCriarDomingo) {
-		this.parametroAgendaCriarDomingo = parametroAgendaCriarDomingo;
-	}
-
-	public Parametro getParametroAgendaCriarFeriado() {
-		return parametroAgendaCriarFeriado;
-	}
-
-	public void setParametroAgendaCriarFeriado(Parametro parametroAgendaCriarFeriado) {
-		this.parametroAgendaCriarFeriado = parametroAgendaCriarFeriado;
+	public void setParametroAgendaTempoAtualizacaoAutomatica(
+			Parametro parametroAgendaTempoAtualizacaoAutomatica) {
+		this.parametroAgendaTempoAtualizacaoAutomatica = parametroAgendaTempoAtualizacaoAutomatica;
 	}
 
 	public Parametro getParametroAcessoNumTentativasLogin() {

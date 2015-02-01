@@ -6,12 +6,9 @@ import java.util.ResourceBundle;
 public enum ParametroSistema {
 
 	//--- AGENDA:
-    AGENDA_CRIAR_SABADO("AGENDA.CRIAR_SABADO","parametroSistema.agenda.CriarAgendaAosSabados", "0"), 
-    AGENDA_CRIAR_DOMINGO("AGENDA.CRIAR_DOMINGO", "parametroSistema.agenda.CriarAgendaAosDomingos", "0"),
-    AGENDA_CRIAR_FERIADO("AGENDA.CRIAR_FERIADO", "parametroSistema.agenda.CriarAgendaNosFeriados", "0"),
+    AGENDA_TEMPO_ATUALIZACAO_AUTOMATICA("AGENDA.TEMPO_ATUALIZACAO_AUTOMATICA","parametroSistema.agenda.tempoAtualizacaoAutomatica", "20"), 
     //---- CONTROLE DE ACESSO:
-    ACESSO_NUM_MAX_TENTATIVAS_LOGIN("ACESSO.NUM_MAX_TENTATIVAS_LOGIN", "parametroSistema.acesso.NumeroMaxTentativasLogin", "3"),
-    
+    ACESSO_NUM_MAX_TENTATIVAS_LOGIN("ACESSO.NUM_MAX_TENTATIVAS_LOGIN", "parametroSistema.acesso.numeroMaxTentativasLogin", "3"),
     //---- LOCAL RELATÓRIOS
     DIR_BASE_RELATORIO("RELATORIO.DIR_BASE_RELATORIO", "parametroSistema.relatorio.diretorioBase", "4");
 

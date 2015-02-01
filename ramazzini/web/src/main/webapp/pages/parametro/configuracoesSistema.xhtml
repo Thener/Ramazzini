@@ -23,21 +23,7 @@
 							<f:selectItems value="#{combosEstaticos.naoSim}" var="naoSim"
 								itemLabel="#{naoSim.stringChave}" itemValue="#{naoSim.value}" />
 						</p:selectOneMenu>
-						
-						<p:outputLabel value="#{msgs['parametroSistema.agenda.CriarAgendaAosDomingos']}" />
-						<p:selectOneMenu value="#{parametroController.parametroAgendaCriarDomingo.valor}">
-							<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""/>
-							<f:selectItems value="#{combosEstaticos.naoSim}" var="naoSim"
-								itemLabel="#{naoSim.stringChave}" itemValue="#{naoSim.value}" />
-						</p:selectOneMenu>
-						
-						<p:outputLabel value="#{msgs['parametroSistema.agenda.CriarAgendaNosFeriados']}" />
-						<p:selectOneMenu value="#{parametroController.parametroAgendaCriarFeriado.valor}">
-							<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""/>
-							<f:selectItems value="#{combosEstaticos.naoSim}" var="naoSim"
-								itemLabel="#{naoSim.stringChave}" itemValue="#{naoSim.value}" />
-						</p:selectOneMenu>
-						
+
 					</h:panelGrid>
 				
 				</p:fieldset>
