@@ -33,13 +33,16 @@
 							update="gridAgendamentos" />
 									       			
 		       			<ui:include src="includes/atualizacaoAutomatica.xhtml" />
-		       			
-						<p:commandButton 
-							id="botaoIncluirAgendamento" icon="ui-icon-circle-plus" 
-							value="#{msgs['botao.agendar']}"
-							actionListener="#{marcacaoAgendaController.incluirAgendamento()}" 
-							onclick="PF('dialogEditarAgendamento').show();" 
-							update=":frmDialogEditarAgendamento" />	       						
+
+					    <p:splitButton value="#{msgs['botao.agendar']}" actionListener="#{marcacaoAgendaController.incluirAgendamento()}" 
+					    	update=":frmDialogEditarAgendamento" icon="ui-icon-circle-plus" id="botaoIncluirAgendamento"
+					    	onclick="PF('dialogEditarAgendamento').show();">
+					    	
+					        <p:menuitem value="#{msgs['botao.admissional']}" actionListener="#{marcacaoAgendaController.incluirAdmissional()}" 
+					        	update=":frmDialogAdmissional" icon="ui-icon-folder-collapsed" id="botaoIncluirAdmissional"
+					        	onclick="PF('dialogAdmissional').show();" />
+
+					    </p:splitButton>							
 							
 						<p:outputLabel for="situacaoMarcacaoAgenda" value="#{msgs['label.situacao']}:" />
 						<p:selectOneMenu id="situacaoMarcacaoAgenda"
@@ -105,6 +108,8 @@
    		</p:panel>
    		
    		<ui:include src="includes/dialogEditarAgendamento.xhtml" />
+   		
+   		<ui:include src="includes/dialogAdmissional.xhtml" />
 
 	</ui:define>
 	

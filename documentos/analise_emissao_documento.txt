@@ -1,0 +1,45 @@
+-----------------------ADMISSIONAL--------------------------
+
+IF funcaoRealizaExame {
+	abre tela para emissão do pedido de exame, com opção 
+	para escolha de médico disponivel no dia
+} ELSE {
+	abre tela para emissão do ASO, com opção
+	para escolha dos médicos disponíveis do dia
+}
+
+-----------------------PERIODICO ou DEMISSIONAL ou RET. TRABALHO--------------------------
+
+IF funcaoRealizaExame AND listaExamesVencidosDoFuncionario.size > 0 {
+	
+	abre tela para emissão de PEDIDO DE EXAME, com escolha do medico...
+
+} ELSE {
+	
+	abre tela para emissão do ASO...
+}
+
+-----------------------MUDANÇA DE FUNÇÃO--------------------------
+
+mostra tela para escolha da nova funcao
+
+verifica se a nova funcao realiza exames 
+
+IF funcaoAtualNaoRealizaExame AND novaFuncaoNaoRealizaExame {
+	abre tela para emissao do ASO, com escolha do médico disponivel no dia
+} ELSE {
+
+	busca exames realizados por ambas as funcoes (evitando repetir exame que ambas possuem)
+
+	destas funcoes recuperadas, verifica necessidade de renovação de cada uma na ficha do funcionario
+
+	IF existemExamesAseremPedidos {
+		abre tela para emissao do pedido de exame,
+		com escolha do medico disponivel no dia,
+		com a mescla dos exames de funcao atual e nova
+	} ELSE {
+		abre tela para emissao do ASO
+	}
+
+
+}

@@ -54,6 +54,10 @@ input.nome50, span.nome50 input.ui-autocomplete-input {
 	width: 380px !important;	
 }
 
+div.nome50 select {
+	width: 375px !important;	
+}
+
 input.nome100, span.nome100 input.ui-autocomplete-input {
 	width: 480px !important;	
 }

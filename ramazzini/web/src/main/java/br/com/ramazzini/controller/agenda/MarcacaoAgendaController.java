@@ -14,11 +14,14 @@ import br.com.ramazzini.controller.util.AbstractBean;
 import br.com.ramazzini.model.agenda.Agenda;
 import br.com.ramazzini.model.agenda.SituacaoMarcacaoAgenda;
 import br.com.ramazzini.model.empresa.Empresa;
+import br.com.ramazzini.model.funcionario.Funcionario;
+import br.com.ramazzini.model.funcionario.SituacaoFuncionario;
 import br.com.ramazzini.model.notificacao.Notificacao;
 import br.com.ramazzini.model.parametro.ParametroSistema;
 import br.com.ramazzini.model.profissional.Profissional;
 import br.com.ramazzini.model.programacaoHorarioAtendimento.ProgramacaoHorarioAtendimento;
 import br.com.ramazzini.service.entidade.AgendaService;
+import br.com.ramazzini.service.entidade.FuncionarioService;
 import br.com.ramazzini.service.entidade.ParametroService;
 import br.com.ramazzini.service.entidade.ProfissionalService;
 import br.com.ramazzini.service.entidade.ProgramacaoHorarioAtendimentoService;
@@ -31,6 +34,7 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 	private static final long serialVersionUID = 1L;
 	
     @Inject private AgendaService agendaService;
+    @Inject private FuncionarioService funcionarioService;
     @Inject private ParametroService parametroService;
     @Inject private ProfissionalService profissionalService;
     @Inject private ProgramacaoHorarioAtendimentoService programacaoHorarioAtendimentoService;
@@ -41,7 +45,7 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 	
 	private Agenda agenda;
 	
-	private Empresa empresaSelecionada;
+	private Empresa empresaSelecionada = new Empresa();
 	
 	private String situacaoMarcacaoAgenda = SituacaoMarcacaoAgenda.AGUARDANDO.getValue();
 	
@@ -60,6 +64,8 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 	private Date ultimaAtualizacaoAgenda;
 	
 	private String tempoAtualizacaoAutomatica;
+	
+	private Funcionario novoFuncionario;
 	
 	@PostConstruct
 	public void init() {
@@ -90,18 +96,35 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 		agenda.setSituacaoMarcacaoAgendaEnum(SituacaoMarcacaoAgenda.AGUARDANDO);
 	}
 	
+	public void incluirAdmissional() {
+		novoFuncionario = new Funcionario();
+	}
+	
 	public void editarAgendamento(Agenda agenda) {
 		this.agenda = new Agenda();
-		this.agenda = agenda;
+		this.agenda = agendaService.recuperarPorId(agenda.getId());
 		if (agenda.getFuncionario() != null) {
 			empresaSelecionada = agenda.getFuncionario().getEmpresa();
 		}
 	}
 	
 	public void gravarAgendamento() {
+		gravarAgenda(agenda);
+	}
+	
+	public void gravarAgendamentoAdmissional() {
+		novoFuncionario.setEmpresa(empresaSelecionada);
+		novoFuncionario.setSituacaoFuncionarioEnum(SituacaoFuncionario.ATIVO);
+		funcionarioService.salvar(novoFuncionario);
+		incluirAgendamento();
+		agenda.setFuncionario(novoFuncionario);
+		gravarAgenda(agenda);
+	}	
+	
+	private void gravarAgenda(Agenda agenda) {
 		agendaService.salvar(agenda);
 		agendamentos.clear();
-		Notificacao.notificarModificacaoAgenda();
+		Notificacao.notificarModificacaoAgenda();		
 	}
 	
 	public void excluirAgendamento(Agenda agenda) {
@@ -250,7 +273,13 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 		}
 		return tempoAtualizacaoAutomatica;
 	}
-	
-	
+
+	public Funcionario getNovoFuncionario() {
+		return novoFuncionario;
+	}
+
+	public void setNovoFuncionario(Funcionario novoFuncionario) {
+		this.novoFuncionario = novoFuncionario;
+	}
 
 }

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui">
+   
+	<p:dialog header="#{msgs['label.agenda']}" widgetVar="dialogAdmissional" 
+		modal="true" height="340" width="550" resizable="false">
+		
+		<h:form id="frmDialogAdmissional">
+		
+			<p:panel id="panelDialogAdmissional" header="#{msgs['label.admissional']}">
+			
+				<h:panelGrid columns="2" cellpadding="5">
+
+					<p:outputLabel value="#{msgs['label.empresa']}: " for="completeAdmissionalEmpresa" />
+					<p:autoComplete id="completeAdmissionalEmpresa"
+						value="#{marcacaoAgendaController.empresaSelecionada}"
+						completeMethod="#{autoComplete.completeEmpresa}"
+						var="empresa" itemLabel="#{empresa.nome}"
+						itemValue="#{empresa}" converter="entityConverter"
+						forceSelection="true" styleClass="nome50">
+						
+						<p:ajax event="itemSelect" process="@this" update="funcaoNovoFuncionario, lotacaoNovoFuncionario"/>
+					</p:autoComplete>
+					
+					<p:outputLabel for="nomeNovoFuncionario" value="#{msgs['label.nome']}:" />
+					<p:inputText id="nomeNovoFuncionario" value="#{marcacaoAgendaController.novoFuncionario.nome}" 
+						styleClass="nome50" maxlength="100" required="true" />
+						
+					<p:outputLabel value="#{msgs['label.funcao']}:" />
+					<p:selectOneMenu id="funcaoNovoFuncionario" value="#{marcacaoAgendaController.novoFuncionario.funcao}"
+						converter="entityConverter" styleClass="nome50">
+						<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
+							noSelectionOption="true" />			
+						<f:selectItems value="#{combosDinamicos.getFuncoes(marcacaoAgendaController.empresaSelecionada)}" 
+							var="funcao" itemLabel="#{funcao.nome}" itemValue="#{funcao}" />
+					</p:selectOneMenu>
+									
+					<p:outputLabel for="lotacaoNovoFuncionario" value="#{msgs['label.lotacao']}:" />
+					<p:selectOneMenu id="lotacaoNovoFuncionario" value="#{marcacaoAgendaController.novoFuncionario.lotacao}"
+						converter="entityConverter" styleClass="nome50">
+						<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
+							noSelectionOption="true" />			
+						<f:selectItems value="#{combosDinamicos.getLotacoes(marcacaoAgendaController.empresaSelecionada)}"
+							 var="lotacao" itemLabel="#{lotacao.nome}" itemValue="#{lotacao}" />
+					</p:selectOneMenu>	
+					
+					<p:outputLabel for="dataNascimentoNovoFuncionario" value="#{msgs['label.dataNascimento']}" />
+					<h:panelGrid columns="3" cellpadding="5">
+						<p:calendar id="dataNascimentoNovoFuncionario" value="#{marcacaoAgendaController.novoFuncionario.dataNascimento}" 
+							pattern="#{msgs['pattern.calendar']}" mask="true" styleClass="data" 
+							required="false" />	
+							
+						<p:outputLabel for="sexoNovoFuncionario" value="#{msgs['label.sexo']}:" />
+						<p:selectOneMenu id="sexoNovoFuncionario"
+							value="#{marcacaoAgendaController.novoFuncionario.sexo}">
+							<f:selectItems value="#{combosEstaticos.sexo}" var="sexo"
+								itemLabel="#{sexo.stringChave}" itemValue="#{sexo.value}" />
+						</p:selectOneMenu>							
+					</h:panelGrid>
+					
+					<p:outputLabel for="ctpsNovoFuncionario" value="#{msgs['label.ctps']}:" />
+					<h:panelGrid columns="5" cellpadding="5">
+						<p:inputText id="ctpsNovoFuncionario" value="#{marcacaoAgendaController.novoFuncionario.ctps}" 
+							styleClass="nome10" maxlength="20" required="false" />
+							
+						<p:outputLabel for="nitNovoFuncionario" value="#{msgs['label.nit']}:" />
+						<p:inputText id="nitNovoFuncionario" value="#{marcacaoAgendaController.novoFuncionario.nit}" 
+							styleClass="nome10" maxlength="20" required="false" />
+							
+						<p:outputLabel for="rgNovoFuncionario" value="#{msgs['label.rg']}:" />
+						<p:inputText id="rgNovoFuncionario" value="#{marcacaoAgendaController.novoFuncionario.rg}" 
+							styleClass="nome10" maxlength="20" required="false" />
+					</h:panelGrid>
+					
+				</h:panelGrid>			
+			
+
+		    </p:panel>
+	    
+			<p:toolbar>
+				<f:facet name="left">					
+				   	<p:commandButton title="#{msgs['botao.voltar']}" type="button" 
+				   		 icon="ui-icon-arrowreturnthick-1-w" onclick="PF('dialogAdmissional').hide();"/>							
+						
+					<p:commandButton id="botaoGravarAdmissional" ajax="true" 
+						value="#{msgs['botao.gravar']}" icon="ui-icon-disk" title="#{msgs['botao.gravar']}"
+						onclick="PF('dialogAdmissional').hide();"
+						actionListener="#{marcacaoAgendaController.gravarAgendamentoAdmissional}" 
+						update=":frmAgenda" />
+						
+					<p:commandButton id="botaoGravarAdmissionalComAnaliseEmissaoDocumento" 
+						icon="ui-icon-print" value="#{msgs['botao.gravarComAnaliseDocumento']}" />						
+						
+													
+				</f:facet>
+			</p:toolbar>
+			
+		</h:form>	    
+	    
+	</p:dialog>	
+	
+	
+</ui:composition>

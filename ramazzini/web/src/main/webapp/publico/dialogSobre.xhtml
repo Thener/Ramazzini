@@ -5,6 +5,17 @@
    xmlns:h="http://java.sun.com/jsf/html"
    xmlns:p="http://primefaces.org/ui">
    
+   <style>
+   		.nomeAnalista {
+   			font-weight: bold;
+   			font-size: 14px;
+   		}
+  		.nomeSistema {
+   			font-weight: bold;
+   			font-size: 20px;
+   		}   		
+   </style>
+   
 	<p:dialog header="#{msgs['label.ramazzini']}" widgetVar="dialogSobre" 
 		modal="true" height="340" width="550" resizable="false">
 		
@@ -12,7 +23,36 @@
 
 			<p:panel header="#{msgs['label.sobre']}" style="min-height:290px;">
 			
-
+			<h:panelGrid columns="1" cellpadding="2">
+				<h:outputText value="Ramazzini Software de Gestão Médica" styleClass="nomeSistema"/>
+				<h:outputText value="Versão 1.0 / 2015"/>
+				<h:outputText value="Proprietários: "/>
+			</h:panelGrid>			
+			
+			<h:panelGrid columns="2" cellpadding="5">
+			
+				<p:graphicImage name="/img/sobre/pedro.png" />
+				
+				<h:panelGrid columns="1" cellpadding="0">
+					<h:outputText value="Pedro Carlos Dias" styleClass="nomeAnalista"/>
+					<h:outputText value="Analista de Sistemas"/>
+					<h:outputText value="Formação..."/>
+				</h:panelGrid>
+				
+			</h:panelGrid>
+			
+			<h:panelGrid columns="2" cellpadding="5">
+			
+				<p:graphicImage name="/img/sobre/thener.jpg" />
+				
+				<h:panelGrid columns="1" cellpadding="0">
+					<h:outputText value="Thener Moreira" styleClass="nomeAnalista"/>
+					<h:outputText value="Analista de Sistemas"/>
+					<h:outputText value="Formação..."/>
+				</h:panelGrid>
+				
+			</h:panelGrid>
+			
 			
 			</p:panel>
 			
