@@ -58,7 +58,7 @@
 						<p:outputLabel for="filtrarProfissional" value="#{msgs['label.filtrarProfissional']}:" />			
 						<p:selectOneMenu id="filtrarProfissional"
 							value="#{marcacaoAgendaController.profissionalSelecionado}"
-							converter="entityConverter" styleClass="nome50">
+							converter="entityConverter">
 							<f:selectItem itemLabel="#{msgs['label.qualquerProfissional']}" itemValue=""
 								noSelectionOption="true" />
 							<f:selectItems value="#{combosDinamicos.getProfissionaisNaAgenda(marcacaoAgendaController.dataSelecionada)}" 
@@ -73,7 +73,7 @@
    				
    				<div style="float: right;">
    				
-   					<p:remoteCommand name="onload" update="totalAgendamentos" 
+   					<p:remoteCommand name="onload" update="totalAgendamentos" id="rcTotalAtendimentos"
    						action="#{marcacaoAgendaController.contarAgendamentos()}" autoRun="true" />
    				
 	   				<h:panelGrid columns="2" cellpadding="5">

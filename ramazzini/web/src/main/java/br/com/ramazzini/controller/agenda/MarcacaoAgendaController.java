@@ -26,6 +26,7 @@ import br.com.ramazzini.service.entidade.ParametroService;
 import br.com.ramazzini.service.entidade.ProfissionalService;
 import br.com.ramazzini.service.entidade.ProgramacaoHorarioAtendimentoService;
 import br.com.ramazzini.util.TimeFactory;
+import br.com.ramazzini.util.UtilMensagens;
 
 @Named
 @ConversationScoped
@@ -131,10 +132,12 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 		agendamentos.remove(agenda);
 		agendaService.remover(agenda, agenda.getId());
 		Notificacao.notificarModificacaoAgenda();
+		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeExcluidaComSucesso", getValorChaveMsg("label.agendamento"));
 	}
 	
 	public void atualizacaoAutomatica() {
 		if (ultimaAtualizacaoAgenda.before(Notificacao.getUltimaModificacaoAgenda())) {
+			UtilMensagens.mensagemInformacaoPorChave("mensagem.info.houveUmaAtualizacaoDaAgenda");
 			agendamentos.clear();
 		}
 	}

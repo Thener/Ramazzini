@@ -16,7 +16,7 @@
 		    <p:commandButton title="#{msgs['label.analiseEmissaoDocumentos']}" icon="ui-icon-print" />		    	
 
 		    <p:commandButton title="#{msgs['label.excluir']}" actionListener="#{marcacaoAgendaController.excluirAgendamento(agenda)}"  
-		    	icon="ui-icon-close" update="gridAgendamentos">
+		    	icon="ui-icon-close" update="gridAgendamentos, :messages">
 		    	<p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['label.confirmacaoExclusao']}" icon="ui-icon-alert" />
 		    </p:commandButton> 
 

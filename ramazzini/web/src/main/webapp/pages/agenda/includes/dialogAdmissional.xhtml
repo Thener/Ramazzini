@@ -20,7 +20,7 @@
 						completeMethod="#{autoComplete.completeEmpresa}"
 						var="empresa" itemLabel="#{empresa.nome}"
 						itemValue="#{empresa}" converter="entityConverter"
-						forceSelection="true" styleClass="nome50">
+						forceSelection="true" styleClass="nome50" required="true">
 						
 						<p:ajax event="itemSelect" process="@this" update="funcaoNovoFuncionario, lotacaoNovoFuncionario"/>
 					</p:autoComplete>

@@ -6,7 +6,7 @@
    xmlns:p="http://primefaces.org/ui">
    
 	<p:poll interval="#{marcacaoAgendaController.tempoAtualizacaoAutomatica}" 
-		listener="#{marcacaoAgendaController.atualizacaoAutomatica()}" update="gridAgendamentos" />
+		listener="#{marcacaoAgendaController.atualizacaoAutomatica()}" update=":messages, :frmAgenda" />
 				
 	<p:ajaxStatus style="width: 30px;">
 	    <f:facet name="default">   
