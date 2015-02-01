@@ -17,11 +17,11 @@
 
 					<h:panelGrid columns="6" cellpadding="5">
 					
-						<p:outputLabel value="#{msgs['parametroSistema.agenda.CriarAgendaAosSabados']}" />
-						<p:selectOneMenu value="#{parametroController.parametroAgendaCriarSabado.valor}">
+						<p:outputLabel value="#{msgs['parametroSistema.agenda.tempoAtualizacaoAutomatica']}" />
+						<p:selectOneMenu value="#{parametroController.parametroAgendaTempoAtualizacaoAutomatica.valor}">
 							<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""/>
-							<f:selectItems value="#{combosEstaticos.naoSim}" var="naoSim"
-								itemLabel="#{naoSim.stringChave}" itemValue="#{naoSim.value}" />
+							<f:selectItems value="#{combosEstaticos.temposAtualizacaoAgenda}" var="tempo"
+								itemLabel="#{tempo.stringChave}" itemValue="#{tempo.value}" />
 						</p:selectOneMenu>
 
 					</h:panelGrid>

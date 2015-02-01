@@ -1,6 +1,7 @@
 package br.com.ramazzini.controller.entidade;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ConversationScoped;
@@ -24,20 +25,26 @@ public class ParametroController extends AbstractBean implements Serializable {
 	private Parametro parametroAgendaTempoAtualizacaoAutomatica;
 	
 	private Parametro parametroAcessoNumTentativasLogin;	
+	
+	private List<Parametro> listToSave;
 		
 	@PostConstruct
 	public void init() {
 
 		beginConversation();
 		
-		parametroAgendaTempoAtualizacaoAutomatica = parametroService.recuperarPorParametroSistema(ParametroSistema.AGENDA_TEMPO_ATUALIZACAO_AUTOMATICA);
-		parametroAcessoNumTentativasLogin = parametroService.recuperarPorParametroSistema(ParametroSistema.ACESSO_NUM_MAX_TENTATIVAS_LOGIN);
+		parametroAgendaTempoAtualizacaoAutomatica = 
+			parametroService.recuperarPorParametroSistema(ParametroSistema.AGENDA_TEMPO_ATUALIZACAO_AUTOMATICA);
+		parametroAcessoNumTentativasLogin = 
+			parametroService.recuperarPorParametroSistema(ParametroSistema.ACESSO_NUM_MAX_TENTATIVAS_LOGIN);
+		
+		listToSave.add(parametroAgendaTempoAtualizacaoAutomatica);
+		listToSave.add(parametroAcessoNumTentativasLogin);
 	}
 	
 	public void gravar() {
 		
-		parametroService.salvar(parametroAgendaTempoAtualizacaoAutomatica);
-		parametroService.salvar(parametroAcessoNumTentativasLogin);
+		parametroService.salvarLista(listToSave);
 		
 		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.dadosGravadosComSucesso","Parâmetros");
 	}

@@ -3,6 +3,7 @@ package br.com.ramazzini.util;
 import javax.inject.Named;
 
 import br.com.ramazzini.model.agenda.SituacaoMarcacaoAgenda;
+import br.com.ramazzini.model.agenda.TempoAtualizacaoAgenda;
 import br.com.ramazzini.model.empresa.UnidadeFederativa;
 import br.com.ramazzini.model.feriado.DiasMes;
 import br.com.ramazzini.model.feriado.Mes;
@@ -51,6 +52,10 @@ public class CombosEstaticos {
 	public SituacaoMarcacaoAgenda[] getSituacoesMarcacaoAgenda() {
 		return SituacaoMarcacaoAgenda.values();
 	}	
+	
+	public TempoAtualizacaoAgenda[] getTemposAtualizacaoAgenda() {
+		return TempoAtualizacaoAgenda.values();
+	}		
 	
 	public UnidadeFederativa[] getUnidadesFederativas() {
 		return UnidadeFederativa.values();
