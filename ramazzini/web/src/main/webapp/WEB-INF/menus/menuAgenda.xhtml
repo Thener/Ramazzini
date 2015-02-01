@@ -4,9 +4,11 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-				
 	
 	<p:menuitem value="#{msgs['menu.label.marcacao']}" url="/pages/agenda/marcacaoAgenda.jsf" icon="ui-icon-flag"
 		rendered="#{menuController.controleAcesso.telaAutorizada('agenda','marcacaoAgenda.jsf')}"/>
 
+	<p:menuitem value="#{msgs['menu.label.pesquisar']}" url="/pages/agenda/pesquisarAgenda.jsf" icon="ui-icon-search"
+		rendered="#{menuController.controleAcesso.telaAutorizada('agenda','pesquisarAgenda.jsf')}"/>
+		
 </html>

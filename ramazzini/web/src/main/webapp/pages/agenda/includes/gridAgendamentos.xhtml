@@ -44,6 +44,21 @@
 	    	</div>	    
 	        <h:outputText value="#{agenda.funcionario.nome}" />
 	    </p:column>	
+	    
+	    <p:column headerText="#{msgs['label.funcao']}" styleClass="agendaColunaFuncao"
+	    	rendered="#{marcacaoAgendaController.exibirColunaFuncao}">
+			<div class="agendaLinksVisualizarEditar">
+				<p:commandLink title="#{msgs['label.visualizar']}" action="#{funcaoController.visualizarFuncao(agenda.funcionario.funcao)}"
+					disabled="#{agenda.funcionario.funcao == null}"
+					styleClass="ui-icon ui-icon-search" rendered="#{marcacaoAgendaController.controleAcesso.acaoAutorizada('funcao','pesquisarFuncao.jsf','visualizarFuncao')}" />
+	    	</div>
+			<div class="agendaLinksVisualizarEditar">
+				<p:commandLink title="#{msgs['label.editar']}" action="#{funcaoController.alterarFuncao(agenda.funcionario.funcao)}"
+					disabled="#{agenda.funcionario.funcao == null}"
+					styleClass="ui-icon ui-icon-pencil" rendered="#{marcacaoAgendaController.controleAcesso.acaoAutorizada('funcao','pesquisarFuncao.jsf','alterarFuncao')}" />
+	    	</div>	    	
+	        <h:outputText value="#{agenda.funcionario.funcao.nome}" />
+	    </p:column>	    
 		
 	    <p:column headerText="#{msgs['label.entrada']}" styleClass="agendaColunaHora">
 	        <h:outputText value="#{marcacaoAgendaController.getFormattedTime(agenda.horaChegada,'HH:mm')}" />

@@ -7,17 +7,23 @@
    
    <p:panelGrid columns="2">
    			
-		<h:outputLabel for="exbibirColunaProfissional" value="#{msgs['label.exbibirColunaProfissional']}:" />
+		<h:outputLabel for="exbibirColunaProfissional" value="#{msgs['label.exbibirColunaProfissional']}" />
 		<p:selectBooleanCheckbox id="exbibirColunaProfissional"
 			value="#{marcacaoAgendaController.exibirColunaProfissional}">
 			<p:ajax event="change" update="gridAgendamentos"/>
 		</p:selectBooleanCheckbox>
 		
-		<h:outputLabel for="exbibirColunaObservacoes" value="#{msgs['label.exbibirColunaObservacoes']}:" />
+		<h:outputLabel for="exbibirColunaObservacoes" value="#{msgs['label.exbibirColunaObservacoes']}" />
 		<p:selectBooleanCheckbox id="exbibirColunaObservacoes"
 			value="#{marcacaoAgendaController.exibirColunaObservacoes}">
 			<p:ajax event="change" update="gridAgendamentos"/>
-		</p:selectBooleanCheckbox>		
+		</p:selectBooleanCheckbox>
+		
+		<h:outputLabel for="exbibirColunaFuncao" value="#{msgs['label.exbibirColunaFuncao']}" />
+		<p:selectBooleanCheckbox id="exbibirColunaFuncao"
+			value="#{marcacaoAgendaController.exibirColunaFuncao}">
+			<p:ajax event="change" update="gridAgendamentos"/>
+		</p:selectBooleanCheckbox>
 									
 	</p:panelGrid>
 				

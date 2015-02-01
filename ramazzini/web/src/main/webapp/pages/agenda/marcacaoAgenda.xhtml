@@ -16,7 +16,7 @@
    			
    				<div style="float: left;">
    				
-	   				<h:panelGrid columns="8" cellpadding="5">
+	   				<h:panelGrid columns="11" cellpadding="5">
 	   				
 		       			<p:outputLabel for="dataAgenda" value="#{msgs['label.data']}" />
 		       			<p:calendar id="dataAgenda" value="#{marcacaoAgendaController.dataSelecionada}" 
@@ -27,8 +27,16 @@
 		       			<p:outputLabel value="#{marcacaoAgendaController.diaSemana}" />   
 		       			
 						<p:commandButton 
+							id="botaoAtualizarAgenda" icon="ui-icon-refresh" 
+							title="#{msgs['botao.atualizar']}"
+							actionListener="#{marcacaoAgendaController.atualizacaoManual()}" 
+							update="gridAgendamentos" />
+									       			
+		       			<ui:include src="includes/atualizacaoAutomatica.xhtml" />
+		       			
+						<p:commandButton 
 							id="botaoIncluirAgendamento" icon="ui-icon-circle-plus" 
-							title="#{msgs['botao.incluirAgendamento']}"
+							value="#{msgs['botao.agendar']}"
 							actionListener="#{marcacaoAgendaController.incluirAgendamento()}" 
 							onclick="PF('dialogEditarAgendamento').show();" 
 							update=":frmDialogEditarAgendamento" />	       						

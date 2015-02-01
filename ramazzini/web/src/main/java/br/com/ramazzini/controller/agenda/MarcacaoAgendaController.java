@@ -14,6 +14,7 @@ import br.com.ramazzini.controller.util.AbstractBean;
 import br.com.ramazzini.model.agenda.Agenda;
 import br.com.ramazzini.model.agenda.SituacaoMarcacaoAgenda;
 import br.com.ramazzini.model.empresa.Empresa;
+import br.com.ramazzini.model.notificacao.Notificacao;
 import br.com.ramazzini.model.profissional.Profissional;
 import br.com.ramazzini.model.programacaoHorarioAtendimento.ProgramacaoHorarioAtendimento;
 import br.com.ramazzini.service.entidade.AgendaService;
@@ -50,6 +51,10 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 	private boolean exibirColunaProfissional = Boolean.FALSE;
 	
 	private boolean exibirColunaObservacoes = Boolean.FALSE;
+	
+	private boolean exibirColunaFuncao = Boolean.FALSE;
+	
+	private Date ultimaAtualizacaoAgenda;
 	
 	@PostConstruct
 	public void init() {
@@ -91,13 +96,25 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 	public void gravarAgendamento() {
 		agendaService.salvar(agenda);
 		agendamentos.clear();
+		Notificacao.notificarModificacaoAgenda();
 	}
 	
 	public void excluirAgendamento(Agenda agenda) {
 		agendamentos.remove(agenda);
 		agendaService.remover(agenda, agenda.getId());
+		Notificacao.notificarModificacaoAgenda();
+	}
+	
+	public void atualizacaoAutomatica() {
+		if (ultimaAtualizacaoAgenda.before(Notificacao.getUltimaModificacaoAgenda())) {
+			agendamentos.clear();
+		}
 	}
 
+	public void atualizacaoManual() {
+		agendamentos.clear();
+	}
+	
 	public String montarProfissionaisDisponiveis() {
 		
 		String table = "<table>";
@@ -129,6 +146,7 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 	public List<Agenda> getAgendamentos() {
 		if (agendamentos.isEmpty()) {
 			agendamentos = agendaService.recuperarPorFiltros(dataSelecionada, situacaoMarcacaoAgenda, profissionalSelecionado);
+			ultimaAtualizacaoAgenda = TimeFactory.createDataHora();
 		}
 		return agendamentos;
 	}
@@ -210,6 +228,14 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 
 	public void setExibirColunaObservacoes(boolean exibirColunaObservacoes) {
 		this.exibirColunaObservacoes = exibirColunaObservacoes;
+	}
+
+	public boolean isExibirColunaFuncao() {
+		return exibirColunaFuncao;
+	}
+
+	public void setExibirColunaFuncao(boolean exibirColunaFuncao) {
+		this.exibirColunaFuncao = exibirColunaFuncao;
 	}
 
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui">
+   
+	<p:poll interval="20" listener="#{marcacaoAgendaController.atualizacaoAutomatica()}" update="gridAgendamentos" />
+				
+	<p:ajaxStatus style="width: 30px;">
+	    <f:facet name="default">   
+	    </f:facet>
+	 
+	    <f:facet name="start">
+	        <p:graphicImage name="/img/ajax/ajax-loader.gif" />
+	    </f:facet>
+	 
+	    <f:facet name="complete">
+	    </f:facet>
+	</p:ajaxStatus>				
+				
+</ui:composition>
