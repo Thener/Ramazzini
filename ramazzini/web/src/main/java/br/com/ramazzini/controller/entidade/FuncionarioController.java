@@ -40,7 +40,7 @@ public class FuncionarioController extends AbstractBean implements Serializable 
 	}
 	    
     public String alterarFuncionario(Funcionario funcionario){
-    	setEmpresa(funcionario.getEmpresa());
+    	
     	return cadatroFuncionario(funcionario, Boolean.FALSE);
     }    
     
@@ -61,6 +61,7 @@ public class FuncionarioController extends AbstractBean implements Serializable 
     }    
     
     private String cadatroFuncionario(Funcionario funcionario, Boolean somenteLeitura) {
+    	setEmpresa(funcionario.getEmpresa());
     	setFuncionario(funcionario);
     	setSomenteLeitura(somenteLeitura);
     	setUriRequisicao(getControleAcesso().getUriRequisicao());

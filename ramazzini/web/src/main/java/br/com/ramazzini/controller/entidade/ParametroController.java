@@ -1,6 +1,7 @@
 package br.com.ramazzini.controller.entidade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -26,7 +27,7 @@ public class ParametroController extends AbstractBean implements Serializable {
 	
 	private Parametro parametroAcessoNumTentativasLogin;	
 	
-	private List<Parametro> listToSave;
+	private List<Parametro> listToSave = new ArrayList<Parametro>();
 		
 	@PostConstruct
 	public void init() {

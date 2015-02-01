@@ -21,7 +21,6 @@ public class FuncaoController extends AbstractBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private static final String PAGINA_CADASTRO_FUNCAO = "/pages/funcao/cadastroFuncao.jsf?faces-redirect=true";
-	private static final String PAGINA_CADASTRO_EMPRESA = "/pages/empresa/cadastroEmpresa.jsf?faces-redirect=true";
 	
     @Inject
     private FuncaoService funcaoService; 
@@ -51,7 +50,7 @@ public class FuncaoController extends AbstractBean implements Serializable {
 	}
 	    
     public String alterarFuncao(Funcao funcao){
-    	setEmpresa(funcao.getEmpresa());
+    	
     	return cadastroFuncao(funcao, Boolean.FALSE);
     }
     
@@ -77,6 +76,7 @@ public class FuncaoController extends AbstractBean implements Serializable {
     		riscosOcupacionais = funcaoService.recuperarRiscosOcupacionais(funcao);
     		funcao.setRiscosOcupacionais(riscosOcupacionais);
     	}
+    	setEmpresa(funcao.getEmpresa());
     	riscoOcupacionalSelecionado = null;
     	funcaoProcedimentoController.setFuncao(funcao);
     	setFuncao(funcao);

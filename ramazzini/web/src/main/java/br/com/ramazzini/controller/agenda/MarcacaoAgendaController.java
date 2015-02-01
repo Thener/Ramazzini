@@ -15,9 +15,11 @@ import br.com.ramazzini.model.agenda.Agenda;
 import br.com.ramazzini.model.agenda.SituacaoMarcacaoAgenda;
 import br.com.ramazzini.model.empresa.Empresa;
 import br.com.ramazzini.model.notificacao.Notificacao;
+import br.com.ramazzini.model.parametro.ParametroSistema;
 import br.com.ramazzini.model.profissional.Profissional;
 import br.com.ramazzini.model.programacaoHorarioAtendimento.ProgramacaoHorarioAtendimento;
 import br.com.ramazzini.service.entidade.AgendaService;
+import br.com.ramazzini.service.entidade.ParametroService;
 import br.com.ramazzini.service.entidade.ProfissionalService;
 import br.com.ramazzini.service.entidade.ProgramacaoHorarioAtendimentoService;
 import br.com.ramazzini.util.TimeFactory;
@@ -29,6 +31,7 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 	private static final long serialVersionUID = 1L;
 	
     @Inject private AgendaService agendaService;
+    @Inject private ParametroService parametroService;
     @Inject private ProfissionalService profissionalService;
     @Inject private ProgramacaoHorarioAtendimentoService programacaoHorarioAtendimentoService;
     
@@ -55,6 +58,8 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 	private boolean exibirColunaFuncao = Boolean.FALSE;
 	
 	private Date ultimaAtualizacaoAgenda;
+	
+	private String tempoAtualizacaoAutomatica;
 	
 	@PostConstruct
 	public void init() {
@@ -237,5 +242,15 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 	public void setExibirColunaFuncao(boolean exibirColunaFuncao) {
 		this.exibirColunaFuncao = exibirColunaFuncao;
 	}
+
+	public String getTempoAtualizacaoAutomatica() {
+		if (tempoAtualizacaoAutomatica == null || tempoAtualizacaoAutomatica.isEmpty() ) {
+			tempoAtualizacaoAutomatica = parametroService.recuperarPorParametroSistema(
+					ParametroSistema.AGENDA_TEMPO_ATUALIZACAO_AUTOMATICA).getValor(); 
+		}
+		return tempoAtualizacaoAutomatica;
+	}
+	
+	
 
 }
