@@ -24,7 +24,7 @@ public class UtilMensagens {
 		String mensagem = getValor(chave);
 		for (String p : parameters) {
 			parametro = "{"+i+"}";
-			mensagem = mensagem.replace(parametro, p);
+			mensagem = mensagem.replace(parametro, getValor(p));
 			i++;
 		}
 		mensagemErro(mensagem);
@@ -45,7 +45,7 @@ public class UtilMensagens {
 		String mensagem = getValor(chave);
 		for (String p : parameters) {
 			parametro = "{"+i+"}";
-			mensagem = mensagem.replace(parametro, p);
+			mensagem = mensagem.replace(parametro, getValor(p));
 			i++;
 		}
 		mensagemInformacao(mensagem);
@@ -67,7 +67,7 @@ public class UtilMensagens {
 		String mensagem = getValor(chave);
 		for (String p : parameters) {
 			parametro = "{"+i+"}";
-			mensagem = mensagem.replace(parametro, p);
+			mensagem = mensagem.replace(parametro, getValor(p));
 			i++;
 		}
 		mensagemErroAposRedirect(mensagem);
@@ -89,7 +89,7 @@ public class UtilMensagens {
 		String mensagem = getValor(chave);
 		for (String p : parameters) {
 			parametro = "{"+i+"}";
-			mensagem = mensagem.replace(parametro, p);
+			mensagem = mensagem.replace(parametro, getValor(p));
 			i++;
 		}
 		mensagemInformacaoAposRedirect(mensagem);

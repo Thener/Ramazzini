@@ -111,7 +111,7 @@ public class FuncaoController extends AbstractBean implements Serializable {
     	if (!nomeFuncaoPesquisa.isEmpty()){
 			funcoes = funcaoService.recuperarPorNome(nomeFuncaoPesquisa);
 		} else {
-			UtilMensagens.mensagemInformacaoPorChave("mensagem.info.nomePesquisaNaoInformado", getValorChaveMsg("label.funcao"));
+			UtilMensagens.mensagemInformacaoPorChave("mensagem.info.nomePesquisaNaoInformado", "label.funcao");
 		}
     } 
     

@@ -115,7 +115,8 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 	
 	public void gravarAgendamentoAdmissional() {
 		novoFuncionario.setEmpresa(empresaSelecionada);
-		novoFuncionario.setSituacaoFuncionarioEnum(SituacaoFuncionario.ATIVO);
+		novoFuncionario.setSituacaoFuncionarioEnum(SituacaoFuncionario.AGENDADO);
+		// quando o médico gravar a primeira ac, trocar para Ativo.
 		funcionarioService.salvar(novoFuncionario);
 		incluirAgendamento();
 		agenda.setFuncionario(novoFuncionario);
@@ -132,7 +133,7 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 		agendamentos.remove(agenda);
 		agendaService.remover(agenda, agenda.getId());
 		Notificacao.notificarModificacaoAgenda();
-		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeExcluidaComSucesso", getValorChaveMsg("label.agendamento"));
+		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeExcluidaComSucesso", "label.agendamento");
 	}
 	
 	public void atualizacaoAutomatica() {
