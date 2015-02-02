@@ -2,7 +2,9 @@ package br.com.ramazzini.model.avaliacaoClinica;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -17,6 +20,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import br.com.ramazzini.model.avaliacaoClinicaProcedimento.AvaliacaoClinicaProcedimento;
 import br.com.ramazzini.model.funcao.Funcao;
 import br.com.ramazzini.model.funcionario.Funcionario;
 import br.com.ramazzini.model.profissional.Profissional;
@@ -46,9 +50,9 @@ public class AvaliacaoClinica extends AbstractEntidade implements Serializable {
 	private Profissional medico;
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name = "dt_avaliacao_clinica", columnDefinition = "Date")
+	@Column(name = "dt_realizacao", columnDefinition = "Date")
 	@NotNull
-	private Date dataAvaliacaoClinica;
+	private Date dataRealizacao;
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name = "dt_liberacao", columnDefinition = "Date")
@@ -81,6 +85,10 @@ public class AvaliacaoClinica extends AbstractEntidade implements Serializable {
 	@Column(name = "st_avaliacao_clinica", length = 3)
     @NotNull 
     private String situacaoAvaliacaoClinica;
+	
+	@OneToMany(mappedBy="avaliacaoClinica",
+			cascade = CascadeType.ALL, orphanRemoval=true)
+	private List<AvaliacaoClinicaProcedimento> procedimentos;	
 
 	public Long getId() {
 		return id;
@@ -102,12 +110,12 @@ public class AvaliacaoClinica extends AbstractEntidade implements Serializable {
 		this.medico = medico;
 	}
 
-	public Date getDataAvaliacaoClinica() {
-		return dataAvaliacaoClinica;
+	public Date getDataRealizacao() {
+		return dataRealizacao;
 	}
 
-	public void setDataAvaliacaoClinica(Date dataAvaliacaoClinica) {
-		this.dataAvaliacaoClinica = dataAvaliacaoClinica;
+	public void setDataRealizacao(Date dataRealizacao) {
+		this.dataRealizacao = dataRealizacao;
 	}
 
 	public Date getDataLiberacao() {
@@ -188,5 +196,14 @@ public class AvaliacaoClinica extends AbstractEntidade implements Serializable {
 
 	public void setSituacaoAvaliacaoClinicaEnum(SituacaoAvaliacaoClinica situacaoAvaliacaoClinica) {
 		setSituacaoAvaliacaoClinica(situacaoAvaliacaoClinica.getValue());
-	}		
+	}
+
+	public List<AvaliacaoClinicaProcedimento> getProcedimentos() {
+		return procedimentos;
+	}
+
+	public void setProcedimentos(List<AvaliacaoClinicaProcedimento> procedimentos) {
+		this.procedimentos = procedimentos;
+	}
+	
 }
