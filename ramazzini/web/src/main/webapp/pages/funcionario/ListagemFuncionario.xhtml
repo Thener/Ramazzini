@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+
+		<h:form id="frmListagemFuncionario">
+
+			<p:growl id="growl" showDetail="false" sticky="true" />
+
+			<p:panel id="panelDadosFuncionario"
+				header="#{msgs['label.filtro']}">
+
+				<h:panelGrid columns="2" cellpadding="10">
+					<p:outputLabel for="situacaoFuncionario" value="#{msgs['label.situacao']}:" />
+					<p:selectManyCheckbox id="situacaoFuncionario"
+						value="#{listagemFuncionarioController.situacao}">
+						<f:selectItems value="#{combosEstaticos.situacoesFuncionario}"
+							var="situacaoFuncionario"
+							itemLabel="#{situacaoFuncionario.stringChave}"
+							itemValue="#{situacaoFuncionario.value}" />
+					</p:selectManyCheckbox>
+					
+					<p:outputLabel for="funcaoFuncionario" value="#{msgs['label.funcao']}:" />
+					<p:selectOneMenu id="funcaoFuncionario"
+						value="#{listagemFuncionarioController.funcao}"
+						converter="entityConverter">
+						<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
+							noSelectionOption="true" />
+						<f:selectItems
+							value="#{combosDinamicos.getFuncoesOrdenadasPorNome()}"
+							var="funcao" itemLabel="#{funcao.nome}" itemValue="#{funcao}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="dataAdmissao" value="#{msgs['label.dataAdmissao']}" />
+					<p:calendar id="dataAdmissao"
+						value="#{listagemFuncionarioController.dataSelecionada}"
+						pattern="#{msgs['pattern.calendar']}" mask="true"
+						styleClass="data" required="false">
+					</p:calendar>
+
+				</h:panelGrid>
+
+			</p:panel>
+
+			<p:toolbar>
+				<f:facet name="left">
+			
+					<p:commandButton id="listar"
+						action="#{listagemFuncionarioController.export()}"
+						value="#{msgs['botao.exportar']}" 
+						title="#{msgs['botao.exportar']}"
+						ajax="false" icon="exportpdf">
+					</p:commandButton>
+					
+				</f:facet>
+			</p:toolbar>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,13 +1,23 @@
 package br.com.ramazzini.dao.funcionario;
 
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import br.com.ramazzini.dao.util.AbstractDao;
 import br.com.ramazzini.model.empresa.Empresa;
+import br.com.ramazzini.model.funcao.Funcao;
 import br.com.ramazzini.model.funcionario.Funcionario;
+import br.com.ramazzini.model.funcionario.SituacaoFuncionario;
 
 
 public class FuncionarioDao extends AbstractDao<Funcionario> {
@@ -47,6 +57,37 @@ public class FuncionarioDao extends AbstractDao<Funcionario> {
 		} catch (NoResultException nr) {
 			return null;
 		}
+	}	
+	
+	public List<Funcionario> recuperarPor(Funcao funcao, SituacaoFuncionario situacao, Date dataInclusao) {
+		CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<Funcionario> criteria = cb.createQuery(Funcionario.class);
+        Root<Funcionario> funcionario = criteria.from(Funcionario.class);
+        
+        List<Predicate> condicoes = new ArrayList<Predicate>();
+        
+        if(funcao != null){
+        	Path<Funcao> atributoFuncao = funcionario.get("funcao");
+        	Predicate where = cb.equal(atributoFuncao, funcao);
+        	condicoes.add(where);
+        }
+        if(situacao != null){
+        	Path<SituacaoFuncionario> atributoSituacao = funcionario.get("situacaoFuncionario");
+        	Predicate where = cb.equal(atributoSituacao, situacao);
+        	condicoes.add(where);
+        }
+        if(dataInclusao != null){
+        	Path<SituacaoFuncionario> atributoData = funcionario.get("dataInclusao");
+        	Predicate where = cb.equal(atributoData, dataInclusao);
+        	condicoes.add(where);
+        }
+    	Predicate[] condicoesComoArray =
+    	condicoes.toArray(new Predicate[condicoes.size()]);
+    	Predicate todasCondicoes = cb.and(condicoesComoArray);
+    	criteria.where(todasCondicoes);
+    	TypedQuery<Funcionario> query = getEntityManager().createQuery(criteria);
+        
+		return query.getResultList();        
 	}	
 		
 }
