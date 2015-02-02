@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 public enum SituacaoFuncionario {
 
+	AGENDADO("AG","situacaoFuncionario.Agendado"), 
     ATIVO("AT","situacaoFuncionario.Ativo"), 
     DEMITIDO("DE", "situacaoFuncionario.Demitido"),
     LICENCA_MATERNIDADE("LM", "situacaoFuncionario.LicencaMaternidade"),
