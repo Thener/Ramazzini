@@ -88,7 +88,7 @@ public class FuncionarioController extends AbstractBean implements Serializable 
     	if (!nomeFuncionarioPesquisa.isEmpty()){
 			funcionarios = funcionarioService.recuperarPorNome(nomeFuncionarioPesquisa);
 		} else {
-			UtilMensagens.mensagemInformacaoPorChave("mensagem.info.nomePesquisaNaoInformado", getValorChaveMsg("label.funcionario"));
+			UtilMensagens.mensagemInformacaoPorChave("mensagem.info.nomePesquisaNaoInformado", "label.funcionario");
 		}
     }    
     

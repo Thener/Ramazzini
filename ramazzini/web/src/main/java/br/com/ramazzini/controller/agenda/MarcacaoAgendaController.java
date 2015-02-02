@@ -132,7 +132,7 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 		agendamentos.remove(agenda);
 		agendaService.remover(agenda, agenda.getId());
 		Notificacao.notificarModificacaoAgenda();
-		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeExcluidaComSucesso", getValorChaveMsg("label.agendamento"));
+		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeExcluidaComSucesso", "label.agendamento");
 	}
 	
 	public void atualizacaoAutomatica() {
