@@ -10,7 +10,7 @@ public enum ParametroSistema {
     //---- CONTROLE DE ACESSO:
     ACESSO_NUM_MAX_TENTATIVAS_LOGIN("ACESSO.NUM_MAX_TENTATIVAS_LOGIN", "parametroSistema.acesso.numeroMaxTentativasLogin", "3"),
     //---- LOCAL RELATÓRIOS
-    DIR_BASE_RELATORIO("RELATORIO.DIR_BASE_RELATORIO", "parametroSistema.relatorio.diretorioBase", "4");
+    DIR_BASE_RELATORIO("RELATORIO.DIR_BASE_RELATORIO", "parametroSistema.relatorio.diretorioBase", "C:/Projetos/workspace/Ramazzini/Templates");
 
     
     private static final ResourceBundle bundle = ResourceBundle.getBundle("messages");
