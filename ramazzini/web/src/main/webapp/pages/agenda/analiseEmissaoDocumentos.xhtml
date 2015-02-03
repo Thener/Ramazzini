@@ -48,6 +48,11 @@
 							<f:selectItems value="#{combosDinamicos.procedimentosTipoExameClinicoOcupacional}" var="procedimento"
 								itemLabel="#{procedimento.nome}" />
 						</p:selectOneMenu>
+						
+		       			<p:outputLabel for="dataReferencia" value="#{msgs['label.dataReferencia']}" />
+		       			<p:calendar id="dataReferencia" value="#{analiseEmissaoDocumentosController.dataReferencia}" 
+		       				pattern="#{msgs['pattern.calendar']}" mask="true" styleClass="data" required="false">
+		       			</p:calendar>						
 					
 					</h:panelGrid>
 	   			

@@ -10,6 +10,8 @@ import br.com.ramazzini.model.feriado.Mes;
 import br.com.ramazzini.model.funcionario.Sexo;
 import br.com.ramazzini.model.funcionario.SituacaoFuncionario;
 import br.com.ramazzini.model.horarioAtendimento.DiaSemana;
+import br.com.ramazzini.model.procedimento.TipoExameClinico;
+import br.com.ramazzini.model.procedimento.TipoProcedimento;
 import br.com.ramazzini.model.profissional.PapelProfissional;
 import br.com.ramazzini.model.util.NaoSim;
 import br.com.ramazzini.model.util.SimNao;
@@ -52,6 +54,14 @@ public class CombosEstaticos {
 	public SituacaoMarcacaoAgenda[] getSituacoesMarcacaoAgenda() {
 		return SituacaoMarcacaoAgenda.values();
 	}	
+	
+	public TipoExameClinico[] getTiposExameClinico() {
+		return TipoExameClinico.values();
+	}
+	
+	public TipoProcedimento[] getTiposProcedimento() {
+		return TipoProcedimento.values();
+	}
 	
 	public TempoAtualizacaoAgenda[] getTemposAtualizacaoAgenda() {
 		return TempoAtualizacaoAgenda.values();

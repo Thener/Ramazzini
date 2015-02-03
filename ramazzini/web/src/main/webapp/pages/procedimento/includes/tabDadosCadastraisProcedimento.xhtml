@@ -15,16 +15,29 @@
 		<p:outputLabel for="sigla" value="#{msgs['label.sigla']}:" />
 		<p:inputText id="sigla"
 			value="#{procedimentoController.procedimento.sigla}"
-			styleClass="nome10" maxlength="10" required="true" />
+			styleClass="nome10" maxlength="10" />
 
 		<p:outputLabel for="tipoProcedimento"
 			value="#{msgs['label.tipoProcedimento']}:" />
 		<p:selectOneMenu id="tipoProcedimento"
 			value="#{procedimentoController.procedimento.tipoProcedimento}"
 			required="true">
-			<f:selectItems value="#{procedimentoController.tiposProcedimento}"
+			<f:selectItems value="#{combosEstaticos.tiposProcedimento}"
 				var="tipoProcedimento" itemLabel="#{tipoProcedimento.stringChave}"
 				itemValue="#{tipoProcedimento.value}" />
+			<p:ajax event="change" update="labelTipoExameClinico, selectTipoExameClinico" />
 		</p:selectOneMenu>
+		
+		<p:outputLabel id="labelTipoExameClinico" for="selectTipoExameClinico" value="#{msgs['label.tipoExameClinico']}:" 
+			rendered="#{procedimentoController.procedimento.tipoProcedimento == 'EXCLI'}" />
+		<p:selectOneMenu id="selectTipoExameClinico"
+			value="#{procedimentoController.procedimento.tipoExameClinico}"
+			required="false" rendered="#{procedimentoController.procedimento.tipoProcedimento == 'EXCLI'}">
+			<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
+				noSelectionOption="true" />			
+			<f:selectItems value="#{combosEstaticos.tiposExameClinico}"
+				var="tipoExameClinico" itemLabel="#{tipoExameClinico.stringChave}"
+				itemValue="#{tipoExameClinico.value}" />
+		</p:selectOneMenu>	
 	</h:panelGrid>
 </ui:composition>

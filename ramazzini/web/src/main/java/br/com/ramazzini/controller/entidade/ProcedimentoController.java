@@ -10,7 +10,6 @@ import javax.inject.Named;
 
 import br.com.ramazzini.controller.util.AbstractBean;
 import br.com.ramazzini.model.procedimento.Procedimento;
-import br.com.ramazzini.model.procedimento.TipoProcedimento;
 import br.com.ramazzini.service.entidade.ProcedimentoService;
 import br.com.ramazzini.util.UtilMensagens;
 
@@ -91,11 +90,7 @@ public class ProcedimentoController extends AbstractBean implements Serializable
     	setProcedimento(procedimento);
     	setSomenteLeitura(somenteLeitura);
     	return PAGINA_CADASTRO_PROCEDIMENTO;    	
-    }     
-
-	public TipoProcedimento[] getTiposProcedimento() {
-		return TipoProcedimento.values();
-	}
+    }  
 
 	public List<Procedimento> getProcedimentos() {
 		return procedimentos;
@@ -123,6 +118,6 @@ public class ProcedimentoController extends AbstractBean implements Serializable
 
     public void setTabActiveIndex(Integer tabActiveIndex) {
         this.tabAtiva = tabActiveIndex;
-    }	 
+    }
     
 }
