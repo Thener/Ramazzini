@@ -19,25 +19,28 @@
 
 		<p:outputLabel for="tipoProcedimento"
 			value="#{msgs['label.tipoProcedimento']}:" />
-		<p:selectOneMenu id="tipoProcedimento"
-			value="#{procedimentoController.procedimento.tipoProcedimento}"
-			required="true">
-			<f:selectItems value="#{combosEstaticos.tiposProcedimento}"
-				var="tipoProcedimento" itemLabel="#{tipoProcedimento.stringChave}"
-				itemValue="#{tipoProcedimento.value}" />
-			<p:ajax event="change" update="labelTipoExameClinico, selectTipoExameClinico" />
-		</p:selectOneMenu>
-		
-		<p:outputLabel id="labelTipoExameClinico" for="selectTipoExameClinico" value="#{msgs['label.tipoExameClinico']}:" 
-			rendered="#{procedimentoController.procedimento.tipoProcedimento == 'EXCLI'}" />
-		<p:selectOneMenu id="selectTipoExameClinico"
-			value="#{procedimentoController.procedimento.tipoExameClinico}"
-			required="false" rendered="#{procedimentoController.procedimento.tipoProcedimento == 'EXCLI'}">
-			<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
-				noSelectionOption="true" />			
-			<f:selectItems value="#{combosEstaticos.tiposExameClinico}"
-				var="tipoExameClinico" itemLabel="#{tipoExameClinico.stringChave}"
-				itemValue="#{tipoExameClinico.value}" />
-		</p:selectOneMenu>	
+		<h:panelGroup>
+			<p:selectOneMenu id="tipoProcedimento"
+				value="#{procedimentoController.procedimento.tipoProcedimento}"
+				required="true">
+				<f:selectItems value="#{combosEstaticos.tiposProcedimento}"
+					var="tipoProcedimento" itemLabel="#{tipoProcedimento.stringChave}"
+					itemValue="#{tipoProcedimento.value}" />
+				<f:ajax render="pnlTipoExameClinico" />
+			</p:selectOneMenu>
+			
+			<h:panelGroup id="pnlTipoExameClinico">
+				<p:selectOneMenu id="selectTipoExameClinico"
+					value="#{procedimentoController.procedimento.tipoExameClinico}"
+					required="false" disabled="#{procedimentoController.procedimento.tipoProcedimento == 'EXCOM'}">
+					<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
+						noSelectionOption="true" />			
+					<f:selectItems value="#{combosEstaticos.tiposExameClinico}"
+						var="tipoExameClinico" itemLabel="#{tipoExameClinico.stringChave}"
+						itemValue="#{tipoExameClinico.value}" />
+				</p:selectOneMenu>	
+			</h:panelGroup>
+		</h:panelGroup>		
+
 	</h:panelGrid>
 </ui:composition>

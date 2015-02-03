@@ -46,7 +46,7 @@ public class Procedimento extends AbstractEntidade implements Serializable {
     
 	@Column(name = "tp_procedimento", length = 5)
     @NotNull 
-    private String tipoProcedimento;
+    private String tipoProcedimento = TipoProcedimento.EXAME_COMPLEMENTAR.getValue();
 	
 	@Column(name = "tp_exame_clinico", length = 3)
     private String tipoExameClinico;	
