@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui"
+   template="/WEB-INF/templates/default.xhtml">
+   
+   <ui:define name="content" prependId="false">
+   
+   		<p:growl id="messages" showDetail="false" sticky="false" />
+   		
+   		<p:panel id="panelAnaliseEmissaoDocumentos" header="#{msgs['label.analiseEmissaoDocumentos']}">
+   		
+   			<h:form id="frmAnaliseEmissaoDocumentos">
+   		
+	   			<p:fieldset legend="#{msgs['label.funcionario']}">
+	   			
+	   				<h:panelGrid columns="2" cellpadding="5">
+	   			
+						<p:outputLabel value="#{msgs['label.empresa']}: " for="completeEmpresa" />
+						<p:autoComplete id="completeEmpresa"
+							value="#{analiseEmissaoDocumentosController.empresaSelecionada}"
+							completeMethod="#{autoComplete.completeEmpresa}"
+							var="empresa" itemLabel="#{empresa.nome}"
+							itemValue="#{empresa}" converter="entityConverter"
+							forceSelection="true" styleClass="nome50">
+							
+							<p:ajax event="itemSelect" process="@this"/>
+						</p:autoComplete>	
+							
+						<p:outputLabel value="#{msgs['label.funcionario']}: " for="completeFuncionario" />
+						<p:autoComplete id="completeFuncionario"
+							value="#{analiseEmissaoDocumentosController.funcionarioSelecionado}"
+							completeMethod="#{autoComplete.completeFuncionario}"
+							var="funcionario" itemLabel="#{funcionario.nome}"
+							itemValue="#{funcionario}" converter="entityConverter"
+							forceSelection="true" styleClass="nome50">
+							<f:attribute name="empresaSelecionada" value="#{analiseEmissaoDocumentosController.empresaSelecionada}" />
+						</p:autoComplete>
+						
+						<p:outputLabel value="#{msgs['label.procedimento']}: " for="procedimentoSelecionado" />
+						<p:selectOneMenu id="procedimentoSelecionado"
+							value="#{analiseEmissaoDocumentosController.procedimentoSelecionado}"
+							converter="entityConverter" styleClass="nome50">
+							<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems value="#{combosDinamicos.procedimentosTipoExameClinicoOcupacional}" var="procedimento"
+								itemLabel="#{procedimento.nome}" />
+						</p:selectOneMenu>
+					
+					</h:panelGrid>
+	   			
+	   			</p:fieldset>
+   			
+   			</h:form>
+   			
+   		</p:panel>
+   		
+		<p:toolbar>
+			<f:facet name="left">
+				<p:commandButton id="botaoVoltar" immediate="true"
+					icon="ui-icon-arrowreturnthick-1-w" title="#{msgs['botao.voltar']}"
+					action="#{analiseEmissaoDocumentosController.voltar()}">
+				</p:commandButton>
+			</f:facet>
+		</p:toolbar>
+			   		
+	</ui:define>
+	
+</ui:composition>
