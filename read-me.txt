@@ -5,6 +5,8 @@ PostgreSql 9.3 (postgresql-9.3.5-3-windows-x64.exe)
 postgresql-9.3-1102-jdbc41.jar
 Elipse Luna
 Jboss (jboss-as-7.1.1.Final)
+iReport Designer 5.6.0
+
 
 2. Instalação:
 
@@ -18,4 +20,4 @@ Jboss (jboss-as-7.1.1.Final)
 - Ajuste o standalone.xml em (jboss-as-7.1.1.Final\standalone\configuration), acrescentado as configurações do driver do postgresql. 
 - Abra o pgAdmin e crie a base do sistema (ramazzini)
 - rode o projeto para criação das tabelas (caso o banco não seja criado, verifique o arquivo persistence.xml, a opção: <property name="hibernate.hbm2ddl.auto" value="validate" />
-
+- Após a instalação do ireport, configurar a JDK 1.7 no arquivo C:\Program Files (x86)\Jaspersoft\iReport-5.6.0\etc\ireport.conf . Adicionar a linha jdkhome="C:\Program Files\Java\jdk1.7.0_71"  
