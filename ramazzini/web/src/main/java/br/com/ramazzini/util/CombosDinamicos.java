@@ -44,7 +44,9 @@ public class CombosDinamicos {
 	public List<Funcao> getFuncoes(Empresa empresa) {
 		return funcaoService.recuperarPorEmpresa(empresa);
 	}
-	
+	public List<Funcao> getFuncoesOrdenadasPorNome() {
+		return funcaoService.recuperarTodos("nome");
+	}
 	public List<HorarioAtendimento> getHorariosAtendimento() {
 		return horarioAtendimentoService.recuperarTodos("nome");
 	}	
