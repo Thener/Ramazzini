@@ -46,7 +46,10 @@ public class Procedimento extends AbstractEntidade implements Serializable {
     
 	@Column(name = "tp_procedimento", length = 5)
     @NotNull 
-    private String tipoProcedimento;
+    private String tipoProcedimento = TipoProcedimento.EXAME_COMPLEMENTAR.getValue();
+	
+	@Column(name = "tp_exame_clinico", length = 3)
+    private String tipoExameClinico;	
     
     @Column(name = "ic_sistema")
     @NotNull    
@@ -88,19 +91,6 @@ public class Procedimento extends AbstractEntidade implements Serializable {
 		this.sigla = sigla;
 	}
 
-	// Não colocar o get com o mesmo nome do atributo int ou string
-	public TipoProcedimento getTipoProcedimentoEnum() {
-		if (this.tipoProcedimento != null) {
-			return TipoProcedimento.parse(this.tipoProcedimento);
-		}
-		return null;
-	}
-
-	// Não colocar o set com o mesmo nome do atributo int ou string	
-	public void setTipoProcedimentoEnum(TipoProcedimento tipoProcedimento) {
-		this.tipoProcedimento = tipoProcedimento.getValue();
-	}
-
 	public String getTipoProcedimento() {
 		return tipoProcedimento;
 	}
@@ -109,6 +99,33 @@ public class Procedimento extends AbstractEntidade implements Serializable {
 		this.tipoProcedimento = tipoProcedimento;
 	}
 
+	public TipoProcedimento getTipoProcedimentoEnum() {
+		if (this.tipoProcedimento != null) {
+			return TipoProcedimento.parse(this.tipoProcedimento);
+		}
+		return null;
+	}
+
+	public void setTipoProcedimentoEnum(TipoProcedimento tipoProcedimento) {
+		this.tipoProcedimento = tipoProcedimento.getValue();
+	}
+	
+	public String getTipoExameClinico() {
+		return tipoExameClinico;
+	}
+	
+	public void setTipoExameClinico(String tipoExameClinico) {
+		this.tipoExameClinico = tipoExameClinico;
+	}
+
+	public TipoExameClinico getTipoExameClinicoEnum() {
+		return (this.tipoExameClinico != null) ? TipoExameClinico.parse(this.tipoExameClinico) : null;
+	}
+
+	public void setTipoExameClinicoEnum(TipoExameClinico tipoExameClinico) {
+		setTipoExameClinico(tipoExameClinico.getValue());
+	}
+	
 	public boolean isSistema() {
 		return sistema;
 	}
