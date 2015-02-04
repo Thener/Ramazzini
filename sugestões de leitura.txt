@@ -54,3 +54,6 @@ b) incluir no web.xml:
         <servlet-name>Push Servlet</servlet-name>
         <url-pattern>/primepush/*</url-pattern>
     </servlet-mapping>
+
+* Este passo de alterar o web.xml não é comentado no showcase do prime.
+Neste site, existe este comentário: http://blog.eisele.net/2012/09/primefaces-push-with-atmosphere-on.html
