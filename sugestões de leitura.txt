@@ -32,3 +32,25 @@ http://docs.jboss.org/weld/reference/1.1.5.Final/pt-BR/html_single/
 
 11. Modelos genéricos interessantes
 https://github.com/czetsuya/crud-faces/tree/master/crud-faces/src/main/java/org/manaty
+
+12. http://www.primefaces.org/showcase/push/notify.xhtml
+Para fazer o nofity funcionar, além do que já está explicado no showcase, foi necessário:
+
+a) incluir no pom:
+
+<dependency>
+	<groupId>org.atmosphere</groupId>
+	<artifactId>atmosphere-runtime</artifactId>
+	<version>2.2.4</version>
+</dependency>
+
+b) incluir no web.xml:
+
+    <servlet>
+        <servlet-name>Push Servlet</servlet-name>
+        <servlet-class>org.primefaces.push.PushServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Push Servlet</servlet-name>
+        <url-pattern>/primepush/*</url-pattern>
+    </servlet-mapping>
