@@ -32,8 +32,6 @@
 							actionListener="#{marcacaoAgendaController.atualizacaoManual()}" 
 							update="gridAgendamentos" />
 									       			
-		       			<ui:include src="includes/atualizacaoAutomatica.xhtml" />
-
 					    <p:splitButton value="#{msgs['botao.agendar']}" actionListener="#{marcacaoAgendaController.incluirAgendamento()}" 
 					    	update=":frmDialogEditarAgendamento" icon="ui-icon-circle-plus" id="botaoIncluirAgendamento"
 					    	onclick="PF('dialogEditarAgendamento').show();">
@@ -102,6 +100,10 @@
    					</p:fieldset> 
 				
 				</p:panelGrid>
+				
+				<p:socket onMessage="handleMessage" channel="/agenda" />
+				
+   				<p:remoteCommand name="handleMessage" update="gridAgendamentos, :messages" />
 				
    			</h:form>
    			
