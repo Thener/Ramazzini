@@ -10,7 +10,7 @@
    
    		<p:panel id="panelAgenda" header="#{msgs['label.agenda']}">
    		
-   			<p:growl id="messages" showDetail="false" sticky="false" autoUpdate="true"/>
+   			<p:growl id="messages" showDetail="false" sticky="false" autoUpdate="false"/>
    		
    			<h:form id="frmAgenda">
    			
@@ -120,11 +120,13 @@
    		
    		<ui:include src="includes/dialogAdmissional.xhtml" />
 
+		<!-- 
 		<p:socket onMessage="handleMessage" channel="/agenda" />
 				
 		<h:form>
 			<p:remoteCommand name="handleMessage" update=":frmAgenda" />
 		</h:form>
+		 -->
    				
 	</ui:define>
 	
