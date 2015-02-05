@@ -56,9 +56,9 @@ public class ProcedimentoCredenciadoController extends AbstractBean implements S
     	try {
     		procedimentoCredenciadoService.remover(procedimentoCredenciado, procedimentoCredenciado.getId());
     		procedimentosCredenciados.remove(procedimentoCredenciado);
-    		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeExcluidaComSucesso", "Procedimento Credenciado");
+    		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeExcluidaComSucesso", "label.procedimentoCredenciado");
     	} catch (Exception e) {
-    		UtilMensagens.mensagemErroPorChave("mensagem.erro.naoFoiPossivelExcluirRegistro", "o Procedimento Credenciado.");
+    		UtilMensagens.mensagemErroPorChave("mensagem.erro.naoFoiPossivelExcluirRegistro", "label.procedimentoCredenciado.");
         }
     }    
     

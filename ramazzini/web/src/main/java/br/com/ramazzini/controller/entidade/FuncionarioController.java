@@ -54,9 +54,9 @@ public class FuncionarioController extends AbstractBean implements Serializable 
     	try {
     		funcionarioService.remover(funcionario, funcionario.getId());
     		funcionarios.remove(funcionario);
-    		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeExcluidaComSucesso", "Funcionário");
+    		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeExcluidaComSucesso", "label.funcionario");
     	} catch (Exception e) {
-    		UtilMensagens.mensagemErroPorChave("mensagem.erro.naoFoiPossivelExcluirRegistro", "o(a) funcionário(a).");
+    		UtilMensagens.mensagemErroPorChave("mensagem.erro.naoFoiPossivelExcluirRegistro", "label.funcionario");
         }
     }    
     

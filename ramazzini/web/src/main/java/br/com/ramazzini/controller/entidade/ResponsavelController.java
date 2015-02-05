@@ -55,9 +55,9 @@ public class ResponsavelController extends AbstractBean implements Serializable 
     	try {
     		responsavelService.remover(responsavel, responsavel.getId());
     		responsaveis.remove(responsavel);
-    		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeExcluidaComSucesso", "Responsável");
+    		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeExcluidaComSucesso", "label.responsavel");
     	} catch (Exception e) {
-    		UtilMensagens.mensagemErroPorChave("mensagem.erro.naoFoiPossivelExcluirRegistro", "o responsável.");
+    		UtilMensagens.mensagemErroPorChave("mensagem.erro.naoFoiPossivelExcluirRegistro", "label.responsavel");
         }
     }    
     

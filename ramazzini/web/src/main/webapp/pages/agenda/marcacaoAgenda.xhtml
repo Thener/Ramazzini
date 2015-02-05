@@ -8,9 +8,9 @@
    
    <ui:define name="content" prependId="false">
    
-   		<p:growl id="messages" showDetail="false" sticky="false" />
-   		
    		<p:panel id="panelAgenda" header="#{msgs['label.agenda']}">
+   		
+   			<p:growl id="messages" showDetail="false" sticky="false" autoUpdate="true"/>
    		
    			<h:form id="frmAgenda">
    			
@@ -31,6 +31,8 @@
 							title="#{msgs['botao.atualizar']}"
 							actionListener="#{marcacaoAgendaController.atualizacaoManual()}" 
 							update="gridAgendamentos" />
+							
+						<ui:include src="includes/atualizacaoAutomatica.xhtml" />
 									       			
 					    <p:splitButton value="#{msgs['botao.agendar']}" actionListener="#{marcacaoAgendaController.incluirAgendamento()}" 
 					    	update=":frmDialogEditarAgendamento" icon="ui-icon-circle-plus" id="botaoIncluirAgendamento"
@@ -100,19 +102,30 @@
    					</p:fieldset> 
 				
 				</p:panelGrid>
-				
-				<p:socket onMessage="handleMessage" channel="/agenda" />
-				
-   				<p:remoteCommand name="handleMessage" update="frmAgenda" />
-				
+
    			</h:form>
    			
    		</p:panel>
    		
+   		<h:form>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+				<p:commandButton value="#{msgs['label.confirmacaoSim']}" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="#{msgs['label.confirmacaoNao']}" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+		</h:form>   		
+   		   		
    		<ui:include src="includes/dialogEditarAgendamento.xhtml" />
    		
    		<ui:include src="includes/dialogAdmissional.xhtml" />
 
+		<p:socket onMessage="handleMessage" channel="/agenda" />
+				
+		<h:form>
+			<p:remoteCommand name="handleMessage" update=":frmAgenda" />
+		</h:form>
+   				
 	</ui:define>
 	
 </ui:composition>

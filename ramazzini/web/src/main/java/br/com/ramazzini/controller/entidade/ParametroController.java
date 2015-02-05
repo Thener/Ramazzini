@@ -47,7 +47,7 @@ public class ParametroController extends AbstractBean implements Serializable {
 		
 		parametroService.salvarLista(listToSave);
 		
-		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.dadosGravadosComSucesso","Parâmetros");
+		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.dadosGravadosComSucesso","label.parametros");
 	}
 	
 	public Parametro getParametroAgendaCriarSabado() {

@@ -81,7 +81,7 @@ public class ServicoController extends AbstractBean implements Serializable {
     	try {
     		servicoService.salvar(servico);
     		servicos = servicoService.recuperarTodos("nome");
-    		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeGravadaComSucesso", "Serviço ");
+    		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeGravadaComSucesso", "label.servico");
     		return PAGINA_PESQUISAR_SERVICO;
     	} catch (Exception e) {
     		UtilMensagens.mensagemInformacao(new TratarExcecao(e).getMessage());

@@ -62,9 +62,9 @@ public class FuncaoProcedimentoController extends AbstractBean implements Serial
     	try {
     		funcaoProcedimentoService.remover(funcaoProcedimento, funcaoProcedimento.getId());
     		getFuncoesProcedimentos().remove(funcaoProcedimento);
-    		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeExcluidaComSucesso", "Procedimento");
+    		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeExcluidaComSucesso", "label.procedimento");
     	} catch (Exception e) {
-    		UtilMensagens.mensagemErroPorChave("mensagem.erro.naoFoiPossivelExcluirRegistro", "o procedimento.");
+    		UtilMensagens.mensagemErroPorChave("mensagem.erro.naoFoiPossivelExcluirRegistro", "label.procedimento");
         }
     }    
     

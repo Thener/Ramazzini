@@ -75,7 +75,7 @@ public class FeriadoController extends AbstractBean implements Serializable {
 	public String gravarFeriado() {
 		
 		feriadoService.salvar(feriado);
-		UtilMensagens.mensagemInformacaoPorChaveAposRedirect("mensagem.info.dadosGravadosComSucesso","Feriado");
+		UtilMensagens.mensagemInformacaoPorChaveAposRedirect("mensagem.info.dadosGravadosComSucesso","label.feriado");
 		feriados = feriadoService.recuperarTodos("nome");
 		return PAGINA_PESQUISAR_FERIADO;
 	}    

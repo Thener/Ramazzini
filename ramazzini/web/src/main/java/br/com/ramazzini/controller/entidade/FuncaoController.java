@@ -64,9 +64,9 @@ public class FuncaoController extends AbstractBean implements Serializable {
     	try {
     		funcaoService.remover(funcao, funcao.getId());
     		funcoes.remove(funcao);
-    		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeExcluidaComSucesso", "Função");
+    		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeExcluidaComSucesso", "label.funcao");
     	} catch (Exception e) {
-    		UtilMensagens.mensagemErroPorChave("mensagem.erro.naoFoiPossivelExcluirRegistro", "a função.");
+    		UtilMensagens.mensagemErroPorChave("mensagem.erro.naoFoiPossivelExcluirRegistro", "label.funcao");
         }
     }    
     
@@ -90,7 +90,8 @@ public class FuncaoController extends AbstractBean implements Serializable {
 		boolean inclusao = funcao.isNovo();
 		funcaoService.salvar(funcao);
 		if (inclusao) {
-			return alterarFuncao(funcao);
+			//return alterarFuncao(funcao); // isso faz com que o botão voltar fique voltando para o proprio cadastro da funcao
+			return "";
 		} else {
 			pesquisar();
 			return voltar();

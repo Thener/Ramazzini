@@ -28,5 +28,18 @@
 				by p.nome
 		]]>
 	</query>	
+	
+	<query name="Procedimento.recuperarPorTipoExameClinico">
+		<![CDATA[
+			select 
+				p			
+			from 
+				Procedimento p
+			where 
+				p.tipoExameClinico = :tipoExameClinico
+			order 
+				by p.nome
+		]]>
+	</query>	
 
 </hibernate-mapping>

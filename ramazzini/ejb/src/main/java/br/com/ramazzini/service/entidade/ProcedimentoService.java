@@ -22,6 +22,7 @@ import javax.ejb.Stateless;
 
 import br.com.ramazzini.dao.procedimento.ProcedimentoDao;
 import br.com.ramazzini.model.procedimento.Procedimento;
+import br.com.ramazzini.model.procedimento.TipoExameClinico;
 import br.com.ramazzini.model.procedimento.TipoProcedimento;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
 
@@ -35,6 +36,10 @@ public class ProcedimentoService extends AbstractServiceImpl<Procedimento> {
     
     public List<Procedimento> recuperarPorTipoProcedimento(TipoProcedimento tipoProcedimento) {
     	return ((ProcedimentoDao) getDao()).recuperarPorTipoProcedimento(tipoProcedimento);
-    }    
+    }  
+    
+    public Procedimento recuperarPorTipoExameClinico(TipoExameClinico tipoExameClinico) {
+    	return ((ProcedimentoDao) getDao()).recuperarPorTipoExameClinico(tipoExameClinico);
+    }     
 
 }

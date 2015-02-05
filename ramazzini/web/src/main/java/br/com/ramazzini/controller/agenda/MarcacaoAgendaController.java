@@ -22,11 +22,13 @@ import br.com.ramazzini.model.funcionario.Funcionario;
 import br.com.ramazzini.model.funcionario.SituacaoFuncionario;
 import br.com.ramazzini.model.notificacao.Notificacao;
 import br.com.ramazzini.model.parametro.ParametroSistema;
+import br.com.ramazzini.model.procedimento.TipoExameClinico;
 import br.com.ramazzini.model.profissional.Profissional;
 import br.com.ramazzini.model.programacaoHorarioAtendimento.ProgramacaoHorarioAtendimento;
 import br.com.ramazzini.service.entidade.AgendaService;
 import br.com.ramazzini.service.entidade.FuncionarioService;
 import br.com.ramazzini.service.entidade.ParametroService;
+import br.com.ramazzini.service.entidade.ProcedimentoService;
 import br.com.ramazzini.service.entidade.ProfissionalService;
 import br.com.ramazzini.service.entidade.ProgramacaoHorarioAtendimentoService;
 import br.com.ramazzini.util.TimeFactory;
@@ -43,6 +45,7 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
     @Inject private AgendaService agendaService;
     @Inject private FuncionarioService funcionarioService;
     @Inject private ParametroService parametroService;
+    @Inject private ProcedimentoService procedimentoService;
     @Inject private ProfissionalService profissionalService;
     @Inject private ProgramacaoHorarioAtendimentoService programacaoHorarioAtendimentoService;
     
@@ -85,6 +88,7 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
         /*
          * não entendi ainda como funciona o eventBus...
          * tentei retirar o new Faces, mas pára de funcionar. 
+         * Até mesmo remover um dos parâmetros (teste 1 ou teste 2) pára de funcionar.
          */
     }
     
@@ -135,13 +139,13 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 		funcionarioService.salvar(novoFuncionario);
 		incluirAgendamento();
 		agenda.setFuncionario(novoFuncionario);
+		agenda.setProcedimento(procedimentoService.recuperarPorTipoExameClinico(TipoExameClinico.ADMISSIONAL));
 		gravarAgenda(agenda);
-	}	
+	}
 	
 	private void gravarAgenda(Agenda agenda) {
 		agendaService.salvar(agenda);
 		agendamentos.clear();
-		sendNotify();
 		Notificacao.notificarModificacaoAgenda();		
 	}
 	
@@ -149,18 +153,12 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 		agendamentos.remove(agenda);
 		agendaService.remover(agenda, agenda.getId());
 		Notificacao.notificarModificacaoAgenda();
-		sendNotify();
 		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeExcluidaComSucesso", "label.agendamento");
 	}
 
-	/*
 	public void atualizacaoAutomatica() {
-		if (ultimaAtualizacaoAgenda.before(Notificacao.getUltimaModificacaoAgenda())) {
-			UtilMensagens.mensagemInformacaoPorChave("mensagem.info.houveUmaAtualizacaoDaAgenda");
-			agendamentos.clear();
-		}
+		agendamentos.clear();
 	}
-	*/
 	
 	public void atualizacaoManual() {
 		agendamentos.clear();
@@ -198,6 +196,7 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 		if (agendamentos.isEmpty() || ultimaAtualizacaoAgenda.before(Notificacao.getUltimaModificacaoAgenda())) {
 			agendamentos = agendaService.recuperarPorFiltros(dataSelecionada, situacaoMarcacaoAgenda, profissionalSelecionado);
 			ultimaAtualizacaoAgenda = TimeFactory.createDataHora();
+			sendNotify();
 		}
 		return agendamentos;
 	}

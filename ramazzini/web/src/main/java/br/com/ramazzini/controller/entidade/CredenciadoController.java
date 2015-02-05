@@ -92,9 +92,9 @@ public class CredenciadoController extends AbstractBean implements Serializable 
     	try {
     		credenciadoService.remover(credenciado, credenciado.getId());
     		credenciados.remove(credenciado);
-    		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeExcluidaComSucesso","Credenciado");
+    		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeExcluidaComSucesso","label.credenciado");
     	} catch (Exception e) {
-    		UtilMensagens.mensagemErroPorChave("mensagem.erro.naoFoiPossivelExcluirRegistro", "o credenciado.");
+    		UtilMensagens.mensagemErroPorChave("mensagem.erro.naoFoiPossivelExcluirRegistro", "label.credenciado");
         }
     }  
 
