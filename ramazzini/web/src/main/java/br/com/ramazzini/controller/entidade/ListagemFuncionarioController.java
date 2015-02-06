@@ -1,5 +1,6 @@
 package br.com.ramazzini.controller.entidade;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
@@ -14,8 +15,6 @@ import br.com.ramazzini.controller.util.AbstractBean;
 import br.com.ramazzini.controller.util.ExportarPdfController;
 import br.com.ramazzini.model.funcao.Funcao;
 import br.com.ramazzini.model.funcionario.Funcionario;
-import br.com.ramazzini.model.funcionario.SituacaoFuncionario;
-import br.com.ramazzini.model.parametro.ParametroSistema;
 import br.com.ramazzini.service.entidade.FuncionarioService;
 import br.com.ramazzini.service.entidade.ParametroService;
 import br.com.ramazzini.service.util.Cliente;
@@ -34,34 +33,34 @@ public class ListagemFuncionarioController extends AbstractBean implements Seria
     
     private List<Funcionario> funcionarios;
     
-    String PATH_DIRECTORY_LISTAGEM_FUNCIONARIOS = "FUNCIONARIOS";
+    String PATH_DIRECTORY_LISTAGEM_FUNCIONARIOS = "FUNCIONARIO";
     String JASPER_FUNCIONARIOS = "Funcionarios.jasper";
     
     //Filtros
     private Funcao funcao;
-    private List<SituacaoFuncionario> situacao;
+    private List<String> situacoes;
 	private Date dataSelecionada;
 
     
 
     public void export() throws Exception {
-    	funcionarios = funcionarioService.recuperarPor(funcao, null, null);
-    	String baseDir = parametroService.recuperarPorParametroSistema(ParametroSistema.DIR_BASE_RELATORIO).getValor();
-    	ExportarPdfController export = new ExportarPdfController(carregaParametros(), new JRBeanCollectionDataSource(funcionarios), "Listagem_Funcionarios", baseDir);
-		export.download(PATH_DIRECTORY_LISTAGEM_FUNCIONARIOS, JASPER_FUNCIONARIOS);
+    	funcionarios = funcionarioService.recuperarPor(funcao, situacoes);
+    	File relatorio = getCaminhoRelatorio(PATH_DIRECTORY_LISTAGEM_FUNCIONARIOS, JASPER_FUNCIONARIOS);
+    	ExportarPdfController export = new ExportarPdfController(carregaParametros(), new JRBeanCollectionDataSource(funcionarios), "Listagem_Funcionarios", relatorio);
+		export.download();
     }
     
     private HashMap<String, Object> carregaParametros() {
 		HashMap<String, Object> parameters = new HashMap<String, Object>();
-
-//		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-//		HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
-//		String imagemPath = request.getSession()
-//				.getServletContext().getRealPath("img") + File.separator;
-		parameters.put("IMAGE_PATH", "C:\\Projetos\\workspace\\Ramazzini\\ramazzini\\web\\src\\main\\webapp\\resources\\img\\");
 		Cliente cliente = new Cliente();
 		parameters.put("NOME_CLIENTE", cliente.getNome());		
-		parameters.put("ENDERECO_CLIENTE", cliente.getEnderecoFormatado());		
+		parameters.put("ENDERECO_CLIENTE", cliente.getEnderecoFormatado());	
+		StringBuilder sb = new StringBuilder();
+		for(String situacao : situacoes){
+			sb.append(situacao).append(" - ");
+		}
+		parameters.put("FILTRO_SITUACOES", sb.toString());
+		parameters.put("FILTRO_FUNCAO", funcao);
 		return parameters;
 	}
 		
@@ -73,11 +72,9 @@ public class ListagemFuncionarioController extends AbstractBean implements Seria
 		this.funcionarios = funcionarios;
 	}
 
-
 	public Funcao getFuncao() {
 		return funcao;
 	}
-
 
 	public void setFuncao(Funcao funcao) {
 		this.funcao = funcao;
@@ -87,16 +84,15 @@ public class ListagemFuncionarioController extends AbstractBean implements Seria
 		return dataSelecionada;
 	}
 
-
 	public void setDataSelecionada(Date dataSelecionada) {
 		this.dataSelecionada = dataSelecionada;
 	}
 
-	public List<SituacaoFuncionario> getSituacao() {
-		return situacao;
+	public List<String> getSituacoes() {
+		return situacoes;
 	}
 
-	public void setSituacao(List<SituacaoFuncionario> situacao) {
-		this.situacao = situacao;
+	public void setSituacoes(List<String> situacoes) {
+		this.situacoes = situacoes;
 	}
 }
