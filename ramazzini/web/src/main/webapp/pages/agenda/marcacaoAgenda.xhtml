@@ -19,7 +19,7 @@
 	   				<h:panelGrid columns="11" cellpadding="5">
 	   				
 		       			<p:outputLabel for="dataAgenda" value="#{msgs['label.data']}" />
-		       			<p:calendar id="dataAgenda" value="#{marcacaoAgendaController.dataSelecionada}" 
+		       			<p:calendar id="dataAgenda" locale="pt" showOn="button" value="#{marcacaoAgendaController.dataSelecionada}" 
 		       				pattern="#{msgs['pattern.calendar']}" mask="true" styleClass="data" required="false">
 		       				<p:ajax event="dateSelect" update="frmAgenda" listener="#{marcacaoAgendaController.onChangeDataSelecionada}" />
 		       			</p:calendar> 
@@ -65,7 +65,7 @@
 								var="profissional" itemLabel="#{profissional.nome}" />
 							<p:ajax event="change" update="gridAgendamentos" process="@this"
 								listener="#{marcacaoAgendaController.onChangeProfissionalSelecionado}" />
-						</p:selectOneMenu>						
+						</p:selectOneMenu>
 	   			
 	   				</h:panelGrid>
    				
@@ -76,12 +76,12 @@
    					<p:remoteCommand name="onload" update="totalAgendamentos" id="rcTotalAtendimentos"
    						action="#{marcacaoAgendaController.contarAgendamentos()}" autoRun="true" />
    				
-	   				<h:panelGrid columns="2" cellpadding="5">
+	   				<h:panelGrid columns="3" cellpadding="5">
 	   				
 		       			<p:outputLabel value="#{msgs['label.totalAgendamentos']}" />
 						<p:outputLabel value="#{marcacaoAgendaController.totalAgendamentos}" id="totalAgendamentos" />
 	   			
-	   				</h:panelGrid>   				
+	   				</h:panelGrid> 
    				
    				</div>
    				
@@ -104,6 +104,10 @@
 				</p:panelGrid>
 
    			</h:form>
+   		
+	   		<p:separator />
+	   		
+	   		<p:clock mode="server"/>   			
    			
    		</p:panel>
    		
