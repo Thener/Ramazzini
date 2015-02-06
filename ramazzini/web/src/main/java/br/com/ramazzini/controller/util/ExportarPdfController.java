@@ -13,7 +13,6 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
-import br.com.ramazzini.service.relatorio.FileService;
 
 /**
  *  
@@ -26,40 +25,35 @@ public class ExportarPdfController implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private FileService jasperFileService;	
+	private File relatorio;	
 	private HashMap<String, Object> parametros;
 	private JRBeanCollectionDataSource jrBeanCollectionDataSource;
 	private String nome;
 	
 	/**
 	 * 
-	 * @param jasperFileService
 	 * @param parametros
 	 * @param jrBeanCollectionDataSource
 	 * @param nome
+	 * @param caminhoRelatorio
 	 * @throws MalformedURLException
 	 */
 	public ExportarPdfController(
 			HashMap<String, Object> parametros,
 			JRBeanCollectionDataSource jrBeanCollectionDataSource,
-			String nome, String baseDir) throws MalformedURLException {
-		this.jasperFileService = new FileService(baseDir);
+			String nome, File relatorio) throws MalformedURLException {
+		this.relatorio = relatorio ;
 		this.parametros = parametros;
 		this.jrBeanCollectionDataSource = jrBeanCollectionDataSource;
 		this.nome = nome;
 	}
-		
+			
 	/**
 	 * Realiza o download de um pdf recebendo um datasource e uma lista de parametros.
-	 * @param parametros
-	 * @param jrBeanCollectionDataSource
-	 * @param nome
 	 * @throws Exception
 	 */
-	public void download(final String... relativePaths) throws Exception {
-		File arquivo = jasperFileService
-				.getFile(relativePaths);
-		JasperReport report = (JasperReport) JRLoader.loadObject(arquivo);
+	public void download() throws Exception {
+		JasperReport report = (JasperReport) JRLoader.loadObject(relatorio);
 		JasperPrint jasperPrint = JasperFillManager
 				.fillReport(report, parametros, jrBeanCollectionDataSource);
 		DownloadUtil.download(

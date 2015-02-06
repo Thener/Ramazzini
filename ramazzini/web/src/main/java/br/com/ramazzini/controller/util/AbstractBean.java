@@ -1,14 +1,18 @@
 package br.com.ramazzini.controller.util;
 
+import java.io.File;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
 
 import javax.enterprise.context.Conversation;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
+import br.com.ramazzini.service.relatorio.FileService;
 import br.com.ramazzini.util.ControleAcesso;
 
 public abstract class AbstractBean implements Serializable {
@@ -23,6 +27,8 @@ public abstract class AbstractBean implements Serializable {
 	private static ResourceBundle bundle;
     
     private String uriRequisicao;
+    
+    private FileService fileService;
     
     private boolean somenteLeitura = Boolean.FALSE;
     
@@ -62,6 +68,13 @@ public abstract class AbstractBean implements Serializable {
 			bundle = context.getApplication().getResourceBundle(context, "msgs");
 		}
 		return bundle;
+	}
+    
+    protected File getCaminhoRelatorio(final String... relativePaths) {
+		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+		HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
+		fileService = new FileService(request.getServletContext().getRealPath("/WEB-INF/jasper/"));
+		return fileService.getFile(relativePaths);
 	}
     
     protected static String getValorChaveMsg(String chave) {

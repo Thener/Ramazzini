@@ -16,7 +16,6 @@
  */
 package br.com.ramazzini.service.entidade;
 
-import java.sql.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -44,7 +43,7 @@ public class FuncionarioService extends AbstractServiceImpl<Funcionario> {
     	return ((FuncionarioDao) getDao()).recuperarPorNome(nomeFuncionario);
     }
     
-    public List<Funcionario> recuperarPor(Funcao funcao, SituacaoFuncionario situacao, Date dataInclusao) {
-    	return ((FuncionarioDao) getDao()).recuperarPor(funcao, situacao, dataInclusao);    
+    public List<Funcionario> recuperarPor(Funcao funcao, List<String> situacoes) {
+    	return ((FuncionarioDao) getDao()).recuperarPor(funcao, situacoes);    
     }
 }

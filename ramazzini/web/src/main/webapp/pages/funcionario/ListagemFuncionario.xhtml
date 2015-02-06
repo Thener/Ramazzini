@@ -17,11 +17,11 @@
 				<h:panelGrid columns="2" cellpadding="10">
 					<p:outputLabel for="situacaoFuncionario" value="#{msgs['label.situacao']}:" />
 					<p:selectManyCheckbox id="situacaoFuncionario"
-						value="#{listagemFuncionarioController.situacao}">
+						value="#{listagemFuncionarioController.situacoes}">
 						<f:selectItems value="#{combosEstaticos.situacoesFuncionario}"
 							var="situacaoFuncionario"
 							itemLabel="#{situacaoFuncionario.stringChave}"
-							itemValue="#{situacaoFuncionario}" />
+							itemValue="#{situacaoFuncionario.value}" />
 					</p:selectManyCheckbox>
 					
 					<p:outputLabel for="funcaoFuncionario" value="#{msgs['label.funcao']}:" />
@@ -34,13 +34,6 @@
 							value="#{combosDinamicos.getFuncoesOrdenadasPorNome()}"
 							var="funcao" itemLabel="#{funcao.nome}" itemValue="#{funcao}" />
 					</p:selectOneMenu>
-
-					<p:outputLabel for="dataAdmissao" value="#{msgs['label.dataAdmissao']}" />
-					<p:calendar id="dataAdmissao"
-						value="#{listagemFuncionarioController.dataSelecionada}"
-						pattern="#{msgs['pattern.calendar']}" mask="true"
-						styleClass="data" required="false">
-					</p:calendar>
 
 				</h:panelGrid>
 
