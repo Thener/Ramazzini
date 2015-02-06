@@ -14,7 +14,7 @@
 		    	icon="ui-icon-pencil" onclick="PF('dialogEditarAgendamento').show();" update=":frmDialogEditarAgendamento"  />
 		    	
 		    <p:commandButton title="#{msgs['label.analiseEmissaoDocumentos']}" icon="ui-icon-print"
-		    	action="#{analiseEmissaoDocumentosController.analisar(agenda.funcionario, agenda.procedimento)}" />		    	
+		    	action="#{analiseEmissaoDocumentosController.init(agenda.funcionario, agenda.procedimento)}" />		    	
 
 		    <p:commandButton title="#{msgs['label.excluir']}" actionListener="#{marcacaoAgendaController.excluirAgendamento(agenda)}"  
 		    	icon="ui-icon-close" update="gridAgendamentos, :messages">

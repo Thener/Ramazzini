@@ -77,7 +77,7 @@ public class Funcionario extends AbstractEntidade implements Serializable {
 	
 	@Column(name = "st_funcionario", length = 2)
     @NotNull 
-    private String situacaoFuncionario;
+    private String situacaoFuncionario = SituacaoFuncionario.ATIVO.getValue();
 	
 	public Long getId() {
 		return id;

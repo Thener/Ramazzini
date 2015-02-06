@@ -10,6 +10,7 @@ import br.com.ramazzini.controller.util.AbstractBean;
 import br.com.ramazzini.model.empresa.Empresa;
 import br.com.ramazzini.model.funcionario.Funcionario;
 import br.com.ramazzini.model.procedimento.Procedimento;
+import br.com.ramazzini.model.procedimento.TipoExameClinico;
 import br.com.ramazzini.util.TimeFactory;
 
 @Named
@@ -28,15 +29,38 @@ public class AnaliseEmissaoDocumentosController extends AbstractBean implements 
 	
 	private Date dataReferencia;
 	
-	public String analisar(Funcionario funcionario, Procedimento procedimento) {
+	public String init(Funcionario funcionario, Procedimento procedimento) {
 		beginConversation();
 		funcionarioSelecionado = funcionario;
 		empresaSelecionada = funcionario.getEmpresa();
 		procedimentoSelecionado = procedimento;
 		dataReferencia = TimeFactory.createDataHora();
 		dataReferencia = TimeFactory.somarDias(dataReferencia, 30);
+		analisar();
 		setUriRequisicao(getControleAcesso().getUriRequisicao());
 		return PAGINA_ANALISE_EMISSAO_DOCUMENTOS;
+	}
+	
+	public void analisar() {
+		if (procedimentoSelecionado.getTipoExameClinicoEnum().equals(TipoExameClinico.ADMISSIONAL)) {
+			analiseAdmissioal();
+		} else if (procedimentoSelecionado.getTipoExameClinicoEnum().equals(TipoExameClinico.MUDANCA_FUNCAO)) {
+			analiseMudancaFuncao();	
+		} else {
+			analisePeriodicoDemissionalRetornoTrabalho();
+		}
+	}
+	
+	private void analiseAdmissioal() {
+		
+	}
+	
+	private void analisePeriodicoDemissionalRetornoTrabalho() {
+		
+	}
+	
+	private void analiseMudancaFuncao() {
+		
 	}
 
     public String voltar() {	
