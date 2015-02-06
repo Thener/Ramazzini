@@ -140,8 +140,10 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 	}
 	
 	private void gravarAgenda(Agenda agenda) {
-		agendaService.salvar(agenda);
-		Notificacao.notificarModificacaoAgenda();		
+		if (agenda.getFuncionario() != null) {
+			agendaService.salvar(agenda);
+			Notificacao.notificarModificacaoAgenda();
+		}
 	}
 	
 	public void excluirAgendamento(Agenda agenda) {

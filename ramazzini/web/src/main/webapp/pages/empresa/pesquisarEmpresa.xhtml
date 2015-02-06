@@ -15,7 +15,9 @@
 			
 				<p:outputLabel for="nomeEmpresaPesquisa" value="#{msgs['label.nome']}" />
 				<p:inputText id="nomeEmpresaPesquisa" value="#{empresaController.nomeEmpresaPesquisa}" 
-					styleClass="nome100" required="false"/>
+					styleClass="nome100" required="false">
+					<p:focus />
+				</p:inputText>
 					
 				<p:commandButton action="#{empresaController.pesquisar()}"
 					id="botaoPesquisa" icon="ui-icon-search" title="#{msgs['botao.pesquisar']}"

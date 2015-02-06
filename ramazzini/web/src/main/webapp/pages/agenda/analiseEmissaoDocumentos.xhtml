@@ -16,7 +16,7 @@
    		
 	   			<p:fieldset legend="#{msgs['label.funcionario']}">
 	   			
-	   				<h:panelGrid columns="2" cellpadding="5">
+	   				<h:panelGrid columns="4" cellpadding="5">
 	   			
 						<p:outputLabel value="#{msgs['label.empresa']}: " for="completeEmpresa" />
 						<p:autoComplete id="completeEmpresa"
@@ -51,17 +51,44 @@
 						
 		       			<p:outputLabel for="dataReferencia" value="#{msgs['label.dataReferencia']}" />
 		       			<p:calendar id="dataReferencia" value="#{analiseEmissaoDocumentosController.dataReferencia}" 
-		       				pattern="#{msgs['pattern.calendar']}" mask="true" styleClass="data" required="false">
-		       			</p:calendar>						
+		       				pattern="#{msgs['pattern.calendar']}" mask="true" styleClass="data" required="false" showOn="button">
+		       			</p:calendar>
 					
 					</h:panelGrid>
 	   			
+		       		<p:separator />
+		       		
+					<p:commandButton 
+						id="botaoAtualizarAgenda" icon="ui-icon-circle-triangle-e" 
+						value="#{msgs['botao.analisar']}"
+						actionListener="#{analiseEmissaoDocumentosController.analisar()}"
+						update="frmAnaliseEmissaoDocumentos" />		       		
+		       		
 	   			</p:fieldset>
+	   			
+	   			<p:spacer width="8px" />
+	   			
+		   		<p:panel id="panelAnaliseAdmissional" header="#{msgs['label.analiseExame']}: #{analiseEmissaoDocumentosController.procedimentoSelecionado.nome}"
+		   			rendered="#{analiseEmissaoDocumentosController.procedimentoSelecionado.tipoExameClinico == 'ADM'}">
+		   		
+		   		</p:panel>
+		   		
+		   		<p:panel id="panelAnaliseMudancaFuncao" header="#{msgs['label.analiseExame']}: #{analiseEmissaoDocumentosController.procedimentoSelecionado.nome}"
+		   			rendered="#{analiseEmissaoDocumentosController.procedimentoSelecionado.tipoExameClinico == 'MUD'}">
+		   		
+		   		</p:panel>
+		   		
+		   		<p:panel id="panelAnaliseOutros" header="#{msgs['label.analiseExame']}: #{analiseEmissaoDocumentosController.procedimentoSelecionado.nome}"
+		   			rendered="#{analiseEmissaoDocumentosController.procedimentoSelecionado.tipoExameClinico == 'PER' 
+		   				or analiseEmissaoDocumentosController.procedimentoSelecionado.tipoExameClinico == 'RET'
+		   				or analiseEmissaoDocumentosController.procedimentoSelecionado.tipoExameClinico == 'DEM'}">
+		   		
+		   		</p:panel>	   			
    			
    			</h:form>
    			
    		</p:panel>
-   		
+   		   		
 		<p:toolbar>
 			<f:facet name="left">
 				<p:commandButton id="botaoVoltar" immediate="true"

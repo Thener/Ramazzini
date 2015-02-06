@@ -20,11 +20,16 @@
 					<p:panelGrid columns="2" cellpadding="5">
 						<p:outputLabel value="#{msgs['label.usuario']}:" for="inputUsuario" />
 						<p:inputText id="inputUsuario" styleClass="nome30"
-							value="#{loginController.usuario.login}" />
+							value="#{loginController.usuario.login}">
+							<p:watermark for="inputUsuario" value="#{msgs['label.entreComSeuEmail']}" />
+						</p:inputText>
 	
 						<p:outputLabel value="#{msgs['label.senha']}:" for="inputSenha" />
 						<p:password id="inputSenha" styleClass="nome30"
-							value="#{loginController.usuario.senha}" />
+							value="#{loginController.usuario.senha}">
+							<p:watermark for="inputSenha" value="#{msgs['label.entreComSuaSenha']}" />
+						</p:password>
+						
 							
 						<h:outputText value="" />
 						
