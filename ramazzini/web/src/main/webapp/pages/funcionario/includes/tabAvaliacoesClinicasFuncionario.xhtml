@@ -44,7 +44,22 @@
 				<f:convertDateTime locale="pt,BR" pattern="#{msgs['pattern.calendar']}" />
 			</h:outputText>
 		</p:column>
+		
+		<p:column headerText="#{msgs['label.procedimento']}" sortBy="#{avaliacaoClinica.procedimento.nome}" 
+			styleClass="colunaCentralizada">
+			<h:outputText value="#{avaliacaoClinica.procedimento.nome}" />
+		</p:column>		
 
+		<p:column headerText="#{msgs['label.situacao']}" sortBy="#{avaliacaoClinica.situacaoAvaliacaoClinica}" 
+			styleClass="colunaCentralizada">
+			<h:outputText value="#{avaliacaoClinica.situacaoAvaliacaoClinicaEnum.stringChave}" />
+		</p:column>
+		
+		<p:column headerText="#{msgs['label.medico']}" sortBy="#{avaliacaoClinica.medico.nome}" 
+			styleClass="colunaCentralizada">
+			<h:outputText value="#{avaliacaoClinica.medico.nome}" />
+		</p:column>		
+		
 		<p:column headerText="#{msgs['label.acoes']}" styleClass="colunaAcoes">
 			<p:panelGrid columns="3">					  
 				<p:commandLink title="#{msgs['label.visualizar']}" action="#{avaliacaoClinicaController.visualizarAvaliacaoClinica(avaliacaoClinica)}"

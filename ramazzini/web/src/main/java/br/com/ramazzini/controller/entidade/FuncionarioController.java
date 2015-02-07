@@ -38,6 +38,7 @@ public class FuncionarioController extends AbstractBean implements Serializable 
 		
 		funcionario = new Funcionario();
 		funcionario.setEmpresa(empresa);
+		setTabActiveIndex(0);
 		return cadatroFuncionario(funcionario, Boolean.FALSE);
 	}
 	    

@@ -26,6 +26,7 @@ import br.com.ramazzini.model.funcionario.Funcionario;
 import br.com.ramazzini.model.procedimento.Procedimento;
 import br.com.ramazzini.model.profissional.Profissional;
 import br.com.ramazzini.model.util.AbstractEntidade;
+import br.com.ramazzini.util.TimeFactory;
 
 @SequenceGenerator(name = "seq_avaliacao_clinica", sequenceName = "seq_avaliacao_clinica", allocationSize = 1)
 @Entity
@@ -58,7 +59,7 @@ public class AvaliacaoClinica extends AbstractEntidade implements Serializable {
 	@Temporal(TemporalType.DATE)
 	@Column(name = "dt_realizacao", columnDefinition = "Date")
 	@NotNull
-	private Date dataRealizacao;
+	private Date dataRealizacao = TimeFactory.createDataHora();
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name = "dt_liberacao", columnDefinition = "Date")

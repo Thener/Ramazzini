@@ -17,7 +17,7 @@
 					<p:outputLabel value="#{msgs['label.empresa']}:" />
 					<p:outputLabel value="#{avaliacaoClinicaController.funcionario.empresa.nome}" styleClass="negrito" />
 					<p:outputLabel value="#{msgs['label.funcionario']}:" />
-					<p:outputLabel value="#{avaliacaoClinicaController.funcionario.nome}" styleClass="negrito" />					
+					<p:outputLabel value="#{avaliacaoClinicaController.funcionario.nome}" styleClass="negrito" />
 				</h:panelGrid>
 				
 				<p:separator />
@@ -32,13 +32,17 @@
 							noSelectionOption="true" />
 						<f:selectItems value="#{combosDinamicos.procedimentosTipoExameClinicoOcupacional}" var="procedimento"
 							itemLabel="#{procedimento.nome}" />
-					</p:selectOneMenu>						
+					</p:selectOneMenu>
+					
+	       			<p:outputLabel for="dataRealizacao" value="#{msgs['label.dataRealizacao']}" />
+	       			<p:calendar id="dataRealizacao" locale="pt" showOn="button" value="#{avaliacaoClinicaController.avaliacaoClinica.dataRealizacao}" 
+	       				pattern="#{msgs['pattern.calendar']}" mask="true" styleClass="data" required="false" />
 				
 				</h:panelGrid>
 				
 				<p:tabView id="tabViewCadastroAvClin"  activeIndex="#{avaliacaoClinicaController.tabActiveIndex}">
 		        	<p:tab title="#{msgs['label.dadosCadastrais']}">
-		        		
+		        		<ui:include src="includes/tabDadosCadastraisAvClinica.xhtml" />
 		        	</p:tab>
 		        	<p:tab title="#{msgs['label.procedimentos']}">
 		        		

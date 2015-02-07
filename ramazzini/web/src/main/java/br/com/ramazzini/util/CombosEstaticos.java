@@ -4,6 +4,7 @@ import javax.inject.Named;
 
 import br.com.ramazzini.model.agenda.SituacaoMarcacaoAgenda;
 import br.com.ramazzini.model.agenda.TempoAtualizacaoAgenda;
+import br.com.ramazzini.model.avaliacaoClinica.SituacaoAvaliacaoClinica;
 import br.com.ramazzini.model.empresa.UnidadeFederativa;
 import br.com.ramazzini.model.feriado.DiasMes;
 import br.com.ramazzini.model.feriado.Mes;
@@ -46,6 +47,10 @@ public class CombosEstaticos {
 	public NaoSim[] getNaoSim() {
 		return NaoSim.values();
 	}	
+
+	public SituacaoAvaliacaoClinica[] getSituacoesAvaliacaoClinica() {
+		return SituacaoAvaliacaoClinica.values();
+	}
 	
 	public SituacaoFuncionario[] getSituacoesFuncionario() {
 		return SituacaoFuncionario.values();

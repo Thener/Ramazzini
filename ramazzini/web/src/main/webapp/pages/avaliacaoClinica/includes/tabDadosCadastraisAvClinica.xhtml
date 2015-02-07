@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui">
+   
+	<h:panelGrid columns="2" cellpadding="5">
+			
+		<p:outputLabel value="#{msgs['label.profissional']}:" />			
+		<p:selectOneMenu id="profissional"
+			value="#{avaliacaoClinicaController.avaliacaoClinica.medico}"
+			converter="entityConverter" styleClass="nome50"
+			required="true" requiredMessage="#{msgs['required.profissional.obrigatorio']}"
+			rendered="#{avaliacaoClinicaController.avaliacaoClinica.novo}">
+			<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
+				noSelectionOption="true" />
+			<f:selectItems value="#{combosDinamicos.profissionaisMedicos}" var="profissional"
+				itemLabel="#{profissional.nome}" />
+		</p:selectOneMenu>
+		<p:outputLabel value="#{avaliacaoClinicaController.avaliacaoClinica.medico.nome}" styleClass="negrito" 
+			rendered="#{not avaliacaoClinicaController.avaliacaoClinica.novo}" />
+
+		<p:outputLabel for="situacaoAvClinica" value="#{msgs['label.situacao']}:" />
+		<p:selectOneMenu id="situacaoAvClinica"
+			value="#{avaliacaoClinicaController.avaliacaoClinica.situacaoAvaliacaoClinica}">
+			<f:selectItems value="#{combosEstaticos.situacoesAvaliacaoClinica}" var="situacaoAvClinica"
+				itemLabel="#{situacaoAvClinica.stringChave}" itemValue="#{situacaoAvClinica.value}" />
+		</p:selectOneMenu>
+
+		<p:outputLabel for="dataLiberacao" value="#{msgs['label.dataLiberacao']}" />
+		<p:calendar id="dataLiberacao" locale="pt" showOn="button" value="#{avaliacaoClinicaController.avaliacaoClinica.dataLiberacao}" 
+			pattern="#{msgs['pattern.calendar']}" mask="true" styleClass="data" required="false" />
+			
+		<p:outputLabel for="dataRetorno" value="#{msgs['label.dataRetorno']}" />
+		<p:calendar id="dataRetorno" locale="pt" showOn="button" value="#{avaliacaoClinicaController.avaliacaoClinica.dataRetorno}" 
+			pattern="#{msgs['pattern.calendar']}" mask="true" styleClass="data" required="false" />	
+			
+		<p:outputLabel value="#{msgs['label.funcaoAnterior']}:" />
+		<p:selectOneMenu id="funcaoAnterior" value="#{avaliacaoClinicaController.avaliacaoClinica.funcaoAnterior}"
+			converter="entityConverter" styleClass="nome50">
+			<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
+				noSelectionOption="true" />			
+			<f:selectItems value="#{combosDinamicos.getFuncoes(avaliacaoClinicaController.funcionario.empresa)}" var="funcao"
+				itemLabel="#{funcao.nome}" itemValue="#{funcao}" />
+		</p:selectOneMenu>	
+		
+		<p:outputLabel value="#{msgs['label.funcaoAtual']}:" />
+		<p:selectOneMenu id="funcaoAtual" value="#{avaliacaoClinicaController.avaliacaoClinica.funcaoAtual}"
+			converter="entityConverter" styleClass="nome50">
+			<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
+				noSelectionOption="true" />			
+			<f:selectItems value="#{combosDinamicos.getFuncoes(avaliacaoClinicaController.funcionario.empresa)}" var="funcao"
+				itemLabel="#{funcao.nome}" itemValue="#{funcao}" />
+		</p:selectOneMenu>
+	       				
+	</h:panelGrid>
+		
+</ui:composition>
