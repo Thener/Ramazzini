@@ -43,6 +43,7 @@ public class FuncaoController extends AbstractBean implements Serializable {
 		
 		funcao = new Funcao();
 		funcao.setEmpresa(empresa);
+		setTabActiveIndex(0);
 		return cadastroFuncao(funcao, Boolean.FALSE);
 	}
 	    
@@ -69,7 +70,9 @@ public class FuncaoController extends AbstractBean implements Serializable {
     
     private String cadastroFuncao(Funcao funcao, Boolean somenteLeitura) {
 
-    	if (!funcao.isNovo()) {
+    	if (funcao.isNovo()) {
+    		setRiscosOcupacionais(null);
+    	} else {
     		riscosOcupacionais = funcaoService.recuperarRiscosOcupacionais(funcao);
     		funcao.setRiscosOcupacionais(riscosOcupacionais);
     	}
@@ -87,7 +90,8 @@ public class FuncaoController extends AbstractBean implements Serializable {
 		boolean inclusao = funcao.isNovo();
 		funcaoService.salvar(funcao);
 		if (inclusao) {
-			//return alterarFuncao(funcao); // isso faz com que o botão voltar fique voltando para o proprio cadastro da funcao
+			UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeGravadaComSucesso","label.funcao");
+			UtilMensagens.mensagemInformacaoPorChave("mensagem.info.completarRestanteCadastro");
 			return "";
 		} else {
 			pesquisar();

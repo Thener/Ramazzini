@@ -23,6 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import br.com.ramazzini.model.avaliacaoClinicaProcedimento.AvaliacaoClinicaProcedimento;
 import br.com.ramazzini.model.funcao.Funcao;
 import br.com.ramazzini.model.funcionario.Funcionario;
+import br.com.ramazzini.model.procedimento.Procedimento;
 import br.com.ramazzini.model.profissional.Profissional;
 import br.com.ramazzini.model.util.AbstractEntidade;
 
@@ -48,6 +49,11 @@ public class AvaliacaoClinica extends AbstractEntidade implements Serializable {
 	@NotNull
 	@JoinColumn(name="cd_profissional")
 	private Profissional medico;
+	
+	@ManyToOne
+	@NotNull
+	@JoinColumn(name="cd_procedimento")
+	private Procedimento procedimento;	
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name = "dt_realizacao", columnDefinition = "Date")
@@ -108,6 +114,14 @@ public class AvaliacaoClinica extends AbstractEntidade implements Serializable {
 
 	public void setMedico(Profissional medico) {
 		this.medico = medico;
+	}
+	
+	public Procedimento getProcedimento() {
+		return procedimento;
+	}
+
+	public void setProcedimento(Procedimento procedimento) {
+		this.procedimento = procedimento;
 	}
 
 	public Date getDataRealizacao() {

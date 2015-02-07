@@ -34,6 +34,8 @@ public class AvaliacaoClinicaController extends AbstractBean implements Serializ
 	
 	private List<AvaliacaoClinica> avaliacoesClinicas;
 	
+	private Integer tabAtiva;
+	
 	public String incluirAvaliacaoClinica() {
 		
 		avaliacaoClinica = new AvaliacaoClinica();
@@ -125,8 +127,20 @@ public class AvaliacaoClinicaController extends AbstractBean implements Serializ
 	}
 
 	public void setFuncionario(Funcionario funcionario) {
-		avaliacoesClinicas.clear();
+		setAvaliacoesClinicas(null);
 		this.funcionario = funcionario;
 	}
+	
+	public void setAvaliacoesClinicas(List<AvaliacaoClinica> avaliacoesClinicas) {
+		this.avaliacoesClinicas = avaliacoesClinicas;
+	}
+
+	public Integer getTabActiveIndex() {
+        return tabAtiva;
+    }
+
+    public void setTabActiveIndex(Integer tabActiveIndex) {
+        this.tabAtiva = tabActiveIndex;
+    }	
 
 }

@@ -27,29 +27,14 @@ public class EmpresaController extends AbstractBean implements Serializable {
 	
 	private static final String PAGINA_CADASTRO_EMPRESA = "/pages/empresa/cadastroEmpresa.jsf?faces-redirect=true";
 
-    @Inject
-    private EmpresaService empresaService;  	
-	
-    @Inject
-    private CnaeService cnaeService; 
-    
-    @Inject
-    private LotacaoController lotacaoController;
-    
-    @Inject
-    private EmpresaServicoController empresaServicoController;    
-    
-    @Inject
-    private ResponsavelController responsavelController;
-    
-    @Inject
-    private FuncionarioController funcionarioController;   
-
-    @Inject
-    private FuncaoController funcaoController;  
-
-    @Inject
-    private SetorController setorController;    
+    @Inject private EmpresaService empresaService;  	
+    @Inject private CnaeService cnaeService; 
+    @Inject private LotacaoController lotacaoController;
+    @Inject private EmpresaServicoController empresaServicoController;    
+    @Inject private ResponsavelController responsavelController;
+    @Inject private FuncionarioController funcionarioController;   
+    @Inject private FuncaoController funcaoController;  
+    @Inject private SetorController setorController;    
     
 	private Empresa empresa;
 	

@@ -21,8 +21,8 @@ public class FuncionarioController extends AbstractBean implements Serializable 
 	
 	private static final String PAGINA_CADASTRO_FUNCIONARIO = "/pages/funcionario/cadastroFuncionario.jsf?faces-redirect=true";
 	
-    @Inject
-    private FuncionarioService funcionarioService; 
+    @Inject private FuncionarioService funcionarioService;
+    @Inject private AvaliacaoClinicaController avaliacaoClinicaController;
     
     private List<Funcionario> funcionarios;
     
@@ -65,16 +65,23 @@ public class FuncionarioController extends AbstractBean implements Serializable 
     private String cadatroFuncionario(Funcionario funcionario, Boolean somenteLeitura) {
     	setEmpresa(funcionario.getEmpresa());
     	setFuncionario(funcionario);
+    	avaliacaoClinicaController.setFuncionario(funcionario);
     	setSomenteLeitura(somenteLeitura);
     	setUriRequisicao(getControleAcesso().getUriRequisicao());
     	return PAGINA_CADASTRO_FUNCIONARIO;    	
     }
     
 	public String gravarFuncionario() {
-		
+
+		boolean inclusao = funcionario.isNovo();
 		funcionarioService.salvar(funcionario);
-		pesquisar();
-		return voltar();
+		if (inclusao) {
+			UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeGravadaComSucesso","label.funcionario");
+			return "";
+		} else {
+			pesquisar();
+			return voltar();
+		}		
 	}
     
     public void pesquisar() {
