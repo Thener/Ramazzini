@@ -88,11 +88,13 @@
 					<p:commandButton id="botaoGravarAdmissional" ajax="true" 
 						value="#{msgs['botao.gravar']}" icon="ui-icon-disk" title="#{msgs['botao.gravar']}"
 						onclick="PF('dialogAdmissional').hide();"
-						actionListener="#{marcacaoAgendaController.gravarAgendamentoAdmissional}" 
+						actionListener="#{marcacaoAgendaController.gravarAgendamentoAdmissional(false)}" 
 						update=":frmAgenda" />
 						
 					<p:commandButton id="botaoGravarAdmissionalComAnaliseEmissaoDocumento" 
-						icon="ui-icon-print" value="#{msgs['botao.gravarComAnaliseDocumento']}" />						
+						icon="ui-icon-print" value="#{msgs['botao.gravarComAnaliseDocumento']}"
+						onclick="PF('dialogAdmissional').hide();"
+						action="#{marcacaoAgendaController.gravarAgendamentoAdmissional(true)}"  />						
 						
 													
 				</f:facet>

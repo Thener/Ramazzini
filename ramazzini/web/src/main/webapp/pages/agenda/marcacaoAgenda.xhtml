@@ -10,7 +10,7 @@
    
    		<p:panel id="panelAgenda" header="#{msgs['label.agenda']}">
    		
-   			<p:growl id="messages" showDetail="false" sticky="false" autoUpdate="false"/>
+   			<p:growl id="messages" showDetail="false" sticky="false" autoUpdate="true"/>
    		
    			<h:form id="frmAgenda">
    			
@@ -107,7 +107,7 @@
    		
 	   		<p:separator />
 	   		
-	   		<p:clock mode="server"/>   			
+	   		<p:clock mode="server" pattern="dd/MM/yyyy HH:mm:ss"/> <!-- não funcionou buscar o pattern de message.properties  -->  			
    			
    		</p:panel>
    		
@@ -124,14 +124,10 @@
    		
    		<ui:include src="includes/dialogAdmissional.xhtml" />
 
-		<!-- 
-		<p:socket onMessage="handleMessage" channel="/agenda" />
-				
-		<h:form>
-			<p:remoteCommand name="handleMessage" update=":frmAgenda" />
-		</h:form>
-		 -->
-   				
+		<p:socket channel="/agenda">
+			<p:ajax event="message" update=":frmAgenda" />
+		</p:socket>
+
 	</ui:define>
 	
 </ui:composition>

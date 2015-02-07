@@ -9,10 +9,10 @@
    <ui:define name="content" prependId="false">
    
    		<p:growl id="messages" showDetail="false" sticky="false" />
-   		
-   		<p:panel id="panelAnaliseEmissaoDocumentos" header="#{msgs['label.analiseEmissaoDocumentos']}">
-   		
-   			<h:form id="frmAnaliseEmissaoDocumentos">
+
+		<h:form id="frmAnaliseEmissaoDocumentos">
+		   		
+   			<p:panel id="panelAnaliseEmissaoDocumentos" header="#{msgs['label.analiseEmissaoDocumentos']}">
    		
 	   			<p:fieldset legend="#{msgs['label.funcionario']}">
 	   			
@@ -62,7 +62,7 @@
 						id="botaoAtualizarAgenda" icon="ui-icon-circle-triangle-e" 
 						value="#{msgs['botao.analisar']}"
 						actionListener="#{analiseEmissaoDocumentosController.analisar()}"
-						update="frmAnaliseEmissaoDocumentos" />		       		
+						update="frmAnaliseEmissaoDocumentos, :messages" />		       		
 		       		
 	   			</p:fieldset>
 	   			
@@ -85,18 +85,18 @@
 		   		
 		   		</p:panel>	   			
    			
-   			</h:form>
-   			
-   		</p:panel>
-   		   		
-		<p:toolbar>
-			<f:facet name="left">
-				<p:commandButton id="botaoVoltar" immediate="true"
-					icon="ui-icon-arrowreturnthick-1-w" title="#{msgs['botao.voltar']}"
-					action="#{analiseEmissaoDocumentosController.voltar()}">
-				</p:commandButton>
-			</f:facet>
-		</p:toolbar>
+	   		</p:panel>
+	   		   		
+			<p:toolbar>
+				<f:facet name="left">
+					<p:commandButton id="botaoVoltar" immediate="true"
+						icon="ui-icon-arrowreturnthick-1-w" title="#{msgs['botao.voltar']}"
+						action="#{analiseEmissaoDocumentosController.voltar()}">
+					</p:commandButton>
+				</f:facet>
+			</p:toolbar>
+		
+		</h:form>
 			   		
 	</ui:define>
 	

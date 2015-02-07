@@ -12,6 +12,7 @@ import br.com.ramazzini.model.funcionario.Funcionario;
 import br.com.ramazzini.model.procedimento.Procedimento;
 import br.com.ramazzini.model.procedimento.TipoExameClinico;
 import br.com.ramazzini.util.TimeFactory;
+import br.com.ramazzini.util.UtilMensagens;
 
 @Named
 @ConversationScoped
@@ -42,6 +43,12 @@ public class AnaliseEmissaoDocumentosController extends AbstractBean implements 
 	}
 	
 	public void analisar() {
+		
+		if (procedimentoSelecionado == null) {
+			UtilMensagens.mensagemErroPorChave("mensagem.erro.informacaoObrigatoria","label.procedimento");
+			return;
+		}
+		
 		if (procedimentoSelecionado.getTipoExameClinicoEnum().equals(TipoExameClinico.ADMISSIONAL)) {
 			analiseAdmissioal();
 		} else if (procedimentoSelecionado.getTipoExameClinicoEnum().equals(TipoExameClinico.MUDANCA_FUNCAO)) {

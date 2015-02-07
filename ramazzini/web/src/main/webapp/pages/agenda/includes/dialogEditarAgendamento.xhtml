@@ -96,11 +96,13 @@
 					<p:commandButton id="botaoGravarMarcacao" ajax="true" 
 						value="#{msgs['botao.gravar']}" icon="ui-icon-disk" title="#{msgs['botao.gravar']}"
 						onclick="PF('dialogEditarAgendamento').hide();"
-						actionListener="#{marcacaoAgendaController.gravarAgendamento}" 
+						actionListener="#{marcacaoAgendaController.gravarAgendamento(false)}" 
 						update=":frmAgenda" />
 						
 					<p:commandButton id="botaoGravarComAnaliseEmissaoDocumento" 
-						value="#{msgs['botao.gravarComAnaliseDocumento']}" icon="ui-icon-print" />						
+						value="#{msgs['botao.gravarComAnaliseDocumento']}" icon="ui-icon-print"
+						onclick="PF('dialogEditarAgendamento').hide();"
+						action="#{marcacaoAgendaController.gravarAgendamento(true)}"  />						
 													
 				</f:facet>
 			</p:toolbar>

@@ -10,6 +10,9 @@ import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.primefaces.push.EventBus;
+import org.primefaces.push.EventBusFactory;
+
 import br.com.ramazzini.controller.util.AbstractBean;
 import br.com.ramazzini.model.agenda.Agenda;
 import br.com.ramazzini.model.agenda.SituacaoMarcacaoAgenda;
@@ -36,14 +39,13 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 
 	private static final long serialVersionUID = 1L;
 	
-	//private final static String CHANNEL = "/agenda";
-	
     @Inject private AgendaService agendaService;
     @Inject private FuncionarioService funcionarioService;
     @Inject private ParametroService parametroService;
     @Inject private ProcedimentoService procedimentoService;
     @Inject private ProfissionalService profissionalService;
     @Inject private ProgramacaoHorarioAtendimentoService programacaoHorarioAtendimentoService;
+    @Inject private AnaliseEmissaoDocumentosController analiseEmissaoDocumentosController;
     
 	private Date dataSelecionada = TimeFactory.createDataHora();
 	
@@ -78,15 +80,10 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 		beginConversation();
 	}    
 	
-	/*
     public void sendNotify() {
     	EventBus eventBus = EventBusFactory.getDefault().eventBus();
-        eventBus.publish(CHANNEL, new FacesMessage("TESTE 1", "TESTE 2"));
-         //não entendi ainda como funciona o eventBus...
-         //tentei retirar o new Faces, mas pára de funcionar. 
-         //Até mesmo remover um dos parâmetros (teste 1 ou teste 2) pára de funcionar.
+    	eventBus.publish("/agenda", "");
     }
-    */
     
 	public void onChangeDataSelecionada() {
 		recarregarAgenda();
@@ -124,11 +121,11 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 		}
 	}
 	
-	public void gravarAgendamento() {
-		gravarAgenda(agenda);
+	public String gravarAgendamento(boolean analiseEmissaoDocumento) {
+		return gravarAgenda(agenda, analiseEmissaoDocumento);
 	}
 	
-	public void gravarAgendamentoAdmissional() {
+	public String gravarAgendamentoAdmissional(boolean analiseEmissaoDocumento) {
 		novoFuncionario.setEmpresa(empresaSelecionada);
 		novoFuncionario.setSituacaoFuncionarioEnum(SituacaoFuncionario.AGENDADO);
 		// quando o médico gravar a primeira ac, trocar para Ativo.
@@ -136,21 +133,31 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 		incluirAgendamento();
 		agenda.setFuncionario(novoFuncionario);
 		agenda.setProcedimento(procedimentoService.recuperarPorTipoExameClinico(TipoExameClinico.ADMISSIONAL));
-		gravarAgenda(agenda);
+		return gravarAgenda(agenda, analiseEmissaoDocumento);
 	}
 	
-	private void gravarAgenda(Agenda agenda) {
+	private String gravarAgenda(Agenda agenda, boolean analiseEmissaoDocumento) {
 		if (agenda.getFuncionario() != null) {
 			agendaService.salvar(agenda);
-			Notificacao.notificarModificacaoAgenda();
+			notificarModificacaoAgenda();
+			if (analiseEmissaoDocumento) {
+				return analiseEmissaoDocumentosController.init(agenda.getFuncionario(), agenda.getProcedimento());
+			}
 		}
+		return "";
 	}
 	
 	public void excluirAgendamento(Agenda agenda) {
 		agendamentos.remove(agenda);
 		agendaService.remover(agenda, agenda.getId());
-		Notificacao.notificarModificacaoAgenda();
+		notificarModificacaoAgenda();
 		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeExcluidaComSucesso", "label.agendamento");
+	}
+	
+	private void notificarModificacaoAgenda() {
+		Notificacao.notificarModificacaoAgenda();
+		sendNotify();
+		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.houveUmaAtualizacaoDaAgenda");
 	}
 
 	public void atualizacaoAutomatica() {
@@ -192,12 +199,7 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 	public List<Agenda> getAgendamentos() {
 		if (agendamentos.isEmpty() || ultimaAtualizacaoAgenda.before(Notificacao.getUltimaModificacaoAgenda())) {
 			agendamentos = agendaService.recuperarPorFiltros(dataSelecionada, situacaoMarcacaoAgenda, profissionalSelecionado);
-			//Notificacao.notificarModificacaoAgenda();
 			ultimaAtualizacaoAgenda = TimeFactory.createDataHora();
-			if (agendamentos.size() > 0) {
-				UtilMensagens.mensagemInformacaoPorChave("mensagem.info.houveUmaAtualizacaoDaAgenda");
-			}
-			//sendNotify();
 		}
 		return agendamentos;
 	}

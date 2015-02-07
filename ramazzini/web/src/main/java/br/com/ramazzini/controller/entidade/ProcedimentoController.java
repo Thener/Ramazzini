@@ -10,6 +10,7 @@ import javax.inject.Named;
 
 import br.com.ramazzini.controller.util.AbstractBean;
 import br.com.ramazzini.model.procedimento.Procedimento;
+import br.com.ramazzini.model.procedimento.TipoProcedimento;
 import br.com.ramazzini.service.entidade.ProcedimentoService;
 import br.com.ramazzini.util.UtilMensagens;
 
@@ -80,9 +81,13 @@ public class ProcedimentoController extends AbstractBean implements Serializable
     
 	public String gravarProcedimento() {
 		
-		procedimentoService.salvar(procedimento);
-		procedimentos = procedimentoService.recuperarTodos("nome");
-		return PAGINA_PESQUISAR_PROCEDIMENTO;
+		if (validar(procedimento)) {
+			procedimentoService.salvar(procedimento);
+			procedimentos = procedimentoService.recuperarTodos("nome");
+			return PAGINA_PESQUISAR_PROCEDIMENTO;
+		}
+		
+		return "";
 	}    
     
     private String cadastroProcedimento(Procedimento procedimento, Boolean somenteLeitura) {
@@ -90,7 +95,18 @@ public class ProcedimentoController extends AbstractBean implements Serializable
     	setProcedimento(procedimento);
     	setSomenteLeitura(somenteLeitura);
     	return PAGINA_CADASTRO_PROCEDIMENTO;    	
-    }  
+    } 
+    
+    public boolean validar(Procedimento procedimento) {
+    	
+    	if (procedimento.getTipoProcedimentoEnum().equals(TipoProcedimento.EXAME_CLINICO_OCUPACIONAL)
+    			&& procedimento.getTipoExameClinicoEnum() == null) {
+    		UtilMensagens.mensagemErroPorChave("mensagem.erro.informacaoObrigatoria","label.tipoExameClinico");
+    		return false;
+    	}
+    	
+    	return true;
+    }
 
 	public List<Procedimento> getProcedimentos() {
 		return procedimentos;
