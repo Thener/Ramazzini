@@ -47,9 +47,11 @@ public class CombosDinamicos {
 	public List<Funcao> getFuncoes(Empresa empresa) {
 		return funcaoService.recuperarPorEmpresa(empresa);
 	}
+	
 	public List<Funcao> getFuncoesOrdenadasPorNome() {
 		return funcaoService.recuperarTodos("nome");
 	}
+	
 	public List<HorarioAtendimento> getHorariosAtendimento() {
 		return horarioAtendimentoService.recuperarTodos("nome");
 	}	
@@ -64,6 +66,10 @@ public class CombosDinamicos {
 	
 	public List<Procedimento> getProcedimentosDaAvaliacaoClinica(AvaliacaoClinica avaliacaoClinica) {
 		return avaliacaoClinicaService.recuperarProcedimentosPor(avaliacaoClinica);
+	}	
+	
+	public List<Procedimento> getProcedimentosDaFuncao(Funcao funcao) {
+		return funcaoService.recuperarProcedimentosPor(funcao);
 	}	
 	
 	public List<Procedimento> getProcedimentosTipoExameClinicoOcupacional() {

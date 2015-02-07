@@ -23,6 +23,7 @@ import javax.ejb.Stateless;
 import br.com.ramazzini.dao.avaliacaoClinicaProcedimento.AvaliacaoClinicaProcedimentoDao;
 import br.com.ramazzini.model.avaliacaoClinica.AvaliacaoClinica;
 import br.com.ramazzini.model.avaliacaoClinicaProcedimento.AvaliacaoClinicaProcedimento;
+import br.com.ramazzini.model.procedimento.Procedimento;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
 
 // The @Stateless annotation eliminates the need for manual transaction demarcation
@@ -34,4 +35,8 @@ public class AvaliacaoClinicaProcedimentoService extends AbstractServiceImpl<Ava
     		((AvaliacaoClinicaProcedimentoDao) getDao()).recuperarPorAvaliacaoClinica(avaliacaoClinica) : null;
     }	
  
+    public List<AvaliacaoClinicaProcedimento> recuperarPorProcedimento(AvaliacaoClinica avaliacaoClinica, Procedimento procedimento) {
+    	return (!avaliacaoClinica.isNovo()) ? 
+    		((AvaliacaoClinicaProcedimentoDao) getDao()).recuperarPorProcedimento(avaliacaoClinica, procedimento) : null;
+    }    
 }

@@ -47,6 +47,23 @@
 		]]>
 	</query>
 	
+	<query name="Funcao.recuperarProcedimentosPorFuncao">
+		<![CDATA[
+			select 
+				p
+			from 
+				Funcao f
+			right join 
+				f.funcoesProcedimentos fp
+			inner join
+				fp.procedimento p
+			where 
+				f = :funcao
+			order 
+				by p.nome
+		]]>
+	</query>	
+	
 	<query name="Funcao.recuperarRiscosOcupacionais">
 		<![CDATA[
 			select 

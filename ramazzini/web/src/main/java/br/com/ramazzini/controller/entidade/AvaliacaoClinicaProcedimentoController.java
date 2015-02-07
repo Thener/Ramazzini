@@ -84,7 +84,11 @@ public class AvaliacaoClinicaProcedimentoController extends AbstractBean impleme
     
     public void pesquisar() {
 		
-    	//avaliacoesClinicas = avaliacaoClinicaService.recuperarPorFuncionario(funcionario);
+    	if (procedimentoSelecionado == null) {
+    		avaliacoesClinicasProcedimentos = avaliacaoClinicaProcedimentoService.recuperarPorAvaliacaoClinica(avaliacaoClinica);
+    	} else {
+    		avaliacoesClinicasProcedimentos = avaliacaoClinicaProcedimentoService.recuperarPorProcedimento(avaliacaoClinica, procedimentoSelecionado);
+    	}
      
     }
 	
@@ -105,6 +109,7 @@ public class AvaliacaoClinicaProcedimentoController extends AbstractBean impleme
 	}
 
 	public void setAvaliacaoClinica(AvaliacaoClinica avaliacaoClinica) {
+		setAvaliacoesClinicasProcedimentos(null);
 		this.avaliacaoClinica = avaliacaoClinica;
 	}
 

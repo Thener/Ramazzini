@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui"
+   template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+	
+		<h:form id="frmCadastroAvClinicaProcedimento">
+		
+			<p:growl id="growl" showDetail="false" sticky="true" />
+			
+			<p:panel id="panelDadosAvClinicaProcedimento" header="#{msgs['label.avaliacaoClinicaProcedimento']}">
+			
+				<h:panelGrid columns="2" cellpadding="2">
+					<p:outputLabel value="#{msgs['label.empresa']}:" />
+					<p:outputLabel value="#{avaliacaoClinicaController.funcionario.empresa.nome}" styleClass="negrito" />
+					<p:outputLabel value="#{msgs['label.funcionario']}:" />
+					<p:outputLabel value="#{avaliacaoClinicaController.funcionario.nome}" styleClass="negrito" />
+					<p:outputLabel value="#{msgs['label.funcao']}:" />
+					<p:outputLabel value="#{avaliacaoClinicaController.funcionario.funcao.nome}" styleClass="negrito" />
+					<p:outputLabel value="#{msgs['label.avaliacaoClinica']}:" />
+					<p:outputLabel value="#{avaliacaoClinicaProcedimentoController.avaliacaoClinica.procedimento.nome}" styleClass="negrito" />					
+				</h:panelGrid>
+				
+				<p:separator />
+			
+				<h:panelGrid columns="2" cellpadding="5">
+					
+					<p:outputLabel value="#{msgs['label.procedimento']}:" />
+					<p:selectOneMenu id="procedimentoAvClin" converter="entityConverter" styleClass="nome50"
+						value="#{avaliacaoClinicaProcedimentoController.avaliacaoClinicaProcedimento.procedimento}">
+						<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
+							noSelectionOption="true" />			
+						<f:selectItems var="procedimento" itemLabel="#{procedimento.nome}" itemValue="#{procedimento}"
+							value="#{combosDinamicos.getProcedimentosDaFuncao(avaliacaoClinicaProcedimentoController.avaliacaoClinica.funcaoAtual)}" />
+					</p:selectOneMenu>
+					
+					<p:outputLabel for="dataRealizacao" value="#{msgs['label.dataRealizacao']}" />
+					<p:calendar id="dataRealizacao" locale="pt" showOn="button" value="#{avaliacaoClinicaProcedimentoController.avaliacaoClinicaProcedimento.dataRealizacao}" 
+						pattern="#{msgs['pattern.calendar']}" mask="true" styleClass="data" required="false" />
+						
+					<p:outputLabel for="dataRetorno" value="#{msgs['label.dataRetorno']}" />
+					<p:calendar id="dataRetorno" locale="pt" showOn="button" value="#{avaliacaoClinicaProcedimentoController.avaliacaoClinicaProcedimento.dataRetorno}" 
+						pattern="#{msgs['pattern.calendar']}" mask="true" styleClass="data" required="false" />	
+						
+					<p:outputLabel for="resultadoProcedimento" value="#{msgs['label.resultado']}:" />
+					<p:selectOneMenu id="resultadoProcedimento"
+						value="#{avaliacaoClinicaProcedimentoController.avaliacaoClinicaProcedimento.resultadoProcedimento}">
+						<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
+							noSelectionOption="true" />							
+						<f:selectItems value="#{combosEstaticos.resultadosProcedimento}" var="resultadoProcedimento"
+							itemLabel="#{resultadoProcedimento.stringChave}" itemValue="#{resultadoProcedimento.value}" />
+					</p:selectOneMenu>
+					
+					<p:outputLabel for="tipoAlteracaoProcedimento" value="#{msgs['label.tipoAlteracao']}:" />
+					<p:selectOneMenu id="tipoAlteracaoProcedimento"
+						value="#{avaliacaoClinicaProcedimentoController.avaliacaoClinicaProcedimento.tipoAlteracaoProcedimento}">
+						<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
+							noSelectionOption="true" />							
+						<f:selectItems value="#{combosEstaticos.tiposAlteracaoProcedimento}" var="tipoAlteracao"
+							itemLabel="#{tipoAlteracao.stringChave}" itemValue="#{tipoAlteracao.value}" />
+					</p:selectOneMenu>
+				
+				</h:panelGrid>
+				
+			</p:panel>
+			
+			<p:toolbar>
+				<f:facet name="left">
+					<p:commandButton id="botaoVoltar" immediate="true"
+						icon="ui-icon-arrowreturnthick-1-w" title="#{msgs['botao.voltar']}"
+						action="#{avaliacaoClinicaProcedimentoController.voltar()}">
+					</p:commandButton>
+					<p:commandButton id="salvar" action="#{avaliacaoClinicaProcedimentoController.gravarAvaliacaoClinicaProcedimento()}"
+						value="#{msgs['botao.gravar']}" icon="ui-icon-disk" title="#{msgs['botao.gravar']}"
+						disabled="#{avaliacaoClinicaProcedimentoController.somenteLeitura}" ajax="true" update="frmCadastroAvClinicaProcedimento" />
+				</f:facet>
+			</p:toolbar>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -5,6 +5,8 @@ import javax.inject.Named;
 import br.com.ramazzini.model.agenda.SituacaoMarcacaoAgenda;
 import br.com.ramazzini.model.agenda.TempoAtualizacaoAgenda;
 import br.com.ramazzini.model.avaliacaoClinica.SituacaoAvaliacaoClinica;
+import br.com.ramazzini.model.avaliacaoClinicaProcedimento.ResultadoProcedimento;
+import br.com.ramazzini.model.avaliacaoClinicaProcedimento.TipoAlteracaoProcedimento;
 import br.com.ramazzini.model.empresa.UnidadeFederativa;
 import br.com.ramazzini.model.feriado.DiasMes;
 import br.com.ramazzini.model.feriado.Mes;
@@ -36,6 +38,10 @@ public class CombosEstaticos {
 		return PapelProfissional.values();
 	}
 	
+	public ResultadoProcedimento[] getResultadosProcedimento() {
+		return ResultadoProcedimento.values();
+	}	
+	
 	public Sexo[] getSexo() {
 		return Sexo.values();
 	}
@@ -59,6 +65,10 @@ public class CombosEstaticos {
 	public SituacaoMarcacaoAgenda[] getSituacoesMarcacaoAgenda() {
 		return SituacaoMarcacaoAgenda.values();
 	}	
+	
+	public TipoAlteracaoProcedimento[] getTiposAlteracaoProcedimento() {
+		return TipoAlteracaoProcedimento.values();
+	}
 	
 	public TipoExameClinico[] getTiposExameClinico() {
 		return TipoExameClinico.values();

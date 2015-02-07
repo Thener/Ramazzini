@@ -67,6 +67,7 @@ public class AvaliacaoClinicaController extends AbstractBean implements Serializ
     
     private String cadastroAvaliacaoClinica(AvaliacaoClinica avaliacaoClinica, Boolean somenteLeitura) {
 
+    	setTabActiveIndex(0);
     	setAvaliacaoClinica(avaliacaoClinica);
     	setFuncionario(avaliacaoClinica.getFuncionario());
     	avaliacaoClinicaProcedimentoController.setAvaliacaoClinica(avaliacaoClinica);

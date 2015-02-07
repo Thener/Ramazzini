@@ -23,6 +23,7 @@ import javax.ejb.Stateless;
 import br.com.ramazzini.dao.funcao.FuncaoDao;
 import br.com.ramazzini.model.empresa.Empresa;
 import br.com.ramazzini.model.funcao.Funcao;
+import br.com.ramazzini.model.procedimento.Procedimento;
 import br.com.ramazzini.model.riscoOcupacional.RiscoOcupacional;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
 
@@ -41,6 +42,10 @@ public class FuncaoService extends AbstractServiceImpl<Funcao> {
     public List<Funcao> recuperarPorNome(String nomeFuncao) {
     	return ((FuncaoDao) getDao()).recuperarPorNome(nomeFuncao);
     } 
+    
+    public List<Procedimento> recuperarProcedimentosPor(Funcao funcao) {
+    	return ((FuncaoDao) getDao()).recuperarProcedimentosPor(funcao);
+    }     
 
     public List<RiscoOcupacional> recuperarRiscosOcupacionais(Funcao funcao) {
     	return ((FuncaoDao) getDao()).recuperarRiscosOcupacionais(funcao);

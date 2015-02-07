@@ -6,7 +6,7 @@
    xmlns:p="http://primefaces.org/ui">
    
    <!-- 
-   		usando fieldset nativo do html pq o selectOneMenu tem um bug
+   		usando fieldset nativo do html pq o selectOneMenu (sem itens) tem um bug
    		quando inserido dentro de p:fieldset
     -->
    
@@ -45,12 +45,29 @@
 		paginator="true" paginatorPosition="bottom" rows="5">
 		
 		<f:facet name="header"> #{msgs['label.procedimentos']} </f:facet>
-		
+
 		<p:column headerText="#{msgs['label.procedimento']}" sortBy="#{avaliacaoClinicaProcedimento.procedimento.nome}" 
 			styleClass="colunaCentralizada">
 			<h:outputText value="#{avaliacaoClinicaProcedimento.procedimento.nome}" />
-		</p:column>		
+		</p:column>
 		
+		<p:column headerText="#{msgs['label.dataRealizacao']}" sortBy="#{avaliacaoClinicaProcedimento.dataRealizacao}" styleClass="colunaCentralizada">
+			<h:outputText value="#{avaliacaoClinicaProcedimento.dataRealizacao}">
+				<f:convertDateTime locale="pt,BR" pattern="#{msgs['pattern.calendar']}" />
+			</h:outputText>
+		</p:column>
+		
+		<p:column headerText="#{msgs['label.dataRetorno']}" sortBy="#{avaliacaoClinicaProcedimento.dataRetorno}" styleClass="colunaCentralizada">
+			<h:outputText value="#{avaliacaoClinicaProcedimento.dataRetorno}">
+				<f:convertDateTime locale="pt,BR" pattern="#{msgs['pattern.calendar']}" />
+			</h:outputText>
+		</p:column>	
+		
+		<p:column headerText="#{msgs['label.resultado']}" sortBy="#{avaliacaoClinicaProcedimento.resultadoProcedimento}" 
+			styleClass="colunaCentralizada">
+			<h:outputText value="#{avaliacaoClinicaProcedimento.resultadoProcedimentoEnum.stringChave}" />
+		</p:column>
+				
 		<p:column headerText="#{msgs['label.acoes']}" styleClass="colunaAcoes">
 			<p:panelGrid columns="3">					  
 				<p:commandLink title="#{msgs['label.visualizar']}" action="#{avaliacaoClinicaProcedimentoController.visualizarAvaliacaoClinicaProcedimento(avaliacaoClinicaProcedimento)}"
@@ -58,7 +75,7 @@
 				<p:commandLink title="#{msgs['label.editar']}" action="#{avaliacaoClinicaProcedimentoController.alterarAvaliacaoClinicaProcedimento(avaliacaoClinicaProcedimento)}"
 					disabled="#{empresaController.somenteLeitura}" styleClass="ui-icon ui-icon-pencil" />
 				<p:commandLink title="#{msgs['label.excluir']}" action="#{avaliacaoClinicaProcedimentoController.removerAvaliacaoClinicaProcedimento(avaliacaoClinicaProcedimento)}"
-					disabled="#{empresaController.somenteLeitura}" styleClass="ui-icon ui-icon-closethick" update="gridProcedimentosAvClinica, :frmCadastroAvaliacaoClinica:growl">
+					disabled="#{empresaController.somenteLeitura}" styleClass="ui-icon ui-icon-closethick" update="gridProcedimentosAvClinica, :frmCadastroAvClinica:growl">
 					<p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['label.confirmacaoExclusao']}" icon="ui-icon-alert" />
 				</p:commandLink>	
 			</p:panelGrid>
