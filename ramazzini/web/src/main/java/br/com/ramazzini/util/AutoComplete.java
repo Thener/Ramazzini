@@ -21,20 +21,11 @@ import br.com.ramazzini.service.entidade.RiscoOcupacionalService;
 @Named
 public class AutoComplete {
 
-    @Inject
-    private EmpresaService empresaService;
-    
-    @Inject
-    ProcedimentoService procedimentoService;
-    
-    @Inject
-    CredenciadoService credenciadoService;
-    
-    @Inject
-    FuncionarioService funcionarioService;    
-    
-    @Inject
-    RiscoOcupacionalService riscoOcupacionalService;    
+    @Inject EmpresaService empresaService;
+    @Inject ProcedimentoService procedimentoService;
+    @Inject CredenciadoService credenciadoService;
+    @Inject FuncionarioService funcionarioService;    
+    @Inject RiscoOcupacionalService riscoOcupacionalService;    
     
     public List<Credenciado> completeCredenciado(String query) {            
         if (!query.isEmpty())

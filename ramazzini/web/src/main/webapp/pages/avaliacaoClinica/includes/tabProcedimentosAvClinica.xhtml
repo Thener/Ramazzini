@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui">
+   
+   <!-- 
+   		usando fieldset nativo do html pq o selectOneMenu tem um bug
+   		quando inserido dentro de p:fieldset
+    -->
+   
+	<fieldset> 
+		<legend> #{msgs['label.pesquisa']} </legend>   
+	
+		<h:panelGrid columns="6" cellpadding="5" id="panelGridProcedimentosAvClinica">
+		
+			<p:outputLabel value="#{msgs['label.procedimento']}:" />
+			<p:selectOneMenu id="procedimentoSelecionado" value="#{avaliacaoClinicaProcedimentoController.procedimentoSelecionado}"
+				converter="entityConverter" styleClass="nome50">
+				<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
+					noSelectionOption="true" />			
+				<f:selectItems 
+					value="#{combosDinamicos.getProcedimentosDaAvaliacaoClinica(avaliacaoClinicaProcedimentoController.avaliacaoClinica)}" 
+					var="procedimento" itemLabel="#{procedimento.nome}" itemValue="#{procedimento}" />
+			</p:selectOneMenu>
+   							
+			<p:commandButton action="#{avaliacaoClinicaProcedimentoController.pesquisar()}" 
+				icon="ui-icon-search" ajax="true" update="panelGridProcedimentosAvClinica, gridProcedimentosAvClinica" 
+				process="@this, panelGridProcedimentosAvClinica" 
+				disabled="#{avaliacaoClinicaController.avaliacaoClinica.novo}"/>
+			
+			<p:commandButton 
+				id="botaoIncluirProcedimentoAvClin" icon="ui-icon-circle-plus" value="#{msgs['botao.incluir']}"
+				action="#{avaliacaoClinicaProcedimentoController.incluirAvaliacaoClinicaProcedimento()}" ajax="false"
+				disabled="#{avaliacaoClinicaController.somenteLeitura or avaliacaoClinicaController.avaliacaoClinica.novo}" />						
+			
+		</h:panelGrid>   
+	</fieldset>
+
+	<p:spacer width="5px" />
+   
+	<p:dataTable var="avaliacaoClinicaProcedimento" value="#{avaliacaoClinicaProcedimentoController.avaliacoesClinicasProcedimentos}"
+		id="gridProcedimentosAvClinica" emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}"
+		paginator="true" paginatorPosition="bottom" rows="5">
+		
+		<f:facet name="header"> #{msgs['label.procedimentos']} </f:facet>
+		
+		<p:column headerText="#{msgs['label.procedimento']}" sortBy="#{avaliacaoClinicaProcedimento.procedimento.nome}" 
+			styleClass="colunaCentralizada">
+			<h:outputText value="#{avaliacaoClinicaProcedimento.procedimento.nome}" />
+		</p:column>		
+		
+		<p:column headerText="#{msgs['label.acoes']}" styleClass="colunaAcoes">
+			<p:panelGrid columns="3">					  
+				<p:commandLink title="#{msgs['label.visualizar']}" action="#{avaliacaoClinicaProcedimentoController.visualizarAvaliacaoClinicaProcedimento(avaliacaoClinicaProcedimento)}"
+					styleClass="ui-icon ui-icon-search" />
+				<p:commandLink title="#{msgs['label.editar']}" action="#{avaliacaoClinicaProcedimentoController.alterarAvaliacaoClinicaProcedimento(avaliacaoClinicaProcedimento)}"
+					disabled="#{empresaController.somenteLeitura}" styleClass="ui-icon ui-icon-pencil" />
+				<p:commandLink title="#{msgs['label.excluir']}" action="#{avaliacaoClinicaProcedimentoController.removerAvaliacaoClinicaProcedimento(avaliacaoClinicaProcedimento)}"
+					disabled="#{empresaController.somenteLeitura}" styleClass="ui-icon ui-icon-closethick" update="gridProcedimentosAvClinica, :frmCadastroAvaliacaoClinica:growl">
+					<p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['label.confirmacaoExclusao']}" icon="ui-icon-alert" />
+				</p:commandLink>	
+			</p:panelGrid>
+		</p:column>
+	
+	</p:dataTable>
+	
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+		<p:commandButton value="#{msgs['label.confirmacaoSim']}" type="button"
+			styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+		<p:commandButton value="#{msgs['label.confirmacaoNao']}" type="button"
+			styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+	</p:confirmDialog>	
+		
+</ui:composition>

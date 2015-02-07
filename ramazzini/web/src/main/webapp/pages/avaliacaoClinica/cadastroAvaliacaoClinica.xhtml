@@ -27,7 +27,7 @@
 					<p:outputLabel value="#{msgs['label.procedimento']}: " for="procedimento" />
 					<p:selectOneMenu id="procedimento"
 						value="#{avaliacaoClinicaController.avaliacaoClinica.procedimento}"
-						converter="entityConverter" styleClass="nome50">
+						converter="entityConverter" styleClass="nome20">
 						<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
 							noSelectionOption="true" />
 						<f:selectItems value="#{combosDinamicos.procedimentosTipoExameClinicoOcupacional}" var="procedimento"
@@ -45,7 +45,7 @@
 		        		<ui:include src="includes/tabDadosCadastraisAvClinica.xhtml" />
 		        	</p:tab>
 		        	<p:tab title="#{msgs['label.procedimentos']}">
-		        		
+		        		<ui:include src="includes/tabProcedimentosAvClinica.xhtml" />
 		        	</p:tab>		        	
 				</p:tabView>
 				

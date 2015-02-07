@@ -16,6 +16,21 @@
 		]]>
 	</query>
 	
-
+	<query name="AvaliacaoClinica.recuperarProcedimentosPorAvaliacaoClinica">
+		<![CDATA[
+			select 
+				distinct(p)
+			from 
+				AvaliacaoClinica ac
+			right join
+				ac.procedimentos acp
+			inner join 
+				acp.procedimento p
+			where 
+				ac = :avaliacaoClinica
+			order 
+				by p.nome
+		]]>
+	</query>
 
 </hibernate-mapping>

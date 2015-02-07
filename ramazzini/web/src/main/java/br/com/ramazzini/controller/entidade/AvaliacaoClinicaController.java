@@ -23,6 +23,7 @@ public class AvaliacaoClinicaController extends AbstractBean implements Serializ
 	private static final String PAGINA_CADASTRO_AVALIACAO_CLINICA = "/pages/avaliacaoClinica/cadastroAvaliacaoClinica.jsf?faces-redirect=true";
 	
 	@Inject private AvaliacaoClinicaService avaliacaoClinicaService;
+	@Inject private AvaliacaoClinicaProcedimentoController avaliacaoClinicaProcedimentoController;
 	
 	private Date dataInicialSelecionada;
 	
@@ -68,6 +69,7 @@ public class AvaliacaoClinicaController extends AbstractBean implements Serializ
 
     	setAvaliacaoClinica(avaliacaoClinica);
     	setFuncionario(avaliacaoClinica.getFuncionario());
+    	avaliacaoClinicaProcedimentoController.setAvaliacaoClinica(avaliacaoClinica);
     	setSomenteLeitura(somenteLeitura);
     	setUriRequisicao(getControleAcesso().getUriRequisicao());
     	return PAGINA_CADASTRO_AVALIACAO_CLINICA;    	

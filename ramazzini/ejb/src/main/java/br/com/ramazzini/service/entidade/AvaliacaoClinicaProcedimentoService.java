@@ -20,21 +20,18 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 
-import br.com.ramazzini.dao.avaliacaoClinica.AvaliacaoClinicaDao;
+import br.com.ramazzini.dao.avaliacaoClinicaProcedimento.AvaliacaoClinicaProcedimentoDao;
 import br.com.ramazzini.model.avaliacaoClinica.AvaliacaoClinica;
-import br.com.ramazzini.model.funcionario.Funcionario;
-import br.com.ramazzini.model.procedimento.Procedimento;
+import br.com.ramazzini.model.avaliacaoClinicaProcedimento.AvaliacaoClinicaProcedimento;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
 
 // The @Stateless annotation eliminates the need for manual transaction demarcation
 @Stateless
-public class AvaliacaoClinicaService extends AbstractServiceImpl<AvaliacaoClinica> {
+public class AvaliacaoClinicaProcedimentoService extends AbstractServiceImpl<AvaliacaoClinicaProcedimento> {
 
-    public List<AvaliacaoClinica> recuperarPorFuncionario(Funcionario funcionario) {
-    	return (!funcionario.isNovo()) ? ((AvaliacaoClinicaDao) getDao()).recuperarPorFuncionario(funcionario) : null;
+    public List<AvaliacaoClinicaProcedimento> recuperarPorAvaliacaoClinica(AvaliacaoClinica avaliacaoClinica) {
+    	return (!avaliacaoClinica.isNovo()) ? 
+    		((AvaliacaoClinicaProcedimentoDao) getDao()).recuperarPorAvaliacaoClinica(avaliacaoClinica) : null;
     }	
-    
-    public List<Procedimento> recuperarProcedimentosPor(AvaliacaoClinica avaliacaoClinica) {
-    	return (!avaliacaoClinica.isNovo()) ? ((AvaliacaoClinicaDao) getDao()).recuperarProcedimentosPor(avaliacaoClinica) : null;
-    }  
+ 
 }
