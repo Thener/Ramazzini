@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui">
+   
+	<p:fieldset legend="#{msgs['label.pesquisa']}">
+		<h:panelGrid columns="6" cellpadding="5" id="panelGridAvClinFuncionario">
+		
+   			<p:outputLabel for="dataInicial" value="#{msgs['label.dataInicial']}" />
+   			<p:calendar id="dataInicial" value="#{avaliacaoClinicaController.dataInicialSelecionada}" 
+   				pattern="#{msgs['pattern.calendar']}" mask="true" styleClass="data" 
+   				required="false" locale="pt" showOn="button" />
+			
+   			<p:outputLabel for="dataFinal" value="#{msgs['label.dataFinal']}" />
+   			<p:calendar id="dataFinal" value="#{avaliacaoClinicaController.dataFinalSelecionada}" 
+   				pattern="#{msgs['pattern.calendar']}" mask="true" styleClass="data" 
+   				required="false" locale="pt" showOn="button" />
+   							
+			<p:commandButton action="#{avaliacaoClinicaController.pesquisar()}" 
+				icon="ui-icon-search" ajax="true" update="panelGridAvClinFuncionario, gridAvClinFuncionario" 
+				process="@this, panelGridAvClinFuncionario" 
+				disabled="#{funcionarioController.funcionario.novo}"/>
+			
+			<p:commandButton 
+				id="botaoIncluirAvClin" icon="ui-icon-circle-plus" value="#{msgs['botao.incluir']}"
+				action="#{avaliacaoClinicaController.incluirAvaliacaoClinica()}" ajax="false"
+				disabled="#{funcionarioController.somenteLeitura or funcionarioController.funcionario.novo}" />						
+			
+		</h:panelGrid>   
+	</p:fieldset>
+	
+	<p:spacer width="5px" />
+   
+	<p:dataTable var="avaliacaoClinica" value="#{avaliacaoClinicaController.avaliacoesClinicas}"
+		id="gridAvClinFuncionario" emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}"
+		paginator="true" paginatorPosition="bottom" rows="5">
+		
+		<f:facet name="header"> #{msgs['label.avaliacoesClinicas']} </f:facet>
+		
+		<p:column headerText="#{msgs['label.dataRealizacao']}" sortBy="#{avaliacaoClinica.dataRealizacao}" styleClass="colunaCentralizada">
+			<h:outputText value="#{avaliacaoClinica.dataRealizacao}">
+				<f:convertDateTime locale="pt,BR" pattern="#{msgs['pattern.calendar']}" />
+			</h:outputText>
+		</p:column>
+
+		<p:column headerText="#{msgs['label.acoes']}" styleClass="colunaAcoes">
+			<p:panelGrid columns="3">					  
+				<p:commandLink title="#{msgs['label.visualizar']}" action="#{avaliacaoClinicaController.visualizarAvaliacaoClinica(avaliacaoClinica)}"
+					styleClass="ui-icon ui-icon-search" />
+				<p:commandLink title="#{msgs['label.editar']}" action="#{avaliacaoClinicaController.alterarAvaliacaoClinica(avaliacaoClinica)}"
+					disabled="#{empresaController.somenteLeitura}" styleClass="ui-icon ui-icon-pencil" />
+				<p:commandLink title="#{msgs['label.excluir']}" action="#{avaliacaoClinicaController.removerAvaliacaoClinica(avaliacaoClinica)}"
+					disabled="#{empresaController.somenteLeitura}" styleClass="ui-icon ui-icon-closethick" update="gridAvClinFuncionario, :frmCadastroFuncionario:growl">
+					<p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['label.confirmacaoExclusao']}" icon="ui-icon-alert" />
+				</p:commandLink>	
+			</p:panelGrid>
+		</p:column>
+	
+	</p:dataTable>
+	
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+		<p:commandButton value="#{msgs['label.confirmacaoSim']}" type="button"
+			styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+		<p:commandButton value="#{msgs['label.confirmacaoNao']}" type="button"
+			styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+	</p:confirmDialog>	
+		
+</ui:composition>

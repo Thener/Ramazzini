@@ -16,7 +16,7 @@
 				<h:panelGrid columns="2" cellpadding="10">
 					
 					<p:outputLabel value="#{msgs['label.empresa']}:" />
-					<p:outputLabel value="#{responsavelController.empresa.nome}" />
+					<p:outputLabel value="#{responsavelController.empresa.nome}" styleClass="negrito"/>
 					
 				</h:panelGrid>
 				
@@ -38,12 +38,13 @@
         			<p:outputLabel for="dataInicio" value="#{msgs['label.dataInicial']}" />
         			<p:calendar id="dataInicio" value="#{responsavelController.responsavel.dataInicio}" 
         				pattern="#{msgs['pattern.calendar']}" mask="true" styleClass="data" 
-        				required="true" requiredMessage="#{msgs['required.data.obrigatoria']}" />
+        				required="true" requiredMessage="#{msgs['required.data.obrigatoria']}"
+        				locale="pt" showOn="button" />
 					
         			<p:outputLabel for="dataFim" value="#{msgs['label.dataFinal']}" />
         			<p:calendar id="dataFim" value="#{responsavelController.responsavel.dataFim}" 
         				pattern="#{msgs['pattern.calendar']}" mask="true" styleClass="data" 
-        				required="false"  />					
+        				required="false" locale="pt" showOn="button" />					
 				
 				</h:panelGrid>
 				

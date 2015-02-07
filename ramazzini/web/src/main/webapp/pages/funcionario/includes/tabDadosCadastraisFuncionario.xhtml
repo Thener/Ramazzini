@@ -9,7 +9,7 @@
 			
 		<p:outputLabel value="#{msgs['label.funcao']}:" />
 		<p:selectOneMenu id="funcaoFuncionario" value="#{funcionarioController.funcionario.funcao}"
-			converter="entityConverter">
+			converter="entityConverter" styleClass="nome50">
 			<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
 				noSelectionOption="true" />			
 			<f:selectItems value="#{combosDinamicos.getFuncoes(funcionarioController.empresa)}" var="funcao"
@@ -18,42 +18,35 @@
 						
 		<p:outputLabel for="lotacaoFuncionario" value="#{msgs['label.lotacao']}:" />
 		<p:selectOneMenu id="lotacaoFuncionario" value="#{funcionarioController.funcionario.lotacao}"
-			converter="entityConverter">
+			converter="entityConverter" styleClass="nome50">
 			<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
 				noSelectionOption="true" />			
 			<f:selectItems value="#{combosDinamicos.getLotacoes(funcionarioController.empresa)}" var="lotacao"
 				itemLabel="#{lotacao.nome}" itemValue="#{lotacao}" />
 		</p:selectOneMenu>
-		
+	
 		<p:outputLabel for="dataAdmissao" value="#{msgs['label.dataAdmissao']}" />
 		<p:calendar id="dataAdmissao" value="#{funcionarioController.funcionario.dataAdmissao}" 
 			pattern="#{msgs['pattern.calendar']}" mask="true" styleClass="data" 
-			required="false" />	
+			required="false" locale="pt" showOn="button" />	
 			
 		<p:outputLabel for="dataNascimento" value="#{msgs['label.dataNascimento']}" />
 		<p:calendar id="dataNascimento" value="#{funcionarioController.funcionario.dataNascimento}" 
 			pattern="#{msgs['pattern.calendar']}" mask="true" styleClass="data" 
-			required="false" />	
+			required="false" locale="pt" showOn="button" />	
 			
 		<p:outputLabel for="ctps" value="#{msgs['label.ctps']}:" />
 		<p:inputText id="ctps" value="#{funcionarioController.funcionario.ctps}" 
-			styleClass="nome10" maxlength="20" required="false" />
+			styleClass="nome20" maxlength="20" required="false" />
 				
 		<p:outputLabel for="nit" value="#{msgs['label.nit']}:" />
 		<p:inputText id="nit" value="#{funcionarioController.funcionario.nit}" 
-			styleClass="nome10" maxlength="20" required="false" />
+			styleClass="nome20" maxlength="20" required="false" />
 			
 		<p:outputLabel for="rg" value="#{msgs['label.rg']}:" />
 		<p:inputText id="rg" value="#{funcionarioController.funcionario.rg}" 
-			styleClass="nome10" maxlength="20" required="false" />
-			
-		<p:outputLabel for="sexo" value="#{msgs['label.sexo']}:" />
-		<p:selectOneMenu id="sexo"
-			value="#{funcionarioController.funcionario.sexo}">
-			<f:selectItems value="#{combosEstaticos.sexo}" var="sexo"
-				itemLabel="#{sexo.stringChave}" itemValue="#{sexo.value}" />
-		</p:selectOneMenu>
-				
+			styleClass="nome20" maxlength="20" required="false" />
+							
 	</h:panelGrid>
 		
 </ui:composition>

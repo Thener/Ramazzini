@@ -16,7 +16,7 @@
 				<h:panelGrid columns="2" cellpadding="10">
 					
 					<p:outputLabel value="#{msgs['label.empresa']}:" />
-					<p:outputLabel value="#{funcionarioController.empresa.nome}" />
+					<p:outputLabel value="#{funcionarioController.empresa.nome}" styleClass="negrito" />
 					
 				</h:panelGrid>
 				
@@ -28,6 +28,13 @@
 					<p:inputText id="nome" value="#{funcionarioController.funcionario.nome}" 
 						styleClass="nome100" maxlength="100" required="true" />
 						
+					<p:outputLabel for="sexo" value="#{msgs['label.sexo']}:" />
+					<p:selectOneMenu id="sexo"
+						value="#{funcionarioController.funcionario.sexo}">
+						<f:selectItems value="#{combosEstaticos.sexo}" var="sexo"
+							itemLabel="#{sexo.stringChave}" itemValue="#{sexo.value}" />
+					</p:selectOneMenu>
+								
 					<p:outputLabel for="situacaoFuncionario" value="#{msgs['label.situacao']}:" />
 					<p:selectOneMenu id="situacaoFuncionario"
 						value="#{funcionarioController.funcionario.situacaoFuncionario}">
@@ -37,10 +44,13 @@
 				
 				</h:panelGrid>
 				
-				<p:tabView id="tabViewCadastroFuncionario">
+				<p:tabView id="tabViewCadastroFuncionario" activeIndex="#{funcionarioController.tabActiveIndex}">
 		        	<p:tab title="#{msgs['label.dadosCadastrais']}">
 		        		<ui:include src="includes/tabDadosCadastraisFuncionario.xhtml" />
-		        	</p:tab>		        	
+		        	</p:tab>
+		        	<p:tab title="#{msgs['label.avaliacoesClinicas']}">
+		        		<ui:include src="includes/tabAvaliacoesClinicasFuncionario.xhtml" />
+		        	</p:tab>
 				</p:tabView>
 				
 			</p:panel>

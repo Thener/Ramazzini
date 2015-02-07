@@ -69,12 +69,18 @@ span.retornoMeses input {
 input.telefone {
 	width: 110px !important;	
 }
+
 textarea.tam100 {
 	width: 480px !important;
 }
+
 .exportpdf {  
     background-image: url("#{resource['img/icon/pdf_icon.png']}") !important; 
    	width: 16px;height: 16px;  
     float:left;  
     margin-right: 8px; 
+}
+
+.negrito {
+	font-weight: bold;
 } 

@@ -18,6 +18,7 @@ iReport Designer 5.6.0
 - Ainda em "Window > Preferences", pesquise por "Server > Runtime Environments" e clique no botão para editar "Jboss7.1 Runtime"; Em seguida, mude a "Runtime JRE" para "JavaSE-1.7"
 - Ajuste o module.xml do postgre no jboss (jboss-as-7.1.1.Final\modules\org\postgresql\main) copiando o arquivo "postgresql-9.3-1102-jdbc41.jar" e acertando o xml.
 - Ajuste o standalone.xml em (jboss-as-7.1.1.Final\standalone\configuration), acrescentado as configurações do driver do postgresql. 
+- Ainda no standalone.xml, altere para "true" o parametro "native" na linha: <subsystem xmlns="urn:jboss:domain:web:1.1" default-virtual-server="default-host" native="true"> 
 - Abra o pgAdmin e crie a base do sistema (ramazzini)
 - rode o projeto para criação das tabelas (caso o banco não seja criado, verifique o arquivo persistence.xml, a opção: <property name="hibernate.hbm2ddl.auto" value="validate" />
 - Após a instalação do ireport, configurar a JDK 1.7 no arquivo C:\Program Files (x86)\Jaspersoft\iReport-5.6.0\etc\ireport.conf . Adicionar a linha jdkhome="C:\Program Files\Java\jdk1.7.0_71"  

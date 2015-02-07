@@ -22,11 +22,8 @@ public class FuncaoController extends AbstractBean implements Serializable {
 	
 	private static final String PAGINA_CADASTRO_FUNCAO = "/pages/funcao/cadastroFuncao.jsf?faces-redirect=true";
 	
-    @Inject
-    private FuncaoService funcaoService; 
-    
-    @Inject
-    private FuncaoProcedimentoController funcaoProcedimentoController;    
+    @Inject private FuncaoService funcaoService; 
+    @Inject private FuncaoProcedimentoController funcaoProcedimentoController;    
     
     private List<Funcao> funcoes;
     

@@ -32,6 +32,8 @@ public class FuncionarioController extends AbstractBean implements Serializable 
     
     private String nomeFuncionarioPesquisa;
     
+    private Integer tabAtiva;
+    
 	public String incluirFuncionario() {
 		
 		funcionario = new Funcionario();
@@ -128,5 +130,13 @@ public class FuncionarioController extends AbstractBean implements Serializable 
 	public void setNomeFuncionarioPesquisa(String nomeFuncionarioPesquisa) {
 		this.nomeFuncionarioPesquisa = nomeFuncionarioPesquisa;
 	}
+	
+	public Integer getTabActiveIndex() {
+        return tabAtiva;
+    }
+
+    public void setTabActiveIndex(Integer tabActiveIndex) {
+        this.tabAtiva = tabActiveIndex;
+    }	
 
 }
