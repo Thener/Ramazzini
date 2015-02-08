@@ -1,6 +1,7 @@
 package br.com.ramazzini.controller.agenda;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,7 +15,9 @@ import br.com.ramazzini.model.funcao.Funcao;
 import br.com.ramazzini.model.funcionario.Funcionario;
 import br.com.ramazzini.model.procedimento.Procedimento;
 import br.com.ramazzini.model.procedimento.TipoExameClinico;
+import br.com.ramazzini.service.entidade.AvaliacaoClinicaProcedimentoService;
 import br.com.ramazzini.service.entidade.FuncaoProcedimentoService;
+import br.com.ramazzini.service.entidade.FuncaoService;
 import br.com.ramazzini.util.TimeFactory;
 import br.com.ramazzini.util.UtilMensagens;
 
@@ -26,7 +29,9 @@ public class AnaliseEmissaoDocumentosController extends AbstractBean implements 
 	
 	private static final String PAGINA_ANALISE_EMISSAO_DOCUMENTOS = "/pages/agenda/analiseEmissaoDocumentos.jsf?faces-redirect=true";
 	
+	@Inject private FuncaoService funcaoService;
 	@Inject private FuncaoProcedimentoService funcaoProcedimentoService;
+	@Inject private AvaliacaoClinicaProcedimentoService avaliacaoClinicaProcedimentoService;
 	
 	private Empresa empresaSelecionada;
 	
@@ -77,22 +82,53 @@ public class AnaliseEmissaoDocumentosController extends AbstractBean implements 
 	
 	private void analiseAdmissioal() {
 	
-		if (funcaoRealizaProcedimentos(funcaoSelecionada, TipoExameClinico.ADMISSIONAL)) {
+		if (funcaoRealizaProcedimentos(funcaoSelecionada, procedimentoSelecionado.getTipoExameClinicoEnum())) {
 			setEmissaoPedidoExame(Boolean.TRUE);
-			setProcedimentosParaPedidoExame(procedimentosRealizadosPelaFuncao(funcaoSelecionada, TipoExameClinico.ADMISSIONAL));
+			setProcedimentosParaPedidoExame(procedimentosRealizadosPelaFuncao(
+					funcaoSelecionada, procedimentoSelecionado.getTipoExameClinicoEnum()));
 		} else {
 			setEmissaoAso(Boolean.TRUE);
 		}
+		
+		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.analiseRealizada", 
+				procedimentoSelecionado.getTipoExameClinicoEnum().getChave());
 	}
 	
 	private void analisePeriodicoDemissionalRetornoTrabalho() {
-		emissaoAso = Boolean.FALSE;
-		emissaoPedidoExame = Boolean.FALSE;
+		
+		if (funcaoRealizaProcedimentos(funcaoSelecionada, procedimentoSelecionado.getTipoExameClinicoEnum())) {
+			List<Procedimento> procedimentosVencidos = procedimentosVencidosDaFuncao(funcaoSelecionada);
+			if (procedimentosVencidos.size() > 0) {
+				setEmissaoPedidoExame(Boolean.TRUE);
+				setProcedimentosParaPedidoExame(procedimentosVencidos);
+			} else {
+				setEmissaoAso(Boolean.TRUE);
+			}
+		} else {
+			setEmissaoAso(Boolean.TRUE);
+		}
+		
+		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.analiseRealizada", 
+				procedimentoSelecionado.getTipoExameClinicoEnum().getChave());
 	}
 	
 	private void analiseMudancaFuncao() {
 		emissaoAso = Boolean.FALSE;
-		emissaoPedidoExame = Boolean.FALSE;		
+		emissaoPedidoExame = Boolean.FALSE;	
+		
+		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.analiseRealizada", 
+				procedimentoSelecionado.getTipoExameClinicoEnum().getChave());		
+	}
+	
+	private List<Procedimento> procedimentosVencidosDaFuncao(Funcao funcao) {
+		List<Procedimento> procedimentos = funcaoService.recuperarProcedimentosPor(funcao);
+		List<Procedimento> procedimentosVencidos = new ArrayList<Procedimento>();
+		for (Procedimento p : procedimentos) {
+			if (!avaliacaoClinicaProcedimentoService.verificaValidadeDoProcedimento(funcionarioSelecionado, p, dataReferencia)) {
+				procedimentosVencidos.add(p);
+			}
+		}
+		return procedimentosVencidos;
 	}
 	
 	private boolean funcaoRealizaProcedimentos(Funcao funcao, TipoExameClinico tipoExameClinico) {

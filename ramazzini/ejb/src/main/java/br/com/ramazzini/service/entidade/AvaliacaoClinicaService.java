@@ -36,5 +36,9 @@ public class AvaliacaoClinicaService extends AbstractServiceImpl<AvaliacaoClinic
     
     public List<Procedimento> recuperarProcedimentosPor(AvaliacaoClinica avaliacaoClinica) {
     	return (!avaliacaoClinica.isNovo()) ? ((AvaliacaoClinicaDao) getDao()).recuperarProcedimentosPor(avaliacaoClinica) : null;
-    }  
+    }
+    
+    public AvaliacaoClinica recuperarUltimaValidaPorFuncionario(Funcionario funcionario) {
+    	return (!funcionario.isNovo()) ? ((AvaliacaoClinicaDao) getDao()).recuperarUltimaValidaPorFuncionario(funcionario) : null;
+    }    
 }

@@ -9,7 +9,6 @@ import br.com.ramazzini.dao.util.AbstractDao;
 import br.com.ramazzini.model.procedimento.Procedimento;
 import br.com.ramazzini.model.procedimento.TipoExameClinico;
 import br.com.ramazzini.model.procedimento.TipoProcedimento;
-import br.com.ramazzini.model.tela.Tela;
 
 
 public class ProcedimentoDao extends AbstractDao<Procedimento> {

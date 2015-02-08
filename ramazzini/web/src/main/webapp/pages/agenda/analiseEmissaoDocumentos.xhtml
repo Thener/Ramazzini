@@ -94,8 +94,8 @@
 		   				
 		   				<ui:include src="includes/emissaoAso.xhtml" />
 		   				
-		   			</h:panelGroup>		   			
-		   		
+		   			</h:panelGroup>
+
 		   		</p:panel>
 
 	   		</p:panel>
@@ -106,10 +106,15 @@
 						icon="ui-icon-arrowreturnthick-1-w" title="#{msgs['botao.voltar']}"
 						action="#{analiseEmissaoDocumentosController.voltar()}">
 					</p:commandButton>
+					<p:commandButton id="botaoLog" onclick="PF('dialogLog').show();"
+						icon="ui-icon-check" value="#{msgs['botao.log']}"
+						update=":frmLog" />
 				</f:facet>
 			</p:toolbar>
 		
 		</h:form>
+		
+		<ui:include src="includes/dialogLog.xhtml" />
 			   		
 	</ui:define>
 	

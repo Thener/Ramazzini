@@ -16,6 +16,7 @@ public class AvaliacaoClinicaDao extends AbstractDao<AvaliacaoClinica> {
 	private static final String QUERY_RECUPERAR_POR_FUNCIONARIO = "AvaliacaoClinica.recuperarPorFuncionario";
 	private static final String QUERY_RECUPERAR_PROCEDIMENTOS_POR_AVALIACAO_CLINICA = 
 		"AvaliacaoClinica.recuperarProcedimentosPorAvaliacaoClinica";
+	private static final String QUERY_RECUPERAR_ULTIMA_VALIDA_POR_FUNCIONARIO = "AvaliacaoClinica.recuperarUltimaValidaPorFuncionario";
 	
 	@SuppressWarnings("unchecked")
 	public List<AvaliacaoClinica> recuperarPorFuncionario(Funcionario funcionario) {
@@ -37,5 +38,16 @@ public class AvaliacaoClinicaDao extends AbstractDao<AvaliacaoClinica> {
 		} catch (NoResultException nr) {
 			return null;
 		}
-	}		
+	}
+	
+	public AvaliacaoClinica recuperarUltimaValidaPorFuncionario(Funcionario funcionario) {
+		Query query = createNamedQuery(QUERY_RECUPERAR_ULTIMA_VALIDA_POR_FUNCIONARIO);
+		query.setParameter("funcionario", funcionario);
+		query.setMaxResults(1);
+		try {
+			return (AvaliacaoClinica) query.getSingleResult();
+		} catch (NoResultException nr) {
+			return null;
+		}
+	}	
 }

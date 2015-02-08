@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui">
+      
+	<p:dialog header="#{msgs['label.ramazzini']}" widgetVar="dialogLog" 
+		modal="true" height="340" width="550" resizable="false">
+		
+		<h:form id="frmLog">
+
+			<p:panel header="#{msgs['label.log']}" style="min-height:290px;">
+			
+			
+			</p:panel>
+			
+			<p:toolbar>
+				<f:facet name="left">
+				   	<p:commandButton title="#{msgs['botao.voltar']}" type="button" 
+				   		 icon="ui-icon-arrowreturnthick-1-w" onclick="PF('dialogLog').hide();"/>							
+				</f:facet>				
+			</p:toolbar>
+			
+		</h:form>		
+	    
+	</p:dialog>	
+		
+</ui:composition>

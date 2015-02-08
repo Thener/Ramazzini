@@ -1,7 +1,6 @@
 package br.com.ramazzini.dao.funcionario;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -18,7 +17,6 @@ import br.com.ramazzini.dao.util.AbstractDao;
 import br.com.ramazzini.model.empresa.Empresa;
 import br.com.ramazzini.model.funcao.Funcao;
 import br.com.ramazzini.model.funcionario.Funcionario;
-import br.com.ramazzini.model.funcionario.SituacaoFuncionario;
 
 
 public class FuncionarioDao extends AbstractDao<Funcionario> {

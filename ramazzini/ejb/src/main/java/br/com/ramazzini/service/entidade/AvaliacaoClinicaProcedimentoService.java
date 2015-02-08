@@ -16,6 +16,7 @@
  */
 package br.com.ramazzini.service.entidade;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -23,6 +24,7 @@ import javax.ejb.Stateless;
 import br.com.ramazzini.dao.avaliacaoClinicaProcedimento.AvaliacaoClinicaProcedimentoDao;
 import br.com.ramazzini.model.avaliacaoClinica.AvaliacaoClinica;
 import br.com.ramazzini.model.avaliacaoClinicaProcedimento.AvaliacaoClinicaProcedimento;
+import br.com.ramazzini.model.funcionario.Funcionario;
 import br.com.ramazzini.model.procedimento.Procedimento;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
 
@@ -38,5 +40,10 @@ public class AvaliacaoClinicaProcedimentoService extends AbstractServiceImpl<Ava
     public List<AvaliacaoClinicaProcedimento> recuperarPorProcedimento(AvaliacaoClinica avaliacaoClinica, Procedimento procedimento) {
     	return (!avaliacaoClinica.isNovo()) ? 
     		((AvaliacaoClinicaProcedimentoDao) getDao()).recuperarPorProcedimento(avaliacaoClinica, procedimento) : null;
+    }
+    
+    public boolean verificaValidadeDoProcedimento(Funcionario funcionario, Procedimento procedimento, Date dataReferencia) {
+    	return (!funcionario.isNovo()) ? 
+    		((AvaliacaoClinicaProcedimentoDao) getDao()).verificaValidadeDoProcedimento(funcionario, procedimento, dataReferencia) : null;
     }    
 }

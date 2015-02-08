@@ -32,5 +32,20 @@
 				by p.nome
 		]]>
 	</query>
+	
+	<query name="AvaliacaoClinica.recuperarUltimaValidaPorFuncionario">
+		<![CDATA[
+			select 
+				ac
+			from 
+				AvaliacaoClinica ac
+			where 
+				ac.funcionario = :funcionario
+			and
+				ac.situacaoAvaliacaoClinica in ('APT', 'ACR', 'AIT')
+			order 
+				by ac.dataRealizacao desc
+		]]>
+	</query>	
 
 </hibernate-mapping>

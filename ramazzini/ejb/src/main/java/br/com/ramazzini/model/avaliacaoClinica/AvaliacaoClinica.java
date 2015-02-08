@@ -75,6 +75,7 @@ public class AvaliacaoClinica extends AbstractEntidade implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name="cd_funcao_atual")
+	@NotNull
 	private Funcao funcaoAtual;	
 	
     @Column(name = "te_anamnese", columnDefinition="TEXT")

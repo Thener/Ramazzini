@@ -24,7 +24,6 @@ import br.com.ramazzini.dao.funcionario.FuncionarioDao;
 import br.com.ramazzini.model.empresa.Empresa;
 import br.com.ramazzini.model.funcao.Funcao;
 import br.com.ramazzini.model.funcionario.Funcionario;
-import br.com.ramazzini.model.funcionario.SituacaoFuncionario;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
 
 

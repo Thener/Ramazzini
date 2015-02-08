@@ -31,4 +31,25 @@
 		]]>
 	</query>
 	
+	<query name="AvaliacaoClinicaProcedimento.verificaValidadeProcedimento">
+		<![CDATA[
+			select 
+				acp
+			from 
+				AvaliacaoClinicaProcedimento acp
+			inner join 
+				acp.avaliacaoClinica ac
+			where 
+				ac.funcionario = :funcionario
+			and
+				acp.procedimento = :procedimento
+			and
+				acp.dataRetorno > :dataReferencia
+			and
+				acp.resultadoProcedimento <> 'SOL'
+			order 
+				by ac, acp.dataRetorno desc 
+		]]>
+	</query>	
+	
 </hibernate-mapping>
