@@ -48,20 +48,23 @@
 					<p:outputLabel for="resultadoProcedimento" value="#{msgs['label.resultado']}:" />
 					<p:selectOneMenu id="resultadoProcedimento"
 						value="#{avaliacaoClinicaProcedimentoController.avaliacaoClinicaProcedimento.resultadoProcedimento}">
-						<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
-							noSelectionOption="true" />							
 						<f:selectItems value="#{combosEstaticos.resultadosProcedimento}" var="resultadoProcedimento"
 							itemLabel="#{resultadoProcedimento.stringChave}" itemValue="#{resultadoProcedimento.value}" />
+						<f:ajax render="tipoAlteracaoProcedimento" />
 					</p:selectOneMenu>
 					
 					<p:outputLabel for="tipoAlteracaoProcedimento" value="#{msgs['label.tipoAlteracao']}:" />
-					<p:selectOneMenu id="tipoAlteracaoProcedimento"
-						value="#{avaliacaoClinicaProcedimentoController.avaliacaoClinicaProcedimento.tipoAlteracaoProcedimento}">
-						<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
-							noSelectionOption="true" />							
-						<f:selectItems value="#{combosEstaticos.tiposAlteracaoProcedimento}" var="tipoAlteracao"
-							itemLabel="#{tipoAlteracao.stringChave}" itemValue="#{tipoAlteracao.value}" />
-					</p:selectOneMenu>
+					<h:panelGroup id="pnltipoAlteracaoProcedimento">
+						<p:selectOneMenu id="tipoAlteracaoProcedimento"
+							value="#{avaliacaoClinicaProcedimentoController.avaliacaoClinicaProcedimento.tipoAlteracaoProcedimento}"
+							disabled="#{avaliacaoClinicaProcedimentoController.avaliacaoClinicaProcedimento.resultadoProcedimento == 'NOR'
+							or avaliacaoClinicaProcedimentoController.avaliacaoClinicaProcedimento.resultadoProcedimento == 'SOL'}">
+							<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
+								noSelectionOption="true" />							
+							<f:selectItems value="#{combosEstaticos.tiposAlteracaoProcedimento}" var="tipoAlteracao"
+								itemLabel="#{tipoAlteracao.stringChave}" itemValue="#{tipoAlteracao.value}" />
+						</p:selectOneMenu>
+					</h:panelGroup>
 				
 				</h:panelGrid>
 				

@@ -15,6 +15,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -23,6 +24,7 @@ import br.com.ramazzini.model.empresa.Empresa;
 import br.com.ramazzini.model.funcao.Funcao;
 import br.com.ramazzini.model.lotacao.Lotacao;
 import br.com.ramazzini.model.util.AbstractEntidade;
+import br.com.ramazzini.util.TimeFactory;
 
 @SequenceGenerator(name = "seq_funcionario", sequenceName = "seq_funcionario", allocationSize = 1)
 @Entity
@@ -60,6 +62,7 @@ public class Funcionario extends AbstractEntidade implements Serializable {
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name = "dt_nascimento", columnDefinition = "Date")
+	@NotNull
 	private Date dataNascimento;	
 	
 	@Column(name = "no_ctps", length = 20)
@@ -78,6 +81,12 @@ public class Funcionario extends AbstractEntidade implements Serializable {
 	@Column(name = "st_funcionario", length = 2)
     @NotNull 
     private String situacaoFuncionario = SituacaoFuncionario.ATIVO.getValue();
+	
+	@Transient
+	private Integer idade;
+	
+	@Transient
+	private String idadeTexto;
 	
 	public Long getId() {
 		return id;
@@ -185,5 +194,19 @@ public class Funcionario extends AbstractEntidade implements Serializable {
 
 	public void setSituacaoFuncionarioEnum(SituacaoFuncionario situacaoFuncionario) {
 		setSituacaoFuncionario(situacaoFuncionario.getValue());
-	}		
+	}
+	
+	public Integer getIdade() {
+		if (dataNascimento != null) {
+			idade = TimeFactory.calcularIdade(dataNascimento);
+		}
+		return idade;
+	}
+
+	public String getIdadeTexto() {
+		if (dataNascimento != null) {
+			idadeTexto = getIdade() + " ano(s)";
+		}
+		return idadeTexto;
+	}	
 }

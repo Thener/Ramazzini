@@ -31,10 +31,15 @@
 			required="false" locale="pt" showOn="button" />	
 			
 		<p:outputLabel for="dataNascimento" value="#{msgs['label.dataNascimento']}" />
-		<p:calendar id="dataNascimento" value="#{funcionarioController.funcionario.dataNascimento}" 
-			pattern="#{msgs['pattern.calendar']}" mask="true" styleClass="data" 
-			required="false" locale="pt" showOn="button" />	
-			
+		<h:column>
+			<p:calendar id="dataNascimento" value="#{funcionarioController.funcionario.dataNascimento}" 
+				pattern="#{msgs['pattern.calendar']}" mask="true" styleClass="data" 
+				required="false" locale="pt" showOn="button">
+				<f:ajax render="idadeFuncionario" />
+			</p:calendar>	
+			<p:outputLabel id="idadeFuncionario" value="#{funcionarioController.idadeFuncionario}" style="padding-left:10px;" />
+		</h:column>
+		
 		<p:outputLabel for="ctps" value="#{msgs['label.ctps']}:" />
 		<p:inputText id="ctps" value="#{funcionarioController.funcionario.ctps}" 
 			styleClass="nome20" maxlength="20" required="false" />

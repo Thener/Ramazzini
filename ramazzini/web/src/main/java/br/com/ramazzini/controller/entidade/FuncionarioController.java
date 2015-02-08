@@ -38,7 +38,6 @@ public class FuncionarioController extends AbstractBean implements Serializable 
 		
 		funcionario = new Funcionario();
 		funcionario.setEmpresa(empresa);
-		setTabActiveIndex(0);
 		return cadatroFuncionario(funcionario, Boolean.FALSE);
 	}
 	    
@@ -69,6 +68,7 @@ public class FuncionarioController extends AbstractBean implements Serializable 
     	avaliacaoClinicaController.setFuncionario(funcionario);
     	setSomenteLeitura(somenteLeitura);
     	setUriRequisicao(getControleAcesso().getUriRequisicao());
+    	setTabActiveIndex(0);
     	return PAGINA_CADASTRO_FUNCIONARIO;    	
     }
     
@@ -145,6 +145,9 @@ public class FuncionarioController extends AbstractBean implements Serializable 
 
     public void setTabActiveIndex(Integer tabActiveIndex) {
         this.tabAtiva = tabActiveIndex;
-    }	
+    }
 
+	public String getIdadeFuncionario() {
+		return funcionario.getIdadeTexto();
+	}
 }

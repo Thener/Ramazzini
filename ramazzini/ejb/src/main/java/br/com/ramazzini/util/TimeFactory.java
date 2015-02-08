@@ -6,15 +6,23 @@ import java.util.Date;
 
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+import org.joda.time.LocalDate;
+import org.joda.time.Years;
 
 import br.com.ramazzini.model.horarioAtendimento.DiaSemana;
 
 public final class TimeFactory {
 
-	/**
-	 * Retorna a data corrente.
-	 * @return 
-	 */
+	public static int calcularIdade(Date dn) {
+		LocalDate hoje = new LocalDate();
+	    String[] dt = converterDataEmTexto(dn).split("/");
+	    int dia = Integer.parseInt(dt[0]);
+	    int mes = Integer.parseInt(dt[1]);
+	    int ano = Integer.parseInt(dt[2]);
+	    LocalDate dataNasc = new LocalDate(ano, mes, dia);
+		return Years.yearsBetween(dataNasc, hoje).getYears();
+	}
+	
 	public static Date createDataHora() {
 		long time = System.currentTimeMillis();		
 		DateTime date = new DateTime(time);

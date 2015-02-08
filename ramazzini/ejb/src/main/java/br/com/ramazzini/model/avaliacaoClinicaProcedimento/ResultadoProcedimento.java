@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 public enum ResultadoProcedimento {
 
+	SOLICITADO("SOL","resultadoProcedimento.Solicitado"), 
 	NORMAL("NOR","resultadoProcedimento.Normal"), 
     ALTERACAO("ALT","resultadoProcedimento.Alteracao"), 
     ALTERACAO_ESTAVEL("AES", "resultadoProcedimento.AlteracaoEstavel"),

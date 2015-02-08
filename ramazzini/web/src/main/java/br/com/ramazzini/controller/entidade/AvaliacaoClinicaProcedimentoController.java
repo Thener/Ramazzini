@@ -71,14 +71,9 @@ public class AvaliacaoClinicaProcedimentoController extends AbstractBean impleme
     
 	public String gravarAvaliacaoClinicaProcedimento() {
 
-		boolean inclusao = avaliacaoClinicaProcedimento.isNovo();
 		avaliacaoClinicaProcedimentoService.salvar(avaliacaoClinicaProcedimento);
-		if (inclusao) {
-			return "";
-		} else {
-			pesquisar();
-			return voltar();
-		}
+		pesquisar();
+		return voltar();		
 		
 	}
     

@@ -46,7 +46,6 @@ public class AvaliacaoClinicaProcedimento extends AbstractEntidade implements Se
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name = "dt_realizacao", columnDefinition = "Date")
-	@NotNull
 	private Date dataRealizacao;
 	
 	@Temporal(TemporalType.DATE)
@@ -54,7 +53,7 @@ public class AvaliacaoClinicaProcedimento extends AbstractEntidade implements Se
 	private Date dataRetorno;
 	
 	@Column(name = "ic_resultado_procedimento", length = 3)
-    private String resultadoProcedimento;
+    private String resultadoProcedimento = ResultadoProcedimento.SOLICITADO.getValue();
 	
 	@Column(name = "tp_alteracao", length = 3)
     private String tipoAlteracaoProcedimento;
