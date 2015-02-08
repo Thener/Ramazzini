@@ -9,14 +9,14 @@
 	<h:panelGrid columns="2" cellpadding="5">
 	
 		<h:outputLabel value="#{msgs['label.emissao']}:" />
-		<h:outputLabel value="#{msgs['label.pedidoExame']}" />
+		<h:outputLabel value="#{msgs['label.pedidoExame']}" styleClass="negrito" />
 		
 		<h:outputLabel value="#{msgs['label.funcao']}:" />
 		<h:outputLabel value="#{analiseEmissaoDocumentosController.funcaoSelecionada.nome}" />		
 		
 		<p:outputLabel value="#{msgs['label.procedimento']}: " for="procedimentoParaPedidoExame" />
 		<p:selectOneMenu id="procedimentoParaPedidoExame"
-			value="#{analiseEmissaoDocumentosController.funcaoSelecionada}"
+			value="#{analiseEmissaoDocumentosController.procedimetoParaPedidoExame}"
 			converter="entityConverter" styleClass="nome50">
 			<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
 				noSelectionOption="true" />

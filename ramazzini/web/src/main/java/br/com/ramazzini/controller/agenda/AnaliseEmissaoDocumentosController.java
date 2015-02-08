@@ -36,6 +36,8 @@ public class AnaliseEmissaoDocumentosController extends AbstractBean implements 
 	
 	private List<Procedimento> procedimentosParaPedidoExame;
 	
+	private Procedimento procedimetoParaPedidoExame;
+	
 	private Funcao funcaoSelecionada;
 	
 	private Date dataReferencia;
@@ -172,7 +174,14 @@ public class AnaliseEmissaoDocumentosController extends AbstractBean implements 
 			List<Procedimento> procedimentosParaPedidoExame) {
 		this.procedimentosParaPedidoExame = procedimentosParaPedidoExame;
 	}
-	
-	
+
+	public Procedimento getProcedimetoParaPedidoExame() {
+		return procedimetoParaPedidoExame;
+	}
+
+	public void setProcedimetoParaPedidoExame(
+			Procedimento procedimetoParaPedidoExame) {
+		this.procedimetoParaPedidoExame = procedimetoParaPedidoExame;
+	}
 	
 }
