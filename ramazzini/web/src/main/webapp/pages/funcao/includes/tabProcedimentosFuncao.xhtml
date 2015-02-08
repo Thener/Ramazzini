@@ -42,6 +42,42 @@
 			sortBy="#{funcaoProcedimento.procedimento.nome}" >
 			<h:outputText value="#{funcaoProcedimento.procedimento.nome}" />
 		</p:column>
+		
+		<p:column headerText="#{msgs['abreviacao.admissional']}" styleClass="colunaCentralizada">
+			<p:selectBooleanCheckbox value="#{funcaoProcedimento.realizaAdmissional}" disabled="true" />
+		</p:column>	
+		
+		<p:column headerText="#{msgs['label.retorno']}" styleClass="colunaCentralizada">
+			<h:outputText value="#{funcaoProcedimento.retornoAdmissional}" />
+		</p:column>	
+		
+		<p:column headerText="#{msgs['abreviacao.periodico']}" styleClass="colunaCentralizada">
+			<p:selectBooleanCheckbox value="#{funcaoProcedimento.realizaPeriodico}" disabled="true" />
+		</p:column>
+		
+		<p:column headerText="#{msgs['label.retorno']}" styleClass="colunaCentralizada">
+			<h:outputText value="#{funcaoProcedimento.retornoPeriodico}" />
+		</p:column>	
+		
+		<p:column headerText="#{msgs['abreviacao.mudancaFuncao']}" styleClass="colunaCentralizada">
+			<p:selectBooleanCheckbox value="#{funcaoProcedimento.realizaMudancaFuncao}" disabled="true" />
+		</p:column>		
+		
+		<p:column headerText="#{msgs['label.retorno']}" styleClass="colunaCentralizada">
+			<h:outputText value="#{funcaoProcedimento.retornoMudancaFuncao}" />
+		</p:column>			
+		
+		<p:column headerText="#{msgs['abreviacao.retornoTrabalho']}" styleClass="colunaCentralizada">
+			<p:selectBooleanCheckbox value="#{funcaoProcedimento.realizaRetornoTrabalho}" disabled="true" />
+		</p:column>	
+		
+		<p:column headerText="#{msgs['label.retorno']}" styleClass="colunaCentralizada">
+			<h:outputText value="#{funcaoProcedimento.retornoRetornoTrabalho}" />
+		</p:column>				
+		
+		<p:column headerText="#{msgs['abreviacao.demissional']}" styleClass="colunaCentralizada">
+			<p:selectBooleanCheckbox value="#{funcaoProcedimento.realizaDemissional}" disabled="true" />
+		</p:column>	
 			
 		<p:column headerText="#{msgs['label.acoes']}" styleClass="colunaAcoes">
 			<p:panelGrid columns="3">					  

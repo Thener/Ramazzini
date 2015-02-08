@@ -49,6 +49,17 @@
 								itemLabel="#{procedimento.nome}" />
 						</p:selectOneMenu>
 						
+						<p:outputLabel value="#{msgs['label.funcao']}: " for="funcaoSelecionada" />
+						<p:selectOneMenu id="funcaoSelecionada"
+							value="#{analiseEmissaoDocumentosController.funcaoSelecionada}"
+							converter="entityConverter" styleClass="nome50">
+							<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems value="#{combosDinamicos.funcoes}" 
+								var="funcao" itemLabel="#{funcao.nome}" />
+							<f:attribute name="empresaSelecionada" value="#{analiseEmissaoDocumentosController.empresaSelecionada}" />
+						</p:selectOneMenu>						
+						
 		       			<p:outputLabel for="dataReferencia" value="#{msgs['label.dataReferencia']}" />
 		       			<p:calendar locale="pt" id="dataReferencia" value="#{analiseEmissaoDocumentosController.dataReferencia}" 
 		       				pattern="#{msgs['pattern.calendar']}" mask="true" styleClass="data" required="false" showOn="button">
@@ -62,29 +73,31 @@
 						id="botaoAtualizarAgenda" icon="ui-icon-circle-triangle-e" 
 						value="#{msgs['botao.analisar']}"
 						actionListener="#{analiseEmissaoDocumentosController.analisar()}"
-						update="frmAnaliseEmissaoDocumentos, :messages" />		       		
+						update="panelEmissaoDocumentos, :messages" />		       		
 		       		
 	   			</p:fieldset>
 	   			
 	   			<p:spacer width="8px" />
 	   			
-		   		<p:panel id="panelAnaliseAdmissional" header="#{msgs['label.analiseExame']}: #{analiseEmissaoDocumentosController.procedimentoSelecionado.nome}"
-		   			rendered="#{analiseEmissaoDocumentosController.procedimentoSelecionado.tipoExameClinico == 'ADM'}">
+		   		<p:panel id="panelEmissaoDocumentos" 
+		   			header="#{msgs['label.analiseExame']}: #{analiseEmissaoDocumentosController.procedimentoSelecionado.nome}">
+		   			
+		   			<h:panelGroup id="pnlGroupEmissaoPedidoExame"
+		   				rendered="#{analiseEmissaoDocumentosController.emissaoPedidoExame == true}">
+		   				
+		   				<ui:include src="includes/emissaoPedidoExame.xhtml" />
+		   				
+		   			</h:panelGroup>
+		   			
+		   			<h:panelGroup id="pnlGroupEmissaoAso"
+		   				rendered="#{analiseEmissaoDocumentosController.emissaoAso == true}">
+		   				
+		   				<ui:include src="includes/emissaoAso.xhtml" />
+		   				
+		   			</h:panelGroup>		   			
 		   		
 		   		</p:panel>
-		   		
-		   		<p:panel id="panelAnaliseMudancaFuncao" header="#{msgs['label.analiseExame']}: #{analiseEmissaoDocumentosController.procedimentoSelecionado.nome}"
-		   			rendered="#{analiseEmissaoDocumentosController.procedimentoSelecionado.tipoExameClinico == 'MUD'}">
-		   		
-		   		</p:panel>
-		   		
-		   		<p:panel id="panelAnaliseOutros" header="#{msgs['label.analiseExame']}: #{analiseEmissaoDocumentosController.procedimentoSelecionado.nome}"
-		   			rendered="#{analiseEmissaoDocumentosController.procedimentoSelecionado.tipoExameClinico == 'PER' 
-		   				or analiseEmissaoDocumentosController.procedimentoSelecionado.tipoExameClinico == 'RET'
-		   				or analiseEmissaoDocumentosController.procedimentoSelecionado.tipoExameClinico == 'DEM'}">
-		   		
-		   		</p:panel>	   			
-   			
+
 	   		</p:panel>
 	   		   		
 			<p:toolbar>

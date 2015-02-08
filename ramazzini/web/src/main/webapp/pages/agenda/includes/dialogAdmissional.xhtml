@@ -34,8 +34,9 @@
 						converter="entityConverter" styleClass="nome50">
 						<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
 							noSelectionOption="true" />			
-						<f:selectItems value="#{combosDinamicos.getFuncoes(marcacaoAgendaController.empresaSelecionada)}" 
+						<f:selectItems value="#{combosDinamicos.funcoes}" 
 							var="funcao" itemLabel="#{funcao.nome}" itemValue="#{funcao}" />
+						<f:attribute name="empresaSelecionada" value="#{marcacaoAgendaController.empresaSelecionada}" />
 					</p:selectOneMenu>
 									
 					<p:outputLabel for="lotacaoNovoFuncionario" value="#{msgs['label.lotacao']}:" />

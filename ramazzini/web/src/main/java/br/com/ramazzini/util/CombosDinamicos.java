@@ -3,6 +3,8 @@ package br.com.ramazzini.util;
 import java.util.Date;
 import java.util.List;
 
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -44,7 +46,9 @@ public class CombosDinamicos {
 		return cboService.recuperarTodos("numero");
 	}
 	
-	public List<Funcao> getFuncoes(Empresa empresa) {
+	public List<Funcao> getFuncoes() {
+		FacesContext context = FacesContext.getCurrentInstance();
+	    Empresa empresa = (Empresa) UIComponent.getCurrentComponent(context).getAttributes().get("empresaSelecionada");
 		return funcaoService.recuperarPorEmpresa(empresa);
 	}
 	

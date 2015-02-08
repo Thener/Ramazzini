@@ -16,6 +16,29 @@
 		]]>
 	</query>
 	
+	<query name="FuncaoProcedimento.recuperarProcedimentosDaFuncao">
+		<![CDATA[
+			select 
+				p
+			from 
+				FuncaoProcedimento fp
+			inner join
+				fp.procedimento p
+			where 
+				fp.funcao = :funcao
+			and
+				(
+					(fp.realizaAdmissional = true and :tipoExameClinico = 'ADM') or
+					(fp.realizaPeriodico = true and :tipoExameClinico = 'PER') or
+					(fp.realizaDemissional = true and :tipoExameClinico = 'DEM') or
+					(fp.realizaMudancaFuncao = true and :tipoExameClinico = 'MUD') or
+					(fp.realizaRetornoTrabalho = true and :tipoExameClinico = 'RET')
+				)
+			order 
+				by p.nome
+		]]>
+	</query>	
+	
 	<query name="FuncaoProcedimento.recuperarPorProcedimento">
 		<![CDATA[
 			select 

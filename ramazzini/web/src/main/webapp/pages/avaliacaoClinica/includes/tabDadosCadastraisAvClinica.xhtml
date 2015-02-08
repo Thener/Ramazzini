@@ -41,8 +41,9 @@
 			converter="entityConverter" styleClass="nome50">
 			<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
 				noSelectionOption="true" />			
-			<f:selectItems value="#{combosDinamicos.getFuncoes(avaliacaoClinicaController.funcionario.empresa)}" var="funcao"
+			<f:selectItems value="#{combosDinamicos.funcoes}" var="funcao"
 				itemLabel="#{funcao.nome}" itemValue="#{funcao}" />
+			<f:attribute name="empresaSelecionada" value="#{avaliacaoClinicaController.funcionario.empresa}" />
 		</p:selectOneMenu>	
 		
 		<p:outputLabel value="#{msgs['label.funcaoAtual']}:" />
@@ -50,8 +51,9 @@
 			converter="entityConverter" styleClass="nome50">
 			<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
 				noSelectionOption="true" />			
-			<f:selectItems value="#{combosDinamicos.getFuncoes(avaliacaoClinicaController.funcionario.empresa)}" var="funcao"
+			<f:selectItems value="#{combosDinamicos.funcoes}" var="funcao"
 				itemLabel="#{funcao.nome}" itemValue="#{funcao}" />
+			<f:attribute name="empresaSelecionada" value="#{avaliacaoClinicaController.funcionario.empresa}" />
 		</p:selectOneMenu>
 	       				
 	</h:panelGrid>

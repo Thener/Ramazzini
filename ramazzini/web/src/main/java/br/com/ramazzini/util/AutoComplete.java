@@ -28,34 +28,38 @@ public class AutoComplete {
     @Inject RiscoOcupacionalService riscoOcupacionalService;    
     
     public List<Credenciado> completeCredenciado(String query) {            
-        if (!query.isEmpty())
+        if (!query.isEmpty() && query.length() > 2)
         	return credenciadoService.recuperarPorNome(query);
         return null;
     }
     
     public List<Empresa> completeEmpresa(String query) {
-    	if (!query.isEmpty())
+    	if (!query.isEmpty() && query.length() > 2)
         	return empresaService.recuperarPorNome(query);
         return null;
     }
     
     public List<Funcionario> completeFuncionario(String nomeFuncionario) {
-    	if (!nomeFuncionario.isEmpty()) {
+    	if (!nomeFuncionario.isEmpty() && nomeFuncionario.length() > 2) {
     		FacesContext context = FacesContext.getCurrentInstance();
     	    Empresa empresa = (Empresa) UIComponent.getCurrentComponent(context).getAttributes().get("empresaSelecionada");
-        	return funcionarioService.recuperarPorNome(empresa, nomeFuncionario);
+    	    if (nomeFuncionario.equals("???")) {
+    	    	return funcionarioService.recuperarPorEmpresa(empresa);
+    	    } else {
+    	    	return funcionarioService.recuperarPorNome(empresa, nomeFuncionario);
+    	    }
     	}
         return null;
     }    
     
     public List<Procedimento> completeProcedimento(String query) {            
-        if (!query.isEmpty())
+        if (!query.isEmpty() && query.length() > 2)
         	return procedimentoService.recuperarPorNome(query);
         return null;
     }
         
     public List<RiscoOcupacional> completeRiscoOcupacional(String query) {            
-        if (!query.isEmpty())
+        if (!query.isEmpty() && query.length() > 2)
         	return riscoOcupacionalService.recuperarPorNome(query);
         return null;
     }    

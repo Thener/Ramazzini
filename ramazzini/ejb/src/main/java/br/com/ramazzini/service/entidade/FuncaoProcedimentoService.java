@@ -24,6 +24,7 @@ import br.com.ramazzini.dao.funcaoProcedimento.FuncaoProcedimentoDao;
 import br.com.ramazzini.model.funcao.Funcao;
 import br.com.ramazzini.model.funcaoProcedimento.FuncaoProcedimento;
 import br.com.ramazzini.model.procedimento.Procedimento;
+import br.com.ramazzini.model.procedimento.TipoExameClinico;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
 
 // The @Stateless annotation eliminates the need for manual transaction demarcation
@@ -33,6 +34,10 @@ public class FuncaoProcedimentoService extends AbstractServiceImpl<FuncaoProcedi
     public List<FuncaoProcedimento> recuperarPorFuncao(Funcao funcao) {
     	return (!funcao.isNovo()) ? ((FuncaoProcedimentoDao) getDao()).recuperarPorFuncao(funcao) : null;
     }	
+    
+    public List<Procedimento> recuperarProcedimentosDaFuncao(Funcao funcao, TipoExameClinico tipoExameClinico) {
+    	return (!funcao.isNovo()) ? ((FuncaoProcedimentoDao) getDao()).recuperarProcedimentosDaFuncao(funcao, tipoExameClinico) : null;
+    }
     
     public List<FuncaoProcedimento> recuperarPorProcedimento(Funcao funcao, Procedimento procedimento) {
     	return ((FuncaoProcedimentoDao) getDao()).recuperarPorProcedimento(funcao, procedimento);

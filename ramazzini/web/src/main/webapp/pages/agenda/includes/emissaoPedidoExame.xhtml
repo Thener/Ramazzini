@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui">
+   
+	
+	<h:panelGrid columns="2" cellpadding="5">
+	
+		<h:outputLabel value="#{msgs['label.emissao']}:" />
+		<h:outputLabel value="#{msgs['label.pedidoExame']}" />
+		
+		<h:outputLabel value="#{msgs['label.funcao']}:" />
+		<h:outputLabel value="#{analiseEmissaoDocumentosController.funcaoSelecionada.nome}" />		
+		
+		<p:outputLabel value="#{msgs['label.procedimento']}: " for="procedimentoParaPedidoExame" />
+		<p:selectOneMenu id="procedimentoParaPedidoExame"
+			value="#{analiseEmissaoDocumentosController.funcaoSelecionada}"
+			converter="entityConverter" styleClass="nome50">
+			<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
+				noSelectionOption="true" />
+			<f:selectItems value="#{analiseEmissaoDocumentosController.procedimentosParaPedidoExame}" 
+				var="procedimento" itemLabel="#{procedimento.nome}" />
+		</p:selectOneMenu>
+						
+	</h:panelGrid>
+				
+</ui:composition>
