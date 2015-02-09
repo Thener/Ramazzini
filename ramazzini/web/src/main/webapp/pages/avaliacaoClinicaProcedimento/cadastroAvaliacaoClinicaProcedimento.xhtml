@@ -35,11 +35,14 @@
 							noSelectionOption="true" />			
 						<f:selectItems var="procedimento" itemLabel="#{procedimento.nome}" itemValue="#{procedimento}"
 							value="#{combosDinamicos.getProcedimentosDaFuncao(avaliacaoClinicaProcedimentoController.avaliacaoClinica.funcaoAtual)}" />
+						<p:ajax event="change" process="@this"/>
 					</p:selectOneMenu>
 					
 					<p:outputLabel for="dataRealizacao" value="#{msgs['label.dataRealizacao']}" />
 					<p:calendar id="dataRealizacao" locale="pt" showOn="button" value="#{avaliacaoClinicaProcedimentoController.avaliacaoClinicaProcedimento.dataRealizacao}" 
-						pattern="#{msgs['pattern.calendar']}" mask="true" styleClass="data" required="false" />
+						pattern="#{msgs['pattern.calendar']}" mask="true" styleClass="data" required="false">
+						<p:ajax event="change" listener="#{avaliacaoClinicaProcedimentoController.calculaRetorno()}" update="dataRetorno" />
+					</p:calendar>
 						
 					<p:outputLabel for="dataRetorno" value="#{msgs['label.dataRetorno']}" />
 					<p:calendar id="dataRetorno" locale="pt" showOn="button" value="#{avaliacaoClinicaProcedimentoController.avaliacaoClinicaProcedimento.dataRetorno}" 

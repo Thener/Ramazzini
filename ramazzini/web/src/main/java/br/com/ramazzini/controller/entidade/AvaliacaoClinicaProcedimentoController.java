@@ -1,6 +1,7 @@
 package br.com.ramazzini.controller.entidade;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.enterprise.context.ConversationScoped;
@@ -12,6 +13,8 @@ import br.com.ramazzini.model.avaliacaoClinica.AvaliacaoClinica;
 import br.com.ramazzini.model.avaliacaoClinicaProcedimento.AvaliacaoClinicaProcedimento;
 import br.com.ramazzini.model.procedimento.Procedimento;
 import br.com.ramazzini.service.entidade.AvaliacaoClinicaProcedimentoService;
+import br.com.ramazzini.service.entidade.FuncaoProcedimentoService;
+import br.com.ramazzini.util.TimeFactory;
 import br.com.ramazzini.util.UtilMensagens;
 
 @Named
@@ -23,6 +26,7 @@ public class AvaliacaoClinicaProcedimentoController extends AbstractBean impleme
 	private static final String PAGINA_CADASTRO_AVALIACAO_CLINICA_PROCEDIMENTO = "/pages/avaliacaoClinicaProcedimento/cadastroAvaliacaoClinicaProcedimento.jsf?faces-redirect=true";
 	
 	@Inject private AvaliacaoClinicaProcedimentoService avaliacaoClinicaProcedimentoService;
+	@Inject private FuncaoProcedimentoService funcaoProcedimentoService;
 	
 	private Procedimento procedimentoSelecionado;
 	
@@ -85,6 +89,16 @@ public class AvaliacaoClinicaProcedimentoController extends AbstractBean impleme
     		avaliacoesClinicasProcedimentos = avaliacaoClinicaProcedimentoService.recuperarPorProcedimento(avaliacaoClinica, procedimentoSelecionado);
     	}
      
+    }
+    
+    public void calculaRetorno() {
+    	
+    	Integer retorno = funcaoProcedimentoService.recuperarRetornoPor(avaliacaoClinica.getFuncaoAtual(), 
+    			avaliacaoClinicaProcedimento.getProcedimento(), avaliacaoClinica.getProcedimento().getTipoExameClinicoEnum());
+    	
+    	Date dataRetorno = TimeFactory.somarMeses(avaliacaoClinicaProcedimento.getDataRealizacao(), retorno);
+    	
+    	avaliacaoClinicaProcedimento.setDataRetorno(dataRetorno);
     }
 	
     public String voltar() {				

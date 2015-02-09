@@ -48,7 +48,8 @@
 		
 		<p:outputLabel value="#{msgs['label.funcaoAtual']}:" />
 		<p:selectOneMenu id="funcaoAtual" value="#{avaliacaoClinicaController.avaliacaoClinica.funcaoAtual}"
-			converter="entityConverter" styleClass="nome50">
+			converter="entityConverter" styleClass="nome50" required="true" 
+			requiredMessage="#{msgs['required.funcaoAtual.obrigatorio']}">
 			<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
 				noSelectionOption="true" />			
 			<f:selectItems value="#{combosDinamicos.funcoes}" var="funcao"

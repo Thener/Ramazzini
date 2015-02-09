@@ -16,6 +16,36 @@
 		]]>
 	</query>
 	
+	<query name="FuncaoProcedimento.recuperarPorFuncaoProcedimento">
+		<![CDATA[
+			select 
+				fp
+			from 
+				FuncaoProcedimento fp
+			where 
+				fp.funcao = :funcao
+			and
+				fp.procedimento = :procedimento
+			order 
+				by fp.funcao.nome
+		]]>
+	</query>
+		
+	<query name="FuncaoProcedimento.recuperarPorProcedimento">
+		<![CDATA[
+			select 
+				fp
+			from 
+				FuncaoProcedimento fp
+			where 
+				fp.funcao = :funcao
+			and
+				fp.procedimento = :procedimento
+			order 
+				by fp.procedimento.nome
+		]]>
+	</query>
+		
 	<query name="FuncaoProcedimento.recuperarProcedimentosDaFuncao">
 		<![CDATA[
 			select 
@@ -37,9 +67,9 @@
 			order 
 				by p.nome
 		]]>
-	</query>	
+	</query>
 	
-	<query name="FuncaoProcedimento.recuperarPorProcedimento">
+	<query name="FuncaoProcedimento.recuperarRetornoPorFuncaoProcedimentoTipoExameClinico">
 		<![CDATA[
 			select 
 				fp
@@ -50,8 +80,8 @@
 			and
 				fp.procedimento = :procedimento
 			order 
-				by fp.procedimento.nome
+				by fp.id
 		]]>
-	</query>	
-
+	</query>		
+	
 </hibernate-mapping>

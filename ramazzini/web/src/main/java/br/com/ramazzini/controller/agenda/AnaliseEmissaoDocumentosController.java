@@ -71,6 +71,11 @@ public class AnaliseEmissaoDocumentosController extends AbstractBean implements 
 			return;
 		}
 		
+		if (funcaoSelecionada == null) {
+			UtilMensagens.mensagemErroPorChave("mensagem.erro.informacaoObrigatoria","label.funcao");
+			return;
+		}
+		
 		if (procedimentoSelecionado.getTipoExameClinicoEnum().equals(TipoExameClinico.ADMISSIONAL)) {
 			analiseAdmissioal();
 		} else if (procedimentoSelecionado.getTipoExameClinicoEnum().equals(TipoExameClinico.MUDANCA_FUNCAO)) {

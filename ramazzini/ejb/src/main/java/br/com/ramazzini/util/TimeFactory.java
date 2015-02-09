@@ -65,6 +65,10 @@ public final class TimeFactory {
 	public static Date somarDias(Date dt, int dias) {
 		return new DateTime(dt).plusDays(dias).toDate();
 	}
+
+	public static Date somarMeses(Date dt, int meses) {
+		return new DateTime(dt).plusMonths(meses).toDate();
+	}	
 	
 	public static Date somarMinutos(Date dataHora, int minutos) {
 		

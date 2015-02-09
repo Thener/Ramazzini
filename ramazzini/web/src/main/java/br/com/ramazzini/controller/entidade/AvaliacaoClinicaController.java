@@ -41,6 +41,7 @@ public class AvaliacaoClinicaController extends AbstractBean implements Serializ
 		
 		avaliacaoClinica = new AvaliacaoClinica();
 		avaliacaoClinica.setFuncionario(funcionario);
+		avaliacaoClinica.setFuncaoAtual(funcionario.getFuncao());
 		return cadastroAvaliacaoClinica(avaliacaoClinica, Boolean.FALSE);
 	}
 	    
@@ -80,6 +81,7 @@ public class AvaliacaoClinicaController extends AbstractBean implements Serializ
 
 		boolean inclusao = avaliacaoClinica.isNovo();
 		avaliacaoClinicaService.salvar(avaliacaoClinica);
+		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeGravadaComSucesso", "label.avaliacaoClinica");
 		if (inclusao) {
 			return "";
 		} else {

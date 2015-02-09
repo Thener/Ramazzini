@@ -31,16 +31,26 @@ import br.com.ramazzini.service.util.AbstractServiceImpl;
 @Stateless
 public class FuncaoProcedimentoService extends AbstractServiceImpl<FuncaoProcedimento> {
 
+    public FuncaoProcedimento recuperarPor(Funcao funcao, Procedimento procedimento) {
+    	return (!funcao.isNovo() && !procedimento.isNovo()) ? 
+    			((FuncaoProcedimentoDao) getDao()).recuperarPor(funcao, procedimento) : null;
+    }
+    
     public List<FuncaoProcedimento> recuperarPorFuncao(Funcao funcao) {
     	return (!funcao.isNovo()) ? ((FuncaoProcedimentoDao) getDao()).recuperarPorFuncao(funcao) : null;
     }	
+    
+    public List<FuncaoProcedimento> recuperarPorProcedimento(Funcao funcao, Procedimento procedimento) {
+    	return ((FuncaoProcedimentoDao) getDao()).recuperarPorProcedimento(funcao, procedimento);
+    }
     
     public List<Procedimento> recuperarProcedimentosDaFuncao(Funcao funcao, TipoExameClinico tipoExameClinico) {
     	return (!funcao.isNovo()) ? ((FuncaoProcedimentoDao) getDao()).recuperarProcedimentosDaFuncao(funcao, tipoExameClinico) : null;
     }
     
-    public List<FuncaoProcedimento> recuperarPorProcedimento(Funcao funcao, Procedimento procedimento) {
-    	return ((FuncaoProcedimentoDao) getDao()).recuperarPorProcedimento(funcao, procedimento);
-    }    
+    public Integer recuperarRetornoPor(Funcao funcao, Procedimento procedimento, TipoExameClinico tipoExameClinico) {
+    	return (!funcao.isNovo() && !procedimento.isNovo()) ? 
+    			((FuncaoProcedimentoDao) getDao()).recuperarRetornoPor(funcao, procedimento, tipoExameClinico) : null;    	
+    }
 
 }
