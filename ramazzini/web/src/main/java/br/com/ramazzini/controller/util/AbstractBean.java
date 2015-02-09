@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import br.com.ramazzini.service.relatorio.FileService;
+import br.com.ramazzini.service.util.Cliente;
 import br.com.ramazzini.util.ControleAcesso;
 
 public abstract class AbstractBean implements Serializable {
@@ -31,6 +32,8 @@ public abstract class AbstractBean implements Serializable {
     private FileService fileService;
     
     private boolean somenteLeitura = Boolean.FALSE;
+    
+    protected Cliente cliente = Cliente.getInstance();
     
 	public ControleAcesso getControleAcesso() {
 		return controleAcesso;

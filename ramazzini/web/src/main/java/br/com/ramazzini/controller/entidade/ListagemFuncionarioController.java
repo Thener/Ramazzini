@@ -2,6 +2,7 @@ package br.com.ramazzini.controller.entidade;
 
 import java.io.File;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import br.com.ramazzini.model.funcionario.Funcionario;
 import br.com.ramazzini.service.entidade.FuncionarioService;
 import br.com.ramazzini.service.entidade.ParametroService;
 import br.com.ramazzini.service.util.Cliente;
+import br.com.ramazzini.util.UtilMensagens;
 
 @Named
 @ConversationScoped
@@ -40,28 +42,31 @@ public class ListagemFuncionarioController extends AbstractBean implements Seria
     private Funcao funcao;
     private Empresa empresa;
 
-    private List<String> situacoes;
+    private List<String> situacoes = new ArrayList<String>();
 
     
 
     public void export() throws Exception {
     	funcionarios = funcionarioService.recuperarPor(funcao, situacoes, empresa);
-    	File relatorio = getCaminhoRelatorio(PATH_DIRECTORY_LISTAGEM_FUNCIONARIOS, JASPER_FUNCIONARIOS);
-    	ExportarPdfController export = new ExportarPdfController(carregaParametros(), new JRBeanCollectionDataSource(funcionarios), "Listagem_Funcionarios", relatorio);
-		export.download();
+    	if (!funcionarios.isEmpty()){
+	    	File relatorio = getCaminhoRelatorio(PATH_DIRECTORY_LISTAGEM_FUNCIONARIOS, JASPER_FUNCIONARIOS);
+	    	ExportarPdfController export = new ExportarPdfController(carregaParametros(), new JRBeanCollectionDataSource(funcionarios), "Listagem_Funcionarios", relatorio);
+			export.download();
+    	} else{
+			UtilMensagens.mensagemInformacaoPorChave("mensagem.info.nenhumRegistroLocalizado");
+    	}
     }
     
     private HashMap<String, Object> carregaParametros() {
 		HashMap<String, Object> parameters = new HashMap<String, Object>();
-		Cliente cliente = new Cliente();
-		parameters.put("NOME_CLIENTE", cliente.getNome());		
-		parameters.put("ENDERECO_CLIENTE", cliente.getEnderecoFormatado());	
+		parameters.put("PARAM_CLIENTE", super.cliente);
 		StringBuilder sb = new StringBuilder();
 		for(String situacao : situacoes){
 			sb.append(situacao).append(" - ");
 		}
 		parameters.put("FILTRO_SITUACOES", sb.toString());
 		parameters.put("FILTRO_FUNCAO", funcao);
+		parameters.put("FILTRO_EMPRESA", empresa);
 		return parameters;
 	}
 		

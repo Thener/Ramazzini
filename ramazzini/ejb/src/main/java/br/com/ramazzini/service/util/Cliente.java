@@ -1,7 +1,13 @@
 package br.com.ramazzini.service.util;
 
-
+/**
+ * Classe Singleton para armazenar os dados do Cliente
+ *
+ */
 public class Cliente {
+	
+	private static Cliente instance = null;
+	
 	private String nome = "AMEMT";
 
 	private String logradouro = "R BATISTA DE OLIVEIRA";
@@ -21,6 +27,13 @@ public class Cliente {
 	private String telefone1 = ""; 
 	    
     private String telefone2 = "";
+    
+    public static Cliente getInstance() {
+        if(instance == null) {
+           instance = new Cliente();
+        }
+        return instance;
+     }
 
 	public String getNome() {
 		return nome;

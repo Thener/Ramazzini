@@ -10,6 +10,8 @@
 	<parameter name="ENDERECO_CLIENTE" class="java.lang.String"/>
 	<parameter name="FILTRO_SITUACOES" class="java.lang.String"/>
 	<parameter name="FILTRO_FUNCAO" class="br.com.ramazzini.model.funcao.Funcao"/>
+	<parameter name="PARAM_CLIENTE" class="br.com.ramazzini.service.util.Cliente"/>
+	<parameter name="FILTRO_EMPRESA" class="br.com.ramazzini.model.empresa.Empresa"/>
 	<field name="nome" class="java.lang.String"/>
 	<field name="funcao" class="br.com.ramazzini.model.funcao.Funcao"/>
 	<field name="situacaoFuncionario" class="java.lang.String"/>
@@ -25,7 +27,7 @@
 		<band height="8" splitType="Stretch"/>
 	</title>
 	<pageHeader>
-		<band height="83" splitType="Stretch">
+		<band height="100" splitType="Stretch">
 			<image>
 				<reportElement x="0" y="0" width="100" height="52" uuid="de8febec-98f0-44ec-92b3-91e128a9b4d9"/>
 				<imageExpression><![CDATA[$P{IMAGE_PATH}+"logo.png"]]></imageExpression>
@@ -42,7 +44,7 @@
 				<textElement>
 					<font fontName="Arial" size="14"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{NOME_CLIENTE}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{PARAM_CLIENTE}.getNome()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="442" y="15" width="113" height="15" uuid="d06a9f4e-820f-422e-9162-6098bce0e458"/>
@@ -52,9 +54,9 @@
 				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"+" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="62" width="43" height="20" uuid="348b5e2e-46d0-4750-952d-5124303e5cca"/>
-				<textElement>
-					<font fontName="Arial" size="12"/>
+				<reportElement x="0" y="62" width="43" height="37" uuid="348b5e2e-46d0-4750-952d-5124303e5cca"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
 				</textElement>
 				<text><![CDATA[Filtros:]]></text>
 			</staticText>
@@ -62,7 +64,7 @@
 				<reportElement x="0" y="62" width="555" height="1" uuid="7b773ab1-1470-4702-9da9-8788ec72416a"/>
 			</line>
 			<line>
-				<reportElement x="0" y="82" width="555" height="1" uuid="85c4153d-3af4-46c6-95ea-6d04c34d627c"/>
+				<reportElement x="0" y="99" width="555" height="1" uuid="85c4153d-3af4-46c6-95ea-6d04c34d627c"/>
 			</line>
 			<textField pattern="dd/MM/yyyy HH:mm" isBlankWhenNull="true">
 				<reportElement x="475" y="0" width="80" height="15" uuid="0b4a5751-1eb3-48bf-8642-f4d265c1bda8"/>
@@ -78,9 +80,27 @@
 				</textElement>
 				<text><![CDATA[Emissão:]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="43" y="63" width="512" height="20" uuid="cd356e79-b547-403c-b809-c6c458c9de7c"/>
-				<textFieldExpression><![CDATA["Situações: " + $P{FILTRO_SITUACOES} + "  Função: " + $P{FILTRO_FUNCAO}.getNome()]]></textFieldExpression>
+			<textField isBlankWhenNull="false">
+				<reportElement x="43" y="63" width="512" height="12" uuid="cd356e79-b547-403c-b809-c6c458c9de7c"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{FILTRO_SITUACOES}.isEmpty()?"Situações: sem filtro":"Situações: " + $P{FILTRO_SITUACOES}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement x="43" y="75" width="512" height="12" uuid="e041de69-da24-4117-bedf-b58d46e91bb5"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{FILTRO_FUNCAO}==null?"Função: sem filtro":"Função: " + $P{FILTRO_FUNCAO}.getNome()
+]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement x="43" y="87" width="512" height="12" uuid="db3f03c1-be21-4a46-af64-c17de160b871"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{FILTRO_EMPRESA}==null?"Empresa: sem filtro":"Empresa: " + $P{FILTRO_EMPRESA}.getNome()]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -223,7 +243,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{ENDERECO_CLIENTE}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{PARAM_CLIENTE}.getEnderecoFormatado()]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="0" y="4" width="555" height="1" uuid="6b73a336-c0c2-471c-8460-0bf6b639871a"/>
