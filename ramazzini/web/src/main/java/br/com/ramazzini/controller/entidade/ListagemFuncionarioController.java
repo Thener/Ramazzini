@@ -2,7 +2,6 @@ package br.com.ramazzini.controller.entidade;
 
 import java.io.File;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -13,6 +12,7 @@ import javax.inject.Named;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import br.com.ramazzini.controller.util.AbstractBean;
 import br.com.ramazzini.controller.util.ExportarPdfController;
+import br.com.ramazzini.model.empresa.Empresa;
 import br.com.ramazzini.model.funcao.Funcao;
 import br.com.ramazzini.model.funcionario.Funcionario;
 import br.com.ramazzini.service.entidade.FuncionarioService;
@@ -38,13 +38,14 @@ public class ListagemFuncionarioController extends AbstractBean implements Seria
     
     //Filtros
     private Funcao funcao;
+    private Empresa empresa;
+
     private List<String> situacoes;
-	private Date dataSelecionada;
 
     
 
     public void export() throws Exception {
-    	funcionarios = funcionarioService.recuperarPor(funcao, situacoes);
+    	funcionarios = funcionarioService.recuperarPor(funcao, situacoes, empresa);
     	File relatorio = getCaminhoRelatorio(PATH_DIRECTORY_LISTAGEM_FUNCIONARIOS, JASPER_FUNCIONARIOS);
     	ExportarPdfController export = new ExportarPdfController(carregaParametros(), new JRBeanCollectionDataSource(funcionarios), "Listagem_Funcionarios", relatorio);
 		export.download();
@@ -80,19 +81,19 @@ public class ListagemFuncionarioController extends AbstractBean implements Seria
 		this.funcao = funcao;
 	}
 
-	public Date getDataSelecionada() {
-		return dataSelecionada;
-	}
-
-	public void setDataSelecionada(Date dataSelecionada) {
-		this.dataSelecionada = dataSelecionada;
-	}
-
 	public List<String> getSituacoes() {
 		return situacoes;
 	}
 
 	public void setSituacoes(List<String> situacoes) {
 		this.situacoes = situacoes;
+	}
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
 	}
 }

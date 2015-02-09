@@ -58,7 +58,7 @@ public class FuncionarioDao extends AbstractDao<Funcionario> {
 		}
 	}	
 	
-	public List<Funcionario> recuperarPor(Funcao funcao, List<String> situacoes) {
+	public List<Funcionario> recuperarPor(Funcao funcao, List<String> situacoes, Empresa empresa) {
 		CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<Funcionario> criteria = cb.createQuery(Funcionario.class);
         Root<Funcionario> funcionario = criteria.from(Funcionario.class);
@@ -68,6 +68,11 @@ public class FuncionarioDao extends AbstractDao<Funcionario> {
         if(funcao != null){
         	Path<Funcao> atributoFuncao = funcionario.get("funcao");
         	Predicate where = cb.equal(atributoFuncao, funcao);
+        	condicoes.add(where);
+        }
+        if(empresa != null){
+        	Path<Funcao> atributoEmpresa = funcionario.get("empresa");
+        	Predicate where = cb.equal(atributoEmpresa, empresa);
         	condicoes.add(where);
         }
         if(!situacoes.isEmpty()){

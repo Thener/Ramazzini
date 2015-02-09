@@ -24,6 +24,17 @@
 							itemValue="#{situacaoFuncionario.value}" />
 					</p:selectManyCheckbox>
 					
+					<p:outputLabel for="empresaFuncionario" value="#{msgs['label.empresa']}:" />
+					<p:selectOneMenu id="empresaFuncionario"
+						value="#{listagemFuncionarioController.empresa}"
+						converter="entityConverter">
+						<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
+							noSelectionOption="true" />
+						<f:selectItems
+							value="#{combosDinamicos.getEmpresasOrdenadasPorNome()}"
+							var="empresa" itemLabel="#{empresa.nome}" itemValue="#{empresa}" />
+					</p:selectOneMenu>
+					
 					<p:outputLabel for="funcaoFuncionario" value="#{msgs['label.funcao']}:" />
 					<p:selectOneMenu id="funcaoFuncionario"
 						value="#{listagemFuncionarioController.funcao}"

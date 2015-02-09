@@ -13,6 +13,7 @@
 	<field name="nome" class="java.lang.String"/>
 	<field name="funcao" class="br.com.ramazzini.model.funcao.Funcao"/>
 	<field name="situacaoFuncionario" class="java.lang.String"/>
+	<field name="empresa" class="br.com.ramazzini.model.empresa.Empresa"/>
 	<variable name="numeroLinha" class="java.math.BigDecimal" calculation="Count">
 		<variableExpression><![CDATA[$V{numeroLinha}.add(new BigDecimal(1))]]></variableExpression>
 		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
@@ -99,7 +100,7 @@
 				<text><![CDATA[Nome]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="224" y="0" width="170" height="21" uuid="1cfabb8a-6d55-4efd-ac6a-afc12916e236"/>
+				<reportElement x="365" y="0" width="135" height="21" uuid="1cfabb8a-6d55-4efd-ac6a-afc12916e236"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid"/>
@@ -122,7 +123,7 @@
 				<reportElement x="0" y="21" width="555" height="1" uuid="9c9a7ec4-91f6-4d5e-ab9d-b89eb80ac53e"/>
 			</line>
 			<staticText>
-				<reportElement x="394" y="0" width="161" height="21" uuid="dfb176bc-7916-43d1-b07d-ff80122f42b3"/>
+				<reportElement x="500" y="0" width="55" height="21" uuid="dfb176bc-7916-43d1-b07d-ff80122f42b3"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid"/>
@@ -133,6 +134,19 @@
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Situação]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="224" y="0" width="141" height="21" uuid="c8407d2c-3c51-4ba3-a3ca-f02e3798e8e2"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement markup="none">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Empresa]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -152,7 +166,7 @@
 				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="224" y="0" width="170" height="20" uuid="0cdab66b-38c8-44f1-9626-a970cecf668a"/>
+				<reportElement x="365" y="0" width="135" height="20" uuid="0cdab66b-38c8-44f1-9626-a970cecf668a"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid"/>
@@ -172,7 +186,7 @@
 				<textFieldExpression><![CDATA[$V{numeroLinha}.toString()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="394" y="0" width="161" height="20" uuid="9e1af77b-480a-4dd3-b84e-f126f74d7e77"/>
+				<reportElement x="500" y="0" width="55" height="20" uuid="9e1af77b-480a-4dd3-b84e-f126f74d7e77"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid"/>
@@ -183,6 +197,19 @@
 					<font fontName="Arial" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{situacaoFuncionario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="224" y="0" width="141" height="20" uuid="96406606-7cc9-488a-96ab-15ca3608c946"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{empresa}.getNome()]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

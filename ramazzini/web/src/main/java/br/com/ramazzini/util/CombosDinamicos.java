@@ -22,6 +22,7 @@ import br.com.ramazzini.model.setor.Setor;
 import br.com.ramazzini.service.entidade.AgendaService;
 import br.com.ramazzini.service.entidade.AvaliacaoClinicaService;
 import br.com.ramazzini.service.entidade.CboService;
+import br.com.ramazzini.service.entidade.EmpresaService;
 import br.com.ramazzini.service.entidade.FuncaoService;
 import br.com.ramazzini.service.entidade.HorarioAtendimentoService;
 import br.com.ramazzini.service.entidade.LotacaoService;
@@ -41,6 +42,7 @@ public class CombosDinamicos {
     @Inject ProcedimentoService procedimentoService;
     @Inject ProfissionalService profissionalService;
     @Inject SetorService setorService;    
+    @Inject EmpresaService empresaService;
     
 	public List<Cbo> getCbos() {
 		return cboService.recuperarTodos("numero");
@@ -54,6 +56,10 @@ public class CombosDinamicos {
 	
 	public List<Funcao> getFuncoesOrdenadasPorNome() {
 		return funcaoService.recuperarTodos("nome");
+	}
+	
+	public List<Empresa> getEmpresasOrdenadasPorNome() {
+		return empresaService.recuperarTodos("nome");
 	}
 	
 	public List<HorarioAtendimento> getHorariosAtendimento() {
