@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+
+		<h:form id="frmListagemEmpresa">
+
+			<p:growl id="growl" showDetail="false" sticky="true" />
+
+			<p:panel id="panelDadosEmpresa"
+				header="#{msgs['label.filtro']}">
+
+				<h:panelGrid columns="2" cellpadding="10">
+					<p:outputLabel for="situacaoEmpresa" value="#{msgs['label.situacao']}:" />
+					<p:selectManyCheckbox id="situacaoEmpresa"
+						value="#{listagemEmpresaController.situacoes}">
+						<f:selectItems value="#{combosEstaticos.situacoesEmpresa}"
+							var="situacaoEmpresa"
+							itemLabel="#{situacaoEmpresa.stringChave}"
+							itemValue="#{situacaoEmpresa.value}" />
+					</p:selectManyCheckbox>
+					
+					<p:outputLabel for="grupoEmpresa" value="#{msgs['label.grupo']}:" />
+					<p:selectOneMenu id="grupoEmpresa"
+						value="#{listagemFuncionarioController.empresa}"
+						converter="entityConverter">
+						<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
+							noSelectionOption="true" />
+						<f:selectItems
+							value="#{combosDinamicos.getGrupos()}"
+							var="grupo" itemLabel="#{grupo.nome}" itemValue="#{grupo}" />
+					</p:selectOneMenu>
+					
+					<p:outputLabel for="dataSelecionada" value="Data de Inclusão:" />
+       				<p:calendar id="dataSelecionada" value="#{listagemEmpresaController.dataSelecionada}" mode="inline" />
+					
+				</h:panelGrid>
+
+			</p:panel>
+
+			<p:toolbar>
+				<f:facet name="left">
+			
+					<p:commandButton id="listar"
+						action="#{listagemEmpresaController.export()}"
+						value="#{msgs['botao.exportar']}" 
+						title="#{msgs['botao.exportar']}"
+						icon="exportpdf" ajax="false">
+					</p:commandButton>
+										
+				</f:facet>
+			</p:toolbar>
+		</h:form>
+	</ui:define>
+</ui:composition>

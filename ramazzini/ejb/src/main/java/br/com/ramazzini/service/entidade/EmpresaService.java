@@ -16,12 +16,14 @@
  */
 package br.com.ramazzini.service.entidade;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
 
 import br.com.ramazzini.dao.empresa.EmpresaDao;
 import br.com.ramazzini.model.empresa.Empresa;
+import br.com.ramazzini.model.grupo.Grupo;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
 
 // The @Stateless annotation eliminates the need for manual transaction demarcation
@@ -31,5 +33,8 @@ public class EmpresaService extends AbstractServiceImpl<Empresa> {
     public List<Empresa> recuperarPorNome(String nome) {
     	return ((EmpresaDao) getDao()).recuperarPorNome(nome);
     }	
-
+    
+    public List<Empresa> recuperarPor(List<String> situacoes, Grupo grupo, Date dataSelecionada) {
+    	return ((EmpresaDao) getDao()).recuperarPor(situacoes, grupo, dataSelecionada);
+    }	
 }

@@ -7,6 +7,7 @@ import br.com.ramazzini.model.agenda.TempoAtualizacaoAgenda;
 import br.com.ramazzini.model.avaliacaoClinica.SituacaoAvaliacaoClinica;
 import br.com.ramazzini.model.avaliacaoClinicaProcedimento.ResultadoProcedimento;
 import br.com.ramazzini.model.avaliacaoClinicaProcedimento.TipoAlteracaoProcedimento;
+import br.com.ramazzini.model.empresa.SituacaoEmpresa;
 import br.com.ramazzini.model.empresa.UnidadeFederativa;
 import br.com.ramazzini.model.feriado.DiasMes;
 import br.com.ramazzini.model.feriado.Mes;
@@ -60,6 +61,10 @@ public class CombosEstaticos {
 	
 	public SituacaoFuncionario[] getSituacoesFuncionario() {
 		return SituacaoFuncionario.values();
+	}	
+	
+	public SituacaoEmpresa[] getSituacoesEmpresa() {
+		return SituacaoEmpresa.values();
 	}	
 	
 	public SituacaoMarcacaoAgenda[] getSituacoesMarcacaoAgenda() {
