@@ -14,11 +14,23 @@ import br.com.ramazzini.model.riscoOcupacional.RiscoOcupacional;
 
 public class FuncaoDao extends AbstractDao<Funcao> {
 
+	private static final String QUERY_EXISTE_RISCO_ERGONOMICO = "Funcao.existeRiscoErgonomico";
 	private static final String QUERY_RECUPERAR_POR_EMPRESA = "Funcao.recuperarPorEmpresa";
 	private static final String QUERY_RECUPERAR_POR_NOME_EMPRESA = "Funcao.recuperarPorNomeEmpresa";
 	private static final String QUERY_RECUPERAR_POR_NOME = "Funcao.recuperarPorNome";
 	private static final String QUERY_RECUPERAR_PROCEDIMENTOS_POR_FUNCAO = "Funcao.recuperarProcedimentosPorFuncao";
 	private static final String QUERY_RECUPERAR_RISCOS_OCUPACIONAIS = "Funcao.recuperarRiscosOcupacionais";
+	
+	public boolean existeRiscoErgonomico(Funcao funcao) {
+		Query query = createNamedQuery(QUERY_EXISTE_RISCO_ERGONOMICO);
+		query.setParameter("funcao", funcao);
+		query.setMaxResults(1);
+		try {
+			return (query.getResultList().size() == 1) ? true: false;
+		} catch (NoResultException nr) {
+			return false;
+		}
+	}
 	
 	@SuppressWarnings("unchecked")
 	public List<Funcao> recuperarPorEmpresa(Empresa empresa) {

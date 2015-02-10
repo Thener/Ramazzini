@@ -14,6 +14,7 @@ import br.com.ramazzini.model.avaliacaoClinicaProcedimento.AvaliacaoClinicaProce
 import br.com.ramazzini.model.funcionario.Funcionario;
 import br.com.ramazzini.service.entidade.AvaliacaoClinicaProcedimentoService;
 import br.com.ramazzini.service.entidade.AvaliacaoClinicaService;
+import br.com.ramazzini.service.entidade.FuncaoService;
 import br.com.ramazzini.util.TimeFactory;
 import br.com.ramazzini.util.UtilMensagens;
 
@@ -27,6 +28,7 @@ public class AvaliacaoClinicaController extends AbstractBean implements Serializ
 	
 	@Inject private AvaliacaoClinicaService avaliacaoClinicaService;
 	@Inject private AvaliacaoClinicaProcedimentoService avaliacaoClinicaProcedimentoService;
+	@Inject private FuncaoService funcaoService;
 	@Inject private AvaliacaoClinicaProcedimentoController avaliacaoClinicaProcedimentoController;
 	
 	private Date dataInicialSelecionada;
@@ -83,7 +85,7 @@ public class AvaliacaoClinicaController extends AbstractBean implements Serializ
     
 	public String gravarAvaliacaoClinica() {
 
-		calculaRetorno();
+		calcularRetorno();
 		avaliacaoClinicaService.salvar(avaliacaoClinica);
 		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeGravadaComSucesso", "label.avaliacaoClinica");
 		return "";
@@ -96,7 +98,7 @@ public class AvaliacaoClinicaController extends AbstractBean implements Serializ
      
     }
 	
-    public void calculaRetorno() {
+    public void calcularRetorno() {
     	
     	List<AvaliacaoClinicaProcedimento> procedimentos = avaliacaoClinicaProcedimentoService.recuperarPorAvaliacaoClinica(avaliacaoClinica);
     	
@@ -108,6 +110,8 @@ public class AvaliacaoClinicaController extends AbstractBean implements Serializ
     				menorData = acp.getDataRetorno();
     			}
     		}
+    	} else if (funcaoService.existeRiscoErgonomico(avaliacaoClinica.getFuncaoAtual())){
+    		menorData = TimeFactory.somarMeses(avaliacaoClinica.getDataRealizacao(), 12);
     	} else {
     		Integer idade = avaliacaoClinica.getFuncionario().getIdade();
     		Integer retorno = (idade < 18 || idade > 44) ? 12 : 24; 

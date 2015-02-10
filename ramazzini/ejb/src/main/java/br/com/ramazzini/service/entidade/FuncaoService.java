@@ -31,6 +31,10 @@ import br.com.ramazzini.service.util.AbstractServiceImpl;
 @Stateless
 public class FuncaoService extends AbstractServiceImpl<Funcao> {
 
+	public boolean existeRiscoErgonomico(Funcao funcao) {
+		return (!funcao.isNovo()) ? ((FuncaoDao) getDao()).existeRiscoErgonomico(funcao) : false;
+	}
+	
     public List<Funcao> recuperarPorEmpresa(Empresa empresa) {
     	return (!empresa.isNovo()) ? ((FuncaoDao) getDao()).recuperarPorEmpresa(empresa) : null;
     }	

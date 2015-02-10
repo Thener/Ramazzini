@@ -121,6 +121,7 @@ public class FuncaoController extends AbstractBean implements Serializable {
     	
     	if (riscoOcupacionalSelecionado != null) {
     		funcao.getRiscosOcupacionais().add(riscoOcupacionalSelecionado);
+    		riscoOcupacionalSelecionado = null;
     	}
     }    
     

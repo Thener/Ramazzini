@@ -3,6 +3,23 @@
 		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 
+	<query name="Funcao.existeRiscoErgonomico">
+		<![CDATA[
+			select 
+				f
+			from 
+				Funcao f
+			right join
+				f.riscosOcupacionais riscos
+			where 
+				f = :funcao
+			and
+				riscos.tipoRiscoOcupacional = 'ERG'
+			order 
+				by f.id
+		]]>
+	</query>
+	
 	<query name="Funcao.recuperarPorEmpresa">
 		<![CDATA[
 			select 
