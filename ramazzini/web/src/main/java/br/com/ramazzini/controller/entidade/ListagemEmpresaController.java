@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -15,6 +16,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import br.com.ramazzini.controller.util.AbstractBean;
 import br.com.ramazzini.controller.util.ExportarPdfController;
 import br.com.ramazzini.model.empresa.Empresa;
+import br.com.ramazzini.model.empresa.SituacaoEmpresa;
 import br.com.ramazzini.model.grupo.Grupo;
 import br.com.ramazzini.service.entidade.EmpresaService;
 import br.com.ramazzini.util.UtilMensagens;
@@ -38,9 +40,13 @@ public class ListagemEmpresaController extends AbstractBean implements Serializa
     private Date dataSelecionada;
 
     private List<String> situacoes = new ArrayList<String>();
-
     
-
+    @PostConstruct
+	public void init() {
+    	situacoes = new ArrayList<String>();
+    	situacoes.add(SituacaoEmpresa.ATIVA.getValue());
+	}
+    
     public void export() throws Exception {
     	empresas = empresaService.recuperarPor(situacoes, grupo, dataSelecionada);
     	if (!empresas.isEmpty()){
@@ -61,6 +67,10 @@ public class ListagemEmpresaController extends AbstractBean implements Serializa
 		}
 		parameters.put("FILTRO_SITUACOES", sb.toString());
 		parameters.put("FILTRO_GRUPO", grupo);
+		parameters.put("IMAGE_PATH", getRequest().getServletContext().getRealPath("/resources/img/")+ "\\" );
+		if (dataSelecionada != null){
+			parameters.put("FILTRO_DATA", new java.text.SimpleDateFormat("dd/MM/yyyy").format(dataSelecionada));
+		}
 		return parameters;
 	}
 

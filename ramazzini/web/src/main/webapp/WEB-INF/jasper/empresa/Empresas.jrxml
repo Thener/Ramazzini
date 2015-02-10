@@ -11,7 +11,7 @@
 	<parameter name="FILTRO_SITUACOES" class="java.lang.String"/>
 	<parameter name="FILTRO_GRUPO" class="br.com.ramazzini.model.grupo.Grupo"/>
 	<parameter name="PARAM_CLIENTE" class="br.com.ramazzini.service.util.Cliente"/>
-	<parameter name="FILTRO_DATA" class="java.util.Date"/>
+	<parameter name="FILTRO_DATA" class="java.lang.String"/>
 	<field name="nome" class="java.lang.String"/>
 	<field name="grupo" class="br.com.ramazzini.model.grupo.Grupo"/>
 	<field name="dataInclusao" class="java.util.Date"/>
@@ -94,12 +94,12 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{FILTRO_GRUPO}==null?"Grupo: sem filtro":"Grupo: " + $P{FILTRO_GRUPO}.getNome()]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="false">
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="false">
 				<reportElement x="43" y="87" width="512" height="12" uuid="db3f03c1-be21-4a46-af64-c17de160b871"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{FILTRO_DATA}==null?"Data Inclusão: sem filtro":"Data Inclusão: " + $P{FILTRO_DATA}.toString()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{FILTRO_DATA}==null?"Data Inclusão: sem filtro":"Data Inclusão: " + $P{FILTRO_DATA}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -184,7 +184,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="dd/MM/yyyy">
 				<reportElement x="365" y="0" width="135" height="20" uuid="0cdab66b-38c8-44f1-9626-a970cecf668a"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid"/>
@@ -195,7 +195,8 @@
 				<textElement>
 					<font fontName="Arial" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{dataInclusao}.toString()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy").format($F{dataInclusao})
+]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="1" width="32" height="20" uuid="533152f1-d3f9-4ff2-b554-5115bb596770"/>
