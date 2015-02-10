@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AvaliacaoMedicaDeficiente" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="007eae6c-f358-4eea-b447-8029c7ed35ab">
 	<property name="ireport.zoom" value="1.4641000000000042"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="768"/>
+	<property name="ireport.y" value="624"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -44,7 +44,6 @@
 				<textElement>
 					<font fontName="Arial Narrow" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="60" width="64" height="20" uuid="e5e940ef-b78d-4bb5-b426-9d90a55b4ddf"/>
@@ -69,7 +68,6 @@
 				<textElement>
 					<font fontName="Arial Narrow" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="40" width="64" height="20" uuid="8cecbc9c-0866-487f-b58e-9a577ad2deb0"/>
@@ -90,7 +88,6 @@
 				<textElement>
 					<font fontName="Arial Narrow" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="162" y="40" width="43" height="20" uuid="c3d6cbf8-5f68-462a-834e-dffaa16102bf"/>
@@ -115,7 +112,6 @@
 				<textElement>
 					<font fontName="Arial Narrow" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="455" y="40" width="100" height="20" uuid="e6e84b1e-7ad9-4703-a80d-0b533dca1401"/>
@@ -129,7 +125,6 @@
 				<textElement>
 					<font fontName="Arial Narrow" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="413" y="40" width="43" height="20" uuid="3bdfe693-78d4-489b-8905-9ae475be2175"/>
@@ -165,7 +160,6 @@
 				<textElement>
 					<font fontName="Arial Narrow" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="100" width="555" height="20" uuid="6a4cde06-b0da-4b35-9dd2-534e1a9b30b3"/>
@@ -187,7 +181,6 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
-				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="139" y="103" width="12" height="12" uuid="0032a3bc-3e47-4760-95dc-a65571960c6a"/>
@@ -197,7 +190,6 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
-				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="220" y="103" width="12" height="12" uuid="28788a9a-bd34-4aa6-beac-032226a22c95"/>
@@ -207,7 +199,6 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
-				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="373" y="103" width="12" height="12" uuid="083b0635-18da-4a59-bf79-43010edd6522"/>
@@ -217,7 +208,6 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
-				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="480" y="103" width="12" height="12" uuid="be79d335-5ae0-427f-817f-428f85aa70ba"/>
@@ -227,7 +217,6 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
-				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="120" width="555" height="16" uuid="d1159902-f5ad-4eb0-b5b6-9b6464acaa98"/>
@@ -359,7 +348,6 @@ com as alterações determinadas pelo Art. 70 do Decreto 5296/04, no inciso abai
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
-				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="278" y="305" width="277" height="51" uuid="18936a74-ee82-4a7b-84ea-223752685f21"/>
@@ -383,7 +371,6 @@ com as alterações determinadas pelo Art. 70 do Decreto 5296/04, no inciso abai
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
-				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="278" y="356" width="138" height="63" uuid="5c9706e7-3df7-4a35-b9ee-dae99a927bd5"/>
@@ -442,7 +429,6 @@ Obs: Anexar laudo do especialista.
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
-				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="284" y="371" width="10" height="10" uuid="70b56853-f214-437a-bb1a-5a0929bc18c4"/>
@@ -452,7 +438,6 @@ Obs: Anexar laudo do especialista.
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
-				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="284" y="384" width="10" height="10" uuid="9fb203bb-0068-44cc-915c-ddb430242c2b"/>
@@ -462,7 +447,6 @@ Obs: Anexar laudo do especialista.
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
-				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="284" y="396" width="10" height="10" uuid="a4361fd4-5d40-4f67-8202-5b54cd3be6b1"/>
@@ -472,7 +456,6 @@ Obs: Anexar laudo do especialista.
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
-				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="421" y="358" width="10" height="10" uuid="9cfbc089-bb27-4762-90ac-c82c858559c1"/>
@@ -482,7 +465,6 @@ Obs: Anexar laudo do especialista.
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
-				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="421" y="369" width="10" height="10" uuid="497c2b58-d8e5-4f35-b484-7c24ce6f711a"/>
@@ -492,7 +474,6 @@ Obs: Anexar laudo do especialista.
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
-				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="421" y="380" width="10" height="10" uuid="b581c303-98b0-4510-b776-307bc279d5e4"/>
@@ -502,7 +483,6 @@ Obs: Anexar laudo do especialista.
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
-				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="421" y="392" width="10" height="10" uuid="b5b6dd30-4978-44bd-930b-9e5868b0ff5d"/>
@@ -512,7 +492,6 @@ Obs: Anexar laudo do especialista.
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
-				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="446" width="277" height="49" uuid="48e1e771-c855-4e3b-93f3-c95f4c99117f"/>
@@ -538,7 +517,6 @@ Obs: anexar audiograma
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
-				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="495" width="277" height="106" uuid="29185e91-0527-4334-af8d-8c2f71eb54bf"/>
@@ -582,7 +560,6 @@ Anexar laudo oftalmológico
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
-				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="278" y="446" width="277" height="155" uuid="b6a1b83c-5074-45a6-8cc3-95c49d8016ea"/>
@@ -606,7 +583,6 @@ deficiências.]]></text>
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
-				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="601" width="555" height="20" uuid="37c370db-6f22-4fe9-b27a-19dfbb996d2f"/>
