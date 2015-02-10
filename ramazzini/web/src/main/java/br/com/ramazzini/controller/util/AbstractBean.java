@@ -74,10 +74,15 @@ public abstract class AbstractBean implements Serializable {
 	}
     
     protected File getCaminhoRelatorio(final String... relativePaths) {
-		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-		HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
+		HttpServletRequest request = getRequest();
 		fileService = new FileService(request.getServletContext().getRealPath("/WEB-INF/jasper/"));
 		return fileService.getFile(relativePaths);
+	}
+
+	protected HttpServletRequest getRequest() {
+		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+		HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
+		return request;
 	}
     
     protected static String getValorChaveMsg(String chave) {

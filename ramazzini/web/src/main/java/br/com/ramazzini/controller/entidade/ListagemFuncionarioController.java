@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -16,8 +17,8 @@ import br.com.ramazzini.controller.util.ExportarPdfController;
 import br.com.ramazzini.model.empresa.Empresa;
 import br.com.ramazzini.model.funcao.Funcao;
 import br.com.ramazzini.model.funcionario.Funcionario;
+import br.com.ramazzini.model.funcionario.SituacaoFuncionario;
 import br.com.ramazzini.service.entidade.FuncionarioService;
-import br.com.ramazzini.service.entidade.ParametroService;
 import br.com.ramazzini.util.UtilMensagens;
 
 @Named
@@ -38,9 +39,13 @@ public class ListagemFuncionarioController extends AbstractBean implements Seria
     private Funcao funcao;
     private Empresa empresa;
 
-    private List<String> situacoes = new ArrayList<String>();
+    private List<String> situacoes;
 
-    
+    @PostConstruct
+	public void init() {
+    	situacoes = new ArrayList<String>();
+    	situacoes.add(SituacaoFuncionario.ATIVO.getValue());
+	}
 
     public void export() throws Exception {
     	funcionarios = funcionarioService.recuperarPor(funcao, situacoes, empresa);
@@ -63,6 +68,7 @@ public class ListagemFuncionarioController extends AbstractBean implements Seria
 		parameters.put("FILTRO_SITUACOES", sb.toString());
 		parameters.put("FILTRO_FUNCAO", funcao);
 		parameters.put("FILTRO_EMPRESA", empresa);
+		parameters.put("IMAGE_PATH", getRequest().getServletContext().getRealPath("/resources/img/")+ "\\" );
 		return parameters;
 	}
 		

@@ -35,9 +35,10 @@
 							var="grupo" itemLabel="#{grupo.nome}" itemValue="#{grupo}" />
 					</p:selectOneMenu>
 					
-					<p:outputLabel for="dataSelecionada" value="Data de Inclusão:" />
-       				<p:calendar id="dataSelecionada" value="#{listagemEmpresaController.dataSelecionada}" mode="inline" />
-					
+					<p:outputLabel for="dataSelecionada" value="#{msgs['label.dataCadastro']}:" />
+					<p:calendar id="dataSelecionada" value="#{listagemEmpresaController.dataSelecionada}" 
+							pattern="#{msgs['pattern.calendar']}" mask="true" styleClass="data" 
+							required="false" locale="pt" />
 				</h:panelGrid>
 
 			</p:panel>
