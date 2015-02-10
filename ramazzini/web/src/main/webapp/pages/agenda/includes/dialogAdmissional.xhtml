@@ -52,7 +52,7 @@
 					<h:panelGrid columns="3" cellpadding="5">
 						<p:calendar id="dataNascimentoNovoFuncionario" value="#{marcacaoAgendaController.novoFuncionario.dataNascimento}" 
 							pattern="#{msgs['pattern.calendar']}" mask="true" styleClass="data" 
-							required="false" />	
+							required="false" locale="pt" />	
 							
 						<p:outputLabel for="sexoNovoFuncionario" value="#{msgs['label.sexo']}:" />
 						<p:selectOneMenu id="sexoNovoFuncionario"

@@ -12,6 +12,7 @@ import br.com.ramazzini.controller.util.AbstractBean;
 import br.com.ramazzini.model.avaliacaoClinica.AvaliacaoClinica;
 import br.com.ramazzini.model.avaliacaoClinicaProcedimento.AvaliacaoClinicaProcedimento;
 import br.com.ramazzini.model.procedimento.Procedimento;
+import br.com.ramazzini.model.procedimento.TipoExameClinico;
 import br.com.ramazzini.service.entidade.AvaliacaoClinicaProcedimentoService;
 import br.com.ramazzini.service.entidade.FuncaoProcedimentoService;
 import br.com.ramazzini.util.TimeFactory;
@@ -93,12 +94,21 @@ public class AvaliacaoClinicaProcedimentoController extends AbstractBean impleme
     
     public void calculaRetorno() {
     	
-    	Integer retorno = funcaoProcedimentoService.recuperarRetornoPor(avaliacaoClinica.getFuncaoAtual(), 
-    			avaliacaoClinicaProcedimento.getProcedimento(), avaliacaoClinica.getProcedimento().getTipoExameClinicoEnum());
+    	if (!avaliacaoClinica.getProcedimento().getTipoExameClinicoEnum().equals(TipoExameClinico.DEMISSIONAL)
+    			&& avaliacaoClinicaProcedimento.getProcedimento() != null
+    			&& avaliacaoClinicaProcedimento.getDataRealizacao() != null) {
     	
-    	Date dataRetorno = TimeFactory.somarMeses(avaliacaoClinicaProcedimento.getDataRealizacao(), retorno);
+	    	Integer retorno = funcaoProcedimentoService.recuperarRetornoPor(avaliacaoClinica.getFuncaoAtual(), 
+	    			avaliacaoClinicaProcedimento.getProcedimento(), avaliacaoClinica.getProcedimento().getTipoExameClinicoEnum());
     	
-    	avaliacaoClinicaProcedimento.setDataRetorno(dataRetorno);
+	    	if (retorno == 0) {
+	    		UtilMensagens.mensagemInformacaoPorChave("mensagem.erro.procedimentoSemInformacaoRetorno");
+	    		avaliacaoClinicaProcedimento.setDataRetorno(null);
+	    	} else {
+	    		Date dataRetorno = TimeFactory.somarMeses(avaliacaoClinicaProcedimento.getDataRealizacao(), retorno);
+	    		avaliacaoClinicaProcedimento.setDataRetorno(dataRetorno);
+	    	}
+    	}
     }
 	
     public String voltar() {				

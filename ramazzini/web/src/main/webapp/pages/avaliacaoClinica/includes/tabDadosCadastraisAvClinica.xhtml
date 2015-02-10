@@ -29,12 +29,18 @@
 		</p:selectOneMenu>
 
 		<p:outputLabel for="dataLiberacao" value="#{msgs['label.dataLiberacao']}" />
-		<p:calendar id="dataLiberacao" locale="pt" showOn="button" value="#{avaliacaoClinicaController.avaliacaoClinica.dataLiberacao}" 
-			pattern="#{msgs['pattern.calendar']}" mask="true" styleClass="data" required="false" />
-			
-		<p:outputLabel for="dataRetorno" value="#{msgs['label.dataRetorno']}" />
-		<p:calendar id="dataRetorno" locale="pt" showOn="button" value="#{avaliacaoClinicaController.avaliacaoClinica.dataRetorno}" 
-			pattern="#{msgs['pattern.calendar']}" mask="true" styleClass="data" required="false" />	
+		<h:panelGroup>
+			<h:panelGrid columns="3">
+				<p:calendar id="dataLiberacao" locale="pt" showOn="button" value="#{avaliacaoClinicaController.avaliacaoClinica.dataLiberacao}" 
+					pattern="#{msgs['pattern.calendar']}" mask="true" styleClass="data" required="false" />
+				<p:outputLabel value="#{msgs['label.dataRetorno']}:" />
+				<p:outputLabel value="#{avaliacaoClinicaController.avaliacaoClinica.dataRetorno}" styleClass="negrito">
+					<f:convertDateTime locale="pt,BR" pattern="#{msgs['pattern.calendar']}" />
+				</p:outputLabel>
+			</h:panelGrid>
+		</h:panelGroup>
+		
+
 			
 		<p:outputLabel value="#{msgs['label.funcaoAnterior']}:" />
 		<p:selectOneMenu id="funcaoAnterior" value="#{avaliacaoClinicaController.avaliacaoClinica.funcaoAnterior}"
