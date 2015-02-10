@@ -10,8 +10,11 @@ import javax.inject.Named;
 
 import br.com.ramazzini.controller.util.AbstractBean;
 import br.com.ramazzini.model.avaliacaoClinica.AvaliacaoClinica;
+import br.com.ramazzini.model.avaliacaoClinicaProcedimento.AvaliacaoClinicaProcedimento;
 import br.com.ramazzini.model.funcionario.Funcionario;
+import br.com.ramazzini.service.entidade.AvaliacaoClinicaProcedimentoService;
 import br.com.ramazzini.service.entidade.AvaliacaoClinicaService;
+import br.com.ramazzini.util.TimeFactory;
 import br.com.ramazzini.util.UtilMensagens;
 
 @Named
@@ -23,6 +26,7 @@ public class AvaliacaoClinicaController extends AbstractBean implements Serializ
 	private static final String PAGINA_CADASTRO_AVALIACAO_CLINICA = "/pages/avaliacaoClinica/cadastroAvaliacaoClinica.jsf?faces-redirect=true";
 	
 	@Inject private AvaliacaoClinicaService avaliacaoClinicaService;
+	@Inject private AvaliacaoClinicaProcedimentoService avaliacaoClinicaProcedimentoService;
 	@Inject private AvaliacaoClinicaProcedimentoController avaliacaoClinicaProcedimentoController;
 	
 	private Date dataInicialSelecionada;
@@ -79,15 +83,10 @@ public class AvaliacaoClinicaController extends AbstractBean implements Serializ
     
 	public String gravarAvaliacaoClinica() {
 
-		boolean inclusao = avaliacaoClinica.isNovo();
+		calculaRetorno();
 		avaliacaoClinicaService.salvar(avaliacaoClinica);
 		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeGravadaComSucesso", "label.avaliacaoClinica");
-		if (inclusao) {
-			return "";
-		} else {
-			pesquisar();
-			return voltar();
-		}
+		return "";
 		
 	}
     
@@ -97,6 +96,27 @@ public class AvaliacaoClinicaController extends AbstractBean implements Serializ
      
     }
 	
+    public void calculaRetorno() {
+    	
+    	List<AvaliacaoClinicaProcedimento> procedimentos = avaliacaoClinicaProcedimentoService.recuperarPorAvaliacaoClinica(avaliacaoClinica);
+    	
+    	Date menorData = null;
+    	
+    	if (procedimentos.size() > 0) {
+    		for (AvaliacaoClinicaProcedimento acp : procedimentos) {
+    			if (menorData == null || acp.getDataRetorno().before(menorData)) {
+    				menorData = acp.getDataRetorno();
+    			}
+    		}
+    	} else {
+    		Integer idade = avaliacaoClinica.getFuncionario().getIdade();
+    		Integer retorno = (idade < 18 || idade > 44) ? 12 : 24; 
+   			menorData = TimeFactory.somarMeses(avaliacaoClinica.getDataRealizacao(), retorno);
+    	}
+    	
+    	avaliacaoClinica.setDataRetorno(menorData);
+    }
+    
     public String voltar() {				
  		return getUriRequisicao()+"?faces-redirect=true";
  	}

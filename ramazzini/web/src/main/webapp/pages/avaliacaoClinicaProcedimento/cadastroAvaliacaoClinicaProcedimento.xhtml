@@ -9,7 +9,7 @@
 	
 		<h:form id="frmCadastroAvClinicaProcedimento">
 		
-			<p:growl id="growl" showDetail="false" sticky="true" />
+			<p:growl id="growl" showDetail="false" sticky="false" />
 			
 			<p:panel id="panelDadosAvClinicaProcedimento" header="#{msgs['label.avaliacaoClinicaProcedimento']}">
 			
@@ -35,18 +35,21 @@
 							noSelectionOption="true" />			
 						<f:selectItems var="procedimento" itemLabel="#{procedimento.nome}" itemValue="#{procedimento}"
 							value="#{combosDinamicos.getProcedimentosDaFuncao(avaliacaoClinicaProcedimentoController.avaliacaoClinica.funcaoAtual)}" />
-						<p:ajax event="change" process="@this"/>
+						<p:ajax event="change" process="@this, dataRetorno" listener="#{avaliacaoClinicaProcedimentoController.calculaRetorno()}" update="dataRetorno, growl"/>
 					</p:selectOneMenu>
 					
 					<p:outputLabel for="dataRealizacao" value="#{msgs['label.dataRealizacao']}" />
-					<p:calendar id="dataRealizacao" locale="pt" showOn="button" value="#{avaliacaoClinicaProcedimentoController.avaliacaoClinicaProcedimento.dataRealizacao}" 
-						pattern="#{msgs['pattern.calendar']}" mask="true" styleClass="data" required="false">
-						<p:ajax event="change" listener="#{avaliacaoClinicaProcedimentoController.calculaRetorno()}" update="dataRetorno" />
-					</p:calendar>
-						
-					<p:outputLabel for="dataRetorno" value="#{msgs['label.dataRetorno']}" />
-					<p:calendar id="dataRetorno" locale="pt" showOn="button" value="#{avaliacaoClinicaProcedimentoController.avaliacaoClinicaProcedimento.dataRetorno}" 
-						pattern="#{msgs['pattern.calendar']}" mask="true" styleClass="data" required="false" />	
+					<h:panelGrid columns="3">
+						<p:calendar id="dataRealizacao" locale="pt" showOn="button" value="#{avaliacaoClinicaProcedimentoController.avaliacaoClinicaProcedimento.dataRealizacao}" 
+							pattern="#{msgs['pattern.calendar']}" mask="true" styleClass="data" required="false">
+							<p:ajax event="change" listener="#{avaliacaoClinicaProcedimentoController.calculaRetorno()}" update="dataRetorno, growl" />
+							<p:ajax event="dateSelect" listener="#{avaliacaoClinicaProcedimentoController.calculaRetorno()}" update="dataRetorno, growl" />
+						</p:calendar>
+						<p:outputLabel value="#{msgs['label.dataRetorno']}:" />
+						<p:outputLabel id="dataRetorno" value="#{avaliacaoClinicaProcedimentoController.avaliacaoClinicaProcedimento.dataRetorno}" styleClass="negrito">
+							<f:convertDateTime locale="pt,BR" pattern="#{msgs['pattern.calendar']}" />
+						</p:outputLabel>						
+					</h:panelGrid>
 						
 					<p:outputLabel for="resultadoProcedimento" value="#{msgs['label.resultado']}:" />
 					<p:selectOneMenu id="resultadoProcedimento"

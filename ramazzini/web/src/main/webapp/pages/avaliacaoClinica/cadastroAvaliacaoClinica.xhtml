@@ -29,7 +29,8 @@
 					<p:outputLabel value="#{msgs['label.procedimento']}: " for="procedimento" />
 					<p:selectOneMenu id="procedimento"
 						value="#{avaliacaoClinicaController.avaliacaoClinica.procedimento}"
-						converter="entityConverter" styleClass="nome20">
+						converter="entityConverter" styleClass="nome20"
+						required="true" requiredMessage="#{msgs['required.procedimento.obrigatorio']}">
 						<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
 							noSelectionOption="true" />
 						<f:selectItems value="#{combosDinamicos.procedimentosTipoExameClinicoOcupacional}" var="procedimento"
