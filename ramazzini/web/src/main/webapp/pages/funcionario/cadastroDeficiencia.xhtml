@@ -22,7 +22,7 @@
 				
 				<p:separator />
 			
-				<h:panelGrid columns="6" cellpadding="10">
+				<h:panelGrid columns="2" cellpadding="10">
 					
 					<p:outputLabel for="origemDeficiencia" value="#{msgs['label.origemDeficiencia']}:" />
 					<p:selectManyCheckbox id="origemDeficiencia"
@@ -30,8 +30,8 @@
 						converter="entityConverter">
 						<f:selectItems value="#{combosDinamicos.origensDeficiencia}"
 							var="origemDeficiencia"
-							itemLabel="#{origemDeficiencia.origemDeficienciaEnum.chave}"
-							itemValue="#{origemDeficiencia.origemDeficienciaEnum.value}" />
+							itemLabel="#{origemDeficiencia.origemDeficienciaEnum.stringChave}"
+							itemValue="#{origemDeficiencia}" />
 					</p:selectManyCheckbox>
 					
 					<p:outputLabel for="descricaoDeficiencia" value="#{msgs['label.descricaoDeficiencia']}:" />			

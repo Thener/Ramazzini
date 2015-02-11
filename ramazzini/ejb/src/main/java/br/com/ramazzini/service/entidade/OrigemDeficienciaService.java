@@ -18,7 +18,7 @@ package br.com.ramazzini.service.entidade;
 
 import javax.ejb.Stateless;
 
-import br.com.ramazzini.model.funcionario.OrigemDeficiencia;
+import br.com.ramazzini.model.origemDeficiencia.OrigemDeficiencia;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
 
 // The @Stateless annotation eliminates the need for manual transaction demarcation

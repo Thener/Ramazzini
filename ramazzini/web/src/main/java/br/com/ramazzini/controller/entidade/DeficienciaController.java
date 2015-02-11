@@ -7,7 +7,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.ramazzini.controller.util.AbstractBean;
-import br.com.ramazzini.model.funcionario.Deficiencia;
+import br.com.ramazzini.model.deficiencia.Deficiencia;
 import br.com.ramazzini.model.funcionario.Funcionario;
 import br.com.ramazzini.service.entidade.FuncionarioService;
 import br.com.ramazzini.util.UtilMensagens;
