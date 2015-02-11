@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -81,6 +82,10 @@ public class Funcionario extends AbstractEntidade implements Serializable {
 	@Column(name = "st_funcionario", length = 2)
     @NotNull 
     private String situacaoFuncionario = SituacaoFuncionario.ATIVO.getValue();
+	
+	@OneToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="cd_deficiencia")
+	private Deficiencia deficiencia;
 	
 	@Transient
 	private Integer idade;
@@ -209,4 +214,12 @@ public class Funcionario extends AbstractEntidade implements Serializable {
 		}
 		return idadeTexto;
 	}	
+	
+	public Deficiencia getDeficiencia() {
+		return deficiencia;
+	}
+
+	public void setDeficiencia(Deficiencia deficiencia) {
+		this.deficiencia = deficiencia;
+	}
 }

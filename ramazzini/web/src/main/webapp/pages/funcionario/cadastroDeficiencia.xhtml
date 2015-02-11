@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui"
+   template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+	
+		<h:form id="frmCadastroDeficiencia">
+		
+			<p:growl id="growl" showDetail="false" sticky="true" />
+			
+			<p:panel id="panelDadosDeficiencia" header="#{msgs['label.avaliacaoDeficiencia']}">
+			
+				<h:panelGrid columns="2" cellpadding="10">
+					
+					<p:outputLabel value="#{msgs['label.funcionario']}:" />
+					<p:outputLabel value="#{deficienciaController.funcionario.nome}" styleClass="negrito" />
+					
+				</h:panelGrid>
+				
+				<p:separator />
+			
+				<h:panelGrid columns="6" cellpadding="10">
+					
+					<p:outputLabel for="nome" value="#{msgs['label.nome']}:" />
+					<p:inputText id="nome" value="#{funcionarioController.funcionario.nome}" 
+						styleClass="nome100" maxlength="100" required="true" />
+						
+					<p:outputLabel for="sexo" value="#{msgs['label.sexo']}:" />
+					<p:selectOneMenu id="sexo"
+						value="#{funcionarioController.funcionario.sexo}">
+						<f:selectItems value="#{combosEstaticos.sexo}" var="sexo"
+							itemLabel="#{sexo.stringChave}" itemValue="#{sexo.value}" />
+					</p:selectOneMenu>
+								
+					<p:outputLabel for="situacaoFuncionario" value="#{msgs['label.situacao']}:" />
+					<p:selectOneMenu id="situacaoFuncionario"
+						value="#{funcionarioController.funcionario.situacaoFuncionario}">
+						<f:selectItems value="#{combosEstaticos.situacoesFuncionario}" var="situacaoFuncionario"
+							itemLabel="#{situacaoFuncionario.stringChave}" itemValue="#{situacaoFuncionario.value}" />
+					</p:selectOneMenu>
+				
+				</h:panelGrid>
+				
+			</p:panel>
+			
+			<p:toolbar>
+				<f:facet name="left">
+					<p:commandButton id="botaoVoltar" immediate="true"
+						icon="ui-icon-arrowreturnthick-1-w" title="#{msgs['botao.voltar']}"
+						action="#{deficienciaController.voltar()}">
+					</p:commandButton>
+					<p:commandButton id="salvar" action="#{funcionarioController.gravarFuncionario()}"
+						value="#{msgs['botao.gravar']}" icon="ui-icon-disk" title="#{msgs['botao.gravar']}"
+						disabled="#{funcionarioController.somenteLeitura}" ajax="true" update="frmCadastroFuncionario" />
+				</f:facet>
+			</p:toolbar>
+		</h:form>
+	</ui:define>
+</ui:composition>
