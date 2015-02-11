@@ -79,3 +79,20 @@ insert into usuario_perfil (cd_usuario, cd_perfil) values ( (select cd_usuario f
 insert into usuario_perfil (cd_usuario, cd_perfil) values ( (select cd_usuario from usuario where nm_login = 'thenerbh@gmail.com'), (select cd_perfil from perfil where nm_perfil = 'administrador') );
 
 insert into usuario_perfil (cd_usuario, cd_perfil) values ( (select cd_usuario from usuario where nm_login = 'gerente@ramazzini.com.br'), (select cd_perfil from perfil where nm_perfil = 'gerente') );
+
+------------------------ CARGA DA TABELA: ORIGEM DEFICIENCIA
+
+insert into origemdeficiencia (cd_origem_def, ts_alteracao, ts_inclusao, tp_origem_deficiencia, cd_usuario_alteracao, cd_usuario_inclusao)
+values (nextval('seq_origem_def'), null, current_timestamp, 'AT', null, null); 
+
+insert into origemdeficiencia (cd_origem_def, ts_alteracao, ts_inclusao, tp_origem_deficiencia, cd_usuario_alteracao, cd_usuario_inclusao)
+values (nextval('seq_origem_def'), null, current_timestamp, 'CG', null, null); 
+
+insert into origemdeficiencia (cd_origem_def, ts_alteracao, ts_inclusao, tp_origem_deficiencia, cd_usuario_alteracao, cd_usuario_inclusao)
+values (nextval('seq_origem_def'), null, current_timestamp, 'PO', null, null); 
+
+insert into origemdeficiencia (cd_origem_def, ts_alteracao, ts_inclusao, tp_origem_deficiencia, cd_usuario_alteracao, cd_usuario_inclusao)
+values (nextval('seq_origem_def'), null, current_timestamp, 'AC', null, null); 
+
+insert into origemdeficiencia (cd_origem_def, ts_alteracao, ts_inclusao, tp_origem_deficiencia, cd_usuario_alteracao, cd_usuario_inclusao)
+values (nextval('seq_origem_def'), null, current_timestamp, 'DC', null, null); 
