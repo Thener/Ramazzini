@@ -1,45 +1,44 @@
 package br.com.ramazzini.model.funcionario;
 
-import java.util.ResourceBundle;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
+import br.com.ramazzini.model.util.AbstractEntidade;
+@SequenceGenerator(name = "seq_origem_def", sequenceName = "seq_origem_def", allocationSize = 1)
+@Entity
+@XmlRootElement
+@Table(name = "origemDeficiencia")
+public class OrigemDeficiencia extends AbstractEntidade{
+	private static final long serialVersionUID = 1L;
 
-public enum OrigemDeficiencia {
-
-	ACIDENTE_TRABALHO("AT","origemDeficiencia.acidenteTrabalho"),
-	CONGENITA("CG","origemDeficiencia.congenita"),
-	POS_OPERATORIA("PO","origemDeficiencia.posOperatorio"),
-	ACIDENTE_COMUM("AC","origemDeficiencia.acidenteComum"),
-	DOENCA("DC","origemDeficiencia.doenca");
+	 @Id
+     @Column(name = "cd_origem_def")
+     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "seq_origem_def")
+     private Long id;
 	
-    private static final ResourceBundle bundle = ResourceBundle.getBundle("messages");
-
-    private String value;
-    private String chave;
-
-    OrigemDeficiencia(String value, String chave) { 
-    	this.value = value;
-    	this.chave = chave;
-    }    
-
-    public String getValue() { return value; }
-
-    public static OrigemDeficiencia parse(String valor) {
-    	OrigemDeficiencia sit = null; // Default
-        for (OrigemDeficiencia item : OrigemDeficiencia.values()) {
-            if (item.getValue().equals(valor)) {
-            	sit = item;
-                break;
-            }
-        }
-        return sit;
-    }
-
-	public String getChave() {
-		return chave;
-	}    
-    
-	public String getStringChave() {
-		return bundle.getString(chave);
+	 @Column(name = "tp_origem_deficiencia", length = 2)
+	 private String origemDeficiencia;
+	 
+	public String getOrigemDeficiencia() {
+		return origemDeficiencia;
 	}
 
+	public void setOrigemDeficiencia(String origemDeficiencia) {
+		this.origemDeficiencia = origemDeficiencia;
+	}
+	
+	public OrigemDeficienciaEnum getOrigemDeficienciaEnum() {
+		return (this.origemDeficiencia != null) ? OrigemDeficienciaEnum.parse(this.origemDeficiencia) : null;
+	}
+	
+	@Override
+	public Long getId() {
+		return id;
+	}	 
 }

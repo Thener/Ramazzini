@@ -11,6 +11,9 @@ import br.com.ramazzini.model.empresa.SituacaoEmpresa;
 import br.com.ramazzini.model.empresa.UnidadeFederativa;
 import br.com.ramazzini.model.feriado.DiasMes;
 import br.com.ramazzini.model.feriado.Mes;
+import br.com.ramazzini.model.funcionario.EnquadramentoDeficiencia;
+import br.com.ramazzini.model.funcionario.LimitacoesDeficienciaMental;
+import br.com.ramazzini.model.funcionario.OrigemDeficienciaEnum;
 import br.com.ramazzini.model.funcionario.Sexo;
 import br.com.ramazzini.model.funcionario.SituacaoFuncionario;
 import br.com.ramazzini.model.horarioAtendimento.DiaSemana;
@@ -62,6 +65,18 @@ public class CombosEstaticos {
 	public SituacaoFuncionario[] getSituacoesFuncionario() {
 		return SituacaoFuncionario.values();
 	}	
+	
+	public OrigemDeficienciaEnum[] getOrigemDeficiencia() {
+		return OrigemDeficienciaEnum.values();
+	}	
+	
+	public EnquadramentoDeficiencia[] getEnquadramentoDeficiencia() {
+		return EnquadramentoDeficiencia.values();
+	}	
+	
+	public LimitacoesDeficienciaMental[] getLimitacoesDeficienciaMental() {
+		return LimitacoesDeficienciaMental.values();
+	}
 	
 	public SituacaoEmpresa[] getSituacoesEmpresa() {
 		return SituacaoEmpresa.values();

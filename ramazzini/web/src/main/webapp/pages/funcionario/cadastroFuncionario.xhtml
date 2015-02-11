@@ -64,6 +64,12 @@
 					<p:commandButton id="salvar" action="#{funcionarioController.gravarFuncionario()}"
 						value="#{msgs['botao.gravar']}" icon="ui-icon-disk" title="#{msgs['botao.gravar']}"
 						disabled="#{funcionarioController.somenteLeitura}" ajax="true" update="frmCadastroFuncionario" />
+					<p:commandButton id="botaoIncluirDeficiencia"
+						icon="ui-icon-clipboard" value="#{msgs['botao.deficiencia']}"
+						action="#{deficienciaController.cadatroDeficiencia()}"
+						disabled="#{empresaController.somenteLeitura or empresaController.empresa.novo}"
+						ajax="false" rendered="#{not funcionarioController.funcionario.novo}"/>	
+					
 				</f:facet>
 			</p:toolbar>
 		</h:form>

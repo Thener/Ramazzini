@@ -3,6 +3,7 @@ package br.com.ramazzini.model.funcionario;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -83,7 +84,7 @@ public class Funcionario extends AbstractEntidade implements Serializable {
     @NotNull 
     private String situacaoFuncionario = SituacaoFuncionario.ATIVO.getValue();
 	
-	@OneToOne(fetch=FetchType.EAGER)
+	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn(name="cd_deficiencia")
 	private Deficiencia deficiencia;
 	

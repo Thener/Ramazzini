@@ -23,6 +23,7 @@ public class FuncionarioController extends AbstractBean implements Serializable 
 	
     @Inject private FuncionarioService funcionarioService;
     @Inject private AvaliacaoClinicaController avaliacaoClinicaController;
+    @Inject private DeficienciaController deficienciaController;
     
     private List<Funcionario> funcionarios;
     
@@ -66,6 +67,7 @@ public class FuncionarioController extends AbstractBean implements Serializable 
     	setEmpresa(funcionario.getEmpresa());
     	setFuncionario(funcionario);
     	avaliacaoClinicaController.setFuncionario(funcionario);
+    	deficienciaController.setFuncionario(funcionario);
     	setSomenteLeitura(somenteLeitura);
     	setUriRequisicao(getControleAcesso().getUriRequisicao());
     	setTabActiveIndex(0);

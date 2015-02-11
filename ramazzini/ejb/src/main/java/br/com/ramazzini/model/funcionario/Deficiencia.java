@@ -1,12 +1,15 @@
 package br.com.ramazzini.model.funcionario;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -26,8 +29,9 @@ public class Deficiencia extends AbstractEntidade implements Serializable {
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "seq_deficiencia")
     private Long id;
 
-    @Column(name = "tp_origem_deficiencia", length = 2)
-    private String origemDeficiencia;
+    @ManyToMany
+    @JoinTable(name = "deficiencia_origem")
+	private List<OrigemDeficiencia> origensDeficiencia;	
     
     @Column(name = "ds_deficiencia", length = 200)
     private String descricaoDeficiencia;
@@ -35,31 +39,15 @@ public class Deficiencia extends AbstractEntidade implements Serializable {
     @Column(name = "ds_limitacoes_funcionais", length = 200)
     private String limitacoesFuncionais;
     
-    @Column(name = "tp_enquadramento_deficiencia", length = 4)
-    private String enquadramentoDeficiencia;
-    
-    @Column(name = "tp_lim_defic_mental", length = 2)
-    private String limitacoesDeficienciaMental;
+//    @Column(name = "tp_enquadramento_deficiencia", length = 4)
+//    private List<String> enquadramentoDeficiencia;
+//    
+//    @Column(name = "tp_lim_defic_mental", length = 2)
+//    private List<String> limitacoesDeficienciaMental;
     
     @Override
 	public Long getId() {
 		return id;
-	}
-	
-    public String getOrigemDeficiencia() {
-		return origemDeficiencia;
-	}
-
-	public void setOrigemDeficiencia(String origemDeficiencia) {
-		this.origemDeficiencia = origemDeficiencia;
-	}
-
-	public OrigemDeficiencia getOrigemDeficienciaEnum() {
-		return (this.origemDeficiencia != null) ? OrigemDeficiencia.parse(this.origemDeficiencia) : null;
-	}
-
-	public void setOrigemDeficienciaEnum(OrigemDeficiencia origemDeficiencia) {
-		setOrigemDeficiencia(origemDeficiencia.getValue());
 	}
 
 	public String getDescricaoDeficiencia() {
@@ -78,36 +66,11 @@ public class Deficiencia extends AbstractEntidade implements Serializable {
 		this.limitacoesFuncionais = limitacoesFuncionais;
 	}
 
-	public String getEnquadramentoDeficiencia() {
-		return enquadramentoDeficiencia;
+	public List<OrigemDeficiencia> getOrigensDeficiencia() {
+		return origensDeficiencia;
 	}
 
-	public void setEnquadramentoDeficiencia(String enquadramentoDeficiencia) {
-		this.enquadramentoDeficiencia = enquadramentoDeficiencia;
+	public void setOrigensDeficiencia(List<OrigemDeficiencia> origensDeficiencia) {
+		this.origensDeficiencia = origensDeficiencia;
 	}
-	
-	public EnquadramentoDeficiencia getEnquadramentoDeficienciaEnum() {
-		return (this.enquadramentoDeficiencia != null) ? EnquadramentoDeficiencia.parse(this.enquadramentoDeficiencia) : null;
-	}
-
-	public void setEnquadramentoDeficienciaEnum(EnquadramentoDeficiencia enquadramentoDeficiencia) {
-		setEnquadramentoDeficiencia(enquadramentoDeficiencia.getValue());
-	}
-
-	public String getLimitacoesDeficienciaMental() {
-		return limitacoesDeficienciaMental;
-	}
-
-	public void setLimitacoesDeficienciaMental(String limitacoesDeficienciaMental) {
-		this.limitacoesDeficienciaMental = limitacoesDeficienciaMental;
-	}
-	
-	public LimitacoesDeficienciaMental getLimitacoesDeficienciaMentalEnum() {
-		return (this.limitacoesDeficienciaMental != null) ? LimitacoesDeficienciaMental.parse(this.limitacoesDeficienciaMental) : null;
-	}
-
-	public void setLimitacoesDeficienciaMentalEnum(LimitacoesDeficienciaMental limitacoesDeficienciaMental) {
-		setLimitacoesDeficienciaMental(limitacoesDeficienciaMental.getValue());
-	}
-	
 }

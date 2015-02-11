@@ -23,39 +23,28 @@ public class DeficienciaController extends AbstractBean implements Serializable 
     @Inject private FuncionarioService funcionarioService;
     
     private Funcionario funcionario;
-    private Deficiencia deficiencia;
+//    private Deficiencia deficiencia;
     
     private Integer tabAtiva;
     
-	public String incluirDeficiencia() {
-		deficiencia = new Deficiencia();
-		return cadatroDeficiencia(deficiencia, Boolean.FALSE);
-	}
-	    
-    public String alterarDeficiencia(Deficiencia deficiencia){
-    	
-    	return cadatroDeficiencia(deficiencia, Boolean.FALSE);
-    }    
-    
-    public String visualizarDeficiencia(Deficiencia deficiencia){
-    	
-    	return cadatroDeficiencia(deficiencia, Boolean.TRUE);
-    }
-    
-    private String cadatroDeficiencia(Deficiencia deficiencia, Boolean somenteLeitura) {
-    	setDeficiencia(deficiencia);
-    	setSomenteLeitura(somenteLeitura);
+    public String cadatroDeficiencia() {
+    	if (funcionario.getDeficiencia()==null){
+    		funcionario.setDeficiencia(new Deficiencia());
+    	}
     	setUriRequisicao(getControleAcesso().getUriRequisicao());
     	return PAGINA_CADASTRO_DEFICIENCIA;    	
     }
     
 	public String gravarDeficiencia() {
-		funcionario.setDeficiencia(deficiencia);
+		//funcionario.setDeficiencia(deficiencia);
 		funcionarioService.salvar(funcionario);
 		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeGravadaComSucesso");
 		return "";
 	}
-    
+//    public boolean doencaMentalSelecionada(){
+//    	return deficiencia.getEnquadramentoDeficiencia().contains(EnquadramentoDeficiencia.DEFICIENCIA_MENTAL.getValue());
+//    		
+//    }
     public String voltar() {				
 		return getUriRequisicao()+"?faces-redirect=true";
 	}
@@ -80,12 +69,12 @@ public class DeficienciaController extends AbstractBean implements Serializable 
 		return funcionario.getIdadeTexto();
 	}
 
-	public Deficiencia getDeficiencia() {
-		return deficiencia;
-	}
-
-	public void setDeficiencia(Deficiencia deficiencia) {
-		this.deficiencia = deficiencia;
-	}
+//	public Deficiencia getDeficiencia() {
+//		return deficiencia;
+//	}
+//
+//	public void setDeficiencia(Deficiencia deficiencia) {
+//		this.deficiencia = deficiencia;
+//	}
 	
 }

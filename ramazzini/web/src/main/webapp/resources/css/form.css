@@ -84,3 +84,8 @@ textarea.tam100 {
 .negrito {
 	font-weight: bold;
 } 
+
+.observacoes {
+   height: 80px;
+    width: 100%;
+}
