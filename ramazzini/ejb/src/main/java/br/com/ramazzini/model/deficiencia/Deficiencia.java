@@ -1,7 +1,7 @@
 package br.com.ramazzini.model.deficiencia;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -40,21 +40,21 @@ public class Deficiencia extends AbstractEntidade implements Serializable {
 	name="deficiencia_origem",
 	joinColumns={@JoinColumn(name="cd_deficiencia")},
 	inverseJoinColumns={@JoinColumn(name="cd_origem_deficiencia")})
-    private Set<OrigemDeficiencia> origensDeficiencia;	
+    private Set<OrigemDeficiencia> origensDeficiencia = new HashSet<OrigemDeficiencia>();	
     
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
 	name="deficiencia_enquadramento",
 	joinColumns={@JoinColumn(name="cd_deficiencia")},
 	inverseJoinColumns={@JoinColumn(name="cd_enquadramento_deficiencia")})
-    private Set<EnquadramentoDeficiencia> enquadramentoDeficiencia;
+    private Set<EnquadramentoDeficiencia> enquadramentoDeficiencia = new HashSet<EnquadramentoDeficiencia>();
     
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
 	name="deficiencia_limitacoes",
 	joinColumns={@JoinColumn(name="cd_deficiencia")},
 	inverseJoinColumns={@JoinColumn(name="cd_limitacoes_deficiencia_mental")})
-    private Set<LimitacoesDeficienciaMental> limitacoesDeficienciaMental;
+    private Set<LimitacoesDeficienciaMental> limitacoesDeficienciaMental = new HashSet<LimitacoesDeficienciaMental>();
     
     @Column(name = "ds_deficiencia", length = 200)
     private String descricaoDeficiencia;

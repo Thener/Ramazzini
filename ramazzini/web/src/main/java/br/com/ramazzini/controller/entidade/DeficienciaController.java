@@ -31,6 +31,7 @@ public class DeficienciaController extends AbstractBean implements Serializable 
     private Integer tabAtiva;
     
     public String cadatroDeficiencia() {
+    	funcionarioService.initTransaction();
     	if (funcionario.getDeficiencia()==null){
     		funcionario.setDeficiencia(new Deficiencia());
     	}

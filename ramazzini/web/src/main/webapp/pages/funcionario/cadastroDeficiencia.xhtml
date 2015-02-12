@@ -1,30 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-   xmlns:ui="http://java.sun.com/jsf/facelets"
-   xmlns:f="http://java.sun.com/jsf/core"
-   xmlns:h="http://java.sun.com/jsf/html"
-   xmlns:p="http://primefaces.org/ui"
-   template="/WEB-INF/templates/default.xhtml">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
-	
+
 		<h:form id="frmCadastroDeficiencia">
-		
+
 			<p:growl id="growl" showDetail="false" sticky="true" />
-			
-			<p:panel id="panelDadosDeficiencia" header="#{msgs['label.avaliacaoDeficiencia']}">
-			
+
+			<p:panel id="panelDadosDeficiencia"
+				header="#{msgs['label.avaliacaoDeficiencia']}">
+
 				<h:panelGrid columns="2" cellpadding="10">
-					
+
 					<p:outputLabel value="#{msgs['label.funcionario']}:" />
-					<p:outputLabel value="#{deficienciaController.funcionario.nome}" styleClass="negrito" />
-					
+					<p:outputLabel value="#{deficienciaController.funcionario.nome}"
+						styleClass="negrito" />
+
 				</h:panelGrid>
-				
+
 				<p:separator />
-			
+
 				<h:panelGrid columns="2" cellpadding="10">
-					
-					<p:outputLabel for="origemDeficiencia" value="#{msgs['label.origemDeficiencia']}:" />
+
+					<p:outputLabel for="origemDeficiencia"
+						value="#{msgs['label.origemDeficiencia']}:" />
 					<p:selectManyCheckbox id="origemDeficiencia"
 						value="#{deficienciaController.funcionario.deficiencia.origensDeficiencia}"
 						converter="entityConverter">
@@ -32,52 +35,70 @@
 							var="origemDeficiencia"
 							itemLabel="#{origemDeficiencia.origemDeficienciaEnum.stringChave}"
 							itemValue="#{origemDeficiencia}" />
+						<f:attribute name="collectionType" value="java.util.HashSet" />
 					</p:selectManyCheckbox>
-					
-					<p:outputLabel for="descricaoDeficiencia" value="#{msgs['label.descricaoDeficiencia']}:" />			
-					<p:inputTextarea id="descricaoDeficiencia" value="#{deficienciaController.funcionario.deficiencia.descricaoDeficiencia}" 
+
+					<p:outputLabel for="descricaoDeficiencia"
+						value="#{msgs['label.descricaoDeficiencia']}:" />
+					<p:inputTextarea id="descricaoDeficiencia"
+						value="#{deficienciaController.funcionario.deficiencia.descricaoDeficiencia}"
 						styleClass="observacoes" maxlength="200" />
-						
-					<p:outputLabel for="limitacoesFuncionais" value="#{msgs['label.limitacoesFuncionais']}:" />			
-					<p:inputTextarea id="limitacoesFuncionais" value="#{deficienciaController.funcionario.deficiencia.limitacoesFuncionais}" 
+
+					<p:outputLabel for="limitacoesFuncionais"
+						value="#{msgs['label.limitacoesFuncionais']}:" />
+					<p:inputTextarea id="limitacoesFuncionais"
+						value="#{deficienciaController.funcionario.deficiencia.limitacoesFuncionais}"
 						styleClass="observacoes" maxlength="200" />
-				
+
 				</h:panelGrid>
-				
-			</p:panel>
-			<p:panel id="panelConclusaoDeficiencia" header="#{msgs['label.conlusao']}">
+				<p:separator />
 				<h:panelGrid columns="1" cellpadding="10">
-					
-					<p:outputLabel for="enquadramentoDeficiencia" value="#{msgs['label.enquadramentoDeficiencia']}:" />
-						<p:selectManyCheckbox id="enquadramentoDeficiencia"
-							value="#{deficienciaController.funcionario.deficiencia.enquadramentoDeficiencia}">
-							<f:selectItems value="#{combosDinamicos.enquadramentoDeficiencia}"
-								var="enquadramentoDeficiencia"
-								itemLabel="#{enquadramentoDeficiencia.enquadramentoDeficienciaEnum.stringChave}"
-								itemValue="#{enquadramentoDeficiencia}" />
+					<p:outputLabel value="#{msgs['label.conlusao']}"
+						styleClass="negrito" />
+					<p:outputLabel for="enquadramentoDeficiencia"
+						value="#{msgs['label.enquadramentoDeficiencia']}:" />
+					<p:selectManyCheckbox id="enquadramentoDeficiencia"
+						value="#{deficienciaController.funcionario.deficiencia.enquadramentoDeficiencia}"
+						converter="entityConverter">
+						<f:selectItems value="#{combosDinamicos.enquadramentoDeficiencia}"
+							var="enquadramentoDeficiencia"
+							itemLabel="#{enquadramentoDeficiencia.enquadramentoDeficienciaEnum.stringChave}"
+							itemValue="#{enquadramentoDeficiencia}" />
+						<f:attribute name="collectionType" value="java.util.HashSet" />
+						<f:ajax execute="limitacoesDeficienciaMental" render="panelDadosDeficiencia"/>
 					</p:selectManyCheckbox>
-					
-					<p:outputLabel for="limitacoesDeficienciaMental" value="#{msgs['label.deficienciaMental']}:" rendered="#{deficienciaController.doencaMentalSelecionada()}"/>
-						<p:selectManyCheckbox id="limitacoesDeficienciaMental" rendered="#{deficienciaController.doencaMentalSelecionada()}"
-							value="#{deficienciaController.funcionario.deficiencia.limitacoesDeficienciaMental}">
-							<f:selectItems value="#{combosDinamicos.limitacoesDeficienciaMental}"
-								var="limitacoesDeficienciaMental"
-								itemLabel="#{limitacoesDeficienciaMental.limitacoesDeficienciaMentalEnum.stringChave}"
-								itemValue="#{limitacoesDeficienciaMental}" />
+
+					<p:outputLabel for="limitacoesDeficienciaMental"
+						value="#{msgs['label.deficienciaMental']}:"
+						rendered="#{deficienciaController.doencaMentalSelecionada()}" />
+					<p:selectManyCheckbox id="limitacoesDeficienciaMental"
+						rendered="#{deficienciaController.doencaMentalSelecionada()}"
+						value="#{deficienciaController.funcionario.deficiencia.limitacoesDeficienciaMental}"
+						converter="entityConverter">
+						<f:selectItems
+							value="#{combosDinamicos.limitacoesDeficienciaMental}"
+							var="limitacoesDeficienciaMental"
+							itemLabel="#{limitacoesDeficienciaMental.limitacoesDeficienciaMentalEnum.stringChave}"
+							itemValue="#{limitacoesDeficienciaMental}" />
+						<f:attribute name="collectionType" value="java.util.HashSet" />
 					</p:selectManyCheckbox>
-					
+
 				</h:panelGrid>
 			</p:panel>
-			
+
 			<p:toolbar>
 				<f:facet name="left">
 					<p:commandButton id="botaoVoltar" immediate="true"
-						icon="ui-icon-arrowreturnthick-1-w" title="#{msgs['botao.voltar']}"
+						icon="ui-icon-arrowreturnthick-1-w"
+						title="#{msgs['botao.voltar']}"
 						action="#{deficienciaController.voltar()}">
 					</p:commandButton>
-					<p:commandButton id="salvar" action="#{deficienciaController.gravarDeficiencia()}"
-						value="#{msgs['botao.gravar']}" icon="ui-icon-disk" title="#{msgs['botao.gravar']}"
-						disabled="#{deficienciaController.somenteLeitura}" ajax="true" update="frmCadastroDeficiencia" />
+					<p:commandButton id="salvar"
+						action="#{deficienciaController.gravarDeficiencia()}"
+						value="#{msgs['botao.gravar']}" icon="ui-icon-disk"
+						title="#{msgs['botao.gravar']}"
+						disabled="#{deficienciaController.somenteLeitura}" ajax="true"
+						update="frmCadastroDeficiencia" />
 				</f:facet>
 			</p:toolbar>
 		</h:form>
