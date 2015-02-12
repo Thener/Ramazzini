@@ -11,9 +11,11 @@ import javax.inject.Named;
 import br.com.ramazzini.model.avaliacaoClinica.AvaliacaoClinica;
 import br.com.ramazzini.model.cbo.Cbo;
 import br.com.ramazzini.model.empresa.Empresa;
+import br.com.ramazzini.model.enquadramentoDeficiencia.EnquadramentoDeficiencia;
 import br.com.ramazzini.model.funcao.Funcao;
 import br.com.ramazzini.model.grupo.Grupo;
 import br.com.ramazzini.model.horarioAtendimento.HorarioAtendimento;
+import br.com.ramazzini.model.limitacoesDeficienciaMental.LimitacoesDeficienciaMental;
 import br.com.ramazzini.model.lotacao.Lotacao;
 import br.com.ramazzini.model.origemDeficiencia.OrigemDeficiencia;
 import br.com.ramazzini.model.procedimento.Procedimento;
@@ -25,9 +27,11 @@ import br.com.ramazzini.service.entidade.AgendaService;
 import br.com.ramazzini.service.entidade.AvaliacaoClinicaService;
 import br.com.ramazzini.service.entidade.CboService;
 import br.com.ramazzini.service.entidade.EmpresaService;
+import br.com.ramazzini.service.entidade.EnquadramentoDeficienciaService;
 import br.com.ramazzini.service.entidade.FuncaoService;
 import br.com.ramazzini.service.entidade.GrupoService;
 import br.com.ramazzini.service.entidade.HorarioAtendimentoService;
+import br.com.ramazzini.service.entidade.LimitacoesDeficienciaMentalService;
 import br.com.ramazzini.service.entidade.LotacaoService;
 import br.com.ramazzini.service.entidade.OrigemDeficienciaService;
 import br.com.ramazzini.service.entidade.ProcedimentoService;
@@ -49,6 +53,8 @@ public class CombosDinamicos {
     @Inject EmpresaService empresaService;
     @Inject GrupoService grupoService; 
     @Inject OrigemDeficienciaService origemDeficienciaService;
+    @Inject EnquadramentoDeficienciaService enquadramentoDeficienciaService;
+    @Inject LimitacoesDeficienciaMentalService limitacoesDeficienciaMentalService;
     
 	public List<Cbo> getCbos() {
 		return cboService.recuperarTodos("numero");
@@ -114,5 +120,13 @@ public class CombosDinamicos {
 	
 	public List<OrigemDeficiencia> getOrigensDeficiencia() {
 		return origemDeficienciaService.recuperarTodos();
-	}	
+	}
+	
+	public List<EnquadramentoDeficiencia> getEnquadramentoDeficiencia() {
+		return enquadramentoDeficienciaService.recuperarTodos();
+	}
+	
+	public List<LimitacoesDeficienciaMental> getLimitacoesDeficienciaMental() {
+		return limitacoesDeficienciaMentalService.recuperarTodos();
+	}
 }

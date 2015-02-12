@@ -9,13 +9,13 @@ import br.com.ramazzini.model.avaliacaoClinicaProcedimento.ResultadoProcedimento
 import br.com.ramazzini.model.avaliacaoClinicaProcedimento.TipoAlteracaoProcedimento;
 import br.com.ramazzini.model.empresa.SituacaoEmpresa;
 import br.com.ramazzini.model.empresa.UnidadeFederativa;
+import br.com.ramazzini.model.enquadramentoDeficiencia.EnquadramentoDeficienciaEnum;
 import br.com.ramazzini.model.feriado.DiasMes;
 import br.com.ramazzini.model.feriado.Mes;
-import br.com.ramazzini.model.funcionario.EnquadramentoDeficiencia;
-import br.com.ramazzini.model.funcionario.LimitacoesDeficienciaMental;
 import br.com.ramazzini.model.funcionario.Sexo;
 import br.com.ramazzini.model.funcionario.SituacaoFuncionario;
 import br.com.ramazzini.model.horarioAtendimento.DiaSemana;
+import br.com.ramazzini.model.limitacoesDeficienciaMental.LimitacoesDeficienciaMentalEnum;
 import br.com.ramazzini.model.origemDeficiencia.OrigemDeficienciaEnum;
 import br.com.ramazzini.model.procedimento.TipoExameClinico;
 import br.com.ramazzini.model.procedimento.TipoProcedimento;
@@ -70,12 +70,12 @@ public class CombosEstaticos {
 		return OrigemDeficienciaEnum.values();
 	}	
 	
-	public EnquadramentoDeficiencia[] getEnquadramentoDeficiencia() {
-		return EnquadramentoDeficiencia.values();
+	public EnquadramentoDeficienciaEnum[] getEnquadramentoDeficiencia() {
+		return EnquadramentoDeficienciaEnum.values();
 	}	
 	
-	public LimitacoesDeficienciaMental[] getLimitacoesDeficienciaMental() {
-		return LimitacoesDeficienciaMental.values();
+	public LimitacoesDeficienciaMentalEnum[] getLimitacoesDeficienciaMental() {
+		return LimitacoesDeficienciaMentalEnum.values();
 	}
 	
 	public SituacaoEmpresa[] getSituacoesEmpresa() {

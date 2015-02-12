@@ -96,3 +96,46 @@ values (nextval('seq_origem_def'), null, current_timestamp, 'AC', null, null);
 
 insert into origem_deficiencia (cd_origem_deficiencia, ts_alteracao, ts_inclusao, tp_origem_deficiencia, cd_usuario_alteracao, cd_usuario_inclusao)
 values (nextval('seq_origem_def'), null, current_timestamp, 'DC', null, null); 
+
+------------------------ CARGA DA TABELA: ENQUADRAMENTO DEFICIENCIA
+
+insert into enquadramento_deficiencia (cd_enquadramento_deficiencia, ts_alteracao, ts_inclusao, tp_enquadramento_deficiencia, cd_usuario_alteracao, cd_usuario_inclusao)
+values (nextval('seq_enquadramento_deficiencia'), null, current_timestamp, 'DFIS', null, null); 
+
+insert into enquadramento_deficiencia (cd_enquadramento_deficiencia, ts_alteracao, ts_inclusao, tp_enquadramento_deficiencia, cd_usuario_alteracao, cd_usuario_inclusao)
+values (nextval('seq_enquadramento_deficiencia'), null, current_timestamp, 'DAUD', null, null); 
+
+insert into enquadramento_deficiencia (cd_enquadramento_deficiencia, ts_alteracao, ts_inclusao, tp_enquadramento_deficiencia, cd_usuario_alteracao, cd_usuario_inclusao)
+values (nextval('seq_enquadramento_deficiencia'), null, current_timestamp, 'DVIS', null, null); 
+
+insert into enquadramento_deficiencia (cd_enquadramento_deficiencia, ts_alteracao, ts_inclusao, tp_enquadramento_deficiencia, cd_usuario_alteracao, cd_usuario_inclusao)
+values (nextval('seq_enquadramento_deficiencia'), null, current_timestamp, 'DMEN', null, null); 
+
+insert into enquadramento_deficiencia (cd_enquadramento_deficiencia, ts_alteracao, ts_inclusao, tp_enquadramento_deficiencia, cd_usuario_alteracao, cd_usuario_inclusao)
+values (nextval('seq_enquadramento_deficiencia'), null, current_timestamp, 'DMUL', null, null); 
+
+------------------------ CARGA DA TABELA: LIMITACOES DEFICIENCIA MENTAL
+
+insert into limitacoes_deficiencia_mental (cd_limitacoes_deficiencia_mental, ts_alteracao, ts_inclusao, tp_limitacoes_deficiencia_mental, cd_usuario_alteracao, cd_usuario_inclusao)
+values (nextval('seq_limitacoes_deficiencia_mental'), null, current_timestamp, 'CO', null, null); 
+
+insert into limitacoes_deficiencia_mental (cd_limitacoes_deficiencia_mental, ts_alteracao, ts_inclusao, tp_limitacoes_deficiencia_mental, cd_usuario_alteracao, cd_usuario_inclusao)
+values (nextval('seq_limitacoes_deficiencia_mental'), null, current_timestamp, 'CP', null, null); 
+
+insert into limitacoes_deficiencia_mental (cd_limitacoes_deficiencia_mental, ts_alteracao, ts_inclusao, tp_limitacoes_deficiencia_mental, cd_usuario_alteracao, cd_usuario_inclusao)
+values (nextval('seq_limitacoes_deficiencia_mental'), null, current_timestamp, 'HP', null, null); 
+
+insert into limitacoes_deficiencia_mental (cd_limitacoes_deficiencia_mental, ts_alteracao, ts_inclusao, tp_limitacoes_deficiencia_mental, cd_usuario_alteracao, cd_usuario_inclusao)
+values (nextval('seq_limitacoes_deficiencia_mental'), null, current_timestamp, 'UR', null, null); 
+
+insert into limitacoes_deficiencia_mental (cd_limitacoes_deficiencia_mental, ts_alteracao, ts_inclusao, tp_limitacoes_deficiencia_mental, cd_usuario_alteracao, cd_usuario_inclusao)
+values (nextval('seq_limitacoes_deficiencia_mental'), null, current_timestamp, 'SS', null, null); 
+
+insert into limitacoes_deficiencia_mental (cd_limitacoes_deficiencia_mental, ts_alteracao, ts_inclusao, tp_limitacoes_deficiencia_mental, cd_usuario_alteracao, cd_usuario_inclusao)
+values (nextval('seq_limitacoes_deficiencia_mental'), null, current_timestamp, 'HA', null, null); 
+
+insert into limitacoes_deficiencia_mental (cd_limitacoes_deficiencia_mental, ts_alteracao, ts_inclusao, tp_limitacoes_deficiencia_mental, cd_usuario_alteracao, cd_usuario_inclusao)
+values (nextval('seq_limitacoes_deficiencia_mental'), null, current_timestamp, 'LA', null, null);
+
+insert into limitacoes_deficiencia_mental (cd_limitacoes_deficiencia_mental, ts_alteracao, ts_inclusao, tp_limitacoes_deficiencia_mental, cd_usuario_alteracao, cd_usuario_inclusao)
+values (nextval('seq_limitacoes_deficiencia_mental'), null, current_timestamp, 'TB', null, null);  

@@ -45,6 +45,29 @@
 				</h:panelGrid>
 				
 			</p:panel>
+			<p:panel id="panelConclusaoDeficiencia" header="#{msgs['label.conlusao']}">
+				<h:panelGrid columns="1" cellpadding="10">
+					
+					<p:outputLabel for="enquadramentoDeficiencia" value="#{msgs['label.enquadramentoDeficiencia']}:" />
+						<p:selectManyCheckbox id="enquadramentoDeficiencia"
+							value="#{deficienciaController.funcionario.deficiencia.enquadramentoDeficiencia}">
+							<f:selectItems value="#{combosDinamicos.enquadramentoDeficiencia}"
+								var="enquadramentoDeficiencia"
+								itemLabel="#{enquadramentoDeficiencia.enquadramentoDeficienciaEnum.stringChave}"
+								itemValue="#{enquadramentoDeficiencia}" />
+					</p:selectManyCheckbox>
+					
+					<p:outputLabel for="limitacoesDeficienciaMental" value="#{msgs['label.deficienciaMental']}:" rendered="#{deficienciaController.doencaMentalSelecionada()}"/>
+						<p:selectManyCheckbox id="limitacoesDeficienciaMental" rendered="#{deficienciaController.doencaMentalSelecionada()}"
+							value="#{deficienciaController.funcionario.deficiencia.limitacoesDeficienciaMental}">
+							<f:selectItems value="#{combosDinamicos.limitacoesDeficienciaMental}"
+								var="limitacoesDeficienciaMental"
+								itemLabel="#{limitacoesDeficienciaMental.limitacoesDeficienciaMentalEnum.stringChave}"
+								itemValue="#{limitacoesDeficienciaMental}" />
+					</p:selectManyCheckbox>
+					
+				</h:panelGrid>
+			</p:panel>
 			
 			<p:toolbar>
 				<f:facet name="left">

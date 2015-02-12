@@ -8,7 +8,9 @@ import javax.inject.Named;
 
 import br.com.ramazzini.controller.util.AbstractBean;
 import br.com.ramazzini.model.deficiencia.Deficiencia;
+import br.com.ramazzini.model.enquadramentoDeficiencia.EnquadramentoDeficienciaEnum;
 import br.com.ramazzini.model.funcionario.Funcionario;
+import br.com.ramazzini.service.entidade.EnquadramentoDeficienciaService;
 import br.com.ramazzini.service.entidade.FuncionarioService;
 import br.com.ramazzini.util.UtilMensagens;
 
@@ -21,6 +23,7 @@ public class DeficienciaController extends AbstractBean implements Serializable 
 	private static final String PAGINA_CADASTRO_DEFICIENCIA = "/pages/funcionario/cadastroDeficiencia.jsf?faces-redirect=true";
 	
     @Inject private FuncionarioService funcionarioService;
+    @Inject private EnquadramentoDeficienciaService enquadramentoDeficienciaService;
     
     private Funcionario funcionario;
 //    private Deficiencia deficiencia;
@@ -36,15 +39,17 @@ public class DeficienciaController extends AbstractBean implements Serializable 
     }
     
 	public String gravarDeficiencia() {
-		//funcionario.setDeficiencia(deficiencia);
 		funcionarioService.salvar(funcionario);
 		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeGravadaComSucesso");
 		return "";
 	}
-//    public boolean doencaMentalSelecionada(){
-//    	return deficiencia.getEnquadramentoDeficiencia().contains(EnquadramentoDeficiencia.DEFICIENCIA_MENTAL.getValue());
-//    		
-//    }
+    public boolean doencaMentalSelecionada(){
+    	if (funcionario.getDeficiencia().getEnquadramentoDeficiencia() == null){
+    		return false;
+    	} else {
+    		return funcionario.getDeficiencia().getEnquadramentoDeficiencia().contains(enquadramentoDeficienciaService.recuperarPorTipoEnquadramento(EnquadramentoDeficienciaEnum.DEFICIENCIA_MENTAL));
+    	}
+    }
     public String voltar() {				
 		return getUriRequisicao()+"?faces-redirect=true";
 	}
@@ -68,13 +73,4 @@ public class DeficienciaController extends AbstractBean implements Serializable 
 	public String getIdadeFuncionario() {
 		return funcionario.getIdadeTexto();
 	}
-
-//	public Deficiencia getDeficiencia() {
-//		return deficiencia;
-//	}
-//
-//	public void setDeficiencia(Deficiencia deficiencia) {
-//		this.deficiencia = deficiencia;
-//	}
-	
 }
