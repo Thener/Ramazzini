@@ -56,7 +56,7 @@
 					<p:outputLabel value="#{msgs['label.conlusao']}"
 						styleClass="negrito" />
 					<p:outputLabel for="enquadramentoDeficiencia"
-						value="#{msgs['label.enquadramentoDeficiencia']}:" />
+						value="#{msgs['label.enquadramentoDeficiencia']}" />
 					<p:selectManyCheckbox id="enquadramentoDeficiencia"
 						value="#{deficienciaController.funcionario.deficiencia.enquadramentoDeficiencia}"
 						converter="entityConverter">
@@ -69,7 +69,7 @@
 					</p:selectManyCheckbox>
 
 					<p:outputLabel for="limitacoesDeficienciaMental"
-						value="#{msgs['label.deficienciaMental']}:"
+						value="#{msgs['label.deficienciaMental']}"
 						rendered="#{deficienciaController.doencaMentalSelecionada()}" />
 					<p:selectManyCheckbox id="limitacoesDeficienciaMental"
 						rendered="#{deficienciaController.doencaMentalSelecionada()}"
