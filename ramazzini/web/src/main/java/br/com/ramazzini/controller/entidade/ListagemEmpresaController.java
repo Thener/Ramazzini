@@ -50,7 +50,7 @@ public class ListagemEmpresaController extends AbstractBean implements Serializa
     public void export() throws Exception {
     	empresas = empresaService.recuperarPor(situacoes, grupo, dataSelecionada);
     	if (!empresas.isEmpty()){
-	    	File relatorio = getCaminhoRelatorio(PATH_DIRECTORY_LISTAGEM_EMPRESAS, JASPER_EMPRESAS);
+	    	File relatorio = getFileRelatorio(PATH_DIRECTORY_LISTAGEM_EMPRESAS, JASPER_EMPRESAS);
 	    	ExportarPdfController export = new ExportarPdfController(carregaParametros(), new JRBeanCollectionDataSource(empresas), "Listagem_Empresas", relatorio);
 			export.download();
     	} else{
@@ -67,7 +67,7 @@ public class ListagemEmpresaController extends AbstractBean implements Serializa
 		}
 		parameters.put("FILTRO_SITUACOES", sb.toString());
 		parameters.put("FILTRO_GRUPO", grupo);
-		parameters.put("IMAGE_PATH", getRequest().getServletContext().getRealPath("/resources/img/")+ "\\" );
+		parameters.put("IMAGE_PATH", getCaminhoLogo());
 		if (dataSelecionada != null){
 			parameters.put("FILTRO_DATA", new java.text.SimpleDateFormat("dd/MM/yyyy").format(dataSelecionada));
 		}

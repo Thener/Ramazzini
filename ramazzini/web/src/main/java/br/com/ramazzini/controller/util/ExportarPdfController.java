@@ -48,6 +48,13 @@ public class ExportarPdfController implements Serializable {
 		this.nome = nome;
 	}
 			
+	public ExportarPdfController(HashMap<String, Object> parametros,
+			String nome, File relatorio) {
+		this.relatorio = relatorio ;
+		this.parametros = parametros;
+		this.nome = nome;
+	}
+
 	/**
 	 * Realiza o download de um pdf recebendo um datasource e uma lista de parametros.
 	 * @throws Exception
@@ -56,6 +63,16 @@ public class ExportarPdfController implements Serializable {
 		JasperReport report = (JasperReport) JRLoader.loadObject(relatorio);
 		JasperPrint jasperPrint = JasperFillManager
 				.fillReport(report, parametros, jrBeanCollectionDataSource);
+		DownloadUtil.download(
+				JasperExportManager.exportReportToPdf(jasperPrint),
+				nome,
+				MimeType.APPLICATION_PDF_PDF);
+	}	
+	
+	public void downloadSemDataSource() throws Exception {
+		JasperReport report = (JasperReport) JRLoader.loadObject(relatorio);
+		JasperPrint jasperPrint = JasperFillManager
+				.fillReport(report, parametros);
 		DownloadUtil.download(
 				JasperExportManager.exportReportToPdf(jasperPrint),
 				nome,

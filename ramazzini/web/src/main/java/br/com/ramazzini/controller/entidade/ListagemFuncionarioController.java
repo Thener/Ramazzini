@@ -50,7 +50,7 @@ public class ListagemFuncionarioController extends AbstractBean implements Seria
     public void export() throws Exception {
     	funcionarios = funcionarioService.recuperarPor(funcao, situacoes, empresa);
     	if (!funcionarios.isEmpty()){
-	    	File relatorio = getCaminhoRelatorio(PATH_DIRECTORY_LISTAGEM_FUNCIONARIOS, JASPER_FUNCIONARIOS);
+	    	File relatorio = getFileRelatorio(PATH_DIRECTORY_LISTAGEM_FUNCIONARIOS, JASPER_FUNCIONARIOS);
 	    	ExportarPdfController export = new ExportarPdfController(carregaParametros(), new JRBeanCollectionDataSource(funcionarios), "Listagem_Funcionarios", relatorio);
 			export.download();
     	} else{
@@ -68,7 +68,7 @@ public class ListagemFuncionarioController extends AbstractBean implements Seria
 		parameters.put("FILTRO_SITUACOES", sb.toString());
 		parameters.put("FILTRO_FUNCAO", funcao);
 		parameters.put("FILTRO_EMPRESA", empresa);
-		parameters.put("IMAGE_PATH", getRequest().getServletContext().getRealPath("/resources/img/")+ "\\" );
+		parameters.put("IMAGE_PATH", getCaminhoLogo() );
 		return parameters;
 	}
 		

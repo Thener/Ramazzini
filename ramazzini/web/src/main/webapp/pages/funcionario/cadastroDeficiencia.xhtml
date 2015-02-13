@@ -99,6 +99,12 @@
 						title="#{msgs['botao.gravar']}"
 						disabled="#{deficienciaController.somenteLeitura}" ajax="true"
 						update="frmCadastroDeficiencia" />
+					<p:commandButton id="avaliacaoDeficiente" 
+						action="#{deficienciaController.export()}"
+						value="#{msgs['botao.exportar']}" 
+						title="#{msgs['botao.exportar']}"
+						icon="exportpdf" ajax="false">
+					</p:commandButton>
 				</f:facet>
 			</p:toolbar>
 		</h:form>
