@@ -104,7 +104,7 @@ public class AvaliacaoClinicaController extends AbstractBean implements Serializ
     	
     	Date menorData = null;
     	
-    	if (procedimentos.size() > 0) {
+    	if (procedimentos != null && procedimentos.size() > 0) {
     		for (AvaliacaoClinicaProcedimento acp : procedimentos) {
     			if (menorData == null || acp.getDataRetorno().before(menorData)) {
     				menorData = acp.getDataRetorno();

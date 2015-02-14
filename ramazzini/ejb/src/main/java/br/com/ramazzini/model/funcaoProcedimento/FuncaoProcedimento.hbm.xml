@@ -12,7 +12,7 @@
 			where 
 				fp.funcao = :funcao
 			order 
-				by fp.funcao.nome
+				by fp.procedimento.nome
 		]]>
 	</query>
 	

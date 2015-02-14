@@ -31,6 +31,27 @@
 		]]>
 	</query>
 	
+	<query name="AvaliacaoClinicaProcedimento.recuperarMaisRecentePorFuncionarioProcedimento">
+		<![CDATA[
+			select 
+				acp
+			from 
+				AvaliacaoClinicaProcedimento acp
+			inner join 
+				acp.avaliacaoClinica ac
+			inner join
+				acp.procedimento p
+			where 
+				ac.funcionario = :funcionario
+			and
+				p = :procedimento
+			and
+				acp.resultadoProcedimento <> 'SOL'
+			order 
+				by acp.dataRealizacao desc
+		]]>
+	</query>	
+	
 	<query name="AvaliacaoClinicaProcedimento.verificaValidadeProcedimento">
 		<![CDATA[
 			select 

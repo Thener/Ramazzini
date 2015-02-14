@@ -16,30 +16,51 @@
 						
 	</h:panelGrid>
 	
-	<p:dataTable var="funcaoProcedimento" value="#{analiseEmissaoDocumentosController.procedimentosParaPedidoExame}">
+	<p:dataTable var="funcaoProcedimentoVO" value="#{analiseEmissaoDocumentosController.procedimentosParaPedidoExame}">
 	    
 	    <p:column headerText="#{msgs['label.procedimento']}">
-	        <h:outputText value="#{funcaoProcedimento.procedimento.nome}" />
+	        <h:outputText value="#{funcaoProcedimentoVO.funcaoProcedimento.procedimento.nome}" />
+	    </p:column>
+
+	    <p:column headerText="#{msgs['label.dataRetorno']}" styleClass="colunaCentralizada">
+	        <h:outputText value="#{funcaoProcedimentoVO.dataRetorno}">
+	        	<f:convertDateTime locale="pt,BR" pattern="#{msgs['pattern.calendar']}" />
+	        </h:outputText>
 	    </p:column>
 	    
 		<p:column headerText="#{msgs['abreviacao.admissional']}" styleClass="agendaRealizaProcedimento">
-			<h:outputText styleClass="agendaRealizaProcedimento_#{funcaoProcedimento.realizaAdmissional}" />
+			<h:outputText styleClass="agendaRealizaProcedimentoSelecao_#{funcaoProcedimentoVO.funcaoProcedimento.realizaAdmissional}"
+				rendered="#{funcaoProcedimentoVO.solicitar and analiseEmissaoDocumentosController.procedimentoSelecionado.tipoExameClinico == 'ADM'}" />
+			<h:outputText styleClass="agendaRealizaProcedimento_#{funcaoProcedimentoVO.funcaoProcedimento.realizaAdmissional}"
+				rendered="#{!funcaoProcedimentoVO.solicitar or analiseEmissaoDocumentosController.procedimentoSelecionado.tipoExameClinico != 'ADM'}" />				
 		</p:column>	
 		
 		<p:column headerText="#{msgs['abreviacao.periodico']}" styleClass="agendaRealizaProcedimento">
-			<h:outputText styleClass="agendaRealizaProcedimento_#{funcaoProcedimento.realizaPeriodico}" />
+			<h:outputText styleClass="agendaRealizaProcedimentoSelecao_#{funcaoProcedimentoVO.funcaoProcedimento.realizaPeriodico}"
+				rendered="#{funcaoProcedimentoVO.solicitar and analiseEmissaoDocumentosController.procedimentoSelecionado.tipoExameClinico == 'PER'}" />
+			<h:outputText styleClass="agendaRealizaProcedimento_#{funcaoProcedimentoVO.funcaoProcedimento.realizaPeriodico}"
+				rendered="#{!funcaoProcedimentoVO.solicitar or analiseEmissaoDocumentosController.procedimentoSelecionado.tipoExameClinico != 'PER'}" />				
 		</p:column>
 		
 		<p:column headerText="#{msgs['abreviacao.mudancaFuncao']}" styleClass="agendaRealizaProcedimento">
-			<h:outputText styleClass="agendaRealizaProcedimento_#{funcaoProcedimento.realizaMudancaFuncao}" />
+			<h:outputText styleClass="agendaRealizaProcedimentoSelecao_#{funcaoProcedimentoVO.funcaoProcedimento.realizaMudancaFuncao}"
+				rendered="#{funcaoProcedimentoVO.solicitar and analiseEmissaoDocumentosController.procedimentoSelecionado.tipoExameClinico == 'MUD'}" />
+			<h:outputText styleClass="agendaRealizaProcedimento_#{funcaoProcedimentoVO.funcaoProcedimento.realizaMudancaFuncao}"
+				rendered="#{!funcaoProcedimentoVO.solicitar or analiseEmissaoDocumentosController.procedimentoSelecionado.tipoExameClinico != 'MUD'}" />				
 		</p:column>		
 		
 		<p:column headerText="#{msgs['abreviacao.retornoTrabalho']}" styleClass="agendaRealizaProcedimento">
-			<h:outputText styleClass="agendaRealizaProcedimento_#{funcaoProcedimento.realizaRetornoTrabalho}" />
+			<h:outputText styleClass="agendaRealizaProcedimentoSelecao_#{funcaoProcedimentoVO.funcaoProcedimento.realizaRetornoTrabalho}"
+				rendered="#{funcaoProcedimentoVO.solicitar and analiseEmissaoDocumentosController.procedimentoSelecionado.tipoExameClinico == 'RET'}" />
+			<h:outputText styleClass="agendaRealizaProcedimento_#{funcaoProcedimentoVO.funcaoProcedimento.realizaRetornoTrabalho}"
+				rendered="#{!funcaoProcedimentoVO.solicitar or analiseEmissaoDocumentosController.procedimentoSelecionado.tipoExameClinico != 'RET'}" />				
 		</p:column>	
 		
 		<p:column headerText="#{msgs['abreviacao.demissional']}" styleClass="agendaRealizaProcedimento">
-			<h:outputText styleClass="agendaRealizaProcedimento_#{funcaoProcedimento.realizaDemissional}" />
+			<h:outputText styleClass="agendaRealizaProcedimentoSelecao_#{funcaoProcedimentoVO.funcaoProcedimento.realizaDemissional}"
+				rendered="#{funcaoProcedimentoVO.solicitar and analiseEmissaoDocumentosController.procedimentoSelecionado.tipoExameClinico == 'DEM'}" />
+			<h:outputText styleClass="agendaRealizaProcedimento_#{funcaoProcedimentoVO.funcaoProcedimento.realizaDemissional}"
+				rendered="#{!funcaoProcedimentoVO.solicitar or analiseEmissaoDocumentosController.procedimentoSelecionado.tipoExameClinico != 'DEM'}" />				
 		</p:column>		    
 	    
 	</p:dataTable>	

@@ -10,9 +10,11 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.ramazzini.controller.util.AbstractBean;
+import br.com.ramazzini.model.avaliacaoClinicaProcedimento.AvaliacaoClinicaProcedimento;
 import br.com.ramazzini.model.empresa.Empresa;
 import br.com.ramazzini.model.funcao.Funcao;
 import br.com.ramazzini.model.funcaoProcedimento.FuncaoProcedimento;
+import br.com.ramazzini.model.funcaoProcedimento.FuncaoProcedimentoVO;
 import br.com.ramazzini.model.funcionario.Funcionario;
 import br.com.ramazzini.model.procedimento.Procedimento;
 import br.com.ramazzini.model.procedimento.TipoExameClinico;
@@ -40,7 +42,7 @@ public class AnaliseEmissaoDocumentosController extends AbstractBean implements 
 	
 	private Procedimento procedimentoSelecionado;
 	
-	private List<FuncaoProcedimento> procedimentosParaPedidoExame;
+	private List<FuncaoProcedimentoVO> procedimentosParaPedidoExame = new ArrayList<FuncaoProcedimentoVO>();
 	
 	private Procedimento procedimetoParaPedidoExame;
 	
@@ -91,7 +93,7 @@ public class AnaliseEmissaoDocumentosController extends AbstractBean implements 
 	
 		if (funcaoRealizaProcedimentos(funcaoSelecionada, procedimentoSelecionado.getTipoExameClinicoEnum())) {
 			setEmissaoPedidoExame(Boolean.TRUE);
-			setProcedimentosParaPedidoExame(procedimentosRealizadosPelaFuncao(funcaoSelecionada));
+			definirProcedimentosParaPedidoExame(funcaoSelecionada, TipoExameClinico.ADMISSIONAL);
 		} else {
 			setEmissaoAso(Boolean.TRUE);
 		}
@@ -103,10 +105,9 @@ public class AnaliseEmissaoDocumentosController extends AbstractBean implements 
 	private void analisePeriodicoDemissionalRetornoTrabalho() {
 		
 		if (funcaoRealizaProcedimentos(funcaoSelecionada, procedimentoSelecionado.getTipoExameClinicoEnum())) {
-			List<FuncaoProcedimento> procedimentosVencidos = procedimentosVencidosDaFuncao(funcaoSelecionada);
-			if (procedimentosVencidos.size() > 0) {
+			definirProcedimentosParaPedidoExame(funcaoSelecionada, procedimentoSelecionado.getTipoExameClinicoEnum());
+			if (procedimentosParaPedidoExame.size() > 0) {
 				setEmissaoPedidoExame(Boolean.TRUE);
-				setProcedimentosParaPedidoExame(procedimentosVencidos);
 			} else {
 				setEmissaoAso(Boolean.TRUE);
 			}
@@ -119,6 +120,7 @@ public class AnaliseEmissaoDocumentosController extends AbstractBean implements 
 	}
 	
 	private void analiseMudancaFuncao() {
+		
 		emissaoAso = Boolean.FALSE;
 		emissaoPedidoExame = Boolean.FALSE;	
 		
@@ -126,24 +128,32 @@ public class AnaliseEmissaoDocumentosController extends AbstractBean implements 
 				procedimentoSelecionado.getTipoExameClinicoEnum().getChave());		
 	}
 	
-	private List<FuncaoProcedimento> procedimentosVencidosDaFuncao(Funcao funcao) {
-		List<FuncaoProcedimento> procedimentos = funcaoProcedimentoService.recuperarPorFuncao(funcao);
-		List<FuncaoProcedimento> procedimentosVencidos = new ArrayList<FuncaoProcedimento>();
-		for (FuncaoProcedimento fp : procedimentos) {
-			if (!avaliacaoClinicaProcedimentoService.verificaValidadeDoProcedimento(
-					funcionarioSelecionado, fp.getProcedimento(), dataReferencia)) {
-				procedimentosVencidos.add(fp);
-			}
-		}
-		return procedimentosVencidos;
-	}
-	
 	private boolean funcaoRealizaProcedimentos(Funcao funcao, TipoExameClinico tipoExameClinico) {
+		
 		return funcaoService.realizaProcedimentos(funcao, tipoExameClinico);
 	}
 	
-	private List<FuncaoProcedimento> procedimentosRealizadosPelaFuncao(Funcao funcao) {
-		return funcaoProcedimentoService.recuperarPorFuncao(funcao);
+	private void definirProcedimentosParaPedidoExame(Funcao funcao, TipoExameClinico tipoExameClinico) {
+		
+		List<FuncaoProcedimento> funcoesProcedimentos = funcaoProcedimentoService.recuperarPorFuncao(funcao);
+		procedimentosParaPedidoExame.clear();
+		for (FuncaoProcedimento fp : funcoesProcedimentos) {
+			
+			boolean solicitar = Boolean.TRUE;
+			Date dataRetorno = null;
+			
+			if (!tipoExameClinico.equals(TipoExameClinico.ADMISSIONAL)) {
+				
+				AvaliacaoClinicaProcedimento acp = 
+						avaliacaoClinicaProcedimentoService.recuperarMaisRecentePor(funcionarioSelecionado, fp.getProcedimento());
+				
+				dataRetorno = acp.getDataRetorno();
+				
+				solicitar = (dataRetorno.before(dataReferencia)) ? Boolean.TRUE : Boolean.FALSE;				
+			}
+			
+			procedimentosParaPedidoExame.add(new FuncaoProcedimentoVO(fp, dataRetorno, solicitar));
+		}
 	}
 
     public String voltar() {	
@@ -209,12 +219,12 @@ public class AnaliseEmissaoDocumentosController extends AbstractBean implements 
 		this.emissaoAso = emissaoAso;
 	}
 
-	public List<FuncaoProcedimento> getProcedimentosParaPedidoExame() {
+	public List<FuncaoProcedimentoVO> getProcedimentosParaPedidoExame() {
 		return procedimentosParaPedidoExame;
 	}
 
 	public void setProcedimentosParaPedidoExame(
-			List<FuncaoProcedimento> procedimentosParaPedidoExame) {
+			List<FuncaoProcedimentoVO> procedimentosParaPedidoExame) {
 		this.procedimentosParaPedidoExame = procedimentosParaPedidoExame;
 	}
 

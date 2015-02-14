@@ -17,6 +17,8 @@ public class AvaliacaoClinicaProcedimentoDao extends AbstractDao<AvaliacaoClinic
 
 	private static final String QUERY_RECUPERAR_POR_AVALIACAO_CLINICA = "AvaliacaoClinicaProcedimento.recuperarPorAvaliacaoClinica";
 	private static final String QUERY_RECUPERAR_POR_PROCEDIMENTO = "AvaliacaoClinicaProcedimento.recuperarPorProcedimento";
+	private static final String QUERY_RECUPERAR_MAIS_RECENTE_POR_FUNCIONARIO_PROCEDIMENTO  = 
+			"AvaliacaoClinicaProcedimento.recuperarMaisRecentePorFuncionarioProcedimento";
 	private static final String QUERY_VERIFICA_VALIDADE_PROCEDIMENTO = "AvaliacaoClinicaProcedimento.verificaValidadeProcedimento";
 	
 	@SuppressWarnings("unchecked")
@@ -41,6 +43,18 @@ public class AvaliacaoClinicaProcedimentoDao extends AbstractDao<AvaliacaoClinic
 			return null;
 		}
 	}
+	
+	public AvaliacaoClinicaProcedimento recuperarMaisRecentePor(Funcionario funcionario, Procedimento procedimento) {
+		Query query = createNamedQuery(QUERY_RECUPERAR_MAIS_RECENTE_POR_FUNCIONARIO_PROCEDIMENTO);
+		query.setParameter("funcionario", funcionario);
+		query.setParameter("procedimento", procedimento);
+		query.setMaxResults(1);
+		try {
+			return (AvaliacaoClinicaProcedimento) query.getSingleResult();
+		} catch (NoResultException nr) {
+			return null;
+		}
+	}	
 	
 	public boolean verificaValidadeDoProcedimento(Funcionario funcionario, Procedimento procedimento, Date dataReferencia) {
 		Query query = createNamedQuery(QUERY_VERIFICA_VALIDADE_PROCEDIMENTO);
