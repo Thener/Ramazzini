@@ -24,6 +24,7 @@ import br.com.ramazzini.dao.funcao.FuncaoDao;
 import br.com.ramazzini.model.empresa.Empresa;
 import br.com.ramazzini.model.funcao.Funcao;
 import br.com.ramazzini.model.procedimento.Procedimento;
+import br.com.ramazzini.model.procedimento.TipoExameClinico;
 import br.com.ramazzini.model.riscoOcupacional.RiscoOcupacional;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
 
@@ -33,6 +34,10 @@ public class FuncaoService extends AbstractServiceImpl<Funcao> {
 
 	public boolean existeRiscoErgonomico(Funcao funcao) {
 		return (!funcao.isNovo()) ? ((FuncaoDao) getDao()).existeRiscoErgonomico(funcao) : false;
+	}
+	
+	public boolean realizaProcedimentos(Funcao funcao, TipoExameClinico tipoExameClinico) {
+		return (!funcao.isNovo()) ? ((FuncaoDao) getDao()).realizaProcedimentos(funcao, tipoExameClinico) : false;
 	}
 	
     public List<Funcao> recuperarPorEmpresa(Empresa empresa) {

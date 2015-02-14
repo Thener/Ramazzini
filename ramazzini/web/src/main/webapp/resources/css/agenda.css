@@ -56,3 +56,21 @@
 	float:left;
 	padding-right:5px;
 }
+
+.agendaRealizaProcedimento {
+	width: 30px;	
+}
+
+.agendaRealizaProcedimento_true {
+	background: url("#{resource['img/agenda/ok.png']}") no-repeat scroll center center transparent;
+	display: block;
+    height: 21px;
+    width: 100%;	
+}
+
+.agendaRealizaProcedimento_false {
+	background: url("#{resource['img/agenda/nok.png']}") no-repeat scroll center center transparent;
+	display: block;
+    height: 21px;
+    width: 100%;
+}

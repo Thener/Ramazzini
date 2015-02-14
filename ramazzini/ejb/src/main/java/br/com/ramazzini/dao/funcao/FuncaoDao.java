@@ -9,12 +9,14 @@ import br.com.ramazzini.dao.util.AbstractDao;
 import br.com.ramazzini.model.empresa.Empresa;
 import br.com.ramazzini.model.funcao.Funcao;
 import br.com.ramazzini.model.procedimento.Procedimento;
+import br.com.ramazzini.model.procedimento.TipoExameClinico;
 import br.com.ramazzini.model.riscoOcupacional.RiscoOcupacional;
 
 
 public class FuncaoDao extends AbstractDao<Funcao> {
 
 	private static final String QUERY_EXISTE_RISCO_ERGONOMICO = "Funcao.existeRiscoErgonomico";
+	private static final String QUERY_REALIZA_PROCEDIMENTOS = "Funcao.realizaProcedimentos";
 	private static final String QUERY_RECUPERAR_POR_EMPRESA = "Funcao.recuperarPorEmpresa";
 	private static final String QUERY_RECUPERAR_POR_NOME_EMPRESA = "Funcao.recuperarPorNomeEmpresa";
 	private static final String QUERY_RECUPERAR_POR_NOME = "Funcao.recuperarPorNome";
@@ -31,6 +33,18 @@ public class FuncaoDao extends AbstractDao<Funcao> {
 			return false;
 		}
 	}
+	
+	public boolean realizaProcedimentos(Funcao funcao, TipoExameClinico tipoExameClinico) {
+		Query query = createNamedQuery(QUERY_REALIZA_PROCEDIMENTOS);
+		query.setParameter("funcao", funcao);
+		query.setParameter("tipoExameClinico", tipoExameClinico.getValue());
+		query.setMaxResults(1);
+		try {
+			return (query.getResultList().size() == 1) ? true: false;
+		} catch (NoResultException nr) {
+			return false;
+		}
+	}	
 	
 	@SuppressWarnings("unchecked")
 	public List<Funcao> recuperarPorEmpresa(Empresa empresa) {
