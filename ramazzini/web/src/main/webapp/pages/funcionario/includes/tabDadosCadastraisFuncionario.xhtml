@@ -35,7 +35,7 @@
 		<h:column>
 			<p:calendar id="dataNascimento" value="#{funcionarioController.funcionario.dataNascimento}" 
 				pattern="#{msgs['pattern.calendar']}" mask="true" styleClass="data" 
-				required="false" locale="pt" showOn="button">
+				required="true" requiredMessage="#{msgs['required.dataNascimento.obrigatoria']}" locale="pt" showOn="button">
 				<f:ajax render="idadeFuncionario" />
 			</p:calendar>	
 			<p:outputLabel id="idadeFuncionario" value="#{funcionarioController.idadeFuncionario}" style="padding-left:10px;" />

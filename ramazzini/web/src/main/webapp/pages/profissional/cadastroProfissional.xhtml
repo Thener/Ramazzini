@@ -17,7 +17,10 @@
 				
 					<p:outputLabel for="nome" value="#{msgs['label.nome']}:" />
 					<p:inputText id="nome" value="#{profissionalController.profissional.nome}" 
-						styleClass="nome100" maxlength="100" required="true" />
+						styleClass="nome100" maxlength="100" required="true" 
+						requiredMessage="#{msgs['required.nome.obrigatorio']}">
+						<p:focus />
+					</p:inputText>
 
 					<p:outputLabel for="nomeAbreviado" value="#{msgs['label.nomeAbreviado']}:" />
 					<p:inputText id="nomeAbreviado" value="#{profissionalController.profissional.nomeAbreviado}" 
@@ -71,7 +74,7 @@
 					</p:commandButton>
 					<p:commandButton id="salvar" action="#{profissionalController.gravarProfissional()}"
 						value="#{msgs['botao.gravar']}" icon="ui-icon-disk" title="#{msgs['botao.gravar']}"
-						disabled="#{profissionalController.somenteLeitura}" />
+						disabled="#{profissionalController.somenteLeitura}" update="messages" />
 				</f:facet>
 			</p:toolbar>
 			

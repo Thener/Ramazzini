@@ -29,14 +29,17 @@
 				<h:panelGrid columns="4" cellpadding="5">
 
 					<p:outputLabel value="#{msgs['label.procedimento']}: " for="completeProcedimento" />
-					<p:autoComplete id="completeProcedimento"
-						value="#{funcaoProcedimentoController.funcaoProcedimento.procedimento}"
-						completeMethod="#{autoComplete.completeProcedimento}"
-						var="procedimento" itemLabel="#{procedimento.nome}"
-						itemValue="#{procedimento}" converter="entityConverter"
-						forceSelection="true" styleClass="nome50"
-						required="true" requiredMessage="#{msgs['required.procedimento.obrigatorio']}"
-						disabled="#{not funcaoProcedimentoController.funcaoProcedimento.novo}"/>
+					<h:panelGroup>
+						<p:autoComplete id="completeProcedimento"
+							value="#{funcaoProcedimentoController.funcaoProcedimento.procedimento}"
+							completeMethod="#{autoComplete.completeProcedimento}"
+							var="procedimento" itemLabel="#{procedimento.nome}"
+							itemValue="#{procedimento}" converter="entityConverter"
+							forceSelection="true" styleClass="nome50"
+							required="true" requiredMessage="#{msgs['required.procedimento.obrigatorio']}"
+							disabled="#{not funcaoProcedimentoController.funcaoProcedimento.novo}"/>
+						<p:focus for="completeProcedimento" />
+					</h:panelGroup>
 					
 					<p:outputLabel value="#{msgs['label.idadeExigencia']}: " />	
 					<pe:inputNumber maxValue="150" decimalPlaces="0" styleClass="idade"

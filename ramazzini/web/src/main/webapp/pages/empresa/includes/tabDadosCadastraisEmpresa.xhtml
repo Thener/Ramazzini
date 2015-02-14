@@ -18,7 +18,8 @@
 		</p:selectOneMenu>
 		
 		<p:outputLabel for="cnpj" value="#{msgs['label.cnpj']}:" />
-		<p:inputMask mask="#{msgs['pattern.cnpj']}" id="cnpj" value="#{empresaController.empresa.cnpj}" required="false" styleClass="cnpj" />
+		<p:inputMask mask="#{msgs['pattern.cnpj']}" id="cnpj" value="#{empresaController.empresa.cnpj}" 
+			required="false" styleClass="cnpj" />
 		
 		<p:outputLabel for="cei" value="#{msgs['label.cei']}:" />
 		<p:inputText id="cei" value="#{empresaController.empresa.cei}" required="false" maxlength="20" />
@@ -28,7 +29,8 @@
 			required="false" maxlength="20"/>
 		
 		<p:outputLabel for="cpf" value="#{msgs['label.cpf']}:" />
-		<p:inputMask mask="#{msgs['pattern.cpf']}" id="cpf" value="#{empresaController.empresa.cpf}" required="false" styleClass="cpf" />
+		<p:inputMask mask="#{msgs['pattern.cpf']}" id="cpf" value="#{empresaController.empresa.cpf}" 
+			required="false" styleClass="cpf" />
 		
 		<p:outputLabel for="cnae" value="#{msgs['label.cnae']}:" />
 		<p:selectOneMenu id="cnae" converter="entityConverter"
@@ -85,12 +87,12 @@
 				maxlength="100" required="false" />
 				
 			<p:outputLabel for="logradouroNumeroCorrespondencia" value="#{msgs['label.numeroLogradouro']}:" />
-			<p:inputText id="logradouroNumeroCorrespondencia" value="#{empresaController.empresa.enderecoCorrespondencia.numeroLogradouro}" 
-				maxlength="20" required="false" />
+			<p:inputText id="logradouroNumeroCorrespondencia" maxlength="20" required="false" 
+				value="#{empresaController.empresa.enderecoCorrespondencia.numeroLogradouro}" />
 		
 			<p:outputLabel for="logradouroComplementoCorrespondencia" value="#{msgs['label.complementoLogradouro']}:" />
-			<p:inputText id="logradouroComplementoCorrespondencia" value="#{empresaController.empresa.enderecoCorrespondencia.complementoLogradouro}" 
-				maxlength="20" required="false" />
+			<p:inputText id="logradouroComplementoCorrespondencia" maxlength="20" required="false"
+				value="#{empresaController.empresa.enderecoCorrespondencia.complementoLogradouro}" />
 
 			<p:outputLabel for="logradouroBairroCorrespondencia" value="#{msgs['label.bairro']}:" />
 			<p:inputText id="logradouroBairroCorrespondencia" value="#{empresaController.empresa.enderecoCorrespondencia.bairro}" 

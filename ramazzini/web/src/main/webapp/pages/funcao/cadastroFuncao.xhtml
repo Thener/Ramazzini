@@ -26,7 +26,9 @@
 					
 					<p:outputLabel for="nome" value="#{msgs['label.nome']}:" />
 					<p:inputText id="nome" value="#{funcaoController.funcao.nome}" 
-						styleClass="nome100" maxlength="100" required="true" />
+						styleClass="nome100" maxlength="100" required="true">
+						<p:focus />
+					</p:inputText>
 						
 					<h:outputLabel for="ativoCheck" value="#{msgs['label.ativa']}:" />
 					<p:selectBooleanCheckbox id="ativoCheck"
