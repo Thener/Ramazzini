@@ -71,7 +71,8 @@ public class CredenciadoController extends AbstractBean implements Serializable 
 		boolean inclusao = credenciado.isNovo();
 		credenciadoService.salvar(credenciado);
 		if (inclusao) {
-			return alterarCredenciado(credenciado);
+			UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeGravadaComSucesso","label.credenciado");
+			return "";
 		} else {
 			credenciados = credenciadoService.recuperarTodos("nome");
 			return PAGINA_PESQUISAR_CREDENCIADO;

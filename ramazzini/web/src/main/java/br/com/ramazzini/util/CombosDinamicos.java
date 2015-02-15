@@ -10,6 +10,7 @@ import javax.inject.Named;
 
 import br.com.ramazzini.model.avaliacaoClinica.AvaliacaoClinica;
 import br.com.ramazzini.model.cbo.Cbo;
+import br.com.ramazzini.model.credenciado.Credenciado;
 import br.com.ramazzini.model.empresa.Empresa;
 import br.com.ramazzini.model.enquadramentoDeficiencia.EnquadramentoDeficiencia;
 import br.com.ramazzini.model.funcao.Funcao;
@@ -26,6 +27,7 @@ import br.com.ramazzini.model.setor.Setor;
 import br.com.ramazzini.service.entidade.AgendaService;
 import br.com.ramazzini.service.entidade.AvaliacaoClinicaService;
 import br.com.ramazzini.service.entidade.CboService;
+import br.com.ramazzini.service.entidade.CredenciadoService;
 import br.com.ramazzini.service.entidade.EmpresaService;
 import br.com.ramazzini.service.entidade.EnquadramentoDeficienciaService;
 import br.com.ramazzini.service.entidade.FuncaoService;
@@ -43,21 +45,32 @@ public class CombosDinamicos {
 
     @Inject AgendaService agendaService;
     @Inject AvaliacaoClinicaService avaliacaoClinicaService;
-    @Inject CboService cboService; 
+    @Inject CboService cboService;
+    @Inject CredenciadoService credenciadoService; 
+    @Inject EmpresaService empresaService;
+    @Inject EnquadramentoDeficienciaService enquadramentoDeficienciaService;
     @Inject FuncaoService funcaoService;
-    @Inject HorarioAtendimentoService horarioAtendimentoService;    
+    @Inject GrupoService grupoService; 
+    @Inject HorarioAtendimentoService horarioAtendimentoService;   
+    @Inject LimitacoesDeficienciaMentalService limitacoesDeficienciaMentalService;
     @Inject LotacaoService lotacaoService; 
+    @Inject OrigemDeficienciaService origemDeficienciaService;
     @Inject ProcedimentoService procedimentoService;
     @Inject ProfissionalService profissionalService;
     @Inject SetorService setorService;    
-    @Inject EmpresaService empresaService;
-    @Inject GrupoService grupoService; 
-    @Inject OrigemDeficienciaService origemDeficienciaService;
-    @Inject EnquadramentoDeficienciaService enquadramentoDeficienciaService;
-    @Inject LimitacoesDeficienciaMentalService limitacoesDeficienciaMentalService;
     
 	public List<Cbo> getCbos() {
 		return cboService.recuperarTodos("numero");
+	}
+
+	public List<Credenciado> getCredenciadosDoProcedimento() {
+		FacesContext context = FacesContext.getCurrentInstance();
+	    Procedimento procedimento = (Procedimento) UIComponent.getCurrentComponent(context).getAttributes().get("procedimentoSelecionado");
+		return credenciadoService.recuperarPorProcedimento(procedimento);
+	}
+	
+	public List<Empresa> getEmpresasOrdenadasPorNome() {
+		return empresaService.recuperarTodos("nome");
 	}
 	
 	public List<Funcao> getFuncoes() {
@@ -68,10 +81,6 @@ public class CombosDinamicos {
 	
 	public List<Funcao> getFuncoesOrdenadasPorNome() {
 		return funcaoService.recuperarTodos("nome");
-	}
-	
-	public List<Empresa> getEmpresasOrdenadasPorNome() {
-		return empresaService.recuperarTodos("nome");
 	}
 	
 	public List<HorarioAtendimento> getHorariosAtendimento() {

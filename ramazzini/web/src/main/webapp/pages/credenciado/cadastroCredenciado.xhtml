@@ -7,8 +7,10 @@
    template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
 	
+		<p:growl id="growl" showDetail="false" sticky="true" />
+	
 		<h:form id="frmIncluirCredenciado">
-			<p:growl id="growl" showDetail="true" sticky="true" />		
+					
 			<p:panel id="panelDadosCredenciado" header="#{msgs['label.credenciado']}">
 			
 				<h:panelGrid columns="4" cellpadding="10">
@@ -45,7 +47,7 @@
 					</p:commandButton>
 					<p:commandButton id="botaoSalvar" action="#{credenciadoController.salvar()}"
 						value="#{msgs['label.salvar']}" icon="ui-icon-disk"
-						styleClass="register" update="frmIncluirCredenciado" />
+						styleClass="register" update="frmIncluirCredenciado, :growl" />
 				</f:facet>
 				
 			</p:toolbar>

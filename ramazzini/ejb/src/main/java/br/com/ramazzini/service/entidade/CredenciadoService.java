@@ -22,6 +22,7 @@ import javax.ejb.Stateless;
 
 import br.com.ramazzini.dao.credenciado.CredenciadoDao;
 import br.com.ramazzini.model.credenciado.Credenciado;
+import br.com.ramazzini.model.procedimento.Procedimento;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
 
 // The @Stateless annotation eliminates the need for manual transaction demarcation
@@ -32,4 +33,7 @@ public class CredenciadoService extends AbstractServiceImpl<Credenciado> {
     	return ((CredenciadoDao) getDao()).recuperarPorNome(nome);
     }	
 
+    public List<Credenciado> recuperarPorProcedimento(Procedimento procedimento) {
+    	return ((CredenciadoDao) getDao()).recuperarPorProcedimento(procedimento);
+    }    
 }

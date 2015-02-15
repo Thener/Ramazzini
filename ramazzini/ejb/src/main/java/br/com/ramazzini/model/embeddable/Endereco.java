@@ -2,6 +2,7 @@ package br.com.ramazzini.model.embeddable;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.Transient;
 
 import br.com.ramazzini.model.empresa.UnidadeFederativa;
 
@@ -31,6 +32,12 @@ public class Endereco {
 
 	@Column(name = "te_referencia_endereco", length = 200)
 	private String referenciaEndereco;
+	
+	@Transient
+	private String logradouroNumeroComplemento;
+	
+	@Transient
+	private String bairroCidadeUf;
 
 	public String getLogradouro() {
 		return logradouro;
@@ -103,4 +110,30 @@ public class Endereco {
 	public void setReferenciaEndereco(String referenciaEndereco) {
 		this.referenciaEndereco = referenciaEndereco;
 	}
+
+	public String getLogradouroNumeroComplemento() {
+		logradouroNumeroComplemento = "";
+		if (!numeroLogradouro.isEmpty()) {
+			String barra = !complementoLogradouro.isEmpty() ? " / " : "";
+			logradouroNumeroComplemento = logradouro + ", " + numeroLogradouro + barra + complementoLogradouro;
+		} else {
+			logradouroNumeroComplemento = logradouro;
+		}
+		return logradouroNumeroComplemento;
+	}
+
+	public String getBairroCidadeUf() {
+		String traco = "";
+		bairroCidadeUf = "";
+		if (!bairro.isEmpty()) {
+			bairroCidadeUf = bairro;
+			traco = " - ";
+		}
+		if (!cidade.isEmpty()) {
+			bairroCidadeUf = bairroCidadeUf + traco + cidade + " - " + unidadeFederativa;
+		}
+		return bairroCidadeUf;
+	}
+	
+	
 }

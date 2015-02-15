@@ -16,4 +16,19 @@
 		]]>
 	</query>
 
+	<query name="Credenciado.recuperarPorProcedimento">
+		<![CDATA[
+			select 
+				distinct(c)	
+			from 
+				Credenciado c
+			right join
+				c.procedimentosCredenciados pc
+			where 
+				pc.procedimento = :procedimento
+			order 
+				by c.nome
+		]]>
+	</query>
+	
 </hibernate-mapping>

@@ -11,6 +11,7 @@ import javax.inject.Named;
 
 import br.com.ramazzini.controller.util.AbstractBean;
 import br.com.ramazzini.model.avaliacaoClinicaProcedimento.AvaliacaoClinicaProcedimento;
+import br.com.ramazzini.model.credenciado.Credenciado;
 import br.com.ramazzini.model.empresa.Empresa;
 import br.com.ramazzini.model.funcao.Funcao;
 import br.com.ramazzini.model.funcaoProcedimento.FuncaoProcedimento;
@@ -44,7 +45,7 @@ public class AnaliseEmissaoDocumentosController extends AbstractBean implements 
 	
 	private List<FuncaoProcedimentoVO> procedimentosParaPedidoExame = new ArrayList<FuncaoProcedimentoVO>();
 	
-	private Procedimento procedimetoParaPedidoExame;
+	private Procedimento procedimentoParaPedidoExame;
 	
 	private Funcao funcaoSelecionada;
 	
@@ -55,6 +56,8 @@ public class AnaliseEmissaoDocumentosController extends AbstractBean implements 
 	private boolean emissaoPedidoExame = Boolean.FALSE;
 	
 	private boolean emissaoAso = Boolean.FALSE;
+	
+	private Credenciado credenciadoSelecionado;
 	
 	public String init(Funcionario funcionario, Procedimento procedimento) {
 		
@@ -210,6 +213,7 @@ public class AnaliseEmissaoDocumentosController extends AbstractBean implements 
 		
 	public void incluirProcedimentoNaGuia(Procedimento procedimento) {
 		
+		this.procedimentoParaPedidoExame = procedimento;
 	}
 	
 	public boolean verificarExigencia(FuncaoProcedimento funcaoProcedimento, TipoExameClinico tipoExameClinico) {
@@ -302,13 +306,13 @@ public class AnaliseEmissaoDocumentosController extends AbstractBean implements 
 		this.procedimentosParaPedidoExame = procedimentosParaPedidoExame;
 	}
 
-	public Procedimento getProcedimetoParaPedidoExame() {
-		return procedimetoParaPedidoExame;
+	public Procedimento getProcedimentoParaPedidoExame() {
+		return procedimentoParaPedidoExame;
 	}
 
-	public void setProcedimetoParaPedidoExame(
-			Procedimento procedimetoParaPedidoExame) {
-		this.procedimetoParaPedidoExame = procedimetoParaPedidoExame;
+	public void setProcedimentoParaPedidoExame(
+			Procedimento procedimentoParaPedidoExame) {
+		this.procedimentoParaPedidoExame = procedimentoParaPedidoExame;
 	}
 
 	public Funcao getFuncaoAnteriorSelecionada() {
@@ -318,5 +322,14 @@ public class AnaliseEmissaoDocumentosController extends AbstractBean implements 
 	public void setFuncaoAnteriorSelecionada(Funcao funcaoAnteriorSelecionada) {
 		this.funcaoAnteriorSelecionada = funcaoAnteriorSelecionada;
 	}
+
+	public Credenciado getCredenciadoSelecionado() {
+		return credenciadoSelecionado;
+	}
+
+	public void setCredenciadoSelecionado(Credenciado credenciadoSelecionado) {
+		this.credenciadoSelecionado = credenciadoSelecionado;
+	}
+
 	
 }

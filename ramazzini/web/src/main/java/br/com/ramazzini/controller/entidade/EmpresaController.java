@@ -105,6 +105,7 @@ public class EmpresaController extends AbstractBean implements Serializable {
 	public String gravarEmpresa() {
 		boolean inclusao = empresa.isNovo();
 		empresaService.salvar(empresa);
+		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeGravadaComSucesso","label.empresa");
 		if (inclusao) {
 			return alterarEmpresa(empresa);
 		} else {
