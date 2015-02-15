@@ -29,7 +29,7 @@
 							<p:ajax event="itemSelect" process="@this"/>
 						</p:autoComplete>	
 							
-						<p:outputLabel value="#{msgs['label.funcionario']}: " for="completeFuncionario" />
+						<p:outputLabel value="#{msgs['label.funcionario']}: " for="completeFuncionario" style="display: block; min-width: 90px;"/>
 						<p:autoComplete id="completeFuncionario"
 							value="#{analiseEmissaoDocumentosController.funcionarioSelecionado}"
 							completeMethod="#{autoComplete.completeFuncionario}"
@@ -47,9 +47,11 @@
 								noSelectionOption="true" />
 							<f:selectItems value="#{combosDinamicos.procedimentosTipoExameClinicoOcupacional}" var="procedimento"
 								itemLabel="#{procedimento.nome}" />
+							<p:ajax event="change" process="@this" 
+								update="pnlGroupLabelfuncaoAnteriorSelecionada, pnlGroupFuncaoAnteriorSelecionada"/>
 						</p:selectOneMenu>
 						
-						<p:outputLabel value="#{msgs['label.funcao']}: " for="funcaoSelecionada" />
+						<p:outputLabel value="#{msgs['label.funcaoAtual']}: " for="funcaoSelecionada" />
 						<p:selectOneMenu id="funcaoSelecionada"
 							value="#{analiseEmissaoDocumentosController.funcaoSelecionada}"
 							converter="entityConverter" styleClass="nome50">
@@ -64,6 +66,22 @@
 		       			<p:calendar locale="pt" id="dataReferencia" value="#{analiseEmissaoDocumentosController.dataReferencia}" 
 		       				pattern="#{msgs['pattern.calendar']}" mask="true" styleClass="data" required="false" showOn="button">
 		       			</p:calendar>
+		       			
+		       			<h:panelGroup id="pnlGroupLabelfuncaoAnteriorSelecionada">
+							<p:outputLabel value="#{msgs['label.funcaoAnterior']}:"  
+		       				rendered="#{analiseEmissaoDocumentosController.procedimentoSelecionado.tipoExameClinico == 'MUD'}" />
+						</h:panelGroup>
+						<h:panelGroup id="pnlGroupFuncaoAnteriorSelecionada">
+							<p:selectOneMenu value="#{analiseEmissaoDocumentosController.funcaoAnteriorSelecionada}"
+								converter="entityConverter" styleClass="nome50"
+								rendered="#{analiseEmissaoDocumentosController.procedimentoSelecionado.tipoExameClinico == 'MUD'}">
+								<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
+									noSelectionOption="true" />
+								<f:selectItems value="#{combosDinamicos.funcoes}" 
+									var="funcao" itemLabel="#{funcao.nome}" />
+								<f:attribute name="empresaSelecionada" value="#{analiseEmissaoDocumentosController.empresaSelecionada}" />
+							</p:selectOneMenu>
+						</h:panelGroup>		       			
 					
 					</h:panelGrid>
 	   			

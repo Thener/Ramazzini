@@ -3,6 +3,21 @@
 		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 
+	<query name="FuncaoProcedimento.recuperarPorFuncaoProcedimento">
+		<![CDATA[
+			select 
+				fp
+			from 
+				FuncaoProcedimento fp
+			where 
+				fp.funcao = :funcao
+			and
+				fp.procedimento = :procedimento
+			order 
+				by fp.funcao.nome
+		]]>
+	</query>
+	
 	<query name="FuncaoProcedimento.recuperarPorFuncao">
 		<![CDATA[
 			select 
@@ -16,18 +31,16 @@
 		]]>
 	</query>
 	
-	<query name="FuncaoProcedimento.recuperarPorFuncaoProcedimento">
+	<query name="FuncaoProcedimento.recuperarPorFuncaoAnteriorAtual">
 		<![CDATA[
 			select 
 				fp
 			from 
 				FuncaoProcedimento fp
 			where 
-				fp.funcao = :funcao
-			and
-				fp.procedimento = :procedimento
+				fp.funcao in (:funcaoAnterior, :funcaoAtual)				
 			order 
-				by fp.funcao.nome
+				by fp.procedimento.nome
 		]]>
 	</query>
 		
@@ -68,6 +81,29 @@
 				by p.nome
 		]]>
 	</query>
+	
+	<query name="FuncaoProcedimento.recuperarProcedimentosFuncaoAnteriorAtual">
+		<![CDATA[
+			select 
+				distinct(p)
+			from 
+				FuncaoProcedimento fp
+			inner join
+				fp.procedimento p
+			where 
+				fp.funcao in (:funcaoAnterior, :funcaoAtual)
+			and
+				(
+					(fp.realizaAdmissional = true and :tipoExameClinico = 'ADM') or
+					(fp.realizaPeriodico = true and :tipoExameClinico = 'PER') or
+					(fp.realizaDemissional = true and :tipoExameClinico = 'DEM') or
+					(fp.realizaMudancaFuncao = true and :tipoExameClinico = 'MUD') or
+					(fp.realizaRetornoTrabalho = true and :tipoExameClinico = 'RET')
+				)
+			order 
+				by p.nome
+		]]>
+	</query>	
 	
 	<query name="FuncaoProcedimento.recuperarRetornoPorFuncaoProcedimentoTipoExameClinico">
 		<![CDATA[

@@ -14,10 +14,12 @@ import br.com.ramazzini.model.procedimento.TipoExameClinico;
 
 public class FuncaoProcedimentoDao extends AbstractDao<FuncaoProcedimento> {
 
-	private static final String QUERY_RECUPERAR_POR_FUNCAO = "FuncaoProcedimento.recuperarPorFuncao";
 	private static final String QUERY_RECUPERAR_POR_FUNCAO_PROCEDIMENTO = "FuncaoProcedimento.recuperarPorFuncaoProcedimento";
+	private static final String QUERY_RECUPERAR_POR_FUNCAO = "FuncaoProcedimento.recuperarPorFuncao";
+	private static final String QUERY_RECUPERAR_POR_FUNCAO_ANTERIOR_ATUAL = "FuncaoProcedimento.recuperarPorFuncaoAnteriorAtual";
 	private static final String QUERY_RECUPERAR_POR_PROCEDIMENTO = "FuncaoProcedimento.recuperarPorProcedimento";
 	private static final String QUERY_RECUPERAR_PROCEDIMENTOS_DA_FUNCAO = "FuncaoProcedimento.recuperarProcedimentosDaFuncao";
+	private static final String QUERY_RECUPERAR_PROCEDIMENTOS_FUNCAO_ANTERIOR_ATUAL = "FuncaoProcedimento.recuperarProcedimentosFuncaoAnteriorAtual";
 	private static final String QUERY_RECUPERAR_RETORNO_POR_FUNCAO_PROCEDIMENTO_TIPOEXAMECLINICO = 
 			"FuncaoProcedimento.recuperarRetornoPorFuncaoProcedimentoTipoExameClinico";
 	private static final String QUERY_VERIFICAR_EXIGENCIA = "FuncaoProcedimento.verificarExigencia";
@@ -43,6 +45,18 @@ public class FuncaoProcedimentoDao extends AbstractDao<FuncaoProcedimento> {
 			return null;
 		}
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<FuncaoProcedimento> recuperarPorFuncaoAnteriorAtual(Funcao funcaoAnterior, Funcao funcaoAtual) {
+		Query query = createNamedQuery(QUERY_RECUPERAR_POR_FUNCAO_ANTERIOR_ATUAL);
+		query.setParameter("funcaoAnterior", funcaoAnterior);
+		query.setParameter("funcaoAtual", funcaoAtual);
+		try {
+			return query.getResultList();
+		} catch (NoResultException nr) {
+			return null;
+		}
+	}	
 		
 	@SuppressWarnings("unchecked")
 	public List<FuncaoProcedimento> recuperarPorProcedimento(Funcao funcao, Procedimento procedimento) {
@@ -60,6 +74,19 @@ public class FuncaoProcedimentoDao extends AbstractDao<FuncaoProcedimento> {
 	public List<Procedimento> recuperarProcedimentosDaFuncao(Funcao funcao, TipoExameClinico tipoExameClinico) {
 		Query query = createNamedQuery(QUERY_RECUPERAR_PROCEDIMENTOS_DA_FUNCAO);
 		query.setParameter("funcao", funcao);
+		query.setParameter("tipoExameClinico", tipoExameClinico.getValue());
+		try {
+			return query.getResultList();
+		} catch (NoResultException nr) {
+			return null;
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Procedimento> recuperarProcedimentosFuncaoAnteriorAtual(Funcao funcaoAnterior, Funcao funcaoAtual, TipoExameClinico tipoExameClinico) {
+		Query query = createNamedQuery(QUERY_RECUPERAR_PROCEDIMENTOS_FUNCAO_ANTERIOR_ATUAL);
+		query.setParameter("funcaoAnterior", funcaoAnterior);
+		query.setParameter("funcaoAtual", funcaoAtual);
 		query.setParameter("tipoExameClinico", tipoExameClinico.getValue());
 		try {
 			return query.getResultList();

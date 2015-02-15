@@ -14,9 +14,14 @@
 		<h:outputLabel value="#{msgs['label.funcionario']}:" />
 		<h:outputLabel value="#{analiseEmissaoDocumentosController.funcionarioSelecionado.nome}" />
 				
-		<h:outputLabel value="#{msgs['label.funcao']}:" />
+		<h:outputLabel value="#{msgs['label.funcaoAtual']}:" />
 		<h:outputLabel value="#{analiseEmissaoDocumentosController.funcaoSelecionada.nome}" />		
 						
+		<h:outputLabel value="#{msgs['label.funcaoAnterior']}:" 
+			rendered="#{analiseEmissaoDocumentosController.procedimentoSelecionado.tipoExameClinico == 'MUD'}" />
+		<h:outputLabel value="#{analiseEmissaoDocumentosController.funcaoAnteriorSelecionada.nome}"
+			rendered="#{analiseEmissaoDocumentosController.procedimentoSelecionado.tipoExameClinico == 'MUD'}" />		
+
 	</h:panelGrid>
 	
 	<p:spacer width="10px" />
@@ -40,7 +45,7 @@
 			
 	    </p:column>	
 	    	    
-	    <p:column headerText="#{msgs['label.procedimento']}">
+	    <p:column headerText="#{msgs['label.procedimento']}" styleClass="agendaTachado_#{funcaoProcedimentoVO.solicitar}">
 	        <h:outputText value="#{funcaoProcedimentoVO.funcaoProcedimento.procedimento.nome}" />
 	    </p:column>
 

@@ -16,6 +16,7 @@
  */
 package br.com.ramazzini.service.entidade;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -39,6 +40,27 @@ public class FuncaoProcedimentoService extends AbstractServiceImpl<FuncaoProcedi
     public List<FuncaoProcedimento> recuperarPorFuncao(Funcao funcao) {
     	return (!funcao.isNovo()) ? ((FuncaoProcedimentoDao) getDao()).recuperarPorFuncao(funcao) : null;
     }	
+
+    public List<FuncaoProcedimento> recuperarPorFuncaoAnteriorAtual(Funcao funcaoAnterior, Funcao funcaoAtual) {
+    	
+    	List<FuncaoProcedimento> funcoesProcedimentos = (!funcaoAnterior.isNovo() && !funcaoAtual.isNovo()) ? 
+    			((FuncaoProcedimentoDao) getDao()).recuperarPorFuncaoAnteriorAtual(funcaoAnterior, funcaoAtual) : null;
+    	
+    	// Eliminando repetições:
+    	if (funcoesProcedimentos.size() >= 2) {
+    		HashMap<Procedimento, FuncaoProcedimento> map = new HashMap<Procedimento, FuncaoProcedimento>();
+    		for (FuncaoProcedimento fp : funcoesProcedimentos) {
+    			map.put(fp.getProcedimento(), fp);
+    		}
+    		funcoesProcedimentos.clear();
+    	    for (FuncaoProcedimento fp : map.values()) {
+    	    	funcoesProcedimentos.add(fp);
+    	    }
+    		
+    	}
+    	
+    	return funcoesProcedimentos;
+    }	
     
     public List<FuncaoProcedimento> recuperarPorProcedimento(Funcao funcao, Procedimento procedimento) {
     	return ((FuncaoProcedimentoDao) getDao()).recuperarPorProcedimento(funcao, procedimento);
@@ -46,6 +68,11 @@ public class FuncaoProcedimentoService extends AbstractServiceImpl<FuncaoProcedi
     
     public List<Procedimento> recuperarProcedimentosDaFuncao(Funcao funcao, TipoExameClinico tipoExameClinico) {
     	return (!funcao.isNovo()) ? ((FuncaoProcedimentoDao) getDao()).recuperarProcedimentosDaFuncao(funcao, tipoExameClinico) : null;
+    }
+    
+    public List<Procedimento> recuperarProcedimentosFuncaoAnteriorAtual(Funcao funcaoAnterior, Funcao funcaoAtual, TipoExameClinico tipoExameClinico) {
+    	return (!funcaoAnterior.isNovo() && !funcaoAtual.isNovo()) ? 
+    			((FuncaoProcedimentoDao) getDao()).recuperarProcedimentosFuncaoAnteriorAtual(funcaoAnterior, funcaoAtual, tipoExameClinico) : null;
     }
     
     public Integer recuperarRetornoPor(Funcao funcao, Procedimento procedimento, TipoExameClinico tipoExameClinico) {

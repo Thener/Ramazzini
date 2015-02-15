@@ -48,6 +48,8 @@ public class AnaliseEmissaoDocumentosController extends AbstractBean implements 
 	
 	private Funcao funcaoSelecionada;
 	
+	private Funcao funcaoAnteriorSelecionada;
+	
 	private Date dataReferencia;
 	
 	private boolean emissaoPedidoExame = Boolean.FALSE;
@@ -70,6 +72,9 @@ public class AnaliseEmissaoDocumentosController extends AbstractBean implements 
 	
 	public void analisar() {
 		
+		emissaoAso = Boolean.FALSE;
+		emissaoPedidoExame = Boolean.FALSE;
+		
 		if (procedimentoSelecionado == null) {
 			UtilMensagens.mensagemErroPorChave("mensagem.erro.informacaoObrigatoria","label.procedimento");
 			return;
@@ -78,6 +83,19 @@ public class AnaliseEmissaoDocumentosController extends AbstractBean implements 
 		if (funcaoSelecionada == null) {
 			UtilMensagens.mensagemErroPorChave("mensagem.erro.informacaoObrigatoria","label.funcao");
 			return;
+		}
+		
+		if (procedimentoSelecionado.getTipoExameClinicoEnum().equals(TipoExameClinico.MUDANCA_FUNCAO)) {
+				
+			if (funcaoAnteriorSelecionada == null) {
+				UtilMensagens.mensagemErroPorChave("mensagem.erro.informacaoObrigatoria","label.funcaoAnterior");
+				return;
+			}
+			
+			if (funcaoSelecionada.equals(funcaoAnteriorSelecionada)) {
+				UtilMensagens.mensagemErroPorChave("mensagem.erro.funcaoAnteriorEatualSaoIguais");
+				return;				
+			}
 		}
 		
 		if (procedimentoSelecionado.getTipoExameClinicoEnum().equals(TipoExameClinico.ADMISSIONAL)) {
@@ -92,8 +110,7 @@ public class AnaliseEmissaoDocumentosController extends AbstractBean implements 
 	private void analiseAdmissioal() {
 	
 		if (funcaoRealizaProcedimentos(funcaoSelecionada, procedimentoSelecionado.getTipoExameClinicoEnum())) {
-			setEmissaoPedidoExame(Boolean.TRUE);
-			definirProcedimentosParaPedidoExame(funcaoSelecionada, TipoExameClinico.ADMISSIONAL);
+			definirAsoPedidoExame();
 		} else {
 			setEmissaoAso(Boolean.TRUE);
 		}
@@ -105,12 +122,7 @@ public class AnaliseEmissaoDocumentosController extends AbstractBean implements 
 	private void analisePeriodicoDemissionalRetornoTrabalho() {
 		
 		if (funcaoRealizaProcedimentos(funcaoSelecionada, procedimentoSelecionado.getTipoExameClinicoEnum())) {
-			definirProcedimentosParaPedidoExame(funcaoSelecionada, procedimentoSelecionado.getTipoExameClinicoEnum());
-			if (procedimentosParaPedidoExame.size() > 0) {
-				setEmissaoPedidoExame(Boolean.TRUE);
-			} else {
-				setEmissaoAso(Boolean.TRUE);
-			}
+			definirAsoPedidoExame();
 		} else {
 			setEmissaoAso(Boolean.TRUE);
 		}
@@ -121,8 +133,14 @@ public class AnaliseEmissaoDocumentosController extends AbstractBean implements 
 	
 	private void analiseMudancaFuncao() {
 		
-		emissaoAso = Boolean.FALSE;
-		emissaoPedidoExame = Boolean.FALSE;	
+		boolean funcaoAtualRealizaProcedimentos = funcaoRealizaProcedimentos(funcaoSelecionada, TipoExameClinico.MUDANCA_FUNCAO);
+		boolean funcaoAnteriorRealizaProcedimentos = funcaoRealizaProcedimentos(funcaoAnteriorSelecionada, TipoExameClinico.MUDANCA_FUNCAO);
+		
+		if (!funcaoAtualRealizaProcedimentos && !funcaoAnteriorRealizaProcedimentos) {
+			setEmissaoAso(Boolean.TRUE);
+		} else {
+			definirAsoPedidoExame();			
+		}
 		
 		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.analiseRealizada", 
 				procedimentoSelecionado.getTipoExameClinicoEnum().getChave());		
@@ -133,9 +151,27 @@ public class AnaliseEmissaoDocumentosController extends AbstractBean implements 
 		return funcaoService.realizaProcedimentos(funcao, tipoExameClinico);
 	}
 	
-	private void definirProcedimentosParaPedidoExame(Funcao funcao, TipoExameClinico tipoExameClinico) {
+	private void definirAsoPedidoExame() {
 		
-		List<FuncaoProcedimento> funcoesProcedimentos = funcaoProcedimentoService.recuperarPorFuncao(funcao);
+		definirProcedimentosParaPedidoExame();
+		if (procedimentosParaPedidoExame.size() > 0) {
+			setEmissaoPedidoExame(Boolean.TRUE);
+		} else {
+			setEmissaoAso(Boolean.TRUE);
+		}		
+	}
+	
+	private void definirProcedimentosParaPedidoExame() {
+		
+		TipoExameClinico tipoExameClinico = procedimentoSelecionado.getTipoExameClinicoEnum();
+		
+		List<FuncaoProcedimento> funcoesProcedimentos;
+		
+		if (tipoExameClinico.equals(TipoExameClinico.MUDANCA_FUNCAO)) {
+			funcoesProcedimentos = funcaoProcedimentoService.recuperarPorFuncaoAnteriorAtual(funcaoAnteriorSelecionada, funcaoSelecionada);
+		} else {
+			funcoesProcedimentos = funcaoProcedimentoService.recuperarPorFuncao(funcaoSelecionada);
+		}
 		
 		procedimentosParaPedidoExame.clear();
 		
@@ -156,7 +192,7 @@ public class AnaliseEmissaoDocumentosController extends AbstractBean implements 
 				if (acp == null) {
 					solicitar = Boolean.TRUE;
 				} else {
-					solicitar = acp.getDataRetorno().before(dataReferencia) ? Boolean.TRUE : Boolean.FALSE;
+					solicitar = dataRetorno.before(dataReferencia) ? Boolean.TRUE : Boolean.FALSE;
 				}
 			} 
 			
@@ -171,7 +207,7 @@ public class AnaliseEmissaoDocumentosController extends AbstractBean implements 
 			procedimentosParaPedidoExame.clear();
 		}
 	}
-	
+		
 	public void incluirProcedimentoNaGuia(Procedimento procedimento) {
 		
 	}
@@ -273,6 +309,14 @@ public class AnaliseEmissaoDocumentosController extends AbstractBean implements 
 	public void setProcedimetoParaPedidoExame(
 			Procedimento procedimetoParaPedidoExame) {
 		this.procedimetoParaPedidoExame = procedimetoParaPedidoExame;
+	}
+
+	public Funcao getFuncaoAnteriorSelecionada() {
+		return funcaoAnteriorSelecionada;
+	}
+
+	public void setFuncaoAnteriorSelecionada(Funcao funcaoAnteriorSelecionada) {
+		this.funcaoAnteriorSelecionada = funcaoAnteriorSelecionada;
 	}
 	
 }
