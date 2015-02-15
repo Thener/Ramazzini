@@ -26,8 +26,7 @@
 						<f:selectItems value="#{combosDinamicos.credenciadosDoProcedimento}" 
 							var="credenciado" itemLabel="#{credenciado.nome}" />
 						<f:attribute name="procedimentoSelecionado" value="#{analiseEmissaoDocumentosController.procedimentoParaPedidoExame}" />
-						<p:ajax event="change" process="@this" 
-							update="pnlGridEndereco"/>
+						<p:ajax event="change" process="@this" update="pnlGridEndereco"/>
 					</p:selectOneMenu>
 					
 				</h:panelGrid>
@@ -52,8 +51,8 @@
 					<p:commandButton id="botaoIncluirProcedimentoGuia" ajax="true" 
 						value="#{msgs['botao.incluir']}" icon="ui-icon-disk" 
 						onclick="PF('dialogIncluirProcedimentoGuia').hide();"
-						actionListener="#{marcacaoAgendaController.gravarAgendamento(false)}" 
-						update="" />
+						actionListener="#{analiseEmissaoDocumentosController.incluirProcedimentoNaGuia()}" 
+						update=":frmAnaliseEmissaoDocumentos:panelEmissaoGuia" />
 				</f:facet>
 			</p:toolbar>
 			

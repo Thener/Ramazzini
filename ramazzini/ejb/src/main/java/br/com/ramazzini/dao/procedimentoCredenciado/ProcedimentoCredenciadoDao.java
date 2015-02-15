@@ -15,6 +15,7 @@ public class ProcedimentoCredenciadoDao extends AbstractDao<ProcedimentoCredenci
 	
 	private static final String QUERY_RECUPERAR_POR_CREDENCIADO = "ProcedimentoCredenciado.recuperarPorCredenciado";
 	private static final String QUERY_RECUPERAR_POR_PROCEDIMENTO = "ProcedimentoCredenciado.recuperarPorProcedimento";
+	private static final String QUERY_RECUPERAR_POR_CREDENCIADO_PROCEDIMENTO = "ProcedimentoCredenciado.recuperarPorCredenciadoProcedimento";
 	private static final String QUERY_RECUPERAR_POR_NOME_PROCEDIMENTO = "ProcedimentoCredenciado.recuperarPorNomeProcedimento";
 	private static final String QUERY_RECUPERAR_POR_NOME_CREDENCIADO = "ProcedimentoCredenciado.recuperarPorNomeCredenciado";
 	
@@ -39,6 +40,18 @@ public class ProcedimentoCredenciadoDao extends AbstractDao<ProcedimentoCredenci
 			return null;
 		}
 	}
+	
+	public ProcedimentoCredenciado recuperarPor(Credenciado credenciado, Procedimento procedimento) {
+		Query query = createNamedQuery(QUERY_RECUPERAR_POR_CREDENCIADO_PROCEDIMENTO);
+		query.setParameter("credenciado", credenciado);
+		query.setParameter("procedimento", procedimento);
+		query.setMaxResults(1);
+		try {
+			return (ProcedimentoCredenciado) query.getSingleResult();
+		} catch (NoResultException nr) {
+			return null;
+		}
+	}	
 	
 	@SuppressWarnings("unchecked")
 	public List<ProcedimentoCredenciado> recuperarPorNome(Credenciado credenciado, String nomeProcedimento) {

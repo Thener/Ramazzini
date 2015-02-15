@@ -29,11 +29,17 @@ import br.com.ramazzini.service.util.AbstractServiceImpl;
 // The @Stateless annotation eliminates the need for manual transaction demarcation
 @Stateless
 public class ProcedimentoCredenciadoService extends AbstractServiceImpl<ProcedimentoCredenciado> {
+	
 	public List<ProcedimentoCredenciado> recuperarPor(Credenciado credenciado) {
     	return ((ProcedimentoCredenciadoDao) getDao()).recuperarPor(credenciado);
     }	
+	
 	public List<ProcedimentoCredenciado> recuperarPor(Procedimento procedimento) {
     	return ((ProcedimentoCredenciadoDao) getDao()).recuperarPor(procedimento);
+    }
+	
+	public ProcedimentoCredenciado recuperarPor(Credenciado credenciado, Procedimento procedimento) {
+    	return ((ProcedimentoCredenciadoDao) getDao()).recuperarPor(credenciado, procedimento);
     }	
     
     public List<ProcedimentoCredenciado> recuperarPorNome(Credenciado credenciado, String nomeProcedimento) {

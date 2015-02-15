@@ -12,9 +12,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import br.com.ramazzini.model.credenciado.Credenciado;
 import br.com.ramazzini.model.guia.Guia;
 import br.com.ramazzini.model.procedimento.Procedimento;
 import br.com.ramazzini.model.util.AbstractEntidade;
@@ -52,6 +54,21 @@ public class GuiaProcedimento extends AbstractEntidade implements Serializable {
 	
 	@Column(name = "vl_custo" , columnDefinition = "float8")
 	private BigDecimal precoCusto;
+	
+	@Transient
+	private Credenciado credenciadoAuxiliar;
+
+	public GuiaProcedimento(){}
+	
+	public GuiaProcedimento(Procedimento procedimento, 
+			Integer quantidade, BigDecimal precoVenda, BigDecimal precoCusto, Credenciado credenciado) {
+		
+		this.procedimento = procedimento;
+		this.quantidade = quantidade;
+		this.precoVenda = precoVenda;
+		this.precoCusto = precoCusto;
+		this.credenciadoAuxiliar = credenciado;
+	}
 
 	public Long getId() {
 		return id;
@@ -95,6 +112,14 @@ public class GuiaProcedimento extends AbstractEntidade implements Serializable {
 
 	public void setPrecoCusto(BigDecimal precoCusto) {
 		this.precoCusto = precoCusto;
+	}
+
+	public Credenciado getCredenciadoAuxiliar() {
+		return credenciadoAuxiliar;
+	}
+
+	public void setCredenciadoAuxiliar(Credenciado credenciadoAuxiliar) {
+		this.credenciadoAuxiliar = credenciadoAuxiliar;
 	}
 	
 }

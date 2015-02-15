@@ -91,7 +91,7 @@
 						id="botaoAtualizarAgenda" icon="ui-icon-circle-triangle-e" 
 						value="#{msgs['botao.analisar']}"
 						actionListener="#{analiseEmissaoDocumentosController.analisar()}"
-						update="panelEmissaoDocumentos, :messages" />		       		
+						update="panelEmissaoDocumentos, :messages, panelEmissaoGuia, pnlGroupGuiasEmitidas" />		       		
 		       		
 	   			</p:fieldset>
 	   			
@@ -127,7 +127,20 @@
 		   				
 		   			</h:panelGroup>		   			
 
-		   		</p:panel>		   		
+		   		</p:panel>
+		   		
+		   		<p:spacer width="8px" />
+		   		
+		   		<p:panel id="panelGuiasEmitidas" 
+		   			header="#{msgs['label.guiasEmitidasParaFuncionario']}">
+
+		   			<h:panelGroup id="pnlGroupGuiasEmitidas">
+		   				
+		   				<ui:include src="includes/guiasEmitidas.xhtml" />
+		   				
+		   			</h:panelGroup>		   			
+
+		   		</p:panel>
 
 	   		</p:panel>
 	   		   		

@@ -83,6 +83,13 @@
     width: 20px;	
 }
 
+.agendaGuiaSituacao_CA {
+	color: red;
+}
+
+.agendaGuiaSituacao_IM {
+	color: blue;
+}
 
 .agendaTachado_false {
 	text-decoration: line-through;	

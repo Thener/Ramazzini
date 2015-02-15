@@ -3,6 +3,7 @@ package br.com.ramazzini.controller.agenda;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.enterprise.context.ConversationScoped;
@@ -17,11 +18,17 @@ import br.com.ramazzini.model.funcao.Funcao;
 import br.com.ramazzini.model.funcaoProcedimento.FuncaoProcedimento;
 import br.com.ramazzini.model.funcaoProcedimento.FuncaoProcedimentoVO;
 import br.com.ramazzini.model.funcionario.Funcionario;
+import br.com.ramazzini.model.guia.Guia;
+import br.com.ramazzini.model.guia.SituacaoGuia;
+import br.com.ramazzini.model.guiaProcedimento.GuiaProcedimento;
 import br.com.ramazzini.model.procedimento.Procedimento;
 import br.com.ramazzini.model.procedimento.TipoExameClinico;
+import br.com.ramazzini.model.procedimentoCredenciado.ProcedimentoCredenciado;
 import br.com.ramazzini.service.entidade.AvaliacaoClinicaProcedimentoService;
 import br.com.ramazzini.service.entidade.FuncaoProcedimentoService;
 import br.com.ramazzini.service.entidade.FuncaoService;
+import br.com.ramazzini.service.entidade.GuiaService;
+import br.com.ramazzini.service.entidade.ProcedimentoCredenciadoService;
 import br.com.ramazzini.util.TimeFactory;
 import br.com.ramazzini.util.UtilMensagens;
 
@@ -33,9 +40,11 @@ public class AnaliseEmissaoDocumentosController extends AbstractBean implements 
 	
 	private static final String PAGINA_ANALISE_EMISSAO_DOCUMENTOS = "/pages/agenda/analiseEmissaoDocumentos.jsf?faces-redirect=true";
 	
+	@Inject private AvaliacaoClinicaProcedimentoService avaliacaoClinicaProcedimentoService;
 	@Inject private FuncaoService funcaoService;
 	@Inject private FuncaoProcedimentoService funcaoProcedimentoService;
-	@Inject private AvaliacaoClinicaProcedimentoService avaliacaoClinicaProcedimentoService;
+	@Inject private GuiaService guiaService;
+	@Inject private ProcedimentoCredenciadoService procedimentoCredenciadoService;
 	
 	private Empresa empresaSelecionada;
 	
@@ -59,6 +68,8 @@ public class AnaliseEmissaoDocumentosController extends AbstractBean implements 
 	
 	private Credenciado credenciadoSelecionado;
 	
+	private List<GuiaProcedimento> guiasProcedimentos = new ArrayList<GuiaProcedimento>();
+	
 	public String init(Funcionario funcionario, Procedimento procedimento) {
 		
 		beginConversation();
@@ -77,6 +88,13 @@ public class AnaliseEmissaoDocumentosController extends AbstractBean implements 
 		
 		emissaoAso = Boolean.FALSE;
 		emissaoPedidoExame = Boolean.FALSE;
+		
+		guiasProcedimentos.clear();
+		
+		if (funcionarioSelecionado == null) {
+			UtilMensagens.mensagemErroPorChave("mensagem.erro.informacaoObrigatoria","label.funcionario");
+			return;
+		}
 		
 		if (procedimentoSelecionado == null) {
 			UtilMensagens.mensagemErroPorChave("mensagem.erro.informacaoObrigatoria","label.procedimento");
@@ -211,10 +229,75 @@ public class AnaliseEmissaoDocumentosController extends AbstractBean implements 
 		}
 	}
 		
-	public void incluirProcedimentoNaGuia(Procedimento procedimento) {
-		
+	public void selecionarCredenciadoParaProcedimento(Procedimento procedimento) {
+		this.credenciadoSelecionado = null;
 		this.procedimentoParaPedidoExame = procedimento;
 	}
+	
+	public void incluirProcedimentoNaGuia() {
+		
+		ProcedimentoCredenciado procedimentoCredenciado = 
+			procedimentoCredenciadoService.recuperarPor(credenciadoSelecionado, procedimentoParaPedidoExame);
+		
+		GuiaProcedimento guiaProcedimento = 
+			new GuiaProcedimento(procedimentoParaPedidoExame, 1, procedimentoCredenciado.getPrecoVenda(), 
+					procedimentoCredenciado.getPrecoCusto(), credenciadoSelecionado);
+		
+		guiasProcedimentos.add(guiaProcedimento);
+	}
+	
+	public void removerProcedimentoGuia(GuiaProcedimento guiaProcedimento) {
+		guiasProcedimentos.remove(guiaProcedimento);
+	}
+	
+	public void finalizarGuia() {
+		
+		List<Guia> guias = new ArrayList<Guia>();
+    		
+		//-------- Extraindo todos os credenciados eliminando repetições:
+		
+		HashMap<Credenciado, GuiaProcedimento> map = new HashMap<Credenciado, GuiaProcedimento>();
+		for (GuiaProcedimento gp : guiasProcedimentos) {
+			map.put(gp.getCredenciadoAuxiliar(), gp);
+		}
+
+	    for (GuiaProcedimento gp : map.values()) {
+	    	Guia guia = new Guia(gp.getCredenciadoAuxiliar(), funcionarioSelecionado, SituacaoGuia.EMITIDA, TimeFactory.createDataHora());
+	    	guias.add(guia);
+	    }
+	    
+		//-------- Preparando cada guia:	    
+    	
+    	for (GuiaProcedimento gp : guiasProcedimentos) {
+    		
+    		for (Guia guia : guias) {
+    			if (guia.getCredenciado().equals(gp.getCredenciadoAuxiliar())) {
+    				gp.setGuia(guia);
+    				guia.getProcedimentos().add(gp);
+    			}
+    		}
+    	}
+    	
+    	guiaService.salvarLista(guias);
+		
+	}
+	
+	public void imprimirGuia(Guia guia) {
+		
+		guia.setSituacaoGuiaEnum(SituacaoGuia.IMPRESSA);
+		guiaService.salvar(guia);
+		
+		//..... continuar com o processo de impressão
+		//..... ?????? 
+		
+	}
+	
+	public void cancelarGuia(Guia guia) {
+		
+		guia.setSituacaoGuiaEnum(SituacaoGuia.CANCELADA);
+		guiaService.salvar(guia);
+
+	}	
 	
 	public boolean verificarExigencia(FuncaoProcedimento funcaoProcedimento, TipoExameClinico tipoExameClinico) {
 		
@@ -232,6 +315,10 @@ public class AnaliseEmissaoDocumentosController extends AbstractBean implements 
 		
 		return Boolean.FALSE;
 		
+	}
+	
+	public List<Guia> getGuiasEmitidasParaFuncionario() {
+		return guiaService.recuperarPor(funcionarioSelecionado, TimeFactory.createDataHora());
 	}
 
     public String voltar() {	
@@ -331,5 +418,12 @@ public class AnaliseEmissaoDocumentosController extends AbstractBean implements 
 		this.credenciadoSelecionado = credenciadoSelecionado;
 	}
 
+	public List<GuiaProcedimento> getGuiasProcedimentos() {
+		return guiasProcedimentos;
+	}
+
+	public void setGuiasProcedimentos(List<GuiaProcedimento> guiasProcedimentos) {
+		this.guiasProcedimentos = guiasProcedimentos;
+	}
 	
 }

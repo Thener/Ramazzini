@@ -1,6 +1,7 @@
 package br.com.ramazzini.model.guia;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -50,7 +51,7 @@ public class Guia extends AbstractEntidade implements Serializable {
 	
 	@Column(name = "st_guia", length = 2)
     @NotNull 
-    private String situacaoGuia = SituacaoGuia.EMITIDA.getValue();
+    private String situacaoGuia;
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name = "dt_emissao", columnDefinition = "Date")
@@ -59,8 +60,17 @@ public class Guia extends AbstractEntidade implements Serializable {
 	
 	@OneToMany(mappedBy="guia",
 			cascade = CascadeType.ALL, orphanRemoval=true)
-	private List<GuiaProcedimento> procedimentos;	
+	private List<GuiaProcedimento> procedimentos = new ArrayList<GuiaProcedimento>();	
 
+	public Guia(){}
+	
+	public Guia(Credenciado credenciado, Funcionario funcionario, SituacaoGuia situacaoGuia, Date dataEmissao) {
+		setCredenciado(credenciado);
+		setFuncionario(funcionario);
+		setSituacaoGuiaEnum(situacaoGuia);
+		setDataEmissao(dataEmissao);
+	}
+	
 	public Long getId() {
 		return id;
 	}

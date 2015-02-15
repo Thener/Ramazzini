@@ -5,7 +5,9 @@ import java.util.ResourceBundle;
 
 public enum SituacaoGuia {
 
-	EMITIDA("EM","situacaoGuia.Emitida"), 
+	EMITIDA("EM","situacaoGuia.Emitida"),
+	IMPRESSA("IM","situacaoGuia.Impressa"),
+	FATURADA("FA","situacaoGuia.Faturada"), 
     CANCELADA("CA", "situacaoGuia.Cancelada");
     
     private static final ResourceBundle bundle = ResourceBundle.getBundle("messages");

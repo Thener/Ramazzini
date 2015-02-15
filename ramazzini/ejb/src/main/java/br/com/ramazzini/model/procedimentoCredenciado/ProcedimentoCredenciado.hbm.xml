@@ -31,6 +31,19 @@
 		]]>
 	</query>
 	
+	<query name="ProcedimentoCredenciado.recuperarPorCredenciadoProcedimento">
+		<![CDATA[
+			select 
+				pc
+			from 
+				ProcedimentoCredenciado pc
+			where 
+				pc.credenciado = :credenciado
+			and
+				pc.procedimento = :procedimento
+		]]>
+	</query>
+		
 	<query name="ProcedimentoCredenciado.recuperarPorNomeProcedimento">
 		<![CDATA[
 			select 

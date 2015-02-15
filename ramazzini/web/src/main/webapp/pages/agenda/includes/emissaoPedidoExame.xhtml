@@ -32,12 +32,12 @@
 	    <p:column headerText="#{msgs['label.acoes']}" styleClass="agendaColunaAcoes">
 					
 		    <p:commandButton title="#{msgs['label.incluirProcedimentoNaGuia']}" 
-		    	actionListener="#{analiseEmissaoDocumentosController.incluirProcedimentoNaGuia(funcaoProcedimentoVO.funcaoProcedimento.procedimento)}"  
+		    	actionListener="#{analiseEmissaoDocumentosController.selecionarCredenciadoParaProcedimento(funcaoProcedimentoVO.funcaoProcedimento.procedimento)}"  
 		    	icon="ui-icon-circle-plus" onclick="PF('dialogIncluirProcedimentoGuia').show();" update=":frmDialogIncluirProcedimentoGuia"
 		    	rendered="#{funcaoProcedimentoVO.solicitar}" />
 		    	
 		    <p:commandButton title="#{msgs['label.incluirProcedimentoNaGuia']}" 
-		    	actionListener="#{analiseEmissaoDocumentosController.incluirProcedimentoNaGuia(funcaoProcedimentoVO.funcaoProcedimento.procedimento)}"  
+		    	actionListener="#{analiseEmissaoDocumentosController.selecionarCredenciadoParaProcedimento(funcaoProcedimentoVO.funcaoProcedimento.procedimento)}"  
 		    	icon="ui-icon-circle-check" onclick="PF('dialogIncluirProcedimentoGuia').show();" update=":frmDialogIncluirProcedimentoGuia"
 		    	rendered="#{!funcaoProcedimentoVO.solicitar}">
 		    	<p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['confirmacao.incluirProcedimentoNaoExigido']}" icon="ui-icon-alert" />

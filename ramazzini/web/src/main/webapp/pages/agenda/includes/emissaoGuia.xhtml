@@ -4,8 +4,40 @@
    xmlns:f="http://java.sun.com/jsf/core"
    xmlns:h="http://java.sun.com/jsf/html"
    xmlns:p="http://primefaces.org/ui">
-   
 	
+	<p:dataTable id="gridGuiaProcedimento" var="guiaProcedimento" value="#{analiseEmissaoDocumentosController.guiasProcedimentos}"
+		emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}">
 
+	    <p:column headerText="#{msgs['label.procedimento']}">
+	    	<div style="float:left;padding-right:20px;">
+				<p:commandLink title="#{msgs['label.excluir']}" action="#{analiseEmissaoDocumentosController.removerProcedimentoGuia(guiaProcedimento)}"
+					styleClass="ui-icon ui-icon-closethick" update=":frmAnaliseEmissaoDocumentos:panelEmissaoGuia" />
+			</div>	    
+	        <h:outputText value="#{guiaProcedimento.procedimento.nome}" />
+	    </p:column>
+	    
+	    <p:column headerText="#{msgs['label.credenciado']}">
+	        <h:outputText value="#{guiaProcedimento.credenciadoAuxiliar.nome}" />
+	    </p:column>	    
+	    
+	    <p:column headerText="#{msgs['label.precoVenda']}" styleClass="colunaCentralizada">
+	        <h:outputText value="#{guiaProcedimento.precoVenda}">
+	        	<f:convertNumber pattern="#0.00" locale="pt_BR"/>
+	        </h:outputText>
+	    </p:column>
+	    	    
+	</p:dataTable>	
 	
+	<p:commandButton 
+		id="botaoFinalizarGuia" icon="ui-icon-circle-check" 
+		value="#{msgs['botao.finalizarGuia']}"
+		actionListener="#{analiseEmissaoDocumentosController.finalizarGuia()}"
+		update="panelEmissaoGuia" disabled="#{analiseEmissaoDocumentosController.guiasProcedimentos.size() == 0}"
+		style="margin-top:10px;" />	
+		
+	<p:commandButton 
+		id="botaoIncluirProcedimento" icon="ui-icon-circle-plus" 
+		value="#{msgs['botao.incluirProcedimento']}"
+		style="margin-top:10px;" />		
+							
 </ui:composition>
