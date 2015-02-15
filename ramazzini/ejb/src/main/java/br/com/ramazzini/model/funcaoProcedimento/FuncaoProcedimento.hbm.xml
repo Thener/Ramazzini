@@ -82,6 +82,27 @@
 			order 
 				by fp.id
 		]]>
-	</query>		
+	</query>
+	
+	<query name="FuncaoProcedimento.verificarExigencia">
+		<![CDATA[
+			select 
+				fp
+			from 
+				FuncaoProcedimento fp
+			where 
+				fp.funcao = :funcao
+			and
+				fp.procedimento = :procedimento
+			and
+				(
+					(fp.realizaAdmissional = true and :tipoExameClinico = 'ADM') or
+					(fp.realizaPeriodico = true and :tipoExameClinico = 'PER') or
+					(fp.realizaDemissional = true and :tipoExameClinico = 'DEM') or
+					(fp.realizaMudancaFuncao = true and :tipoExameClinico = 'MUD') or
+					(fp.realizaRetornoTrabalho = true and :tipoExameClinico = 'RET')
+				)
+		]]>
+	</query>			
 	
 </hibernate-mapping>

@@ -6,24 +6,46 @@
    xmlns:p="http://primefaces.org/ui">
    
 	
-	<h:panelGrid columns="2" cellpadding="5">
+	<h:panelGrid columns="2" cellpadding="2">
 	
 		<h:outputLabel value="#{msgs['label.emissao']}:" />
 		<h:outputLabel value="#{msgs['label.pedidoExame']}" styleClass="negrito" />
-		
+
+		<h:outputLabel value="#{msgs['label.funcionario']}:" />
+		<h:outputLabel value="#{analiseEmissaoDocumentosController.funcionarioSelecionado.nome}" />
+				
 		<h:outputLabel value="#{msgs['label.funcao']}:" />
 		<h:outputLabel value="#{analiseEmissaoDocumentosController.funcaoSelecionada.nome}" />		
 						
 	</h:panelGrid>
 	
-	<p:dataTable var="funcaoProcedimentoVO" value="#{analiseEmissaoDocumentosController.procedimentosParaPedidoExame}">
+	<p:spacer width="10px" />
+	
+	<p:dataTable var="funcaoProcedimentoVO" value="#{analiseEmissaoDocumentosController.procedimentosParaPedidoExame}"
+		styleClass="agendaGridAnaliseEmissaoDocumentos">
 	    
+	    <p:column headerText="#{msgs['label.acoes']}" styleClass="agendaColunaAcoes">
+					
+		    <p:commandButton title="#{msgs['label.incluirProcedimentoNaGuia']}" 
+		    	actionListener="#{analiseEmissaoDocumentosController.incluirProcedimentoNaGuia(funcaoProcedimentoVO.funcaoProcedimento.procedimento)}"  
+		    	icon="ui-icon-circle-plus" onclick="PF('dialogIncluirProcedimentoGuia').show();" update=":frmDialogIncluirProcedimentoGuia"
+		    	rendered="#{funcaoProcedimentoVO.solicitar}" />
+		    	
+		    <p:commandButton title="#{msgs['label.incluirProcedimentoNaGuia']}" 
+		    	actionListener="#{analiseEmissaoDocumentosController.incluirProcedimentoNaGuia(funcaoProcedimentoVO.funcaoProcedimento.procedimento)}"  
+		    	icon="ui-icon-circle-check" onclick="PF('dialogIncluirProcedimentoGuia').show();" update=":frmDialogIncluirProcedimentoGuia"
+		    	rendered="#{!funcaoProcedimentoVO.solicitar}">
+		    	<p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['confirmacao.incluirProcedimentoNaoExigido']}" icon="ui-icon-alert" />
+		    </p:commandButton>		    	
+			
+	    </p:column>	
+	    	    
 	    <p:column headerText="#{msgs['label.procedimento']}">
 	        <h:outputText value="#{funcaoProcedimentoVO.funcaoProcedimento.procedimento.nome}" />
 	    </p:column>
 
-	    <p:column headerText="#{msgs['label.dataRetorno']}" styleClass="colunaCentralizada">
-	        <h:outputText value="#{funcaoProcedimentoVO.dataRetorno}">
+	    <p:column headerText="#{msgs['label.dataRetorno']}" styleClass="colunaCentralizada agendaColunaData">
+	        <h:outputText value="#{funcaoProcedimentoVO.dataRetorno}" style="color: #{funcaoProcedimentoVO.solicitar ? 'red' : 'black'}">
 	        	<f:convertDateTime locale="pt,BR" pattern="#{msgs['pattern.calendar']}" />
 	        </h:outputText>
 	    </p:column>
@@ -64,5 +86,5 @@
 		</p:column>		    
 	    
 	</p:dataTable>	
-
+	
 </ui:composition>

@@ -5,16 +5,19 @@
    xmlns:h="http://java.sun.com/jsf/html"
    xmlns:p="http://primefaces.org/ui">
    
-	<h:panelGrid columns="2" cellpadding="5">
+	<h:panelGrid columns="2" cellpadding="2">
 	
 		<h:outputLabel value="#{msgs['label.emissao']}:" />
 		<h:outputLabel value="#{msgs['label.atestado']}" styleClass="negrito" />
-		
+
+		<h:outputLabel value="#{msgs['label.funcionario']}:" />
+		<h:outputLabel value="#{analiseEmissaoDocumentosController.funcionarioSelecionado.nome}" />
+				
 		<h:outputLabel value="#{msgs['label.funcao']}:" />
 		<h:outputLabel value="#{analiseEmissaoDocumentosController.funcaoSelecionada.nome}" />		
-		
-
 						
 	</h:panelGrid>
+	
+	<p:spacer width="10px" />	
 				
 </ui:composition>

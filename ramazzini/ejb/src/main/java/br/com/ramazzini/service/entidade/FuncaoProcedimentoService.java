@@ -52,5 +52,10 @@ public class FuncaoProcedimentoService extends AbstractServiceImpl<FuncaoProcedi
     	return (!funcao.isNovo() && !procedimento.isNovo()) ? 
     			((FuncaoProcedimentoDao) getDao()).recuperarRetornoPor(funcao, procedimento, tipoExameClinico) : null;    	
     }
+    
+    public boolean verificarExigencia(Funcao funcao, Procedimento procedimento, TipoExameClinico tipoExameClinico) {
+    	return (!funcao.isNovo() && !procedimento.isNovo()) ? 
+    			((FuncaoProcedimentoDao) getDao()).verificarExigencia(funcao, procedimento, tipoExameClinico) : false;
+    }
 
 }

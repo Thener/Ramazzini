@@ -43,6 +43,10 @@
     background: #C6E2FF;
 }
 
+.agendaGridAnaliseEmissaoDocumentos tr:hover {
+    background: #C6E2FF;
+}
+
 .agendaNegrito {
 	font-weight: bold;
 }

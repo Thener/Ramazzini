@@ -136,24 +136,62 @@ public class AnaliseEmissaoDocumentosController extends AbstractBean implements 
 	private void definirProcedimentosParaPedidoExame(Funcao funcao, TipoExameClinico tipoExameClinico) {
 		
 		List<FuncaoProcedimento> funcoesProcedimentos = funcaoProcedimentoService.recuperarPorFuncao(funcao);
+		
 		procedimentosParaPedidoExame.clear();
+		
+		boolean procedimentoExigido = Boolean.FALSE;
+		
 		for (FuncaoProcedimento fp : funcoesProcedimentos) {
 			
-			boolean solicitar = Boolean.TRUE;
-			Date dataRetorno = null;
+			boolean solicitar;
 			
-			if (!tipoExameClinico.equals(TipoExameClinico.ADMISSIONAL)) {
-				
-				AvaliacaoClinicaProcedimento acp = 
-						avaliacaoClinicaProcedimentoService.recuperarMaisRecentePor(funcionarioSelecionado, fp.getProcedimento());
-				
-				dataRetorno = acp.getDataRetorno();
-				
-				solicitar = (dataRetorno.before(dataReferencia)) ? Boolean.TRUE : Boolean.FALSE;				
+			AvaliacaoClinicaProcedimento acp = 
+					avaliacaoClinicaProcedimentoService.recuperarMaisRecentePor(funcionarioSelecionado, fp.getProcedimento());
+
+			Date dataRetorno = acp != null ? acp.getDataRetorno() : null;
+			
+			if (!verificarExigencia(fp, tipoExameClinico)) {
+				solicitar = Boolean.FALSE;
+			} else {
+				if (acp == null) {
+					solicitar = Boolean.TRUE;
+				} else {
+					solicitar = acp.getDataRetorno().before(dataReferencia) ? Boolean.TRUE : Boolean.FALSE;
+				}
+			} 
+			
+			if (solicitar) {
+				procedimentoExigido = Boolean.TRUE;
 			}
 			
 			procedimentosParaPedidoExame.add(new FuncaoProcedimentoVO(fp, dataRetorno, solicitar));
 		}
+		
+		if (!procedimentoExigido) { // então nenhum é exigido para o tipoExameClinico ou estão em dia.
+			procedimentosParaPedidoExame.clear();
+		}
+	}
+	
+	public void incluirProcedimentoNaGuia(Procedimento procedimento) {
+		
+	}
+	
+	public boolean verificarExigencia(FuncaoProcedimento funcaoProcedimento, TipoExameClinico tipoExameClinico) {
+		
+		if (funcaoProcedimento.isRealizaAdmissional() && tipoExameClinico.equals(TipoExameClinico.ADMISSIONAL)) {
+			return Boolean.TRUE;
+		} else if (funcaoProcedimento.isRealizaPeriodico() && tipoExameClinico.equals(TipoExameClinico.PERIODICO)) {
+			return Boolean.TRUE;
+		} else if (funcaoProcedimento.isRealizaDemissional() && tipoExameClinico.equals(TipoExameClinico.DEMISSIONAL)) {
+			return Boolean.TRUE;
+		} else if (funcaoProcedimento.isRealizaMudancaFuncao() && tipoExameClinico.equals(TipoExameClinico.MUDANCA_FUNCAO)) {
+			return Boolean.TRUE;
+		} else if (funcaoProcedimento.isRealizaRetornoTrabalho() && tipoExameClinico.equals(TipoExameClinico.RETORNO_TRABALHO)) {
+			return Boolean.TRUE;
+		}
+		
+		return Boolean.FALSE;
+		
 	}
 
     public String voltar() {	

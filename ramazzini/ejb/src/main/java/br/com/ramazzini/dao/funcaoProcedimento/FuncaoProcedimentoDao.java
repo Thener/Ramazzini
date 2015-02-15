@@ -20,6 +20,7 @@ public class FuncaoProcedimentoDao extends AbstractDao<FuncaoProcedimento> {
 	private static final String QUERY_RECUPERAR_PROCEDIMENTOS_DA_FUNCAO = "FuncaoProcedimento.recuperarProcedimentosDaFuncao";
 	private static final String QUERY_RECUPERAR_RETORNO_POR_FUNCAO_PROCEDIMENTO_TIPOEXAMECLINICO = 
 			"FuncaoProcedimento.recuperarRetornoPorFuncaoProcedimentoTipoExameClinico";
+	private static final String QUERY_VERIFICAR_EXIGENCIA = "FuncaoProcedimento.verificarExigencia";
 	
 	public FuncaoProcedimento recuperarPor(Funcao funcao, Procedimento procedimento) {
 		Query query = createNamedQuery(QUERY_RECUPERAR_POR_FUNCAO_PROCEDIMENTO);
@@ -86,6 +87,19 @@ public class FuncaoProcedimentoDao extends AbstractDao<FuncaoProcedimento> {
 			return retorno;
 		} catch (NoResultException nr) {
 			return null;
+		}
+	}
+	
+	public boolean verificarExigencia(Funcao funcao, Procedimento procedimento, TipoExameClinico tipoExameClinico) {
+		Query query = createNamedQuery(QUERY_VERIFICAR_EXIGENCIA);
+		query.setParameter("funcao", funcao);
+		query.setParameter("procedimento", procedimento);
+		query.setParameter("tipoExameClinico", tipoExameClinico.getValue());
+		query.setMaxResults(1);
+		try {
+			return query.getResultList().size() == 1 ? Boolean.TRUE : Boolean.FALSE;
+		} catch (NoResultException nr) {
+			return false;
 		}
 	}	
 }

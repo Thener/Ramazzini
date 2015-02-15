@@ -111,10 +111,18 @@
 						update=":frmLog" />
 				</f:facet>
 			</p:toolbar>
+			
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+				<p:commandButton value="#{msgs['label.confirmacaoSim']}" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="#{msgs['label.confirmacaoNao']}" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>			
 		
 		</h:form>
 		
 		<ui:include src="includes/dialogLog.xhtml" />
+		<ui:include src="includes/dialogIncluirProcedimentoGuia.xhtml" />
 			   		
 	</ui:define>
 	
