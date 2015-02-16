@@ -32,8 +32,10 @@
 		id="botaoFinalizarGuia" icon="ui-icon-circle-check" 
 		value="#{msgs['botao.finalizarGuia']}"
 		actionListener="#{analiseEmissaoDocumentosController.finalizarGuia()}"
-		update="panelEmissaoGuia" disabled="#{analiseEmissaoDocumentosController.guiasProcedimentos.size() == 0}"
-		style="margin-top:10px;" />	
+		update="panelEmissaoGuia, panelGuiasEmitidas" disabled="#{analiseEmissaoDocumentosController.guiasProcedimentos.size() == 0}"
+		style="margin-top:10px;">
+		<p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['confirmacao.criacaoGuias']}" icon="ui-icon-alert" />
+	</p:commandButton>	
 		
 	<p:commandButton 
 		id="botaoIncluirProcedimento" icon="ui-icon-circle-plus" 

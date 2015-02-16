@@ -278,6 +278,8 @@ public class AnaliseEmissaoDocumentosController extends AbstractBean implements 
     		}
     	}
     	
+    	guiasProcedimentos.clear();
+    	
     	guiaService.salvarLista(guias);
 		
 	}
