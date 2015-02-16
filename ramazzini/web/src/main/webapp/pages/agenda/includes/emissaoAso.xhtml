@@ -18,6 +18,29 @@
 						
 	</h:panelGrid>
 	
-	<p:spacer width="10px" />	
+	<p:spacer width="10px" />
+	
+	<p:separator />
+	
+	<h:panelGrid columns="3" cellpadding="2">
+	
+		<p:outputLabel value="#{msgs['label.medico']}:" />			
+		<p:selectOneMenu 
+			value="#{analiseEmissaoDocumentosController.profissionalSelecionado}"
+			converter="entityConverter">
+			<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
+				noSelectionOption="true" />
+			<f:selectItems value="#{combosDinamicos.profissionaisMedicos}" 
+				var="profissional" itemLabel="#{profissional.nome}" />
+			<p:ajax event="change" process="@this" update="botaoImprimirAso"/>
+		</p:selectOneMenu>	
+		
+		<p:commandButton 
+			id="botaoImprimirAso" icon="ui-icon-print" 
+			value="#{msgs['botao.imprimirAso']}"
+			actionListener="#{analiseEmissaoDocumentosController.imprimirASO()}"
+			disabled="#{analiseEmissaoDocumentosController.profissionalSelecionado == null}" />			
+		
+	</h:panelGrid>
 				
 </ui:composition>

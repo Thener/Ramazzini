@@ -18,8 +18,11 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.commons.lang3.StringUtils;
 
 import br.com.ramazzini.model.credenciado.Credenciado;
 import br.com.ramazzini.model.funcionario.Funcionario;
@@ -60,7 +63,10 @@ public class Guia extends AbstractEntidade implements Serializable {
 	
 	@OneToMany(mappedBy="guia",
 			cascade = CascadeType.ALL, orphanRemoval=true)
-	private List<GuiaProcedimento> procedimentos = new ArrayList<GuiaProcedimento>();	
+	private List<GuiaProcedimento> procedimentos = new ArrayList<GuiaProcedimento>();
+	
+	@Transient
+	private String numeroGuia;
 
 	public Guia(){}
 	
@@ -122,6 +128,9 @@ public class Guia extends AbstractEntidade implements Serializable {
 	public void setProcedimentos(List<GuiaProcedimento> procedimentos) {
 		this.procedimentos = procedimentos;
 	}
-	
-	
+
+	public String getNumeroGuia() {
+		numeroGuia = StringUtils.leftPad(id.toString(), 10, "0");
+		return numeroGuia;
+	}	
 }

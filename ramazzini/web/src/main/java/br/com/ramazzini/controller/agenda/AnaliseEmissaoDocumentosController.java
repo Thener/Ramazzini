@@ -24,6 +24,7 @@ import br.com.ramazzini.model.guiaProcedimento.GuiaProcedimento;
 import br.com.ramazzini.model.procedimento.Procedimento;
 import br.com.ramazzini.model.procedimento.TipoExameClinico;
 import br.com.ramazzini.model.procedimentoCredenciado.ProcedimentoCredenciado;
+import br.com.ramazzini.model.profissional.Profissional;
 import br.com.ramazzini.service.entidade.AvaliacaoClinicaProcedimentoService;
 import br.com.ramazzini.service.entidade.FuncaoProcedimentoService;
 import br.com.ramazzini.service.entidade.FuncaoService;
@@ -59,6 +60,8 @@ public class AnaliseEmissaoDocumentosController extends AbstractBean implements 
 	private Funcao funcaoSelecionada;
 	
 	private Funcao funcaoAnteriorSelecionada;
+	
+	private Profissional profissionalSelecionado;
 	
 	private Date dataReferencia;
 	
@@ -234,7 +237,7 @@ public class AnaliseEmissaoDocumentosController extends AbstractBean implements 
 		this.procedimentoParaPedidoExame = procedimento;
 	}
 	
-	public void incluirProcedimentoNaGuia() {
+	public void incluirProcedimentoGuia() {
 		
 		ProcedimentoCredenciado procedimentoCredenciado = 
 			procedimentoCredenciadoService.recuperarPor(credenciadoSelecionado, procedimentoParaPedidoExame);
@@ -245,7 +248,7 @@ public class AnaliseEmissaoDocumentosController extends AbstractBean implements 
 		
 		guiasProcedimentos.add(guiaProcedimento);
 	}
-	
+		
 	public void removerProcedimentoGuia(GuiaProcedimento guiaProcedimento) {
 		guiasProcedimentos.remove(guiaProcedimento);
 	}
@@ -299,7 +302,11 @@ public class AnaliseEmissaoDocumentosController extends AbstractBean implements 
 		guia.setSituacaoGuiaEnum(SituacaoGuia.CANCELADA);
 		guiaService.salvar(guia);
 
-	}	
+	}
+	
+	public void imprimirASO() {
+		
+	}
 	
 	public boolean verificarExigencia(FuncaoProcedimento funcaoProcedimento, TipoExameClinico tipoExameClinico) {
 		
@@ -427,5 +434,14 @@ public class AnaliseEmissaoDocumentosController extends AbstractBean implements 
 	public void setGuiasProcedimentos(List<GuiaProcedimento> guiasProcedimentos) {
 		this.guiasProcedimentos = guiasProcedimentos;
 	}
+
+	public Profissional getProfissionalSelecionado() {
+		return profissionalSelecionado;
+	}
+
+	public void setProfissionalSelecionado(Profissional profissionalSelecionado) {
+		this.profissionalSelecionado = profissionalSelecionado;
+	}
+
 	
 }

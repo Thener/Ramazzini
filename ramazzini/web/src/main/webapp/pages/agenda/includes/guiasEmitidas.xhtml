@@ -25,7 +25,11 @@
 		    </p:commandButton>
 			
 	    </p:column>	
-	    	    
+
+	    <p:column headerText="#{msgs['label.numeroGuia']}" styleClass="agendaGuiaSituacao_#{guia.situacaoGuia} colunaCentralizada">
+	        <h:outputText value="#{guia.numeroGuia}" />
+	    </p:column>
+	    
 	    <p:column headerText="#{msgs['label.funcionario']}" styleClass="agendaGuiaSituacao_#{guia.situacaoGuia}">
 	        <h:outputText value="#{guia.funcionario.nome}" />
 	    </p:column>
