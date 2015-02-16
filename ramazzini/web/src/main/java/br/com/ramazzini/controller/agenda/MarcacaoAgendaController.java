@@ -170,9 +170,15 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 	
 	public String montarProfissionaisDisponiveis() {
 		
+		List<Profissional> profissionaisDisponiveis = getProfissionaisDisponiveis(null);
+		
+		if (profissionaisDisponiveis.size() == 0 || profissionaisDisponiveis.get(0) == null) {
+			return "";
+		}
+		
 		String table = "<table>";
 		
-		for (Profissional p : getProfissionaisDisponiveis(null)) {
+		for (Profissional p : profissionaisDisponiveis) {
 			
 			String nome = p.getNomeAbreviado();
 			// evitando lazy

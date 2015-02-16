@@ -20,7 +20,7 @@
 			
 			<p:commandButton 
 				id="botaoIncluir" icon="ui-icon-circle-plus" value="#{msgs['botao.incluir']}"
-				action="#{procedimentoCredenciadoController.incluir()}" disabled="#{credenciadoController.somenteLeitura or credenciadoController.credenciado.novo}" 
+				action="#{procedimentoCredenciadoController.incluir()}" disabled="#{procedimentoController.somenteLeitura or procedimentoController.procedimento.novo}" 
 				ajax="true" update="panelGridCredenciadosProcedimentosPesquisa, gridCredenciados" process="@this, panelGridCredenciadosProcedimentosPesquisa" />
 		</h:panelGrid>   
 	</p:fieldset>
