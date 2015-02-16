@@ -26,8 +26,8 @@
 				
 				<h:panelGrid columns="2" cellpadding="5">
 				
-					<p:outputLabel for="filtrarProfissional" value="#{msgs['label.profissional']}:" />			
-					<p:selectOneMenu id="filtrarProfissional"
+					<p:outputLabel value="#{msgs['label.profissional']}:" />			
+					<p:selectOneMenu id="profSelecionado"
 						value="#{marcacaoAgendaController.agenda.profissional}"
 						converter="entityConverter">
 						<f:selectItem itemLabel="#{msgs['label.qualquerProfissional']}" itemValue=""

@@ -172,7 +172,7 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 		
 		List<Profissional> profissionaisDisponiveis = getProfissionaisDisponiveis(null);
 		
-		if (profissionaisDisponiveis.size() == 0 || profissionaisDisponiveis.get(0) == null) {
+		if (profissionaisDisponiveis.size() == 0) {
 			return "";
 		}
 		

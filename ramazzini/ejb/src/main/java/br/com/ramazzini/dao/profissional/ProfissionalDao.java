@@ -22,7 +22,11 @@ public class ProfissionalDao extends AbstractDao<Profissional> {
 		Query query = createNamedQuery(QUERY_RECUPERAR_POR_DIA_ATENDIMENTO);
 		query.setParameter("diaSemana", TimeFactory.diaDaSemana(data).getValue());
 		try {
-			return query.getResultList();
+			List<Profissional> lista = query.getResultList();
+			if (lista.size() == 1 && lista.get(0) == null) {
+				lista.clear();
+			}
+			return lista;
 		} catch (NoResultException nr) {
 			return null;
 		}
