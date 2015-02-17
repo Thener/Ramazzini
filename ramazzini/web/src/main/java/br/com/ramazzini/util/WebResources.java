@@ -55,7 +55,7 @@ public class WebResources {
     @Produces
     @RequestScoped
     public Usuario usuarioLogado(){        	
-    	return (Usuario)session().getAttribute("usuario");
+    	return (Usuario)session().getAttribute("usuarioLogado");
     }
 
 }

@@ -26,11 +26,8 @@ public class UsuarioController extends AbstractBean implements Serializable {
 	private static final String PAGINA_CADASTRO_USUARIO = "cadastroUsuario.jsf?faces-redirect=true";
 	private static final String PAGINA_PESQUISAR_USUARIO = "pesquisarUsuario.jsf?faces-redirect=true";
 	
-	@Inject
-    private UsuarioService usuarioService;  
-    
-    @Inject
-	private PerfilService perfilService;
+	@Inject private UsuarioService usuarioService;  
+    @Inject private PerfilService perfilService;
     
     private Usuario usuario;    
     private List<Usuario> usuarios;

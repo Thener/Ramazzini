@@ -129,6 +129,6 @@ public abstract class AbstractServiceImpl<T extends AbstractEntidade>
 	}
 	
 	public Usuario getUsuarioLogado() {
-		return (Usuario) session.getAttribute("usuario");
+		return (Usuario) session.getAttribute("usuarioLogado");
 	}
 }

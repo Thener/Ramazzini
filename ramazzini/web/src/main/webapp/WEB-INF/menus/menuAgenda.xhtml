@@ -10,5 +10,10 @@
 
 	<p:menuitem value="#{msgs['menu.label.pesquisar']}" url="/pages/agenda/pesquisarAgenda.jsf" icon="ui-icon-search"
 		rendered="#{menuController.controleAcesso.telaAutorizada('agenda','pesquisarAgenda.jsf')}"/>
+	
+	<p:separator />
+		
+	<p:menuitem value="#{msgs['menu.label.atendimentoMedico']}" url="/pages/atendimentoMedico/agenda.jsf" icon="ui-icon-person"
+		rendered="#{menuController.controleAcesso.telaAutorizada('atendimentoMedico','agenda.jsf')}"/>
 		
 </html>

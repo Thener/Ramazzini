@@ -17,6 +17,10 @@
 	text-align: center;
 }
 
+.ui-datatable .ui-row-toggler {
+	float: left;
+}
+
 .coluna1 {  
 	width: 50px;
 	text-align: center;  

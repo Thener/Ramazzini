@@ -150,7 +150,7 @@ public abstract class AbstractEntidade implements Serializable {
 	}
 	
 	public Usuario getUsuarioLogado() {
-		return (Usuario) getSession().getAttribute("usuario");
+		return (Usuario) getSession().getAttribute("usuarioLogado");
 	}
 	
 	private HttpSession getSession() {

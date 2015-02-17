@@ -20,6 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import br.com.ramazzini.model.horarioAtendimento.HorarioAtendimento;
 import br.com.ramazzini.model.responsavel.Responsavel;
+import br.com.ramazzini.model.usuario.Usuario;
 import br.com.ramazzini.model.util.AbstractEntidade;
 
 @SequenceGenerator(name = "seq_profissional", sequenceName = "seq_profissional", allocationSize = 1)
@@ -61,6 +62,10 @@ public class Profissional extends AbstractEntidade implements Serializable {
 	
 	@Column(name = "no_telefone", length = 20)
 	private String telefone;
+	
+	@ManyToOne
+	@JoinColumn(name="cd_usuario")
+	private Usuario usuario;	
 	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="cd_horario_atendimento")
@@ -160,6 +165,13 @@ public class Profissional extends AbstractEntidade implements Serializable {
 	public void setResponsaveis(List<Responsavel> responsaveis) {
 		this.responsaveis = responsaveis;
 	}
-	
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 	
 }

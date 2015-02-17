@@ -19,53 +19,34 @@
 	   				<h:panelGrid columns="11" cellpadding="5">
 	   				
 		       			<p:outputLabel for="dataAgenda" value="#{msgs['label.data']}" />
-		       			<p:calendar id="dataAgenda" locale="pt" showOn="button" value="#{marcacaoAgendaController.dataSelecionada}" 
+		       			<p:calendar id="dataAgenda" locale="pt" showOn="button" value="#{atendimentoMedicoController.dataSelecionada}" 
 		       				pattern="#{msgs['pattern.calendar']}" mask="true" styleClass="data" required="false">
-		       				<p:ajax event="dateSelect" update="frmAgenda" listener="#{marcacaoAgendaController.onChangeDataSelecionada}" />
+		       				<p:ajax event="dateSelect" update="frmAgenda" listener="#{atendimentoMedicoController.onChangeDataSelecionada}" />
 		       			</p:calendar> 
 		       				
-		       			<p:outputLabel value="#{marcacaoAgendaController.diaSemana}" />   
+		       			<p:outputLabel value="#{atendimentoMedicoController.diaSemana}" />   
 		       			
 						<p:commandButton 
 							id="botaoAtualizarAgenda" icon="ui-icon-refresh" 
 							title="#{msgs['botao.atualizar']}"
-							actionListener="#{marcacaoAgendaController.atualizacaoManual()}" 
+							actionListener="#{atendimentoMedicoController.atualizacaoManual()}" 
 							update="gridAgendamentos" />
 							
 						<ui:include src="includes/atualizacaoAutomatica.xhtml" />
-									       			
-					    <p:splitButton value="#{msgs['botao.agendar']}" actionListener="#{marcacaoAgendaController.incluirAgendamento()}" 
-					    	update=":frmDialogEditarAgendamento" icon="ui-icon-circle-plus" id="botaoIncluirAgendamento"
-					    	onclick="PF('dialogEditarAgendamento').show();">
-					    	
-					        <p:menuitem value="#{msgs['botao.admissional']}" actionListener="#{marcacaoAgendaController.incluirAdmissional()}" 
-					        	update=":frmDialogAdmissional" icon="ui-icon-folder-collapsed" id="botaoIncluirAdmissional"
-					        	onclick="PF('dialogAdmissional').show();" />
 
-					    </p:splitButton>							
-							
 						<p:outputLabel for="situacaoMarcacaoAgenda" value="#{msgs['label.situacao']}:" />
 						<p:selectOneMenu id="situacaoMarcacaoAgenda"
-							value="#{marcacaoAgendaController.situacaoMarcacaoAgenda}">
+							value="#{atendimentoMedicoController.situacaoMarcacaoAgenda}">
 							<f:selectItem itemLabel="#{msgs['label.todasAsSituacoes']}" itemValue=""
 								noSelectionOption="true" />						
 							<f:selectItems value="#{combosEstaticos.situacoesMarcacaoAgenda}" var="sitMarcacao"
 								itemLabel="#{sitMarcacao.stringChave}" itemValue="#{sitMarcacao.value}" />
 							<p:ajax event="change" update="frmAgenda" 
-								listener="#{marcacaoAgendaController.onChangeSituacaoMarcacaoAgenda}" />
+								listener="#{atendimentoMedicoController.onChangeSituacaoMarcacaoAgenda}" />
 						</p:selectOneMenu>
 						
-						<p:outputLabel for="filtrarProfissional" value="#{msgs['label.filtrarProfissional']}:" />			
-						<p:selectOneMenu id="filtrarProfissional"
-							value="#{marcacaoAgendaController.profissionalSelecionado}"
-							converter="entityConverter">
-							<f:selectItem itemLabel="#{msgs['label.qualquerProfissional']}" itemValue=""
-								noSelectionOption="true" />
-							<f:selectItems value="#{combosDinamicos.getProfissionaisNaAgenda(marcacaoAgendaController.dataSelecionada)}" 
-								var="profissional" itemLabel="#{profissional.nome}" />
-							<p:ajax event="change" update="gridAgendamentos" process="@this"
-								listener="#{marcacaoAgendaController.onChangeProfissionalSelecionado}" />
-						</p:selectOneMenu>
+						<p:outputLabel for="medicoLogado" value="#{msgs['label.medico']}:" />
+						<p:outputLabel id="medicoLogado" value="#{atendimentoMedicoController.medicoLogado.nome}" />
 	   			
 	   				</h:panelGrid>
    				
@@ -74,12 +55,12 @@
    				<div style="float: right;">
    				
    					<p:remoteCommand name="onload" update="totalAgendamentos" id="rcTotalAtendimentos"
-   						action="#{marcacaoAgendaController.contarAgendamentos()}" autoRun="true" />
+   						action="#{atendimentoMedicoController.contarAgendamentos()}" autoRun="true" />
    				
 	   				<h:panelGrid columns="3" cellpadding="5">
 	   				
 		       			<p:outputLabel value="#{msgs['label.totalAgendamentos']}" />
-						<p:outputLabel value="#{marcacaoAgendaController.totalAgendamentos}" id="totalAgendamentos" />
+						<p:outputLabel value="#{atendimentoMedicoController.totalAgendamentos}" id="totalAgendamentos" />
 	   			
 	   				</h:panelGrid> 
    				
@@ -88,20 +69,6 @@
    				<div style="clear:both;"></div>
    				
    				<ui:include src="includes/gridAgendamentos.xhtml" />
-   				
-   				<p:spacer width="15px;" />
-   				
-   				<p:panelGrid columns="2" style="width:100%" columnClasses="agendaColuna50porCento">
-   				
-	   				<p:fieldset styleClass="agendaFsProfissionaisDisponiveis" legend="#{msgs['label.profissionaisDisponiveis']}">
-						<h:outputText value="#{marcacaoAgendaController.montarProfissionaisDisponiveis()}" escape="false"/>
-					</p:fieldset>
-   				
-   					<p:fieldset styleClass="agendaFsOpcoes" legend="#{msgs['label.opcoes']}">
-   						<ui:include src="includes/opcoesAgenda.xhtml" />
-   					</p:fieldset> 
-				
-				</p:panelGrid>
 
    			</h:form>
    		
@@ -120,10 +87,6 @@
 			</p:confirmDialog>
 		</h:form>   		
    		   		
-   		<ui:include src="includes/dialogEditarAgendamento.xhtml" />
-   		
-   		<ui:include src="includes/dialogAdmissional.xhtml" />
-
 		<p:socket channel="/agenda">
 			<p:ajax event="message" update=":frmAgenda" />
 		</p:socket>

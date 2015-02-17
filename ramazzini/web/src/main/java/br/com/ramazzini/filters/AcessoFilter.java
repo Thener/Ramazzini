@@ -46,7 +46,7 @@ public class AcessoFilter implements Filter {
 			return;
 		}
 		
-		Usuario usuario = (Usuario) session.getAttribute("usuario");
+		Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
 
 		if (usuario == null) {
 			response.sendRedirect(request.getContextPath() + "/index.jsf");

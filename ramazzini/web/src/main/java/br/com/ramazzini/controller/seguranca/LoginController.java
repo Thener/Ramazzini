@@ -23,14 +23,9 @@ public class LoginController extends AbstractBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Inject
-	private UsuarioService usuarioService;
-
-	@Inject
-	private HttpSession session;
-	
-    @Inject
-    private FacesContext facesContext;	
+	@Inject private UsuarioService usuarioService;
+	@Inject private HttpSession session;
+	@Inject private FacesContext facesContext;	
 
 	private Usuario usuario = new Usuario();
 	

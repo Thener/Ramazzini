@@ -8,20 +8,22 @@
    
 	<ui:define name="content">
 	
-		<p:growl id="growl" showDetail="true" sticky="true" />
+		<p:growl id="growl" showDetail="false" sticky="true" />
 	
 		<h:form id="frmCadastroUsuario" prependId="false">
 		
 			<p:panel id="panelDadosUsuario" header="#{msgs['label.usuario']}">
 				
 				<h:panelGrid columns="4" cellpadding="10">
+					
 					<p:outputLabel for="nome" value="#{msgs['label.nome']}:" />
-					<p:inputText id="nome"
-						value="#{usuarioController.usuario.nome}" required="true" />
+					<p:inputText id="nome" value="#{usuarioController.usuario.nome}" 
+						required="true" requiredMessage="#{msgs['required.nome.obrigatorio']}"
+						styleClass="nome50" />
 						
 					<h:outputLabel for="ativoCheck" value="#{msgs['label.ativo']}:" />
-					<p:selectBooleanCheckbox id="ativoCheck"
-						value="#{usuarioController.usuario.ativo}" />						
+					<p:selectBooleanCheckbox id="ativoCheck" value="#{usuarioController.usuario.ativo}" />
+												
 				</h:panelGrid>
 				
 				<p:tabView id="tabViewCadastroUsuario">
@@ -30,8 +32,7 @@
 						<ui:include src="includes/tabDadosCadastraisUsuario.xhtml" />
 					</p:tab>
 					
-					<p:tab title="#{msgs['label.perfis']}" id="tabPerfisUsuario" 
-						rendered="#{not usuarioController.usuario.novo}">
+					<p:tab title="#{msgs['label.perfis']}" id="tabPerfisUsuario">
 						<ui:include src="includes/tabPerfisUsuario.xhtml" />
 					</p:tab>
 				
@@ -45,6 +46,7 @@
 						icon="ui-icon-arrowreturnthick-1-w" title="#{msgs['label.voltar']}"
 						action="pesquisarUsuario.jsf?faces-redirect=true">
 					</p:commandButton>
+					
 					<p:commandButton id="salvar" action="#{usuarioController.gravarUsuario()}"
 						value="#{msgs['botao.gravar']}" icon="ui-icon-disk" 
 						styleClass="register" update="frmCadastroUsuario" 
@@ -53,7 +55,15 @@
 				</f:facet>
 			</p:toolbar>
 		
-		</h:form>		
-		
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+				<p:commandButton value="#{msgs['label.confirmacaoSim']}" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="#{msgs['label.confirmacaoNao']}" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+
+		</h:form>	
+				
 	</ui:define>
+	
 </ui:composition>

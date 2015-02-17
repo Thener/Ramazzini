@@ -28,6 +28,7 @@ import br.com.ramazzini.model.profissional.Profissional;
 import br.com.ramazzini.service.entidade.AvaliacaoClinicaProcedimentoService;
 import br.com.ramazzini.service.entidade.FuncaoProcedimentoService;
 import br.com.ramazzini.service.entidade.FuncaoService;
+import br.com.ramazzini.service.entidade.GuiaProcedimentoService;
 import br.com.ramazzini.service.entidade.GuiaService;
 import br.com.ramazzini.service.entidade.ProcedimentoCredenciadoService;
 import br.com.ramazzini.util.TimeFactory;
@@ -45,6 +46,7 @@ public class AnaliseEmissaoDocumentosController extends AbstractBean implements 
 	@Inject private FuncaoService funcaoService;
 	@Inject private FuncaoProcedimentoService funcaoProcedimentoService;
 	@Inject private GuiaService guiaService;
+	@Inject private GuiaProcedimentoService guiaProcedimentoService;
 	@Inject private ProcedimentoCredenciadoService procedimentoCredenciadoService;
 	
 	private Empresa empresaSelecionada;
@@ -328,6 +330,10 @@ public class AnaliseEmissaoDocumentosController extends AbstractBean implements 
 	
 	public List<Guia> getGuiasEmitidasParaFuncionario() {
 		return guiaService.recuperarPor(funcionarioSelecionado, TimeFactory.createDataHora());
+	}
+	
+	public List<GuiaProcedimento> getProcedimentosGuiaEmitida(Guia guia) {
+		return guiaProcedimentoService.recuperarPor(guia);
 	}
 
     public String voltar() {	

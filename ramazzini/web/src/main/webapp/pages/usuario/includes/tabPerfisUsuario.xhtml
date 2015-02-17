@@ -9,7 +9,8 @@
 		rendered="#{not empty usuarioController.perfisDisponiveis}">
 		 
 		<p:outputLabel for="perfilInclusao" value="#{msgs['label.perfil']}:" />
-		<p:selectOneMenu id="perfilInclusao" readonly="#{usuarioController.somenteLeitura}"
+		<p:selectOneMenu id="perfilInclusao" 
+			disabled="#{usuarioController.somenteLeitura or usuarioController.usuario.novo}"
 			value="#{usuarioController.perfilSelecionado}"
 			converter="entityConverter">
 			<f:selectItem itemLabel="Selecione o perfil" itemValue=""
@@ -17,8 +18,11 @@
 			<f:selectItems value="#{usuarioController.perfisDisponiveis}"
 				var="perfil" itemLabel="#{perfil.nome}" />
 		</p:selectOneMenu>	
+		
 		<p:commandButton action="#{usuarioController.adicionarPerfil()}" value="#{msgs['botao.incluir']}"
-			icon="ui-icon-check" ajax="true" update="panelGridPerfisUsuario, gridPerfis" process="@this, panelGridPerfisUsuario" disabled="#{usuarioController.somenteLeitura}"/>
+			icon="ui-icon-check" ajax="true" update="panelGridPerfisUsuario, gridPerfis" 
+			process="@this, panelGridPerfisUsuario" 
+			disabled="#{usuarioController.somenteLeitura or usuarioController.usuario.novo}"/>
 									
 	</p:panelGrid>
 	
@@ -43,11 +47,4 @@
 		</p:column>
 	</p:dataTable>
 		
-	<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-		<p:commandButton value="#{msgs['label.confirmacaoSim']}" type="button"
-			styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-		<p:commandButton value="#{msgs['label.confirmacaoNao']}" type="button"
-			styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-	</p:confirmDialog>
-
 </ui:composition>

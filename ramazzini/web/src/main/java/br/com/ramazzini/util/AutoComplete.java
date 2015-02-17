@@ -12,11 +12,13 @@ import br.com.ramazzini.model.empresa.Empresa;
 import br.com.ramazzini.model.funcionario.Funcionario;
 import br.com.ramazzini.model.procedimento.Procedimento;
 import br.com.ramazzini.model.riscoOcupacional.RiscoOcupacional;
+import br.com.ramazzini.model.usuario.Usuario;
 import br.com.ramazzini.service.entidade.CredenciadoService;
 import br.com.ramazzini.service.entidade.EmpresaService;
 import br.com.ramazzini.service.entidade.FuncionarioService;
 import br.com.ramazzini.service.entidade.ProcedimentoService;
 import br.com.ramazzini.service.entidade.RiscoOcupacionalService;
+import br.com.ramazzini.service.seguranca.UsuarioService;
 
 @Named
 public class AutoComplete {
@@ -25,7 +27,8 @@ public class AutoComplete {
     @Inject ProcedimentoService procedimentoService;
     @Inject CredenciadoService credenciadoService;
     @Inject FuncionarioService funcionarioService;    
-    @Inject RiscoOcupacionalService riscoOcupacionalService;    
+    @Inject RiscoOcupacionalService riscoOcupacionalService;
+    @Inject UsuarioService usuarioService; 
     
     public List<Credenciado> completeCredenciado(String query) {            
         if (!query.isEmpty() && query.length() > 2)
@@ -61,6 +64,12 @@ public class AutoComplete {
     public List<RiscoOcupacional> completeRiscoOcupacional(String query) {            
         if (!query.isEmpty() && query.length() > 2)
         	return riscoOcupacionalService.recuperarPorNome(query);
+        return null;
+    }
+    
+    public List<Usuario> completeUsuario(String query) {            
+        if (!query.isEmpty() && query.length() > 2)
+        	return usuarioService.recuperarPorNome(query);
         return null;
     }    
 }

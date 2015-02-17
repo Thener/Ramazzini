@@ -8,13 +8,15 @@
 	<h:panelGrid columns="2" cellpadding="10">
 
 		<p:outputLabel for="login" value="#{msgs['label.email']}:" />
-		<p:inputText id="login"
-			value="#{usuarioController.usuario.login}" required="true" />
+		<p:inputText id="login" value="#{usuarioController.usuario.login}" 
+			required="true" requiredMessage="#{msgs['required.email.obrigatorio']}"
+			styleClass="nome50"/>
 
 		<p:outputLabel for="senha" value="#{msgs['label.senha']}:" 
 			rendered="#{usuarioController.usuario.novo}" />
 		<p:password id="senha" value="#{usuarioController.usuario.senha}" 
-			required="true" rendered="#{usuarioController.usuario.novo}" />
+			required="true" requiredMessage="#{msgs['required.senha.obrigatoria']}"
+			rendered="#{usuarioController.usuario.novo}" />
 			
 		<p:outputLabel for="senhaNova" value="Nova senha:" 
 			rendered="#{not usuarioController.usuario.novo}" />
@@ -26,6 +28,7 @@
 		<p:selectOneMenu id="perfil" style="width:232px;"						
 			value="#{usuarioController.perfilSelecionado}"
 			converter="entityConverter" required="true"
+			requiredMessage="#{msgs['required.perfil.obrigatorio']}"
 			rendered="#{usuarioController.usuario.novo}">
 			<f:selectItem itemLabel="Selecione o perfil" itemValue=""
 				noSelectionOption="true" />

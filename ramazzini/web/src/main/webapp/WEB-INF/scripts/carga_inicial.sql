@@ -55,6 +55,9 @@ values (nextval('seq_perfil'), null, current_timestamp, true, 'atendimento', nul
 insert into perfil (cd_perfil, ts_alteracao, ts_inclusao, ic_ativo, nm_perfil, cd_usuario_alteracao, cd_usuario_inclusao)
 values (nextval('seq_perfil'), null, current_timestamp, true, 'gerente', null, null); 
 
+insert into perfil (cd_perfil, ts_alteracao, ts_inclusao, ic_ativo, nm_perfil, cd_usuario_alteracao, cd_usuario_inclusao)
+values (nextval('seq_perfil'), null, current_timestamp, true, 'medico', null, null);
+
 ------------------------ CARGA DA TABELA: PERFIL_TELA
 
 -- Obs 1: Telas públicas não precisam ser associadas a perfis
@@ -71,6 +74,9 @@ values (nextval('seq_usuario'), null, current_timestamp, true, 'thenerbh@gmail.c
 
 insert into usuario (cd_usuario, ts_alteracao, ts_inclusao, ic_ativo, nm_login, nm_usuario, nm_senha, cd_usuario_alteracao, cd_usuario_inclusao)
 values (nextval('seq_usuario'), null, current_timestamp, true, 'gerente@ramazzini.com.br', 'Gerente', md5('zini'), null, null);
+
+insert into usuario (cd_usuario, ts_alteracao, ts_inclusao, ic_ativo, nm_login, nm_usuario, nm_senha, cd_usuario_alteracao, cd_usuario_inclusao)
+values (nextval('seq_usuario'), null, current_timestamp, true, 'medico@ramazzini.com.br', 'Gerente', md5('zini'), null, null);
 
 ------------------------ CARGA DA TABELA: USUARIO_PERFIL
 

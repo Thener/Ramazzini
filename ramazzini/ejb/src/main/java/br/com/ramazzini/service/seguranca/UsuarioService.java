@@ -35,20 +35,11 @@ import br.com.ramazzini.util.Md5;
 @Stateless
 public class UsuarioService extends AbstractServiceImpl<Usuario> {
 
-    @Inject
-    private Logger log;
-    
-    @Inject
-    private HttpSession session;
-    
-    @Inject
-    private PerfilService perfilService; 
-    
-    @Inject
-    private ModuloService moduloService;  
-    
-    @Inject
-    private TelaService telaService;    
+    @Inject private Logger log;
+    @Inject private HttpSession session;
+    @Inject private PerfilService perfilService; 
+    @Inject private ModuloService moduloService;  
+    @Inject private TelaService telaService;    
        
     public Usuario recuperarPorLogin(String login) {
         
@@ -58,6 +49,10 @@ public class UsuarioService extends AbstractServiceImpl<Usuario> {
     	
         return dao.recuperarPorLogin(login);
     }
+    
+    public List<Usuario> recuperarPorNome(String nome) {
+    	return ((UsuarioDao) getDao()).recuperarPorNome(nome);
+    }    
     
     public boolean autenticar(String login, String senha) {
     	
@@ -84,7 +79,7 @@ public class UsuarioService extends AbstractServiceImpl<Usuario> {
     	List<Modulo> modulos = moduloService.recuperarPorUsuario(usuario);
     	List<Tela> telasPublicas = telaService.recuperarTelasPublicas("nome");
 
-    	session.setAttribute("usuario", usuario);
+    	session.setAttribute("usuarioLogado", usuario);
     	session.setAttribute("usuarioPerfis", perfis);
     	session.setAttribute("usuarioModulos", modulos);
     	session.setAttribute("telasPublicas", telasPublicas);

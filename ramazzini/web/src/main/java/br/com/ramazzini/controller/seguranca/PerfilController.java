@@ -31,20 +31,11 @@ public class PerfilController extends AbstractBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Inject
-	private PerfilService perfilService;
-
-	@Inject
-	private ModuloService moduloService;
-
-	@Inject
-	private TelaService telaService;
-	
-	@Inject
-	private PerfilTelaService perfilTelaService;
-	
-	@Inject
-	private AcaoService acaoService;		
+	@Inject private PerfilService perfilService;
+	@Inject private ModuloService moduloService;
+	@Inject private TelaService telaService;
+	@Inject private PerfilTelaService perfilTelaService;
+	@Inject private AcaoService acaoService;		
 
 	private List<Perfil> perfis;
 	

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui">
+   
+	<p:dataTable id="gridAgendamentos" var="agenda" value="#{atendimentoMedicoController.agendamentos}" 
+		styleClass="agendaGridAgendamentos" emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}">
+	
+	    <p:column headerText="#{msgs['label.acoes']}" styleClass="agendaColunaAcoes">
+
+
+	    </p:column>	
+	    
+	    <p:column headerText="#{msgs['label.empresa']}" styleClass="agendaColunaEmpresa">
+	        <h:outputText value="#{agenda.funcionario.empresa.nome}" />
+	    </p:column>	
+	    	    
+	    <p:column headerText="#{msgs['label.funcionario']}" styleClass="agendaColunaFuncionario">
+	        <h:outputText value="#{agenda.funcionario.nome}" />
+	    </p:column>	
+		
+	    <p:column headerText="#{msgs['label.entrada']}" styleClass="agendaColunaHora">
+	        <h:outputText value="#{atendimentoMedicoController.getFormattedTime(agenda.horaChegada,'HH:mm')}" />
+	    </p:column>
+
+	    <p:column headerText="#{msgs['label.situacao']}" styleClass="agendaColunaSitMarcacaoAgenda">
+	        <h:outputText value="#{agenda.situacaoMarcacaoAgendaEnum.stringChave}" />
+	    </p:column>
+	    
+	    <p:column headerText="#{msgs['label.procedimento']}" styleClass="agendaColunaProcedimento colunaCentralizada">
+	        <h:outputText value="#{agenda.procedimento.nome}" />
+	    </p:column>	
+	    	 
+	    <p:column headerText="#{msgs['label.observacoes']}" styleClass="agendaColunaProcedimento colunaCentralizada">
+	        <h:outputText value="#{agenda.observacoes}" />
+	    </p:column>	
+	    	 
+	</p:dataTable>
+	
+	<p:blockUI id="blockUi" block="gridAgendamentos" trigger="botaoAtualizarAgenda">
+		LOADING<br />
+		<p:graphicImage name="/img/ajax/ajax-loader.gif" />
+	</p:blockUI>	
+					
+</ui:composition>

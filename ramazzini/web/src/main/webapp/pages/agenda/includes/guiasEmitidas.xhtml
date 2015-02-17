@@ -23,11 +23,12 @@
 		    	actionListener="#{analiseEmissaoDocumentosController.cancelarGuia(guia)}">
 		    	<p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['confirmacao.cancelamentoGuia']}" icon="ui-icon-alert" />
 		    </p:commandButton>
-			
+		    
 	    </p:column>	
 
 	    <p:column headerText="#{msgs['label.numeroGuia']}" styleClass="agendaGuiaSituacao_#{guia.situacaoGuia} colunaCentralizada">
 	        <h:outputText value="#{guia.numeroGuia}" />
+	        <p:rowToggler />
 	    </p:column>
 	    
 	    <p:column headerText="#{msgs['label.funcionario']}" styleClass="agendaGuiaSituacao_#{guia.situacaoGuia}">
@@ -46,7 +47,19 @@
 	    
 	    <p:column headerText="#{msgs['label.situacao']}" styleClass="colunaCentralizada agendaGuiaSituacao_#{guia.situacaoGuia}">
 	        <h:outputText value="#{guia.situacaoGuiaEnum.stringChave}" />
-	    </p:column>		    		    
+	    </p:column>	
+	    
+        <p:rowExpansion>
+
+		    <p:dataList value="#{analiseEmissaoDocumentosController.getProcedimentosGuiaEmitida(guia)}" 
+		    	var="guiaProcedimento" type="ordered">
+		        <f:facet name="header">
+		            #{msgs['label.procedimentos']}
+		        </f:facet>
+		        #{guiaProcedimento.procedimento.nome}
+		    </p:dataList>			
+
+        </p:rowExpansion>	    	    		    
 	    	    	    
 	</p:dataTable>	
 								
