@@ -5,9 +5,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+
+import org.primefaces.push.EventBus;
+import org.primefaces.push.EventBusFactory;
 
 import br.com.ramazzini.controller.util.AbstractBean;
 import br.com.ramazzini.model.agenda.Agenda;
@@ -19,6 +23,7 @@ import br.com.ramazzini.service.entidade.AgendaService;
 import br.com.ramazzini.service.entidade.ParametroService;
 import br.com.ramazzini.service.entidade.ProfissionalService;
 import br.com.ramazzini.util.TimeFactory;
+import br.com.ramazzini.util.UtilMensagens;
 
 @Named
 @ConversationScoped
@@ -32,7 +37,7 @@ public class AtendimentoMedicoController extends AbstractBean implements Seriali
 	
 	private Date dataSelecionada = TimeFactory.createDataHora();
 	
-	private String situacaoMarcacaoAgenda = SituacaoMarcacaoAgenda.AGUARDANDO.getValue();
+	private String situacaoMarcacaoAgenda;
 	
 	private int totalAgendamentos;
 	
@@ -43,7 +48,16 @@ public class AtendimentoMedicoController extends AbstractBean implements Seriali
 	private Date ultimaAtualizacaoAgenda;
 	
 	private Profissional medicoLogado;
+	
+	private Agenda agendaSelecionada;
 
+	@PostConstruct
+	public void init() {
+		if (situacaoMarcacaoAgenda == null) {
+			situacaoMarcacaoAgenda = SituacaoMarcacaoAgenda.AGUARDANDO.getValue();
+		}
+	}
+	
 	public void atualizacaoAutomatica() {
 		agendamentos.clear();
 	}
@@ -72,6 +86,51 @@ public class AtendimentoMedicoController extends AbstractBean implements Seriali
 		return agendamentos;
 	}
 	
+	public void alterarSituacaoAgenda(String situacao) {
+		agendaSelecionada.setSituacaoMarcacaoAgenda(situacao);
+		gravarAgenda(agendaSelecionada);
+	}
+	
+	public void atribuirme() {
+		
+		 if (agendaSelecionada.getProfissional() == null) {
+			agendaSelecionada.setProfissional(medicoLogado);
+			gravarAgenda(agendaSelecionada);			 
+		 } else if (agendaSelecionada.getProfissional() != null) {
+			UtilMensagens.mensagemErroPorChave("mensagem.erro.agendamentoAtribuido", 
+				agendaSelecionada.getProfissional().getNome());			 
+		 }
+	}
+	
+	public void desatribuirme() {
+		
+		if (medicoLogado.equals(agendaSelecionada.getProfissional())) {
+			agendaSelecionada.setProfissional(null);
+			gravarAgenda(agendaSelecionada);
+		} else if (agendaSelecionada.getProfissional() == null) {
+			UtilMensagens.mensagemErroPorChave("mensagem.erro.agendamentoNaoEstaAtribuido");			
+		} else {
+			UtilMensagens.mensagemErroPorChave("mensagem.erro.agendamentoAtribuido", 
+					agendaSelecionada.getProfissional().getNome());
+		}
+	}
+	
+	public void gravarAgenda(Agenda agenda) {
+		agendaService.salvar(agenda);
+		notificarModificacaoAgenda();
+	}
+	
+	private void notificarModificacaoAgenda() {
+		Notificacao.notificarModificacaoAgenda();
+		sendNotify();
+		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.houveUmaAtualizacaoDaAgenda");
+	}
+	
+    public void sendNotify() {
+    	EventBus eventBus = EventBusFactory.getDefault().eventBus();
+    	eventBus.publish("/agenda", "");
+    }
+    
 	public Date getDataSelecionada() {
 		return dataSelecionada;
 	}
@@ -110,6 +169,14 @@ public class AtendimentoMedicoController extends AbstractBean implements Seriali
 			medicoLogado = profissionalService.recuperarPorUsuario(getUsuarioLogado());
 		}
 		return medicoLogado;
+	}
+
+	public Agenda getAgendaSelecionada() {
+		return agendaSelecionada;
+	}
+
+	public void setAgendaSelecionada(Agenda agendaSelecionada) {
+		this.agendaSelecionada = agendaSelecionada;
 	}	
 	
 }

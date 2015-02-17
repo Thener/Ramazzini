@@ -96,7 +96,12 @@ public class UtilMensagens {
 	}
 	
 	private static String getValor(String chave) {
-		return getBundle().getString(chave);
+		
+		try {
+			return getBundle().getString(chave);	
+		} catch(Exception e) {
+			return chave;
+		}
 	}
 	
 	private static ResourceBundle getBundle() {

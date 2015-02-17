@@ -98,3 +98,8 @@
 .agendaTachado_false {
 	text-decoration: line-through;	
 }
+
+.agendaMedicaColunaAcoes {
+	width: 130px;
+	text-align: center;
+}

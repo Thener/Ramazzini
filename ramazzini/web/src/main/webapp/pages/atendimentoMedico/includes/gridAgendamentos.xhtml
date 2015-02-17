@@ -5,10 +5,30 @@
    xmlns:h="http://java.sun.com/jsf/html"
    xmlns:p="http://primefaces.org/ui">
    
+    <p:contextMenu for="gridAgendamentos"
+    	rendered="#{atendimentoMedicoController.medicoLogado != null}">
+        
+        <p:menuitem value="#{msgs['situacaoMarcacaoAgenda.NaoCompareceu']}" update="frmAgenda" icon="ui-icon-close" 
+        	actionListener="#{atendimentoMedicoController.alterarSituacaoAgenda('NC')}" />
+        	
+        <p:menuitem value="#{msgs['situacaoMarcacaoAgenda.Aguardando']}" update="frmAgenda" icon="ui-icon-clock" 
+        	actionListener="#{atendimentoMedicoController.alterarSituacaoAgenda('AG')}" />
+
+		<p:separator />
+        	
+        <p:menuitem value="#{msgs['label.atribuirme']}" update="frmAgenda, :messages" icon="ui-icon-locked" 
+        	actionListener="#{atendimentoMedicoController.atribuirme()}" />
+        	        	
+        <p:menuitem value="#{msgs['label.desatribuirme']}" update="frmAgenda, :messages" icon="ui-icon-unlocked" 
+        	actionListener="#{atendimentoMedicoController.desatribuirme()}"/>
+        	        	
+    </p:contextMenu>
+       
 	<p:dataTable id="gridAgendamentos" var="agenda" value="#{atendimentoMedicoController.agendamentos}" 
-		styleClass="agendaGridAgendamentos" emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}">
+		styleClass="agendaGridAgendamentos" emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}"
+		rowKey="#{agenda.id}" selection="#{atendimentoMedicoController.agendaSelecionada}" selectionMode="single">
 	
-	    <p:column headerText="#{msgs['label.acoes']}" styleClass="agendaColunaAcoes"
+	    <p:column headerText="#{msgs['label.acoes']}" styleClass="agendaMedicaColunaAcoes"
 	    	rendered="#{atendimentoMedicoController.medicoLogado != null}">
 
 		    <p:commandButton icon="ui-icon-clipboard" value="#{msgs['botao.atender']}" 
@@ -20,7 +40,10 @@
 		    		and agenda.profissional != atendimentoMedicoController.medicoLogado}">
 		    	<p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['confirmacao.agendamentoOutroProfissional']}" 
 		    		icon="ui-icon-alert" />
-		    </p:commandButton>		    	
+		    </p:commandButton>	
+		    
+			<p:commandButton title="#{msgs['label.analiseEmissaoDocumentos']}" icon="ui-icon-print"
+		    	action="#{analiseEmissaoDocumentosController.init(agenda.funcionario, agenda.procedimento)}" />	
 		    
 	    </p:column>	
 	    

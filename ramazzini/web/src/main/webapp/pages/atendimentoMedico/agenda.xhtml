@@ -74,9 +74,15 @@
 
    			</h:form>
    		
-	   		<p:separator />
+	   		<p:spacer width="5px" />
 	   		
-	   		<p:clock mode="server" pattern="dd/MM/yyyy HH:mm:ss"/> <!-- não funcionou buscar o pattern de message.properties  -->  			
+			<p:fieldset legend="#{msgs['label.ajuda']}">
+				<h:outputText value="#{msgs['ajuda.botaoDireitoAgendamentoMaisOpcoes']}" />
+				
+				<span style="float:right;">
+					<p:clock mode="server" pattern="dd/MM/yyyy HH:mm:ss" />
+				</span> 
+			</p:fieldset>
    			
    		</p:panel>
    		
@@ -87,7 +93,7 @@
 				<p:commandButton value="#{msgs['label.confirmacaoNao']}" type="button"
 					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 			</p:confirmDialog>
-		</h:form>   		
+		</h:form>
    		   		
 		<p:socket channel="/agenda">
 			<p:ajax event="message" update=":frmAgenda" />
