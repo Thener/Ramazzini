@@ -85,6 +85,10 @@ textarea.tam100 {
 	font-weight: bold;
 } 
 
+.caixaAlta {
+	font-variant: small-caps;	
+}
+
 .observacoes {
    height: 80px;
     width: 100%;

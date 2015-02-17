@@ -38,6 +38,8 @@ import br.com.ramazzini.model.usuario.Usuario;
  */
 public class WebResources {
 	
+	private Usuario usuarioLogado;
+	
 	@Produces
     @RequestScoped
     public FacesContext produceFacesContext() {
@@ -51,11 +53,10 @@ public class WebResources {
     	return session;    	
     }
     
-    @Named
     @Produces
-    @RequestScoped
-    public Usuario usuarioLogado(){        	
-    	return (Usuario)session().getAttribute("usuarioLogado");
+    @Named
+    public Usuario getUsuarioLogado(){        	
+    	usuarioLogado = (Usuario)session().getAttribute("usuarioLogado");
+    	return usuarioLogado;
     }
-
 }

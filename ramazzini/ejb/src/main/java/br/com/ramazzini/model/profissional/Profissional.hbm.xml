@@ -49,5 +49,18 @@
 				by p.nome
 		]]>
 	</query>	
+	
+	<query name="Profissional.recuperarPorUsuario">
+		<![CDATA[
+			select 
+				p			
+			from 
+				Profissional p
+			where 
+				p.usuario = :usuario
+			order 
+				by p.nome
+		]]>
+	</query>	
 
 </hibernate-mapping>

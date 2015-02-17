@@ -46,7 +46,8 @@
 						</p:selectOneMenu>
 						
 						<p:outputLabel for="medicoLogado" value="#{msgs['label.medico']}:" />
-						<p:outputLabel id="medicoLogado" value="#{atendimentoMedicoController.medicoLogado.nome}" />
+						<p:outputLabel id="medicoLogado" value="#{atendimentoMedicoController.medicoLogado.nome}" 
+							styleClass="negrito caixaAlta" style="font-size: 20px !important"/>
 	   			
 	   				</h:panelGrid>
    				
@@ -59,8 +60,9 @@
    				
 	   				<h:panelGrid columns="3" cellpadding="5">
 	   				
-		       			<p:outputLabel value="#{msgs['label.totalAgendamentos']}" />
-						<p:outputLabel value="#{atendimentoMedicoController.totalAgendamentos}" id="totalAgendamentos" />
+		       			<p:outputLabel value="#{msgs['label.totalAgendamentos']}:" styleClass="agendaContador" />
+						<p:outputLabel value="#{atendimentoMedicoController.totalAgendamentos}" id="totalAgendamentos" 
+							styleClass="agendaContador"/>
 	   			
 	   				</h:panelGrid> 
    				

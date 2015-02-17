@@ -17,6 +17,7 @@ import br.com.ramazzini.model.parametro.ParametroSistema;
 import br.com.ramazzini.model.profissional.Profissional;
 import br.com.ramazzini.service.entidade.AgendaService;
 import br.com.ramazzini.service.entidade.ParametroService;
+import br.com.ramazzini.service.entidade.ProfissionalService;
 import br.com.ramazzini.util.TimeFactory;
 
 @Named
@@ -27,6 +28,7 @@ public class AtendimentoMedicoController extends AbstractBean implements Seriali
 	
 	@Inject private AgendaService agendaService;
 	@Inject private ParametroService parametroService;
+	@Inject private ProfissionalService profissionalService;
 	
 	private Date dataSelecionada = TimeFactory.createDataHora();
 	
@@ -64,7 +66,7 @@ public class AtendimentoMedicoController extends AbstractBean implements Seriali
 	
 	public List<Agenda> getAgendamentos() {
 		if (agendamentos.isEmpty() || ultimaAtualizacaoAgenda.before(Notificacao.getUltimaModificacaoAgenda())) {
-			agendamentos = agendaService.recuperarPorFiltros(dataSelecionada, situacaoMarcacaoAgenda, medicoLogado);
+			agendamentos = agendaService.recuperarPorFiltros(dataSelecionada, situacaoMarcacaoAgenda, null);
 			ultimaAtualizacaoAgenda = TimeFactory.createDataHora();
 		}
 		return agendamentos;
@@ -104,8 +106,10 @@ public class AtendimentoMedicoController extends AbstractBean implements Seriali
 	}
 
 	public Profissional getMedicoLogado() {
+		if (medicoLogado == null) {
+			medicoLogado = profissionalService.recuperarPorUsuario(getUsuarioLogado());
+		}
 		return medicoLogado;
 	}	
-
 	
 }

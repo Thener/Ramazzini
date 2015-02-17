@@ -21,11 +21,9 @@ public abstract class AbstractServiceImpl<T extends AbstractEntidade>
 		implements AbstractServiceInterface<T> {
 
 	private final Class<? extends AbstractEntidade> classePersistente;
-	@Inject
-	private DaoFactoryLocal daoFactory;
 	
-    @Inject
-    private HttpSession session;	
+	@Inject private DaoFactoryLocal daoFactory;
+    @Inject private HttpSession session;	
 
 	/**
 	 * Construtor da classe abstrata de serviços.

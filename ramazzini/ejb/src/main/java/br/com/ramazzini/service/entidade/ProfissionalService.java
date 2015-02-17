@@ -24,6 +24,7 @@ import javax.ejb.Stateless;
 import br.com.ramazzini.dao.profissional.ProfissionalDao;
 import br.com.ramazzini.model.profissional.PapelProfissional;
 import br.com.ramazzini.model.profissional.Profissional;
+import br.com.ramazzini.model.usuario.Usuario;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
 
 // The @Stateless annotation eliminates the need for manual transaction demarcation
@@ -42,4 +43,7 @@ public class ProfissionalService extends AbstractServiceImpl<Profissional> {
     	return ((ProfissionalDao) getDao()).recuperarPorPapelProfissional(papelProfissional.getValue(), ativo);
     }    
 
+    public Profissional recuperarPorUsuario(Usuario usuario) {
+    	return ((ProfissionalDao) getDao()).recuperarPorUsuario(usuario);
+    }      
 }

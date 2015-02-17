@@ -11,7 +11,9 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import br.com.ramazzini.model.usuario.Usuario;
 import br.com.ramazzini.service.relatorio.FileService;
 import br.com.ramazzini.service.util.Cliente;
 import br.com.ramazzini.util.ControleAcesso;
@@ -20,8 +22,8 @@ public abstract class AbstractBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	@Inject
-	private Conversation conversation;
+	@Inject private Conversation conversation;
+	@Inject private HttpSession session;
 	    
     private ControleAcesso controleAcesso = new ControleAcesso();
     
@@ -109,4 +111,8 @@ public abstract class AbstractBean implements Serializable {
 		beginConversation();
 		return conversation.getId();
 	}
+	
+	public Usuario getUsuarioLogado() {
+		return (Usuario) session.getAttribute("usuarioLogado");
+	}	
 }
