@@ -15,11 +15,22 @@
 
 				<p:fieldset legend="#{msgs['label.agenda']}">
 
-					<h:panelGrid columns="6" cellpadding="5">
+					<h:panelGrid columns="2" cellpadding="5">
 					
+						<p:outputLabel value="#{msgs['parametroSistema.agenda.statusAtualizacaoAutomatica']}" />
+						<p:selectOneMenu value="#{parametroController.parametroAgendaStatusAtualizacaoAutomatica.valor}">
+							<f:selectItems value="#{combosEstaticos.statusAtualizacaoAgenda}" var="status"
+								itemLabel="#{status.stringChave}" itemValue="#{status.value}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="#{msgs['parametroSistema.agenda.statusNotificacaoAutomatica']}" />
+						<p:selectOneMenu value="#{parametroController.parametroAgendaStatusNotificacaoAutomatica.valor}">
+							<f:selectItems value="#{combosEstaticos.statusNotificacaoAgenda}" var="status"
+								itemLabel="#{status.stringChave}" itemValue="#{status.value}" />
+						</p:selectOneMenu>
+						
 						<p:outputLabel value="#{msgs['parametroSistema.agenda.tempoAtualizacaoAutomatica']}" />
 						<p:selectOneMenu value="#{parametroController.parametroAgendaTempoAtualizacaoAutomatica.valor}">
-							<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""/>
 							<f:selectItems value="#{combosEstaticos.temposAtualizacaoAgenda}" var="tempo"
 								itemLabel="#{tempo.stringChave}" itemValue="#{tempo.value}" />
 						</p:selectOneMenu>

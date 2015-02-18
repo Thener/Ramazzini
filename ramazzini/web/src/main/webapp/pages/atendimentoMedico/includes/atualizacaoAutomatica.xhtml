@@ -6,7 +6,8 @@
    xmlns:p="http://primefaces.org/ui">
    
 	<p:poll interval="#{atendimentoMedicoController.tempoAtualizacaoAutomatica}" 
-		listener="#{atendimentoMedicoController.atualizacaoAutomatica()}" update=":frmAgenda, :messages" />
+		listener="#{atendimentoMedicoController.atualizacaoAutomatica()}" update=":frmAgenda, :messages" 
+		rendered="#{atendimentoMedicoController.statusAtualizacaoAutomatica == '1'}" />
 				
 	<p:ajaxStatus style="width: 30px;">
 	

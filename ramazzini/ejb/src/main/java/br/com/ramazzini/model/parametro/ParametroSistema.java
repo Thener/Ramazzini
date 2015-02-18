@@ -6,7 +6,9 @@ import java.util.ResourceBundle;
 public enum ParametroSistema {
 
 	//--- AGENDA:
-    AGENDA_TEMPO_ATUALIZACAO_AUTOMATICA("AGENDA.TEMPO_ATUALIZACAO_AUTOMATICA","parametroSistema.agenda.tempoAtualizacaoAutomatica", "60"), 
+    AGENDA_TEMPO_ATUALIZACAO_AUTOMATICA("AGENDA.TEMPO_ATUALIZACAO_AUTOMATICA","parametroSistema.agenda.tempoAtualizacaoAutomatica", "60"),
+    AGENDA_STATUS_ATUALIZACAO_AUTOMATICA("AGENDA.STATUS_ATUALIZACAO_AUTOMATICA","parametroSistema.agenda.statusAtualizacaoAutomatica", "1"),
+    AGENDA_STATUS_NOTIFICACAO_AUTOMATICA("AGENDA.STATUS_NOTIFICACAO_AUTOMATICA","parametroSistema.agenda.statusNotificacaoAutomatica", "1"),
     //---- CONTROLE DE ACESSO:
     ACESSO_NUM_MAX_TENTATIVAS_LOGIN("ACESSO.NUM_MAX_TENTATIVAS_LOGIN", "parametroSistema.acesso.numeroMaxTentativasLogin", "3"),
     //---- LOCAL RELATÓRIOS

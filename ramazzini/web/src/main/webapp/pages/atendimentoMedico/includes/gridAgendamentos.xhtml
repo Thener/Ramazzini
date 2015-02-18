@@ -8,10 +8,10 @@
     <p:contextMenu for="gridAgendamentos"
     	rendered="#{atendimentoMedicoController.medicoLogado != null}">
         
-        <p:menuitem value="#{msgs['situacaoMarcacaoAgenda.NaoCompareceu']}" update="frmAgenda" icon="ui-icon-close" 
+        <p:menuitem value="#{msgs['situacaoMarcacaoAgenda.NaoCompareceu']}" update="frmAgenda, :messages" icon="ui-icon-close" 
         	actionListener="#{atendimentoMedicoController.alterarSituacaoAgenda('NC')}" />
         	
-        <p:menuitem value="#{msgs['situacaoMarcacaoAgenda.Aguardando']}" update="frmAgenda" icon="ui-icon-clock" 
+        <p:menuitem value="#{msgs['situacaoMarcacaoAgenda.Aguardando']}" update="frmAgenda, :messages" icon="ui-icon-clock" 
         	actionListener="#{atendimentoMedicoController.alterarSituacaoAgenda('AG')}" />
 
 		<p:separator />
@@ -32,12 +32,16 @@
 	    	rendered="#{atendimentoMedicoController.medicoLogado != null}">
 
 		    <p:commandButton icon="ui-icon-clipboard" value="#{msgs['botao.atender']}" 
-		    	rendered="#{agenda.situacaoMarcacaoAgenda == 'AG' and 
-		    		(agenda.profissional == null or agenda.profissional == atendimentoMedicoController.medicoLogado)}" />		    	
+		    	action="#{atendimentoMedicoController.iniciarAtendimento(agenda.id)}"
+		    	rendered="#{(agenda.situacaoMarcacaoAgenda == 'AG' or agenda.situacaoMarcacaoAgenda == 'EA') and 
+		    		(agenda.profissional == null or agenda.profissional == atendimentoMedicoController.medicoLogado)}" 
+		    	update="gridAgendamentos, :messages" />		    	
 
 		    <p:commandButton icon="ui-icon-help" value="#{msgs['botao.atender']}" 
-		    	rendered="#{agenda.situacaoMarcacaoAgenda == 'AG' and agenda.profissional != null
-		    		and agenda.profissional != atendimentoMedicoController.medicoLogado}">
+		    	action="#{atendimentoMedicoController.iniciarAtendimento(agenda.id)}"
+		    	rendered="#{agenda.situacaoMarcacaoAgenda == 'AG' and agenda.profissional != null 
+		    		and agenda.profissional != atendimentoMedicoController.medicoLogado}"
+		    	update="gridAgendamentos, :messages">
 		    	<p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['confirmacao.agendamentoOutroProfissional']}" 
 		    		icon="ui-icon-alert" />
 		    </p:commandButton>	

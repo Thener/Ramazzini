@@ -73,6 +73,10 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 	
 	private String tempoAtualizacaoAutomatica;
 	
+	private String statusAtualizacaoAutomatica;
+	
+	private String statusNotificacaoAutomatica;
+	
 	private Funcionario novoFuncionario;
 	
 	@PostConstruct
@@ -305,6 +309,22 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 		return tempoAtualizacaoAutomatica;
 	}
 
+	public String getStatusAtualizacaoAutomatica() {
+		if (statusAtualizacaoAutomatica == null || statusAtualizacaoAutomatica.isEmpty()) {
+			statusAtualizacaoAutomatica = parametroService.recuperarPorParametroSistema(
+			ParametroSistema.AGENDA_STATUS_ATUALIZACAO_AUTOMATICA).getValor();
+		}
+		return statusAtualizacaoAutomatica;
+	}
+	
+	public String getStatusNotificacaoAutomatica() {
+		if (statusNotificacaoAutomatica == null || statusNotificacaoAutomatica.isEmpty()) {
+			statusNotificacaoAutomatica = parametroService.recuperarPorParametroSistema(
+			ParametroSistema.AGENDA_STATUS_NOTIFICACAO_AUTOMATICA).getValor();
+		}
+		return statusNotificacaoAutomatica;
+	}	
+	
 	public Funcionario getNovoFuncionario() {
 		return novoFuncionario;
 	}

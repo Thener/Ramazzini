@@ -25,6 +25,10 @@ public class ParametroController extends AbstractBean implements Serializable {
 
 	private Parametro parametroAgendaTempoAtualizacaoAutomatica;
 	
+	private Parametro parametroAgendaStatusAtualizacaoAutomatica;
+	
+	private Parametro parametroAgendaStatusNotificacaoAutomatica;
+	
 	private Parametro parametroAcessoNumTentativasLogin;	
 	
 	private List<Parametro> listToSave = new ArrayList<Parametro>();
@@ -36,10 +40,16 @@ public class ParametroController extends AbstractBean implements Serializable {
 		
 		parametroAgendaTempoAtualizacaoAutomatica = 
 			parametroService.recuperarPorParametroSistema(ParametroSistema.AGENDA_TEMPO_ATUALIZACAO_AUTOMATICA);
+		parametroAgendaStatusAtualizacaoAutomatica = 
+				parametroService.recuperarPorParametroSistema(ParametroSistema.AGENDA_STATUS_ATUALIZACAO_AUTOMATICA);
+		parametroAgendaStatusNotificacaoAutomatica = 
+				parametroService.recuperarPorParametroSistema(ParametroSistema.AGENDA_STATUS_NOTIFICACAO_AUTOMATICA);		
 		parametroAcessoNumTentativasLogin = 
 			parametroService.recuperarPorParametroSistema(ParametroSistema.ACESSO_NUM_MAX_TENTATIVAS_LOGIN);
 		
 		listToSave.add(parametroAgendaTempoAtualizacaoAutomatica);
+		listToSave.add(parametroAgendaStatusAtualizacaoAutomatica);
+		listToSave.add(parametroAgendaStatusNotificacaoAutomatica);
 		listToSave.add(parametroAcessoNumTentativasLogin);
 	}
 	
@@ -67,6 +77,15 @@ public class ParametroController extends AbstractBean implements Serializable {
 		this.parametroAgendaTempoAtualizacaoAutomatica = parametroAgendaTempoAtualizacaoAutomatica;
 	}
 
+	public Parametro getParametroAgendaStatusAtualizacaoAutomatica() {
+		return parametroAgendaStatusAtualizacaoAutomatica;
+	}
+
+	public void setParametroAgendaStatusAtualizacaoAutomatica(
+			Parametro parametroAgendaStatusAtualizacaoAutomatica) {
+		this.parametroAgendaStatusAtualizacaoAutomatica = parametroAgendaStatusAtualizacaoAutomatica;
+	}
+
 	public Parametro getParametroAcessoNumTentativasLogin() {
 		return parametroAcessoNumTentativasLogin;
 	}
@@ -75,5 +94,16 @@ public class ParametroController extends AbstractBean implements Serializable {
 			Parametro parametroAcessoNumTentativasLogin) {
 		this.parametroAcessoNumTentativasLogin = parametroAcessoNumTentativasLogin;
 	}
+
+	public Parametro getParametroAgendaStatusNotificacaoAutomatica() {
+		return parametroAgendaStatusNotificacaoAutomatica;
+	}
+
+	public void setParametroAgendaStatusNotificacaoAutomatica(
+			Parametro parametroAgendaStatusNotificacaoAutomatica) {
+		this.parametroAgendaStatusNotificacaoAutomatica = parametroAgendaStatusNotificacaoAutomatica;
+	}
+	
+	
 	
 }

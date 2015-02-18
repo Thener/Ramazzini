@@ -124,7 +124,7 @@
    		
    		<ui:include src="includes/dialogAdmissional.xhtml" />
 
-		<p:socket channel="/agenda">
+		<p:socket channel="/agenda" rendered="#{marcacaoAgendaController.statusNotificacaoAutomatica == '1'}">
 			<p:ajax event="message" update=":frmAgenda" />
 		</p:socket>
 

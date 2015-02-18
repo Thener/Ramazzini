@@ -77,7 +77,14 @@
 	   		<p:spacer width="5px" />
 	   		
 			<p:fieldset legend="#{msgs['label.ajuda']}">
-				<h:outputText value="#{msgs['ajuda.botaoDireitoAgendamentoMaisOpcoes']}" />
+				
+				<h:panelGrid columns="1" cellpadding="5">
+					<h:outputText value="#{msgs['ajuda.botaoDireitoAgendamentoMaisOpcoes']}" />
+					<h:outputText value="#{msgs['mensagem.info.notificacaoAutomaticaAgendaDesligada']}" 
+						rendered="#{atendimentoMedicoController.statusNotificacaoAutomatica == '0'}"/>
+					<h:outputText value="#{msgs['mensagem.info.atualizacaoAutomaticaAgendaDesligada']}" 
+						rendered="#{atendimentoMedicoController.statusAtualizacaoAutomatica == '0'}"/>
+				</h:panelGrid>
 				
 				<span style="float:right;">
 					<p:clock mode="server" pattern="dd/MM/yyyy HH:mm:ss" />
@@ -94,8 +101,8 @@
 					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 			</p:confirmDialog>
 		</h:form>
-   		   		
-		<p:socket channel="/agenda">
+
+		<p:socket channel="/agenda" rendered="#{atendimentoMedicoController.statusNotificacaoAutomatica == '1'}">
 			<p:ajax event="message" update=":frmAgenda" />
 		</p:socket>
 

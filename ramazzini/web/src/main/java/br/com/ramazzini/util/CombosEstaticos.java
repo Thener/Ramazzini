@@ -3,6 +3,8 @@ package br.com.ramazzini.util;
 import javax.inject.Named;
 
 import br.com.ramazzini.model.agenda.SituacaoMarcacaoAgenda;
+import br.com.ramazzini.model.agenda.StatusAtualizacaoAgenda;
+import br.com.ramazzini.model.agenda.StatusNotificacaoAgenda;
 import br.com.ramazzini.model.agenda.TempoAtualizacaoAgenda;
 import br.com.ramazzini.model.avaliacaoClinica.SituacaoAvaliacaoClinica;
 import br.com.ramazzini.model.avaliacaoClinicaProcedimento.ResultadoProcedimento;
@@ -85,6 +87,14 @@ public class CombosEstaticos {
 	public SituacaoMarcacaoAgenda[] getSituacoesMarcacaoAgenda() {
 		return SituacaoMarcacaoAgenda.values();
 	}	
+	
+	public StatusAtualizacaoAgenda[] getStatusAtualizacaoAgenda() {
+		return StatusAtualizacaoAgenda.values();
+	}
+	
+	public StatusNotificacaoAgenda[] getStatusNotificacaoAgenda() {
+		return StatusNotificacaoAgenda.values();
+	}
 	
 	public TipoAlteracaoProcedimento[] getTiposAlteracaoProcedimento() {
 		return TipoAlteracaoProcedimento.values();

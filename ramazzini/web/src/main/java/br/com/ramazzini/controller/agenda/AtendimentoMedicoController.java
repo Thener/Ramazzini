@@ -37,13 +37,17 @@ public class AtendimentoMedicoController extends AbstractBean implements Seriali
 	
 	private Date dataSelecionada = TimeFactory.createDataHora();
 	
-	private String situacaoMarcacaoAgenda;
+	private String situacaoMarcacaoAgenda = SituacaoMarcacaoAgenda.AGUARDANDO.getValue();
 	
 	private int totalAgendamentos;
 	
 	private List<Agenda> agendamentos = new ArrayList<Agenda>();
 	
 	private String tempoAtualizacaoAutomatica;
+	
+	private String statusAtualizacaoAutomatica;
+	
+	private String statusNotificacaoAutomatica;
 	
 	private Date ultimaAtualizacaoAgenda;
 	
@@ -53,9 +57,7 @@ public class AtendimentoMedicoController extends AbstractBean implements Seriali
 
 	@PostConstruct
 	public void init() {
-		if (situacaoMarcacaoAgenda == null) {
-			situacaoMarcacaoAgenda = SituacaoMarcacaoAgenda.AGUARDANDO.getValue();
-		}
+		beginConversation();
 	}
 	
 	public void atualizacaoAutomatica() {
@@ -87,8 +89,13 @@ public class AtendimentoMedicoController extends AbstractBean implements Seriali
 	}
 	
 	public void alterarSituacaoAgenda(String situacao) {
-		agendaSelecionada.setSituacaoMarcacaoAgenda(situacao);
-		gravarAgenda(agendaSelecionada);
+		if (medicoLogado.equals(agendaSelecionada.getProfissional())) {
+			agendaSelecionada.setSituacaoMarcacaoAgenda(situacao);
+			gravarAgenda(agendaSelecionada);			
+		} else {
+			UtilMensagens.mensagemErroPorChave("mensagem.erro.agendamentoAtribuido", 
+				agendaSelecionada.getProfissional().getNome());
+		}
 	}
 	
 	public void atribuirme() {
@@ -111,8 +118,34 @@ public class AtendimentoMedicoController extends AbstractBean implements Seriali
 			UtilMensagens.mensagemErroPorChave("mensagem.erro.agendamentoNaoEstaAtribuido");			
 		} else {
 			UtilMensagens.mensagemErroPorChave("mensagem.erro.agendamentoAtribuido", 
-					agendaSelecionada.getProfissional().getNome());
+				agendaSelecionada.getProfissional().getNome());
 		}
+	}
+	
+	public String iniciarAtendimento(Long id) {
+		
+		// Não resolve receber agenda direto da lista pq outro usuário pode ter alterado o agendamento,
+		// deixando os demais clientes desatualizados até o próximo carregamento da agenda.
+		Agenda agenda = agendaService.recuperarPorId(id);
+		
+		System.out.println("teste");
+		
+		if (agenda.getSituacaoMarcacaoAgendaEnum().equals(SituacaoMarcacaoAgenda.AGUARDANDO)) {
+			agenda.setSituacaoMarcacaoAgendaEnum(SituacaoMarcacaoAgenda.EM_ATENDIMENTO);
+			agenda.setProfissional(medicoLogado);
+			gravarAgenda(agenda);
+			//----->>>>> redireciona para tela de atendimento...
+		} else if (agenda.getSituacaoMarcacaoAgendaEnum().equals(SituacaoMarcacaoAgenda.EM_ATENDIMENTO)
+			&& !agenda.getProfissional().equals(medicoLogado)) {
+			UtilMensagens.mensagemErroPorChave("mensagem.erro.atendimentoEmAndamentoPor", 
+				agenda.getProfissional().getNome());
+		} else {
+			//UtilMensagens.mensagemErroPorChave("mensagem.erro.atendimentoNaoPodeSerIniciado", 
+				//agenda.getSituacaoMarcacaoAgendaEnum().getStringChave());
+			// atendimento não pode ser iniciado ou continua no atual em andamento ???????
+		}
+		
+		return "";
 	}
 	
 	public void gravarAgenda(Agenda agenda) {
@@ -149,7 +182,23 @@ public class AtendimentoMedicoController extends AbstractBean implements Seriali
 					ParametroSistema.AGENDA_TEMPO_ATUALIZACAO_AUTOMATICA).getValor(); 
 		}
 		return tempoAtualizacaoAutomatica;
-	}	
+	}
+	
+	public String getStatusAtualizacaoAutomatica() {
+		if (statusAtualizacaoAutomatica == null || statusAtualizacaoAutomatica.isEmpty()) {
+			statusAtualizacaoAutomatica = parametroService.recuperarPorParametroSistema(
+			ParametroSistema.AGENDA_STATUS_ATUALIZACAO_AUTOMATICA).getValor();
+		}
+		return statusAtualizacaoAutomatica;
+	}
+	
+	public String getStatusNotificacaoAutomatica() {
+		if (statusNotificacaoAutomatica == null || statusNotificacaoAutomatica.isEmpty()) {
+			statusNotificacaoAutomatica = parametroService.recuperarPorParametroSistema(
+			ParametroSistema.AGENDA_STATUS_NOTIFICACAO_AUTOMATICA).getValor();
+		}
+		return statusNotificacaoAutomatica;
+	}
 	
 	public String getSituacaoMarcacaoAgenda() {
 		return situacaoMarcacaoAgenda;
