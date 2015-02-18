@@ -58,88 +58,94 @@ public class Anamnese extends AbstractEntidade implements Serializable {
 	private String ultimoCargo;	
 	
 	@Column(name = "ic_ultimo_cargo_insalubre")
-	private boolean ultimoCargoInsalubre;
+	private boolean ultimoCargoInsalubre = Boolean.FALSE;
 	
 	@Column(name = "ds_ultimo_cargo_tempo", length = 20)
 	private String ultimoCargoTempo;
 
 	@Column(name = "ic_antecedente_insalubre")
-	private boolean antecedenteInsalubre;	
+	private boolean antecedenteInsalubre = Boolean.FALSE;	
 	
 	@Column(name = "ds_antecedente_insalubre", length = 100)
 	private String descricaoAntecedenteInsalubre;
 	
 	@Column(name = "ic_antecedente_morbido")
-	private boolean antecedenteMorbido;	
+	private boolean antecedenteMorbido = Boolean.FALSE;	
 	
 	@Column(name = "ds_antecedente_morbido", length = 100)
 	private String descricaoAntecedenteMorbido;
 	
 	@Column(name = "ic_acidente_trabalho")
-	private boolean acidenteTrabalho;	
+	private boolean acidenteTrabalho = Boolean.FALSE;	
 	
 	@Column(name = "ds_acidente_trabalho", length = 100)
 	private String descricaoAcidenteTrabalho;
 	
 	@Column(name = "ic_doenca_ocupacional")
-	private boolean doencaOcupacional;	
+	private boolean doencaOcupacional = Boolean.FALSE;	
 	
 	@Column(name = "ds_doenca_ocupacional", length = 100)
-	private String descricaoDoencaOcupacional;	
+	private String descricaoDoencaOcupacional;
+	
+	@Column(name = "ic_queixa_principal")
+	private boolean queixaPrincipal = Boolean.FALSE;	
+	
+	@Column(name = "ds_queixa_principal", length = 100)
+	private String descricaoQueixaPrincipal;
 	
 	@Column(name = "ic_deficiente_fisico")
-	private boolean deficienteFisico;	
+	private boolean deficienteFisico = Boolean.FALSE;	
 	
 	@Column(name = "ds_deficiencia_fisica", length = 100)
 	private String descricaoDeficienciaFisica;	
 	
 	@Column(name = "ic_alimentacao_boa")
-	private boolean alimentacaoBoa;	
+	private boolean alimentacaoBoa = Boolean.TRUE;	
 
 	@Column(name = "ic_aspecto_geral_bom")
-	private boolean aspectoGeralBom;
+	private boolean aspectoGeralBom = Boolean.TRUE;
 	
 	@Column(name = "tp_habito", length = 2)
 	private String tipoHabito;	
 	
 	@Column(name = "ic_dort")
-	private boolean dort;
+	private boolean dort = Boolean.FALSE;
 	
 	@Column(name = "ic_lombalgia")
-	private boolean lombalgia;
+	private boolean lombalgia = Boolean.FALSE;
 	
 	@Column(name = "ic_afastado_doenca")
-	private boolean afastadoDoenca;
+	private boolean afastadoDoenca = Boolean.FALSE;
 	
 	@Column(name = "ic_alergia")
-	private boolean alergia;
+	private boolean alergia = Boolean.FALSE;
 	
 	@Column(name = "ic_dermatite")
-	private boolean dermatite;
+	private boolean dermatite = Boolean.FALSE;
 	
 	@Column(name = "ic_varizes")
-	private boolean varizes;
+	private boolean varizes = Boolean.FALSE;
 	
 	@Column(name = "ic_edemas")
-	private boolean edemas;
+	private boolean edemas = Boolean.FALSE;
 	
 	@Column(name = "ic_tonturas")
-	private boolean tonturas;
+	private boolean tonturas = Boolean.FALSE;
 	
 	@Column(name = "ic_uso_medicamentos")
-	private boolean usoMedicamentos;
+	private boolean usoMedicamentos = Boolean.FALSE;
 	
 	@Column(name = "ic_adaptado_ferramenta_trabalho")
-	private boolean adaptadoFerramentaTrabalho;
+	private boolean adaptadoFerramentaTrabalho = Boolean.TRUE;
 	
 	@Column(name = "ic_adaptado_local_trabalho")
-	private boolean adaptadoLocalTrabalho;
+	private boolean adaptadoLocalTrabalho = Boolean.TRUE;
 	
 	@Column(name = "ic_cirurgia")
-	private boolean cirurgia;
+	private boolean cirurgia = Boolean.FALSE;
 	
 	@Column(name = "ic_hernia")
-	private boolean hernia;	
+	private boolean hernia = Boolean.FALSE;	
 	
 	@Column(name = "st_ar", length = 3)
 	private String situacaoAR;
@@ -157,7 +163,7 @@ public class Anamnese extends AbstractEntidade implements Serializable {
 	private String temperatura;	
 	
 	@Column(name = "ic_temperatura_normal")
-	private boolean temperaturaNormal;	
+	private boolean temperaturaNormal = Boolean.TRUE;	
 	
     @Column(name = "te_parecer", columnDefinition="TEXT")
     private String parecer;
@@ -173,7 +179,7 @@ public class Anamnese extends AbstractEntidade implements Serializable {
     private String situacaoAvaliacaoClinica;  
 	
 	@Column(name = "ic_alerta_proximo_atendimento")
-	private boolean alertaProximoAtendimento;	
+	private boolean alertaProximoAtendimento = Boolean.FALSE;	
 	
 	public Long getId() {
 		return id;
@@ -562,6 +568,22 @@ public class Anamnese extends AbstractEntidade implements Serializable {
 
 	public void setAlertaProximoAtendimento(boolean alertaProximoAtendimento) {
 		this.alertaProximoAtendimento = alertaProximoAtendimento;
+	}
+
+	public boolean isQueixaPrincipal() {
+		return queixaPrincipal;
+	}
+
+	public void setQueixaPrincipal(boolean queixaPrincipal) {
+		this.queixaPrincipal = queixaPrincipal;
+	}
+
+	public String getDescricaoQueixaPrincipal() {
+		return descricaoQueixaPrincipal;
+	}
+
+	public void setDescricaoQueixaPrincipal(String descricaoQueixaPrincipal) {
+		this.descricaoQueixaPrincipal = descricaoQueixaPrincipal;
 	}	
 	
 	

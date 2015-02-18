@@ -14,7 +14,38 @@
 			
 			<p:panel id="panelCadastroAnamnese" header="#{msgs['label.anamnese']}">
 			
+				<ui:include src="includes/identificacao.xhtml" />
+				
+				<ui:include src="includes/ultimoTrabalho.xhtml" />
+				
+				<ui:include src="includes/questionario.xhtml" />
+				
+				<!-- 
 
+	
+
+
+	
+	
+    @Column(name = "te_parecer", columnDefinition="TEXT")
+    private String parecer;
+    
+    @Column(name = "te_restricoes_aptidao", columnDefinition="TEXT")
+    private String restricoesAptidao;
+    
+    @Column(name = "te_motivo_inaptidao", columnDefinition="TEXT")
+    private String motivoInaptidao;    
+    
+	@Column(name = "st_avaliacao_clinica", length = 3)
+    @NotNull 
+    private String situacaoAvaliacaoClinica;  
+	
+	@Column(name = "ic_alerta_proximo_atendimento")
+	private boolean alertaProximoAtendimento;					
+				
+				 -->
+				
+				
 				
 			</p:panel>
 			

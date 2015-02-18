@@ -5,16 +5,18 @@ import java.util.ResourceBundle;
 
 public enum SimNao {
 
-	SIM("1","simNao.Sim"),
-    NAO("0","simNao.Nao");
+	SIM("1","simNao.Sim", true),
+    NAO("0","simNao.Nao", false);
     
     private static final ResourceBundle bundle = ResourceBundle.getBundle("messages");
 
     private String value;
+    private boolean valueBoolean;
     private String chave;
 
-    SimNao(String value, String chave) { 
+    SimNao(String value, String chave, boolean valueBoolean) { 
     	this.value = value;
+    	this.valueBoolean = valueBoolean;
     	this.chave = chave;
     }    
 
@@ -33,8 +35,12 @@ public enum SimNao {
 
 	public String getChave() {
 		return chave;
-	}    
+	}
     
+	public boolean isValueBoolean() {
+		return valueBoolean;
+	}
+
 	public String getStringChave() {
 		return bundle.getString(chave);
 	}

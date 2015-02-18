@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui">
+   
+	<p:fieldset legend="#{msgs['label.identificacao']}">
+	
+		<h:panelGrid columns="2" cellpadding="2" style="width: 100%">
+	
+			<h:panelGrid columns="2" cellpadding="2">
+	
+				<p:outputLabel value="#{msgs['label.empresa']}:" />
+				<p:outputLabel value="#{anamneseController.anamnese.avaliacaoClinica.funcionario.empresa.nome}" styleClass="negrito" />
+			
+				<p:outputLabel value="#{msgs['label.funcionario']}:" />
+				<p:outputLabel value="#{anamneseController.anamnese.avaliacaoClinica.funcionario.nome}" styleClass="negrito" />
+								
+				<p:outputLabel value="#{msgs['label.medico']}:" />
+				<p:outputLabel value="#{anamneseController.anamnese.medico.nome}" styleClass="negrito" />
+				
+			</h:panelGrid>
+			
+			<h:panelGrid columns="2" cellpadding="2">
+	
+				<p:outputLabel value="#{msgs['label.avaliacaoClinica']}:" />
+				<p:outputLabel value="#{anamneseController.anamnese.avaliacaoClinica.procedimento.nome}" styleClass="negrito" />
+				
+				<p:outputLabel value="#{msgs['label.dataRealizacao']}:" />
+				<p:outputLabel value="#{anamneseController.anamnese.dataRealizacao}" styleClass="negrito">
+					<f:convertDateTime locale="pt,BR" pattern="#{msgs['pattern.calendar']}" />
+				</p:outputLabel>					
+	
+			
+			</h:panelGrid>					
+		
+		</h:panelGrid>
+	
+	</p:fieldset>
+		
+</ui:composition>

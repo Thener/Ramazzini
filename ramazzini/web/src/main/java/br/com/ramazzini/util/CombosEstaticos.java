@@ -6,6 +6,9 @@ import br.com.ramazzini.model.agenda.SituacaoMarcacaoAgenda;
 import br.com.ramazzini.model.agenda.StatusAtualizacaoAgenda;
 import br.com.ramazzini.model.agenda.StatusNotificacaoAgenda;
 import br.com.ramazzini.model.agenda.TempoAtualizacaoAgenda;
+import br.com.ramazzini.model.anamnese.SituacaoACV;
+import br.com.ramazzini.model.anamnese.SituacaoAR;
+import br.com.ramazzini.model.anamnese.TipoHabito;
 import br.com.ramazzini.model.avaliacaoClinica.SituacaoAvaliacaoClinica;
 import br.com.ramazzini.model.avaliacaoClinicaProcedimento.ResultadoProcedimento;
 import br.com.ramazzini.model.avaliacaoClinicaProcedimento.TipoAlteracaoProcedimento;
@@ -60,6 +63,14 @@ public class CombosEstaticos {
 		return NaoSim.values();
 	}	
 
+	public SituacaoACV[] getSituacoesACV() {
+		return SituacaoACV.values();
+	}
+	
+	public SituacaoAR[] getSituacoesAR() {
+		return SituacaoAR.values();
+	}
+	
 	public SituacaoAvaliacaoClinica[] getSituacoesAvaliacaoClinica() {
 		return SituacaoAvaliacaoClinica.values();
 	}
@@ -74,6 +85,10 @@ public class CombosEstaticos {
 	
 	public EnquadramentoDeficienciaEnum[] getEnquadramentoDeficiencia() {
 		return EnquadramentoDeficienciaEnum.values();
+	}	
+	
+	public TipoHabito[] getTiposHabitos() {
+		return TipoHabito.values();
 	}	
 	
 	public LimitacoesDeficienciaMentalEnum[] getLimitacoesDeficienciaMental() {

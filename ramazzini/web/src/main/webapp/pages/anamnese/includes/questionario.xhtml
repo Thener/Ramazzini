@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui">
+   
+	<p:fieldset legend="#{msgs['label.questionario']}">
+	
+		<h:panelGrid columns="3" cellpadding="3">
+		
+			<p:outputLabel value="#{msgs['label.acidenteTrabalho']}:" />
+			<p:selectOneMenu value="#{anamneseController.anamnese.acidenteTrabalho}">
+				<f:selectItems value="#{combosEstaticos.simNao}" var="simNao"
+					itemLabel="#{simNao.stringChave}" itemValue="#{simNao.valueBoolean}" />
+				<f:ajax render="descricaoAcidenteTrabalho" />
+			</p:selectOneMenu>	
+			<p:inputText id="descricaoAcidenteTrabalho" value="#{anamneseController.anamnese.descricaoAcidenteTrabalho}" 
+				maxlength="100" styleClass="nome100" disabled="#{anamneseController.anamnese.acidenteTrabalho == false}"/>
+				
+			<p:outputLabel value="#{msgs['label.doencaOcupacional']}:" />
+			<p:selectOneMenu value="#{anamneseController.anamnese.doencaOcupacional}">
+				<f:selectItems value="#{combosEstaticos.simNao}" var="simNao"
+					itemLabel="#{simNao.stringChave}" itemValue="#{simNao.valueBoolean}" />
+				<f:ajax render="descricaoDoencaOcupacional" />
+			</p:selectOneMenu>	
+			<p:inputText id="descricaoDoencaOcupacional" value="#{anamneseController.anamnese.descricaoDoencaOcupacional}" 
+				maxlength="100" styleClass="nome100" disabled="#{anamneseController.anamnese.doencaOcupacional == false}"/>
+				
+			<p:outputLabel value="#{msgs['label.queixaPrincipal']}:" />
+			<p:selectOneMenu value="#{anamneseController.anamnese.queixaPrincipal}">
+				<f:selectItems value="#{combosEstaticos.simNao}" var="simNao"
+					itemLabel="#{simNao.stringChave}" itemValue="#{simNao.valueBoolean}" />
+				<f:ajax render="descricaoQueixaPrincipal" />
+			</p:selectOneMenu>	
+			<p:inputText id="descricaoQueixaPrincipal" value="#{anamneseController.anamnese.descricaoQueixaPrincipal}" 
+				maxlength="100" styleClass="nome100" disabled="#{anamneseController.anamnese.queixaPrincipal == false}"/>
+		
+			<p:outputLabel value="#{msgs['label.deficienteFisico']}:" />
+			<p:selectOneMenu value="#{anamneseController.anamnese.deficienteFisico}">
+				<f:selectItems value="#{combosEstaticos.simNao}" var="simNao"
+					itemLabel="#{simNao.stringChave}" itemValue="#{simNao.valueBoolean}" />
+				<f:ajax render="descricaoDeficienciaFisica" />
+			</p:selectOneMenu>	
+			<p:inputText id="descricaoDeficienciaFisica" value="#{anamneseController.anamnese.descricaoDeficienciaFisica}" 
+				maxlength="100" styleClass="nome100" disabled="#{anamneseController.anamnese.deficienteFisico == false}"/>
+						
+		</h:panelGrid>
+		
+		<p:separator />
+		
+		<h:panelGrid columns="4" cellpadding="3" style="width:100%">
+		
+			<h:panelGrid columns="2" cellpadding="3" columnClasses="colunaAlinhadaDireita">
+			
+				<p:outputLabel value="#{msgs['label.alimentacaoBoa']}:"/>
+				<p:selectOneMenu value="#{anamneseController.anamnese.alimentacaoBoa}">
+					<f:selectItems value="#{combosEstaticos.simNao}" var="simNao"
+						itemLabel="#{simNao.stringChave}" itemValue="#{simNao.valueBoolean}" />
+				</p:selectOneMenu>	
+				
+				<p:outputLabel value="#{msgs['label.lombalgia']}:" />
+				<p:selectOneMenu value="#{anamneseController.anamnese.lombalgia}">
+					<f:selectItems value="#{combosEstaticos.simNao}" var="simNao"
+						itemLabel="#{simNao.stringChave}" itemValue="#{simNao.valueBoolean}" />
+				</p:selectOneMenu>	
+				
+				<p:outputLabel value="#{msgs['label.varizes']}:" />
+				<p:selectOneMenu value="#{anamneseController.anamnese.varizes}">
+					<f:selectItems value="#{combosEstaticos.simNao}" var="simNao"
+						itemLabel="#{simNao.stringChave}" itemValue="#{simNao.valueBoolean}" />
+				</p:selectOneMenu>
+				
+				<p:outputLabel value="#{msgs['label.adaptadoMaquinaFerramentaTrabalho']}:" />
+				<p:selectOneMenu value="#{anamneseController.anamnese.adaptadoFerramentaTrabalho}">
+					<f:selectItems value="#{combosEstaticos.simNao}" var="simNao"
+						itemLabel="#{simNao.stringChave}" itemValue="#{simNao.valueBoolean}" />
+				</p:selectOneMenu>			
+				
+			</h:panelGrid>
+			
+			<h:panelGrid columns="2" cellpadding="3" columnClasses="colunaAlinhadaDireita">			
+				
+				<p:outputLabel value="#{msgs['label.aspectoGeralBom']}:" />
+				<p:selectOneMenu value="#{anamneseController.anamnese.aspectoGeralBom}">
+					<f:selectItems value="#{combosEstaticos.simNao}" var="simNao"
+						itemLabel="#{simNao.stringChave}" itemValue="#{simNao.valueBoolean}" />
+				</p:selectOneMenu>	
+				
+				<p:outputLabel value="#{msgs['label.afastadoDoenca']}:" />
+				<p:selectOneMenu value="#{anamneseController.anamnese.afastadoDoenca}">
+					<f:selectItems value="#{combosEstaticos.simNao}" var="simNao"
+						itemLabel="#{simNao.stringChave}" itemValue="#{simNao.valueBoolean}" />
+				</p:selectOneMenu>
+				
+				<p:outputLabel value="#{msgs['label.edemas']}:" />
+				<p:selectOneMenu value="#{anamneseController.anamnese.edemas}">
+					<f:selectItems value="#{combosEstaticos.simNao}" var="simNao"
+						itemLabel="#{simNao.stringChave}" itemValue="#{simNao.valueBoolean}" />
+				</p:selectOneMenu>
+				
+				<p:outputLabel value="#{msgs['label.adaptadoHoraLocalTrabalho']}:" />
+				<p:selectOneMenu value="#{anamneseController.anamnese.adaptadoLocalTrabalho}">
+					<f:selectItems value="#{combosEstaticos.simNao}" var="simNao"
+						itemLabel="#{simNao.stringChave}" itemValue="#{simNao.valueBoolean}" />
+				</p:selectOneMenu>
+				
+			</h:panelGrid>
+				
+			<h:panelGrid columns="2" cellpadding="3" columnClasses="colunaAlinhadaDireita">			
+				
+				<p:outputLabel value="#{msgs['label.habitos']}:" />
+				<p:selectOneMenu value="#{anamneseController.anamnese.tipoHabito}">
+					<f:selectItems value="#{combosEstaticos.tiposHabitos}" var="tipoHabito"
+						itemLabel="#{tipoHabito.stringChave}" itemValue="#{tipoHabito.value}" />
+				</p:selectOneMenu>
+				
+				<p:outputLabel value="#{msgs['label.alergia']}:" />
+				<p:selectOneMenu value="#{anamneseController.anamnese.alergia}">
+					<f:selectItems value="#{combosEstaticos.simNao}" var="simNao"
+						itemLabel="#{simNao.stringChave}" itemValue="#{simNao.valueBoolean}" />
+				</p:selectOneMenu>			
+				
+				<p:outputLabel value="#{msgs['label.tonturas']}:" />
+				<p:selectOneMenu value="#{anamneseController.anamnese.tonturas}">
+					<f:selectItems value="#{combosEstaticos.simNao}" var="simNao"
+						itemLabel="#{simNao.stringChave}" itemValue="#{simNao.valueBoolean}" />
+				</p:selectOneMenu>	
+				
+				<p:outputLabel value="#{msgs['label.cirurgia']}:" />
+				<p:selectOneMenu value="#{anamneseController.anamnese.cirurgia}">
+					<f:selectItems value="#{combosEstaticos.simNao}" var="simNao"
+						itemLabel="#{simNao.stringChave}" itemValue="#{simNao.valueBoolean}" />
+				</p:selectOneMenu>
+				
+			</h:panelGrid>
+				
+			<h:panelGrid columns="2" cellpadding="3" columnClasses="colunaAlinhadaDireita">			
+				
+				<p:outputLabel value="#{msgs['label.dort']}:" />
+				<p:selectOneMenu value="#{anamneseController.anamnese.dort}">
+					<f:selectItems value="#{combosEstaticos.simNao}" var="simNao"
+						itemLabel="#{simNao.stringChave}" itemValue="#{simNao.valueBoolean}" />
+				</p:selectOneMenu>
+							
+				<p:outputLabel value="#{msgs['label.dermatite']}:" />
+				<p:selectOneMenu value="#{anamneseController.anamnese.dermatite}">
+					<f:selectItems value="#{combosEstaticos.simNao}" var="simNao"
+						itemLabel="#{simNao.stringChave}" itemValue="#{simNao.valueBoolean}" />
+				</p:selectOneMenu>
+				
+				<p:outputLabel value="#{msgs['label.usoMedicamentos']}:" />
+				<p:selectOneMenu value="#{anamneseController.anamnese.usoMedicamentos}">
+					<f:selectItems value="#{combosEstaticos.simNao}" var="simNao"
+						itemLabel="#{simNao.stringChave}" itemValue="#{simNao.valueBoolean}" />
+				</p:selectOneMenu>			
+							
+				<p:outputLabel value="#{msgs['label.hernia']}:" />
+				<p:selectOneMenu value="#{anamneseController.anamnese.hernia}">
+					<f:selectItems value="#{combosEstaticos.simNao}" var="simNao"
+						itemLabel="#{simNao.stringChave}" itemValue="#{simNao.valueBoolean}" />
+				</p:selectOneMenu>
+	
+			</h:panelGrid>
+
+		</h:panelGrid>
+		
+		<p:separator />
+					
+		<h:panelGrid columns="11" cellpadding="3" columnClasses="colunaAlinhadaDireita">
+		
+			<p:outputLabel value="#{msgs['label.situacaoAR']}:" />
+			<p:selectOneMenu value="#{anamneseController.anamnese.situacaoAR}">
+				<f:selectItems value="#{combosEstaticos.situacoesAR}" var="sitAR"
+					itemLabel="#{sitAR.stringChave}" itemValue="#{sitAR.value}" />
+			</p:selectOneMenu>	
+			
+			<p:outputLabel value="#{msgs['label.situacaoACV']}:" />
+			<p:selectOneMenu value="#{anamneseController.anamnese.situacaoACV}">
+				<f:selectItems value="#{combosEstaticos.situacoesACV}" var="sitACV"
+					itemLabel="#{sitACV.stringChave}" itemValue="#{sitACV.value}" />
+			</p:selectOneMenu>
+			
+			<p:outputLabel value="#{msgs['label.pulso']}:" />	
+			<p:inputText value="#{anamneseController.anamnese.pulso}" 
+				maxlength="3" styleClass="nome5"/>			
+								
+			<p:outputLabel value="#{msgs['label.pa']}:" />	
+			<p:inputText value="#{anamneseController.anamnese.pressaoArterial}" 
+				maxlength="10" styleClass="nome10"/>
+
+			<p:outputLabel value="#{msgs['label.temperaturaNormal']}:" />
+			<p:selectOneMenu value="#{anamneseController.anamnese.temperaturaNormal}">
+				<f:selectItems value="#{combosEstaticos.simNao}" var="simNao"
+					itemLabel="#{simNao.stringChave}" itemValue="#{simNao.valueBoolean}" />
+			</p:selectOneMenu>
+			<p:inputText value="#{anamneseController.anamnese.temperatura}" 
+				maxlength="5" styleClass="nome5"/>
+									
+		</h:panelGrid>
+	
+	</p:fieldset>
+		
+</ui:composition>
