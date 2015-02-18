@@ -79,6 +79,8 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 	
 	private Funcionario novoFuncionario;
 	
+	private Agenda agendaSelecionada;
+	
 	@PostConstruct
 	public void init() {
 		beginConversation();
@@ -224,6 +226,11 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 		return profissionaisDisponiveis;
 	}
 
+	public void alterarSituacaoAgenda(String situacao) {
+		agendaSelecionada.setSituacaoMarcacaoAgenda(situacao);
+		gravarAgenda(agendaSelecionada, false);			
+	}
+	
 	public Date getDataSelecionada() {
 		return dataSelecionada;
 	}
@@ -331,6 +338,14 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 
 	public void setNovoFuncionario(Funcionario novoFuncionario) {
 		this.novoFuncionario = novoFuncionario;
+	}
+
+	public Agenda getAgendaSelecionada() {
+		return agendaSelecionada;
+	}
+
+	public void setAgendaSelecionada(Agenda agendaSelecionada) {
+		this.agendaSelecionada = agendaSelecionada;
 	}
 
 }

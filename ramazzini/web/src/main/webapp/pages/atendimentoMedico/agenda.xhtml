@@ -79,11 +79,11 @@
 			<p:fieldset legend="#{msgs['label.ajuda']}">
 				
 				<h:panelGrid columns="1" cellpadding="5">
-					<h:outputText value="#{msgs['ajuda.botaoDireitoAgendamentoMaisOpcoes']}" />
+					<h:outputText value="#{msgs['ajuda.botaoDireitoAgendamentoMaisOpcoes']}" styleClass="agendaTextoAjuda"/>
 					<h:outputText value="#{msgs['mensagem.info.notificacaoAutomaticaAgendaDesligada']}" 
-						rendered="#{atendimentoMedicoController.statusNotificacaoAutomatica == '0'}"/>
+						rendered="#{atendimentoMedicoController.statusNotificacaoAutomatica == '0'}" styleClass="agendaTextoAlerta"/>
 					<h:outputText value="#{msgs['mensagem.info.atualizacaoAutomaticaAgendaDesligada']}" 
-						rendered="#{atendimentoMedicoController.statusAtualizacaoAutomatica == '0'}"/>
+						rendered="#{atendimentoMedicoController.statusAtualizacaoAutomatica == '0'}" styleClass="agendaTextoAlerta"/>
 				</h:panelGrid>
 				
 				<span style="float:right;">

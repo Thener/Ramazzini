@@ -91,17 +91,33 @@
    				
    				<p:spacer width="15px;" />
    				
-   				<p:panelGrid columns="2" style="width:100%" columnClasses="agendaColuna50porCento">
-   				
-	   				<p:fieldset styleClass="agendaFsProfissionaisDisponiveis" legend="#{msgs['label.profissionaisDisponiveis']}">
-						<h:outputText value="#{marcacaoAgendaController.montarProfissionaisDisponiveis()}" escape="false"/>
-					</p:fieldset>
-   				
-   					<p:fieldset styleClass="agendaFsOpcoes" legend="#{msgs['label.opcoes']}">
-   						<ui:include src="includes/opcoesAgenda.xhtml" />
-   					</p:fieldset> 
-				
-				</p:panelGrid>
+   				<table style="width: 100%">
+   					<tr>
+	   					<td class="agendaColuna33porCento">
+			   				<p:fieldset styleClass="agendaFsProfissionaisDisponiveis" legend="#{msgs['label.profissionaisDisponiveis']}">
+								<h:outputText value="#{marcacaoAgendaController.montarProfissionaisDisponiveis()}" escape="false"/>
+							</p:fieldset>
+						</td>
+	   				
+	   					<td class="agendaColuna33porCento">
+		   					<p:fieldset styleClass="agendaFsOpcoes" legend="#{msgs['label.opcoes']}">
+		   						<ui:include src="includes/opcoesAgenda.xhtml" />
+		   					</p:fieldset>
+	   					</td>
+	   					
+	   					<td class="agendaColuna33porCento">
+		  					<p:fieldset styleClass="agendaFsAjuda" legend="#{msgs['label.ajuda']}">
+								<h:panelGrid columns="1" cellpadding="5">
+									<h:outputText value="#{msgs['ajuda.botaoDireitoAgendamentoMaisOpcoes']}" styleClass="agendaTextoAjuda"/>
+									<h:outputText value="#{msgs['mensagem.info.notificacaoAutomaticaAgendaDesligada']}" 
+										rendered="#{marcacaoAgendaController.statusNotificacaoAutomatica == '0'}" styleClass="agendaTextoAlerta"/>
+									<h:outputText value="#{msgs['mensagem.info.atualizacaoAutomaticaAgendaDesligada']}" 
+										rendered="#{marcacaoAgendaController.statusAtualizacaoAutomatica == '0'}" styleClass="agendaTextoAlerta"/>
+								</h:panelGrid>
+		   					</p:fieldset>
+	   					</td>
+   					</tr>				
+				</table>
 
    			</h:form>
    		

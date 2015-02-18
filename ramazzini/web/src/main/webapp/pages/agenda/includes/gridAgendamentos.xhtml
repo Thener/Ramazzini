@@ -5,8 +5,16 @@
    xmlns:h="http://java.sun.com/jsf/html"
    xmlns:p="http://primefaces.org/ui">
    
+    <p:contextMenu for="gridAgendamentos">
+        
+        <p:menuitem value="#{msgs['situacaoMarcacaoAgenda.NaoCompareceu']}" update="frmAgenda, :messages" icon="ui-icon-close" 
+        	actionListener="#{marcacaoAgendaController.alterarSituacaoAgenda('NC')}" />
+
+    </p:contextMenu>
+       
 	<p:dataTable id="gridAgendamentos" var="agenda" value="#{marcacaoAgendaController.agendamentos}" 
-		styleClass="agendaGridAgendamentos" emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}">
+		styleClass="agendaGridAgendamentos" emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}"
+		rowKey="#{agenda.id}" selection="#{marcacaoAgendaController.agendaSelecionada}" selectionMode="single">
 	
 	    <p:column headerText="#{msgs['label.acoes']}" styleClass="agendaColunaAcoes">
 					

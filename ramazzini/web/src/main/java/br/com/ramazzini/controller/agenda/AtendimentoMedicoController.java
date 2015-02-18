@@ -128,8 +128,6 @@ public class AtendimentoMedicoController extends AbstractBean implements Seriali
 		// deixando os demais clientes desatualizados até o próximo carregamento da agenda.
 		Agenda agenda = agendaService.recuperarPorId(id);
 		
-		System.out.println("teste");
-		
 		if (agenda.getSituacaoMarcacaoAgendaEnum().equals(SituacaoMarcacaoAgenda.AGUARDANDO)) {
 			agenda.setSituacaoMarcacaoAgendaEnum(SituacaoMarcacaoAgenda.EM_ATENDIMENTO);
 			agenda.setProfissional(medicoLogado);

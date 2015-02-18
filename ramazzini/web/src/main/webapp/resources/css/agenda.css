@@ -27,22 +27,32 @@
 	padding: 0 !important;
 }
 
+.agendaColuna33porCento {
+	width: 33%;	
+	padding: 0 !important;
+}
+
 .agendaContador {
 	font-size: 16px !important;	
 }
 
 .agendaFsProfissionaisDisponiveis {
-	width: 97%;
+	width: 94%;
 	min-height: 130px;
 	padding: 0px;
 }
 
 .agendaFsOpcoes {
-	width: 97%;
+	width: 94%;
 	min-height: 130px;
 	padding: 0px;
 }
 
+.agendaFsAjuda {
+	width: 94%;
+	min-height: 130px;
+	padding: 0px;
+}
 .agendaGridAgendamentos tr:hover {
     background: #C6E2FF;
 }
@@ -102,4 +112,20 @@
 .agendaMedicaColunaAcoes {
 	width: 130px;
 	text-align: center;
+}
+
+.agendaTextoAjuda {
+	background: url("#{resource['img/agenda/info.png']}") no-repeat scroll left 0 transparent;
+	width: 100%;
+	height: 16px;
+	display: block;
+	padding-left: 23px;	
+}
+
+.agendaTextoAlerta {
+	background: url("#{resource['img/agenda/alert.png']}") no-repeat scroll left 0 transparent;
+	width: 100%;
+	height: 16px;
+	display: block;
+	padding-left: 23px;
 }
