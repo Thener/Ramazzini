@@ -16,7 +16,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import br.com.ramazzini.model.embeddable.Endereco;
@@ -36,9 +35,8 @@ public class Credenciado extends AbstractEntidade implements Serializable {
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "seq_credenciado")
     private Long id;
     
-    @Column(name = "nm_credenciado")
+    @Column(name = "nm_credenciado", length = 100)
     @NotNull
-    @Size(min = 1, max = 100)
     private String nome;
     
 	@Column(name = "ic_ativo")
@@ -48,8 +46,7 @@ public class Credenciado extends AbstractEntidade implements Serializable {
 	@Embedded
     private Endereco endereco = new Endereco();   
     
-    @Column(name = "te_horario_atendimento")
-    @Size(max = 200)
+    @Column(name = "te_horario_atendimento", length = 200)
 	private String horarioAtendimento;
     
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "credenciado",

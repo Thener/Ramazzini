@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui"
+   template="/WEB-INF/templates/default.xhtml">
+   
+	<ui:define name="content">
+	
+		<h:form id="frmCadastroAnamnese">
+		
+			<p:growl id="growl" showDetail="false" sticky="false" />
+			
+			<p:panel id="panelCadastroAnamnese" header="#{msgs['label.anamnese']}">
+			
+
+				
+			</p:panel>
+			
+			<p:toolbar>
+				<f:facet name="left">
+					<p:commandButton id="botaoVoltar" immediate="true"
+						icon="ui-icon-arrowreturnthick-1-w" title="#{msgs['botao.voltar']}"
+						action="#{anamneseController.voltar()}">
+					</p:commandButton>
+					<p:commandButton id="salvar" action="#{anamneseController.gravarAnamnese()}"
+						value="#{msgs['botao.gravar']}" icon="ui-icon-disk" title="#{msgs['botao.gravar']}"
+						disabled="#{anamneseController.somenteLeitura}" ajax="true" update="frmCadastroAnamnese" />
+				</f:facet>
+			</p:toolbar>
+			
+		</h:form>
+		
+	</ui:define>
+	
+</ui:composition>

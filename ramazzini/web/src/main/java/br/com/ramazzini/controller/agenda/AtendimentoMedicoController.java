@@ -13,6 +13,7 @@ import javax.inject.Named;
 import org.primefaces.push.EventBus;
 import org.primefaces.push.EventBusFactory;
 
+import br.com.ramazzini.controller.anamnese.AnamneseController;
 import br.com.ramazzini.controller.util.AbstractBean;
 import br.com.ramazzini.model.agenda.Agenda;
 import br.com.ramazzini.model.agenda.SituacaoMarcacaoAgenda;
@@ -34,6 +35,7 @@ public class AtendimentoMedicoController extends AbstractBean implements Seriali
 	@Inject private AgendaService agendaService;
 	@Inject private ParametroService parametroService;
 	@Inject private ProfissionalService profissionalService;
+	@Inject private AnamneseController anamneseController;
 	
 	private Date dataSelecionada = TimeFactory.createDataHora();
 	
@@ -132,7 +134,7 @@ public class AtendimentoMedicoController extends AbstractBean implements Seriali
 			agenda.setSituacaoMarcacaoAgendaEnum(SituacaoMarcacaoAgenda.EM_ATENDIMENTO);
 			agenda.setProfissional(medicoLogado);
 			gravarAgenda(agenda);
-			//----->>>>> redireciona para tela de atendimento...
+			anamneseController.init(agenda.getFuncionario(), medicoLogado);
 		} else if (agenda.getSituacaoMarcacaoAgendaEnum().equals(SituacaoMarcacaoAgenda.EM_ATENDIMENTO)
 			&& !agenda.getProfissional().equals(medicoLogado)) {
 			UtilMensagens.mensagemErroPorChave("mensagem.erro.atendimentoEmAndamentoPor", 
