@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AvaliacaoMedicaDeficiente" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="007eae6c-f358-4eea-b447-8029c7ed35ab">
 	<property name="ireport.zoom" value="1.7715610000000057"/>
-	<property name="ireport.x" value="242"/>
-	<property name="ireport.y" value="528"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="1019"/>
 	<parameter name="IMAGE_PATH" class="java.lang.String"/>
 	<parameter name="PARAM_CLIENTE" class="br.com.ramazzini.service.util.Cliente"/>
 	<parameter name="PARAM_FUNCIONARIO" class="br.com.ramazzini.model.funcionario.Funcionario"/>
 	<parameter name="ORIGENS_DEFICIENCIA" class="java.util.List"/>
 	<parameter name="ENQUADRAMENTOS_DEFICIENCIA" class="java.util.List"/>
 	<parameter name="LIMITACOES_DEFICIENCIA_MENTAL" class="java.util.List"/>
+	<parameter name="MEDICO_TRABALHO" class="br.com.ramazzini.model.profissional.Profissional"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -95,7 +96,7 @@
 				<textElement>
 					<font fontName="Arial Narrow" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{PARAM_FUNCIONARIO}.getDataAdmissao()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy").format($P{PARAM_FUNCIONARIO}.getDataAdmissao())]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="163" y="40" width="43" height="20" uuid="c3d6cbf8-5f68-462a-834e-dffaa16102bf"/>
@@ -508,7 +509,7 @@ deficiências.]]></text>
 				<text><![CDATA[estando apto para exercer as funções de: ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="621" width="277" height="20" uuid="cb61060a-e1e1-4fc7-9fe5-c714542e6c85"/>
+				<reportElement x="0" y="621" width="277" height="40" uuid="cb61060a-e1e1-4fc7-9fe5-c714542e6c85"/>
 				<box leftPadding="5">
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -521,7 +522,7 @@ deficiências.]]></text>
 				<text><![CDATA[Médico do Trabalho Examinador:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="277" y="621" width="278" height="20" uuid="10c5ec84-6018-47f0-bb57-fa45cce8439e"/>
+				<reportElement x="277" y="621" width="278" height="40" uuid="10c5ec84-6018-47f0-bb57-fa45cce8439e"/>
 				<box leftPadding="5">
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -534,21 +535,20 @@ deficiências.]]></text>
 				<text><![CDATA[Carimbo e assinatura:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="641" width="555" height="29" uuid="b0ccecae-d0d5-4287-8adb-823b8e3f0b77"/>
+				<reportElement x="0" y="661" width="555" height="29" uuid="b0ccecae-d0d5-4287-8adb-823b8e3f0b77"/>
 				<box leftPadding="5">
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Left" markup="styled">
 					<font fontName="Arial Narrow" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Estou ciente de que estou sendo enquadrado na cota de deficientes da empresa. Autorizo a divulgação deste Laudo para a Superintendência Regional do Trabalho e Emprego-MG
-]]></text>
+				<text><![CDATA[<style isBold="true">Estou ciente de que estou sendo enquadrado na cota de deficientes da empresa. Autorizo a divulgação deste Laudo para a Superintendência Regional do Trabalho e Emprego-MG</style>]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="670" width="277" height="20" uuid="936a46d6-3fb1-4d41-bb52-c730f1c71b9f"/>
+				<reportElement x="0" y="690" width="277" height="39" uuid="936a46d6-3fb1-4d41-bb52-c730f1c71b9f"/>
 				<box leftPadding="5">
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -561,7 +561,7 @@ deficiências.]]></text>
 				<text><![CDATA[Data:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="277" y="670" width="278" height="20" uuid="3bf8db3f-b12e-4e28-90bb-ef8e48848dba"/>
+				<reportElement x="277" y="690" width="278" height="39" uuid="3bf8db3f-b12e-4e28-90bb-ef8e48848dba"/>
 				<box leftPadding="5">
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -756,6 +756,38 @@ deficiências.]]></text>
 					<font fontName="Arial Narrow" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{LIMITACOES_DEFICIENCIA_MENTAL}.contains("SS") ? "X" : ""]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="277" y="601" width="278" height="20" uuid="e2185cf3-5ccf-4874-b6f4-9a5ff5a6afa2"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial Narrow" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PARAM_FUNCIONARIO}.getFuncao().getNome()]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="53" y="690" width="224" height="39" uuid="8cb0ee06-98b7-464f-830c-2543e18772f2"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="641" width="277" height="20" uuid="a0462c45-ea05-42eb-9b68-5e40940c6191"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial Narrow" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PARAM_FUNCIONARIO}.getDeficiencia().getMedicoExaminador().getNome()]]></textFieldExpression>
 			</textField>
 		</band>
 	</noData>

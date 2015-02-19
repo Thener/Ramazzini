@@ -82,6 +82,19 @@
 							itemValue="#{limitacoesDeficienciaMental}" />
 						<f:attribute name="collectionType" value="java.util.HashSet" />
 					</p:selectManyCheckbox>
+					
+					<p:separator />
+					
+					<p:outputLabel for="medico" value="#{msgs['label.medicoExaminador']}:" />
+					<p:selectOneMenu id="medico"
+						value="#{deficienciaController.funcionario.deficiencia.medicoExaminador}"
+						converter="entityConverter">
+						<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
+							noSelectionOption="true" />
+						<f:selectItems
+							value="#{combosDinamicos.getProfissionaisMedicos()}"
+							var="medico" itemLabel="#{medico.nome}" itemValue="#{medico}" />
+					</p:selectOneMenu>
 
 				</h:panelGrid>
 			</p:panel>

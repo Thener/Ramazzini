@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -20,6 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import br.com.ramazzini.model.enquadramentoDeficiencia.EnquadramentoDeficiencia;
 import br.com.ramazzini.model.limitacoesDeficienciaMental.LimitacoesDeficienciaMental;
 import br.com.ramazzini.model.origemDeficiencia.OrigemDeficiencia;
+import br.com.ramazzini.model.profissional.Profissional;
 import br.com.ramazzini.model.util.AbstractEntidade;
 
 @SequenceGenerator(name = "seq_deficiencia", sequenceName = "seq_deficiencia", allocationSize = 1)
@@ -61,6 +63,10 @@ public class Deficiencia extends AbstractEntidade implements Serializable {
     
     @Column(name = "ds_limitacoes_funcionais", length = 200)
     private String limitacoesFuncionais;
+    
+    @ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="cd_profissional")
+	private Profissional medicoExaminador;
     
     @Override
 	public Long getId() {
@@ -107,5 +113,13 @@ public class Deficiencia extends AbstractEntidade implements Serializable {
 	public void setLimitacoesDeficienciaMental(
 			Set<LimitacoesDeficienciaMental> limitacoesDeficienciaMental) {
 		this.limitacoesDeficienciaMental = limitacoesDeficienciaMental;
+	}
+
+	public Profissional getMedicoExaminador() {
+		return medicoExaminador;
+	}
+
+	public void setMedicoExaminador(Profissional medicoExaminador) {
+		this.medicoExaminador = medicoExaminador;
 	}
 }
