@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui">
+   
+	<p:fieldset legend="#{msgs['label.parecer']}">
+	
+		<p:inputTextarea value="#{anamneseController.anamnese.parecer}" 
+			style="width:99%; height:100px;"/>
+			
+		<h:panelGrid columns="2" cellpadding="3" style="width:100%">
+		
+			<p:outputLabel value="#{msgs['label.restricoesAptidao']}:" />
+			
+			<p:outputLabel value="#{msgs['label.motivoInaptidao']}:" />
+		
+			<p:inputTextarea value="#{anamneseController.anamnese.restricoesAptidao}" 
+				style="width:98%; height:80px;"/>
+								
+			<p:inputTextarea value="#{anamneseController.anamnese.motivoInaptidao}" 
+				style="width:98%; height:80px;"/>
+		</h:panelGrid>
+	
+	</p:fieldset>
+
+		
+</ui:composition>

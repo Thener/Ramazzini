@@ -12,18 +12,59 @@
 			<h:panelGrid columns="2" cellpadding="2">
 	
 				<p:outputLabel value="#{msgs['label.empresa']}:" />
-				<p:outputLabel value="#{anamneseController.anamnese.avaliacaoClinica.funcionario.empresa.nome}" styleClass="negrito" />
+				<h:panelGroup>
+					<div class="agendaLinksVisualizarEditar">
+						<h:commandLink title="#{msgs['label.visualizar']}" action="#{empresaController.visualizarEmpresa(anamneseController.anamnese.avaliacaoClinica.funcionario.empresa)}"
+							styleClass="ui-icon ui-icon-search" rendered="#{anamneseController.controleAcesso.acaoAutorizada('empresa','pesquisarEmpresa.jsf','visualizarEmpresa')}"
+							immediate="true" target="_blank" />
+			    	</div>
+					<div class="agendaLinksVisualizarEditar">
+						<h:commandLink title="#{msgs['label.editar']}" action="#{empresaController.alterarEmpresa(anamneseController.anamnese.avaliacaoClinica.funcionario.empresa)}"
+							styleClass="ui-icon ui-icon-pencil" rendered="#{anamneseController.controleAcesso.acaoAutorizada('empresa','pesquisarEmpresa.jsf','alterarEmpresa')}" 
+							immediate="true" target="_blank" />
+			    	</div>				
+					<p:outputLabel value="#{anamneseController.anamnese.avaliacaoClinica.funcionario.empresa.nome}" styleClass="negrito" />
+				</h:panelGroup>
 			
 				<p:outputLabel value="#{msgs['label.funcionario']}:" />
-				<p:outputLabel value="#{anamneseController.anamnese.avaliacaoClinica.funcionario.nome}" styleClass="negrito" />
+				<h:panelGroup>
+					<div class="agendaLinksVisualizarEditar">
+						<h:commandLink title="#{msgs['label.visualizar']}" action="#{funcionarioController.visualizarFuncionario(anamneseController.anamnese.avaliacaoClinica.funcionario)}"
+							styleClass="ui-icon ui-icon-search" rendered="#{anamneseController.controleAcesso.acaoAutorizada('funcionario','pesquisarFuncionario.jsf','visualizarFuncionario')}" 
+							immediate="true" target="_blank" />
+			    	</div>
+					<div class="agendaLinksVisualizarEditar">
+						<h:commandLink title="#{msgs['label.editar']}" action="#{funcionarioController.alterarFuncionario(anamneseController.anamnese.avaliacaoClinica.funcionario)}"
+							styleClass="ui-icon ui-icon-pencil" rendered="#{anamneseController.controleAcesso.acaoAutorizada('funcionario','pesquisarFuncionario.jsf','alterarFuncionario')}" 
+							immediate="true" target="_blank" />
+			    	</div>
+					<p:outputLabel value="#{anamneseController.anamnese.avaliacaoClinica.funcionario.nome}" styleClass="negrito" />
+				</h:panelGroup>
 								
-				<p:outputLabel value="#{msgs['label.medico']}:" />
-				<p:outputLabel value="#{anamneseController.anamnese.medico.nome}" styleClass="negrito" />
-				
+				<p:outputLabel value="#{msgs['label.funcao']}:" />
+				<h:panelGroup>
+					<div class="agendaLinksVisualizarEditar">
+						<h:commandLink title="#{msgs['label.visualizar']}" action="#{funcaoController.visualizarFuncao(anamneseController.anamnese.avaliacaoClinica.funcaoAtual)}"
+							styleClass="ui-icon ui-icon-search" rendered="#{anamneseController.controleAcesso.acaoAutorizada('funcao','pesquisarFuncao.jsf','visualizarFuncao')}"
+							disabled="#{anamneseController.anamnese.avaliacaoClinica.funcaoAtual == null}"
+							immediate="true" target="_blank" />
+			    	</div>
+					<div class="agendaLinksVisualizarEditar">
+						<h:commandLink title="#{msgs['label.editar']}" action="#{funcaoController.alterarFuncao(anamneseController.anamnese.avaliacaoClinica.funcaoAtual)}"
+							styleClass="ui-icon ui-icon-pencil" rendered="#{anamneseController.controleAcesso.acaoAutorizada('funcao','pesquisarFuncao.jsf','alterarFuncao')}" 
+							disabled="#{anamneseController.anamnese.avaliacaoClinica.funcaoAtual == null}"
+							immediate="true" target="_blank" />
+			    	</div>
+					<p:outputLabel value="#{anamneseController.anamnese.avaliacaoClinica.funcaoAtual.nome}" styleClass="negrito" />
+				</h:panelGroup>
+								
 			</h:panelGrid>
 			
 			<h:panelGrid columns="2" cellpadding="2">
-	
+								
+				<p:outputLabel value="#{msgs['label.medico']}:" />
+				<p:outputLabel value="#{anamneseController.anamnese.medico.nome}" styleClass="negrito" />
+					
 				<p:outputLabel value="#{msgs['label.avaliacaoClinica']}:" />
 				<p:outputLabel value="#{anamneseController.anamnese.avaliacaoClinica.procedimento.nome}" styleClass="negrito" />
 				

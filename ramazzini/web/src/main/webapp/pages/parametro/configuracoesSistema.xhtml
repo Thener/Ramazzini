@@ -16,12 +16,6 @@
 				<p:fieldset legend="#{msgs['label.agenda']}">
 
 					<h:panelGrid columns="2" cellpadding="5">
-					
-						<p:outputLabel value="#{msgs['parametroSistema.agenda.statusAtualizacaoAutomatica']}" />
-						<p:selectOneMenu value="#{parametroController.parametroAgendaStatusAtualizacaoAutomatica.valor}">
-							<f:selectItems value="#{combosEstaticos.statusAtualizacaoAgenda}" var="status"
-								itemLabel="#{status.stringChave}" itemValue="#{status.value}" />
-						</p:selectOneMenu>
 
 						<p:outputLabel value="#{msgs['parametroSistema.agenda.statusNotificacaoAutomatica']}" />
 						<p:selectOneMenu value="#{parametroController.parametroAgendaStatusNotificacaoAutomatica.valor}">
@@ -29,8 +23,17 @@
 								itemLabel="#{status.stringChave}" itemValue="#{status.value}" />
 						</p:selectOneMenu>
 						
+						<p:outputLabel value="#{msgs['parametroSistema.agenda.statusAtualizacaoAutomatica']}" />
+						<p:selectOneMenu value="#{parametroController.parametroAgendaStatusAtualizacaoAutomatica.valor}">
+							<f:selectItems value="#{combosEstaticos.statusAtualizacaoAgenda}" var="status"
+								itemLabel="#{status.stringChave}" itemValue="#{status.value}" />
+							<f:ajax render="paramAgendaTempoAtualizacaoAutomatica" />
+						</p:selectOneMenu>						
+						
 						<p:outputLabel value="#{msgs['parametroSistema.agenda.tempoAtualizacaoAutomatica']}" />
-						<p:selectOneMenu value="#{parametroController.parametroAgendaTempoAtualizacaoAutomatica.valor}">
+						<p:selectOneMenu id="paramAgendaTempoAtualizacaoAutomatica" 
+							value="#{parametroController.parametroAgendaTempoAtualizacaoAutomatica.valor}"
+							disabled="#{parametroController.parametroAgendaStatusAtualizacaoAutomatica.valor == '0'}">
 							<f:selectItems value="#{combosEstaticos.temposAtualizacaoAgenda}" var="tempo"
 								itemLabel="#{tempo.stringChave}" itemValue="#{tempo.value}" />
 						</p:selectOneMenu>

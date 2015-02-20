@@ -15,6 +15,7 @@
 	<h:outputStylesheet name="css/dataTable.css" />
 	<h:outputStylesheet name="css/table.css" />
 	<h:outputStylesheet name="css/agenda.css" />
+	<h:outputStylesheet name="css/anamnese.css" />
 	<h:outputScript library="js" name="calendar.js" />
 </h:head>
 
@@ -22,7 +23,17 @@
 
 	<div id="container">
 
-		<div id="cabecalho"></div>
+		<div id="cabecalho">
+			<h:panelGrid columns="2" style="color: white;">
+				<h:column>
+					<div id="cabecalho_logo" />
+				</h:column>
+				<h:column>
+					<h:outputLabel value="AMEMT - Assistência em Medicina do Trabalho" styleClass="cabecalho_nome_cliente" />
+					<h:outputLabel value="Ramazzini Software Gestão Médica"  styleClass="cabecalho_nome_sistema"/>
+				</h:column>
+			</h:panelGrid>
+		</div>
 
 		<div id="menu">
 			<ui:include src="/WEB-INF/menus/menu.xhtml" />

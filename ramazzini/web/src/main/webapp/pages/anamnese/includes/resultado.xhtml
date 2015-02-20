@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui">
+   
+	<p:fieldset legend="#{msgs['label.resultado']}">
+	
+		<h:panelGrid columns="4" cellpadding="3">
+		
+			<p:outputLabel for="situacaoAvClinica" value="#{msgs['label.situacao']}:" />
+			<p:selectOneMenu id="situacaoAvClinica"
+				value="#{anamneseController.anamnese.situacaoAvaliacaoClinica}">
+				<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
+					noSelectionOption="true" />								
+				<f:selectItems value="#{combosEstaticos.situacoesAvaliacaoClinica}" var="situacaoAvClinica"
+					itemLabel="#{situacaoAvClinica.stringChave}" itemValue="#{situacaoAvClinica.value}" />
+			</p:selectOneMenu>	
+			
+			<h:outputLabel value="#{msgs['label.alertaProximoAtendimento']}:" />
+			<p:selectBooleanCheckbox value="#{anamneseController.anamnese.alertaProximoAtendimento}" />
+		
+		</h:panelGrid>
+	
+	</p:fieldset>
+		
+</ui:composition>

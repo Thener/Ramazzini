@@ -16,37 +16,21 @@
 			
 				<ui:include src="includes/identificacao.xhtml" />
 				
-				<ui:include src="includes/ultimoTrabalho.xhtml" />
+				<p:spacer width="5px" />
 				
-				<ui:include src="includes/questionario.xhtml" />
-				
-				<!-- 
+				<p:tabView>
+		        	<p:tab title="#{msgs['label.atendimentoAtual']}">
+						<ui:include src="includes/ultimoTrabalho.xhtml" />
+						<ui:include src="includes/questionario.xhtml" />
+						<ui:include src="includes/parecer.xhtml" />
+						<ui:include src="includes/procedimentos.xhtml" />
+						<ui:include src="includes/resultado.xhtml" />		        		
+		        	</p:tab>
+		        	<p:tab title="#{msgs['label.atendimentosAnteriores']}">
+		        		
+		        	</p:tab>
+				</p:tabView>				
 
-	
-
-
-	
-	
-    @Column(name = "te_parecer", columnDefinition="TEXT")
-    private String parecer;
-    
-    @Column(name = "te_restricoes_aptidao", columnDefinition="TEXT")
-    private String restricoesAptidao;
-    
-    @Column(name = "te_motivo_inaptidao", columnDefinition="TEXT")
-    private String motivoInaptidao;    
-    
-	@Column(name = "st_avaliacao_clinica", length = 3)
-    @NotNull 
-    private String situacaoAvaliacaoClinica;  
-	
-	@Column(name = "ic_alerta_proximo_atendimento")
-	private boolean alertaProximoAtendimento;					
-				
-				 -->
-				
-				
-				
 			</p:panel>
 			
 			<p:toolbar>

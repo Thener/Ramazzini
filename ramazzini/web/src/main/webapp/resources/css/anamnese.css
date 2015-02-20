@@ -1,0 +1,15 @@
+.anamneseAlertaTrue_true {
+	background: url("#{resource['img/agenda/info.png']}") no-repeat scroll left 0 transparent;
+	width: 100%;
+	height: 16px;
+	display: block;
+	padding-left: 23px;
+}
+
+.anamneseAlertaFalse_false {
+	background: url("#{resource['img/agenda/info.png']}") no-repeat scroll left 0 transparent;
+	width: 100%;
+	height: 16px;
+	display: block;
+	padding-left: 23px;
+}

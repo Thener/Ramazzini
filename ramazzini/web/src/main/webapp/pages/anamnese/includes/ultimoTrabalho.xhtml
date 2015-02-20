@@ -22,11 +22,12 @@
 			<p:selectOneMenu value="#{anamneseController.anamnese.ultimoCargoInsalubre}">
 				<f:selectItems value="#{combosEstaticos.simNao}" var="simNao"
 					itemLabel="#{simNao.stringChave}" itemValue="#{simNao.valueBoolean}" />
+				<f:ajax render="ultimoCargoTempo" />
 			</p:selectOneMenu>
 			
 			<p:outputLabel value="#{msgs['label.tempo']}:" />
-			<p:inputText value="#{anamneseController.anamnese.ultimoCargoTempo}" 
-				maxlength="20" styleClass="nome10"/>
+			<p:inputText id="ultimoCargoTempo" value="#{anamneseController.anamnese.ultimoCargoTempo}" 
+				maxlength="20" styleClass="nome10" disabled="#{anamneseController.anamnese.ultimoCargoInsalubre == false}"/>
 		
 		</h:panelGrid>
 		
@@ -36,17 +37,19 @@
 			<p:selectOneMenu value="#{anamneseController.anamnese.antecedenteInsalubre}">
 				<f:selectItems value="#{combosEstaticos.simNao}" var="simNao"
 					itemLabel="#{simNao.stringChave}" itemValue="#{simNao.valueBoolean}" />
+				<f:ajax render="descricaoAntecedenteInsalubre" />
 			</p:selectOneMenu>	
-			<p:inputText value="#{anamneseController.anamnese.descricaoAntecedenteInsalubre}" 
-				maxlength="100" styleClass="nome100"/>
+			<p:inputText id="descricaoAntecedenteInsalubre" value="#{anamneseController.anamnese.descricaoAntecedenteInsalubre}" 
+				maxlength="100" styleClass="nome100" disabled="#{anamneseController.anamnese.antecedenteInsalubre == false}"/>
 				
 			<p:outputLabel value="#{msgs['label.antecedenteMorbidos']}:" />
 			<p:selectOneMenu value="#{anamneseController.anamnese.antecedenteMorbido}">
 				<f:selectItems value="#{combosEstaticos.simNao}" var="simNao"
 					itemLabel="#{simNao.stringChave}" itemValue="#{simNao.valueBoolean}" />
+				<f:ajax render="descricaoAntecedenteMorbido" />
 			</p:selectOneMenu>	
-			<p:inputText value="#{anamneseController.anamnese.descricaoAntecedenteMorbido}" 
-				maxlength="100" styleClass="nome100"/>				
+			<p:inputText id="descricaoAntecedenteMorbido" value="#{anamneseController.anamnese.descricaoAntecedenteMorbido}" 
+				maxlength="100" styleClass="nome100"  disabled="#{anamneseController.anamnese.antecedenteMorbido == false}"/>				
 		
 		</h:panelGrid>
 	

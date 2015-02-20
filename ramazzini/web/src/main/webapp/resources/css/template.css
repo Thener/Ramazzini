@@ -9,10 +9,31 @@ body {
 	min-height: 600px;
 }
 
-#cabecalho {
-    background-color: powderblue;
+#cabecalho {    
+    background-color: #cd2626;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 4px 11px;
+}
+
+#cabecalho_logo {
+    background-image: url("#{resource['img/cliente/logo_cabecalho.png']}");
+    background-repeat: no-repeat;
     display: block;
-    min-height: 50px;	
+    min-height: 66px;
+    min-width: 150px;
+}
+
+.cabecalho_nome_cliente {
+    display: block;
+    font-size: 25px;
+    font-weight: bold;
+    padding-left: 10px;	
+}
+
+.cabecalho_nome_sistema {
+    display: block;
+    padding-left: 10px;	
 }
 
 #content {

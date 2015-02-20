@@ -51,31 +51,43 @@
 		
 		<h:panelGrid columns="4" cellpadding="3" style="width:100%">
 		
-			<h:panelGrid columns="2" cellpadding="3" columnClasses="colunaAlinhadaDireita">
+			<h:panelGrid columns="3" cellpadding="3" columnClasses="colunaAlinhadaDireita">
 			
 				<p:outputLabel value="#{msgs['label.alimentacaoBoa']}:"/>
 				<p:selectOneMenu value="#{anamneseController.anamnese.alimentacaoBoa}">
 					<f:selectItems value="#{combosEstaticos.simNao}" var="simNao"
 						itemLabel="#{simNao.stringChave}" itemValue="#{simNao.valueBoolean}" />
-				</p:selectOneMenu>	
+					<f:ajax render="alertaAlimentacaoBoa" />
+				</p:selectOneMenu>
+				<h:outputText id="alertaAlimentacaoBoa" 
+					styleClass="anamneseAlertaFalse_#{anamneseController.anamnese.alimentacaoBoa}"/>
 				
 				<p:outputLabel value="#{msgs['label.lombalgia']}:" />
 				<p:selectOneMenu value="#{anamneseController.anamnese.lombalgia}">
 					<f:selectItems value="#{combosEstaticos.simNao}" var="simNao"
 						itemLabel="#{simNao.stringChave}" itemValue="#{simNao.valueBoolean}" />
+					<f:ajax render="alertaLombalgia" />
 				</p:selectOneMenu>	
+				<h:outputText id="alertaLombalgia" 
+					styleClass="anamneseAlertaTrue_#{anamneseController.anamnese.lombalgia}"/>				
 				
 				<p:outputLabel value="#{msgs['label.varizes']}:" />
 				<p:selectOneMenu value="#{anamneseController.anamnese.varizes}">
 					<f:selectItems value="#{combosEstaticos.simNao}" var="simNao"
 						itemLabel="#{simNao.stringChave}" itemValue="#{simNao.valueBoolean}" />
+					<f:ajax render="alertaVarizes" />
 				</p:selectOneMenu>
+				<h:outputText id="alertaVarizes" 
+					styleClass="anamneseAlertaTrue_#{anamneseController.anamnese.varizes}"/>				
 				
 				<p:outputLabel value="#{msgs['label.adaptadoMaquinaFerramentaTrabalho']}:" />
 				<p:selectOneMenu value="#{anamneseController.anamnese.adaptadoFerramentaTrabalho}">
 					<f:selectItems value="#{combosEstaticos.simNao}" var="simNao"
 						itemLabel="#{simNao.stringChave}" itemValue="#{simNao.valueBoolean}" />
-				</p:selectOneMenu>			
+					<f:ajax render="alertaAdaptadoFerramentaTrabalho" />
+				</p:selectOneMenu>	
+				<h:outputText id="alertaAdaptadoFerramentaTrabalho" 
+					styleClass="anamneseAlertaFalse_#{anamneseController.anamnese.adaptadoFerramentaTrabalho}"/>						
 				
 			</h:panelGrid>
 			

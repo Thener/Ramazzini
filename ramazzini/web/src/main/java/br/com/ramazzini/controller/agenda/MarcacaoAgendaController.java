@@ -10,6 +10,7 @@ import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.primefaces.context.RequestContext;
 import org.primefaces.push.EventBus;
 import org.primefaces.push.EventBusFactory;
 
@@ -143,14 +144,31 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 	}
 	
 	private String gravarAgenda(Agenda agenda, boolean analiseEmissaoDocumento) {
-		if (agenda.getFuncionario() != null) {
-			agendaService.salvar(agenda);
-			notificarModificacaoAgenda();
-			if (analiseEmissaoDocumento) {
-				return analiseEmissaoDocumentosController.init(agenda.getFuncionario(), agenda.getProcedimento());
-			}
+		
+		RequestContext.getCurrentInstance().addCallbackParam("closeDialog", false);
+		
+		if (agenda.getFuncionario() == null) {
+			UtilMensagens.mensagemInformacaoPorChave("mensagem.erro.informacaoObrigatoria", "label.funcionario");
+			return "";	
 		}
-		return "";
+		
+		if (agenda.getProcedimento() == null) {
+			UtilMensagens.mensagemInformacaoPorChave("mensagem.erro.informacaoObrigatoria", "label.procedimento");
+			return "";
+		}
+		
+		RequestContext.getCurrentInstance().addCallbackParam("closeDialog", true);
+		
+		//RequestContext.getCurrentInstance().execute("PF('dialogEditarAgendamento').hide();");
+		
+		agendaService.salvar(agenda);
+		notificarModificacaoAgenda();
+		if (analiseEmissaoDocumento) {
+			return analiseEmissaoDocumentosController.init(agenda.getFuncionario(), agenda.getProcedimento());
+		} else {
+			return "";
+		}
+		
 	}
 	
 	public void excluirAgendamento(Agenda agenda) {
@@ -347,5 +365,5 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 	public void setAgendaSelecionada(Agenda agendaSelecionada) {
 		this.agendaSelecionada = agendaSelecionada;
 	}
-
+	
 }

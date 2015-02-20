@@ -126,25 +126,36 @@ public class AtendimentoMedicoController extends AbstractBean implements Seriali
 	
 	public String iniciarAtendimento(Long id) {
 		
-		// Não resolve receber agenda direto da lista pq outro usuário pode ter alterado o agendamento,
-		// deixando os demais clientes desatualizados até o próximo carregamento da agenda.
+		/*
+		 * 		1. 	Este método não recebe o objeto Agenda contido na lista porque o mesmo
+		 * 			pode ter sido alterado por outro usuário.
+		 * 
+		 * 		2.	Quando outro usuário exclui o agendamento, o browser que ainda estiver listando o
+		 * 			registro excluído não consegue executar esta ação de inicarAtendimento. 
+		 */
+		
 		Agenda agenda = agendaService.recuperarPorId(id);
 		
-		if (agenda.getSituacaoMarcacaoAgendaEnum().equals(SituacaoMarcacaoAgenda.AGUARDANDO)) {
+		if (SituacaoMarcacaoAgenda.AGUARDANDO.equals(agenda.getSituacaoMarcacaoAgendaEnum())) {
+			
 			agenda.setSituacaoMarcacaoAgendaEnum(SituacaoMarcacaoAgenda.EM_ATENDIMENTO);
 			agenda.setProfissional(medicoLogado);
 			gravarAgenda(agenda);
-			return anamneseController.init(agenda.getFuncionario(), medicoLogado, agenda.getProcedimento());
-		} else if (agenda.getSituacaoMarcacaoAgendaEnum().equals(SituacaoMarcacaoAgenda.EM_ATENDIMENTO)
-			&& !agenda.getProfissional().equals(medicoLogado)) {
-			UtilMensagens.mensagemErroPorChave("mensagem.erro.atendimentoEmAndamentoPor", 
-				agenda.getProfissional().getNome());
-		} else {
-			//UtilMensagens.mensagemErroPorChave("mensagem.erro.atendimentoNaoPodeSerIniciado", 
-				//agenda.getSituacaoMarcacaoAgendaEnum().getStringChave());
-			// atendimento não pode ser iniciado ou continua no atual em andamento ???????
+			return anamneseController.init(agenda.getFuncionario(), medicoLogado, agenda.getProcedimento());			
 		}
 		
+		if (SituacaoMarcacaoAgenda.EM_ATENDIMENTO.equals(agenda.getSituacaoMarcacaoAgendaEnum())) {
+			
+			if (medicoLogado.equals(agenda.getProfissional())) {
+				
+			} else { 
+			
+				UtilMensagens.mensagemErroPorChave("mensagem.erro.atendimentoEmAndamentoPor", 
+					agenda.getProfissional().getNome());
+				return "";
+			}
+		}
+
 		return "";
 	}
 	
