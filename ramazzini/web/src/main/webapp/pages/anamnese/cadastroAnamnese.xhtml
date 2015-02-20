@@ -11,10 +11,12 @@
 		<h:form id="frmCadastroAnamnese">
 		
 			<p:growl id="growl" showDetail="false" sticky="false" />
-			
+
 			<p:panel id="panelCadastroAnamnese" header="#{msgs['label.anamnese']}">
-			
+				
 				<ui:include src="includes/identificacao.xhtml" />
+				
+				<ui:include src="includes/alertas.xhtml" />
 				
 				<p:spacer width="5px" />
 				

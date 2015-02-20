@@ -3,6 +3,21 @@
 		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 
+	<query name="AvaliacaoClinica.recuperarAvaliacaoClinicaEmAndamentoPorFuncionario">
+		<![CDATA[
+			select 
+				ac
+			from 
+				AvaliacaoClinica ac
+			where 
+				ac.funcionario = :funcionario
+			and
+				ac.situacaoAvaliacaoClinica in ('AEX','APA')
+			order 
+				by ac.dataRealizacao desc
+		]]>
+	</query>
+	
 	<query name="AvaliacaoClinica.recuperarPorFuncionario">
 		<![CDATA[
 			select 

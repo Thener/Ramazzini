@@ -92,8 +92,25 @@ public abstract class AbstractBean implements Serializable {
 	}
     
     protected static String getValorChaveMsg(String chave) {
-		return getBundle().getString(chave);
+		try {
+			return getBundle().getString(chave);	
+		} catch(Exception e) {
+			return chave;
+		}		
 	}
+    
+    protected static String getValorChaveMsg(String chave, String... parameters) {
+		
+    	int i = 0;
+		String parametro;
+		String mensagem = getValorChaveMsg(chave);
+		for (String p : parameters) {
+			parametro = "{"+i+"}";
+			mensagem = mensagem.replace(parametro, getValorChaveMsg(p));
+			i++;
+		}
+		return mensagem;
+	}    
     
 	public void beginConversation() {
 		if (conversation.isTransient()) {

@@ -141,12 +141,14 @@ public class AtendimentoMedicoController extends AbstractBean implements Seriali
 			agenda.setSituacaoMarcacaoAgendaEnum(SituacaoMarcacaoAgenda.EM_ATENDIMENTO);
 			agenda.setProfissional(medicoLogado);
 			gravarAgenda(agenda);
-			return anamneseController.init(agenda.getFuncionario(), medicoLogado, agenda.getProcedimento());			
+			return anamneseController.iniciarAtendimento(agenda.getFuncionario(), medicoLogado, agenda.getProcedimento(), agenda);			
 		}
 		
 		if (SituacaoMarcacaoAgenda.EM_ATENDIMENTO.equals(agenda.getSituacaoMarcacaoAgendaEnum())) {
 			
 			if (medicoLogado.equals(agenda.getProfissional())) {
+			
+				return anamneseController.continuarAtendimento(agenda.getFuncionario(), medicoLogado, agenda.getProcedimento(), agenda);
 				
 			} else { 
 			

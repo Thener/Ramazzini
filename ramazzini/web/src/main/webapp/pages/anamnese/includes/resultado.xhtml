@@ -11,7 +11,8 @@
 		
 			<p:outputLabel for="situacaoAvClinica" value="#{msgs['label.situacao']}:" />
 			<p:selectOneMenu id="situacaoAvClinica"
-				value="#{anamneseController.anamnese.situacaoAvaliacaoClinica}">
+				value="#{anamneseController.anamnese.situacaoAvaliacaoClinica}"
+				required="true" requiredMessage="#{msgs['required.situacao.obrigatoria']}">
 				<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
 					noSelectionOption="true" />								
 				<f:selectItems value="#{combosEstaticos.situacoesAvaliacaoClinica}" var="situacaoAvClinica"

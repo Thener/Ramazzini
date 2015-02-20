@@ -30,6 +30,10 @@ import br.com.ramazzini.service.util.AbstractServiceImpl;
 @Stateless
 public class AvaliacaoClinicaService extends AbstractServiceImpl<AvaliacaoClinica> {
 
+    public AvaliacaoClinica recuperarAvaliacaoClinicaEmAndamentoPor(Funcionario funcionario) {
+    	return (!funcionario.isNovo()) ? ((AvaliacaoClinicaDao) getDao()).recuperarAvaliacaoClinicaEmAndamentoPor(funcionario) : null;
+    }
+    
     public List<AvaliacaoClinica> recuperarPorFuncionario(Funcionario funcionario) {
     	return (!funcionario.isNovo()) ? ((AvaliacaoClinicaDao) getDao()).recuperarPorFuncionario(funcionario) : null;
     }	
