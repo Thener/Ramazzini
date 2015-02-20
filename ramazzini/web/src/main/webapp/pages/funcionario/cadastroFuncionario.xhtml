@@ -67,7 +67,7 @@
 					<p:commandButton id="botaoIncluirDeficiencia"
 						icon="ui-icon-clipboard" value="#{msgs['botao.deficiencia']}"
 						action="#{deficienciaController.cadatroDeficiencia()}"
-						disabled="#{empresaController.somenteLeitura or empresaController.empresa.novo}"
+						disabled="#{funcionarioController.somenteLeitura}"
 						ajax="false" rendered="#{not funcionarioController.funcionario.novo}"/>	
 					
 				</f:facet>
