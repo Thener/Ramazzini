@@ -16,6 +16,7 @@ import br.com.ramazzini.model.avaliacaoClinica.AvaliacaoClinica;
 import br.com.ramazzini.model.avaliacaoClinica.SituacaoAvaliacaoClinica;
 import br.com.ramazzini.model.funcionario.Funcionario;
 import br.com.ramazzini.model.funcionario.SituacaoFuncionario;
+import br.com.ramazzini.model.notificacao.Notificacao;
 import br.com.ramazzini.model.procedimento.Procedimento;
 import br.com.ramazzini.model.profissional.Profissional;
 import br.com.ramazzini.service.entidade.AgendaService;
@@ -52,6 +53,12 @@ public class AnamneseController extends AbstractBean implements Serializable {
 		
 		this.agenda = agenda;
 		
+		if (agenda != null) {
+			agenda.setSituacaoMarcacaoAgendaEnum(SituacaoMarcacaoAgenda.EM_ATENDIMENTO);
+			agenda.setProfissional(medico);
+			gravarAgenda(agenda);			
+		}
+
 		alertas.clear();
 		
 		//---- definindo Avaliação Clínica:
@@ -121,7 +128,7 @@ public class AnamneseController extends AbstractBean implements Serializable {
 		
 		if (agenda != null) {
 			agenda.setSituacaoMarcacaoAgendaEnum(SituacaoMarcacaoAgenda.ATENDIDO);
-			agendaService.salvar(agenda);
+			gravarAgenda(agenda);
 		}
 		
 		avaliacaoClinica.setSituacaoAvaliacaoClinica(anamnese.getSituacaoAvaliacaoClinica());
@@ -136,6 +143,12 @@ public class AnamneseController extends AbstractBean implements Serializable {
 		anamneseService.salvar(anamnese);
 		
 		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeGravadaComSucesso","label.anamnese");
+	}
+	
+	private void gravarAgenda(Agenda agenda) {
+		
+		agendaService.salvar(agenda);
+		Notificacao.notificarModificacaoAgenda();
 	}
 	
     public String voltar() {	

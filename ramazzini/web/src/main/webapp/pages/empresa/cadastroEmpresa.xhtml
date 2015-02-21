@@ -7,7 +7,7 @@
    template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
 	
-		<h:form id="frmIncluirEmpresa">
+		<h:form id="frmCadastroEmpresa">
 		
 			<p:growl id="growl" showDetail="true" sticky="false" />
 		
@@ -79,8 +79,8 @@
 						action="#{empresaController.voltar()}">
 					</p:commandButton>
 					<p:commandButton id="salvar" action="#{empresaController.gravarEmpresa()}"
-						value="#{msgs['botao.gravar']}" icon="ui-icon-disk" ajax="false" 
-						styleClass="register" update="panelDadosEmpresa" 
+						value="#{msgs['botao.gravar']}" icon="ui-icon-disk" ajax="true"  
+						styleClass="register" update="frmCadastroEmpresa" 
 						disabled="#{empresaController.somenteLeitura}"/>
 				</f:facet>
 				

@@ -132,30 +132,29 @@ public class AtendimentoMedicoController extends AbstractBean implements Seriali
 		 * 
 		 * 		2.	Quando outro usuário exclui o agendamento, o browser que ainda estiver listando o
 		 * 			registro excluído não consegue executar esta ação de inicarAtendimento. 
+		 * 
+		 * 		3.	As situações para exibir o botão para chegar aqui são: AGUARDANDO e EM_ATENDIMENTO
+		 * 
+		 * 		4. 	Se a situação for AGUARDANDO, porém o agendamento está atribuido a outro profissional,
+		 * 			o botão de atender faz o questionamento; então não é preciso testar aqui.
 		 */
 		
 		Agenda agenda = agendaService.recuperarPorId(id);
 		
-		if (SituacaoMarcacaoAgenda.AGUARDANDO.equals(agenda.getSituacaoMarcacaoAgendaEnum())) {
-			
-			agenda.setSituacaoMarcacaoAgendaEnum(SituacaoMarcacaoAgenda.EM_ATENDIMENTO);
-			agenda.setProfissional(medicoLogado);
-			gravarAgenda(agenda);
+		if (SituacaoMarcacaoAgenda.AGUARDANDO.equals(agenda.getSituacaoMarcacaoAgendaEnum())
+				|| (SituacaoMarcacaoAgenda.EM_ATENDIMENTO.equals(agenda.getSituacaoMarcacaoAgendaEnum())
+						&& medicoLogado.equals(agenda.getProfissional()))) {
+
 			return anamneseController.iniciarAtendimento(agenda.getFuncionario(), medicoLogado, agenda.getProcedimento(), agenda);			
 		}
 		
-		if (SituacaoMarcacaoAgenda.EM_ATENDIMENTO.equals(agenda.getSituacaoMarcacaoAgendaEnum())) {
+		if (SituacaoMarcacaoAgenda.EM_ATENDIMENTO.equals(agenda.getSituacaoMarcacaoAgendaEnum())
+				&& !medicoLogado.equals(agenda.getProfissional())) {
+
+			UtilMensagens.mensagemErroPorChave("mensagem.erro.atendimentoEmAndamentoPor", 
+				agenda.getProfissional().getNome());
 			
-			if (medicoLogado.equals(agenda.getProfissional())) {
-			
-				return anamneseController.continuarAtendimento(agenda.getFuncionario(), medicoLogado, agenda.getProcedimento(), agenda);
-				
-			} else { 
-			
-				UtilMensagens.mensagemErroPorChave("mensagem.erro.atendimentoEmAndamentoPor", 
-					agenda.getProfissional().getNome());
-				return "";
-			}
+			return "";
 		}
 
 		return "";

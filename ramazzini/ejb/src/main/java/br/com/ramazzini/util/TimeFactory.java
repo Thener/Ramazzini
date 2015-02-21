@@ -35,7 +35,7 @@ public final class TimeFactory {
 	}
 	
 	public static String converterDateTimeEmTexto(Date data) {
-		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss"); 
+		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss"); 
 		return formatador.format(data);
 	}	
 	
