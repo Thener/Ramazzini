@@ -20,6 +20,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import br.com.ramazzini.model.anamnese.Anamnese;
 import br.com.ramazzini.model.avaliacaoClinicaProcedimento.AvaliacaoClinicaProcedimento;
 import br.com.ramazzini.model.funcao.Funcao;
 import br.com.ramazzini.model.funcionario.Funcionario;
@@ -97,6 +98,10 @@ public class AvaliacaoClinica extends AbstractEntidade implements Serializable {
 	@OneToMany(mappedBy="avaliacaoClinica",
 			cascade = CascadeType.ALL, orphanRemoval=true)
 	private List<AvaliacaoClinicaProcedimento> procedimentos;	
+	
+	@OneToMany(mappedBy="avaliacaoClinica",
+			cascade = CascadeType.ALL)
+	private List<Anamnese> anamneses;	
 
 	public Long getId() {
 		return id;

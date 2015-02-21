@@ -20,18 +20,21 @@
 						completeMethod="#{autoComplete.completeEmpresa}"
 						var="empresa" itemLabel="#{empresa.nome}"
 						itemValue="#{empresa}" converter="entityConverter"
-						forceSelection="true" styleClass="nome50" required="true">
+						forceSelection="true" styleClass="nome50" 
+						required="true" requiredMessage="#{msgs['required.empresa.obrigatorio']}">
 						
 						<p:ajax event="itemSelect" process="@this" update="funcaoNovoFuncionario, lotacaoNovoFuncionario"/>
 					</p:autoComplete>
 					
 					<p:outputLabel for="nomeNovoFuncionario" value="#{msgs['label.nome']}:" />
 					<p:inputText id="nomeNovoFuncionario" value="#{marcacaoAgendaController.novoFuncionario.nome}" 
-						styleClass="nome50" maxlength="100" required="true" />
+						styleClass="nome50" maxlength="100" 
+						required="true" requiredMessage="#{msgs['required.funcionario.obrigatorio']}" />
 						
 					<p:outputLabel value="#{msgs['label.funcao']}:" />
 					<p:selectOneMenu id="funcaoNovoFuncionario" value="#{marcacaoAgendaController.novoFuncionario.funcao}"
-						converter="entityConverter" styleClass="nome50">
+						converter="entityConverter" styleClass="nome50"
+						required="true" requiredMessage="#{msgs['required.funcao.obrigatorio']}" >
 						<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
 							noSelectionOption="true" />			
 						<f:selectItems value="#{combosDinamicos.funcoes}" 
@@ -49,11 +52,14 @@
 					</p:selectOneMenu>	
 					
 					<p:outputLabel for="dataNascimentoNovoFuncionario" value="#{msgs['label.dataNascimento']}" />
-					<h:panelGrid columns="3" cellpadding="5">
+					<h:panelGrid columns="4" cellpadding="5">
 						<p:calendar id="dataNascimentoNovoFuncionario" value="#{marcacaoAgendaController.novoFuncionario.dataNascimento}" 
-							pattern="#{msgs['pattern.calendar']}" mask="true" styleClass="data" 
-							required="false" locale="pt" />	
-							
+							pattern="#{msgs['pattern.calendar']}" locale="pt" mask="true" showOn="button" styleClass="data" 
+							required="true" requiredMessage="#{msgs['required.dataNascimento.obrigatoria']}">
+							<p:ajax event="change" update="idadeFuncionario" process="@this" />
+						</p:calendar>
+						<p:outputLabel id="idadeFuncionario" value="#{marcacaoAgendaController.idadeFuncionario}" 
+							style="padding-left:2px;min-width:60px;display:block;" />
 						<p:outputLabel for="sexoNovoFuncionario" value="#{msgs['label.sexo']}:" />
 						<p:selectOneMenu id="sexoNovoFuncionario"
 							value="#{marcacaoAgendaController.novoFuncionario.sexo}">
@@ -88,14 +94,15 @@
 						
 					<p:commandButton id="botaoGravarAdmissional" ajax="true" 
 						value="#{msgs['botao.gravar']}" icon="ui-icon-disk" title="#{msgs['botao.gravar']}"
-						onclick="PF('dialogAdmissional').hide();"
+						oncomplete="if (args &amp;&amp; args.closeDialog){ PF('dialogAdmissional').hide() }"
 						actionListener="#{marcacaoAgendaController.gravarAgendamentoAdmissional(false)}" 
-						update=":frmAgenda" />
+						update=":frmAgenda, :messages" />
 						
 					<p:commandButton id="botaoGravarAdmissionalComAnaliseEmissaoDocumento" 
 						icon="ui-icon-print" value="#{msgs['botao.gravarComAnaliseDocumento']}"
-						onclick="PF('dialogAdmissional').hide();"
-						action="#{marcacaoAgendaController.gravarAgendamentoAdmissional(true)}"  />						
+						oncomplete="if (args &amp;&amp; args.closeDialog){ PF('dialogAdmissional').hide() }"
+						action="#{marcacaoAgendaController.gravarAgendamentoAdmissional(true)}" 
+						update=":messages" />						
 						
 													
 				</f:facet>

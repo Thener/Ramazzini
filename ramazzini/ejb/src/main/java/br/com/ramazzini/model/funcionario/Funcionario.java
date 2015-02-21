@@ -32,7 +32,7 @@ import br.com.ramazzini.util.TimeFactory;
 @SequenceGenerator(name = "seq_funcionario", sequenceName = "seq_funcionario", allocationSize = 1)
 @Entity
 @XmlRootElement
-@Table(name = "funcionario", uniqueConstraints = @UniqueConstraint(columnNames = "nm_funcionario"))
+@Table(name = "funcionario")
 public class Funcionario extends AbstractEntidade implements Serializable {
     
     private static final long serialVersionUID = 1L;

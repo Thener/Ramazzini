@@ -18,12 +18,17 @@ package br.com.ramazzini.service.entidade;
 
 import javax.ejb.Stateless;
 
+import br.com.ramazzini.dao.anamnese.AnamneseDao;
 import br.com.ramazzini.model.anamnese.Anamnese;
+import br.com.ramazzini.model.avaliacaoClinica.AvaliacaoClinica;
+import br.com.ramazzini.model.profissional.Profissional;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
 
 // The @Stateless annotation eliminates the need for manual transaction demarcation
 @Stateless
 public class AnamneseService extends AbstractServiceImpl<Anamnese> {
 
-   
+    public Anamnese recuperarAnamneseEmAndamentoPor(AvaliacaoClinica avaliacaoClinica, Profissional medico) {
+    	return (!avaliacaoClinica.isNovo()) ? ((AnamneseDao) getDao()).recuperarAnamneseEmAndamentoPor(avaliacaoClinica, medico) : null;
+    }   
 }

@@ -12,7 +12,7 @@
 			where 
 				ac.funcionario = :funcionario
 			and
-				ac.situacaoAvaliacaoClinica in ('AEX','APA')
+				ac.situacaoAvaliacaoClinica in ('AND','AEX','APA')
 			order 
 				by ac.dataRealizacao desc
 		]]>

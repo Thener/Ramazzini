@@ -34,6 +34,11 @@ public final class TimeFactory {
 		return formatador.format(data);
 	}
 	
+	public static String converterDateTimeEmTexto(Date data) {
+		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss"); 
+		return formatador.format(data);
+	}	
+	
 	public static DiaSemana diaDaSemana(Date dt) {
 		
 		Calendar cal = Calendar.getInstance();  

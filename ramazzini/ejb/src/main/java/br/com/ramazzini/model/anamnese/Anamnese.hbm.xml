@@ -3,6 +3,21 @@
 		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 
-
+	<query name="Anamnese.recuperarAnamneseEmAndamentoPorAvClinicaMedico">
+		<![CDATA[
+			select 
+				a
+			from 
+				Anamnese a
+			where 
+				a.avaliacaoClinica = :avaliacaoClinica
+			and
+				a.medico = :medico
+			and
+				a.situacaoAvaliacaoClinica in ('AND','AEX','APA')
+			order 
+				by a.dataRealizacao desc
+		]]>
+	</query>
 
 </hibernate-mapping>

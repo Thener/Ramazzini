@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 public enum SituacaoAvaliacaoClinica {
 
+	EM_ANDAMENTO("AND","situacaoAvaliacaoClinica.EmAndamento"),
 	APTO("APT","situacaoAvaliacaoClinica.Apto"), 
     APTO_COM_RESTRICAO("ACR","situacaoAvaliacaoClinica.AptoComRestricao"), 
     APTO_INCLUINDO_TRABALHO_ALTURA("AIT", "situacaoAvaliacaoClinica.AptoIncluindoTrabAltura"),

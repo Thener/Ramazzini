@@ -366,4 +366,11 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 		this.agendaSelecionada = agendaSelecionada;
 	}
 	
+	public String getIdadeFuncionario() {
+		if (novoFuncionario != null) {
+			return novoFuncionario.getIdadeTexto();
+		}
+		return "";
+	}	
+	
 }

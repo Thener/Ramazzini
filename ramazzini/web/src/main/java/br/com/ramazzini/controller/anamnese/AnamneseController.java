@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -14,12 +13,15 @@ import br.com.ramazzini.model.agenda.Agenda;
 import br.com.ramazzini.model.agenda.SituacaoMarcacaoAgenda;
 import br.com.ramazzini.model.anamnese.Anamnese;
 import br.com.ramazzini.model.avaliacaoClinica.AvaliacaoClinica;
+import br.com.ramazzini.model.avaliacaoClinica.SituacaoAvaliacaoClinica;
 import br.com.ramazzini.model.funcionario.Funcionario;
+import br.com.ramazzini.model.funcionario.SituacaoFuncionario;
 import br.com.ramazzini.model.procedimento.Procedimento;
 import br.com.ramazzini.model.profissional.Profissional;
 import br.com.ramazzini.service.entidade.AgendaService;
 import br.com.ramazzini.service.entidade.AnamneseService;
 import br.com.ramazzini.service.entidade.AvaliacaoClinicaService;
+import br.com.ramazzini.service.entidade.FuncionarioService;
 import br.com.ramazzini.util.TimeFactory;
 import br.com.ramazzini.util.UtilMensagens;
 
@@ -34,6 +36,7 @@ public class AnamneseController extends AbstractBean implements Serializable {
 	@Inject private AnamneseService anamneseService;
 	@Inject private AvaliacaoClinicaService avaliacaoClinicaService;
 	@Inject private AgendaService agendaService;
+	@Inject private FuncionarioService funcionarioService;
 	
 	private Anamnese anamnese;
 	
@@ -51,19 +54,20 @@ public class AnamneseController extends AbstractBean implements Serializable {
 		
 		alertas.clear();
 		
+		//---- definindo Avaliação Clínica:
+		
 		avaliacaoClinica = buscarAvaliacaoClinicaEmAndamento(funcionario);
 		
 		if (avaliacaoClinica == null) {
 		
 			avaliacaoClinica = new AvaliacaoClinica();
 			avaliacaoClinica.setFuncionario(funcionario);
-			avaliacaoClinica.setMedico(medico);
-			avaliacaoClinica.setProcedimento(procedimento);
+			avaliacaoClinica.setSituacaoAvaliacaoClinicaEnum(SituacaoAvaliacaoClinica.EM_ANDAMENTO);
 		
 		} else {
 
 			alertas.add(getValorChaveMsg("mensagem.info.continuandoAvaliacaoClinicaNaoConcluida", 
-					avaliacaoClinica.getDataInclusao().toString()));
+					TimeFactory.converterDateTimeEmTexto(avaliacaoClinica.getDataInclusao())));
 			
 			if (!medico.equals(avaliacaoClinica.getMedico())) {
 				alertas.add(getValorChaveMsg("mensagem.info.medicoEstaSendoSobrescrito", 
@@ -74,16 +78,32 @@ public class AnamneseController extends AbstractBean implements Serializable {
 				alertas.add(getValorChaveMsg("mensagem.info.procedimentoEstaSendoTrocado", 
 						avaliacaoClinica.getProcedimento().getNome(), procedimento.getNome()));
 			}
-			
-			avaliacaoClinica.setMedico(medico);
-			avaliacaoClinica.setProcedimento(procedimento);
-			
+
 		}
 		
-		anamnese = new Anamnese(); // verificar criação ou continuar de onde parou (????)
-		anamnese.setMedico(medico);
-		anamnese.setAvaliacaoClinica(avaliacaoClinica);
-		anamnese.setDataRealizacao(TimeFactory.createDataHora());
+		avaliacaoClinica.setMedico(medico);
+		avaliacaoClinica.setProcedimento(procedimento);
+		avaliacaoClinica.setDataRealizacao(TimeFactory.createDataHora());
+		avaliacaoClinica.setFuncaoAtual(funcionario.getFuncao());
+		
+		//---- definindo Anamnese:
+		
+		anamnese = anamneseService.recuperarAnamneseEmAndamentoPor(avaliacaoClinica, medico);
+		
+		if (anamnese == null) {
+
+			anamnese = new Anamnese();
+			anamnese.setMedico(medico);
+			anamnese.setAvaliacaoClinica(avaliacaoClinica);
+			anamnese.setDataRealizacao(TimeFactory.createDataHora());
+			anamnese.setSituacaoAvaliacaoClinicaEnum(SituacaoAvaliacaoClinica.EM_ANDAMENTO);
+			
+		} else {
+			
+			alertas.add(getValorChaveMsg("mensagem.info.continuandoAnamneseNaoConcluida", 
+					TimeFactory.converterDateTimeEmTexto(anamnese.getDataInclusao())));			
+			
+		}
 		
 		setUriRequisicao(getControleAcesso().getUriRequisicao());
 		return PAGINA_ANAMNESE;
@@ -104,13 +124,18 @@ public class AnamneseController extends AbstractBean implements Serializable {
 			agendaService.salvar(agenda);
 		}
 		
-		if (avaliacaoClinica.isNovo()) {
-			avaliacaoClinicaService.salvar(avaliacaoClinica);
+		avaliacaoClinica.setSituacaoAvaliacaoClinica(anamnese.getSituacaoAvaliacaoClinica());
+		avaliacaoClinicaService.salvar(avaliacaoClinica);
+		
+		if (avaliacaoClinica.getFuncionario().getSituacaoFuncionarioEnum().equals(SituacaoFuncionario.AGENDADO)) {
+			Funcionario funcionario = avaliacaoClinica.getFuncionario();
+			funcionario.setSituacaoFuncionarioEnum(SituacaoFuncionario.ATIVO);
+			funcionarioService.salvar(funcionario);
 		}
 		
 		anamneseService.salvar(anamnese);
 		
-		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeGravadaComSucesso","label.avaliacaoClinica");
+		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeGravadaComSucesso","label.anamnese");
 	}
 	
     public String voltar() {	
