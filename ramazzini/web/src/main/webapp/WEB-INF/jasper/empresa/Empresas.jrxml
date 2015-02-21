@@ -4,7 +4,7 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="IMAGE_PATH" class="java.lang.String">
-		<defaultValueExpression><![CDATA["C:\\Projetos\\workspace\\Ramazzini\\ramazzini\\web\\src\\main\\webapp\\resources\\img\\"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["C:\\Projetos\\workspace\\Ramazzini\\ramazzini\\web\\src\\main\\webapp\\resources\\img\\cliente\\"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="NOME_CLIENTE" class="java.lang.String"/>
 	<parameter name="ENDERECO_CLIENTE" class="java.lang.String"/>
@@ -195,8 +195,7 @@
 				<textElement>
 					<font fontName="Arial" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy").format($F{dataInclusao})
-]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy").format($F{dataInclusao})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="1" width="32" height="20" uuid="533152f1-d3f9-4ff2-b554-5115bb596770"/>

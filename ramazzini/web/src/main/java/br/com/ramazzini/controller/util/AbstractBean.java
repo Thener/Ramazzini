@@ -88,7 +88,7 @@ public abstract class AbstractBean implements Serializable {
 	}
 	
 	protected String getCaminhoLogo() {
-		return getRequest().getServletContext().getRealPath("/resources/img/")+ "\\";
+		return getRequest().getServletContext().getRealPath("/resources/img/cliente")+ "\\";
 	}
     
     protected static String getValorChaveMsg(String chave) {

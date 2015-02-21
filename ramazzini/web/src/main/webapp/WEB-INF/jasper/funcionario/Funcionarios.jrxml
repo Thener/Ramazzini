@@ -4,7 +4,8 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="IMAGE_PATH" class="java.lang.String">
-		<defaultValueExpression><![CDATA["C:\\Projetos\\workspace\\Ramazzini\\ramazzini\\web\\src\\main\\webapp\\resources\\img\\"]]></defaultValueExpression>
+		<parameterDescription><![CDATA[]]></parameterDescription>
+		<defaultValueExpression><![CDATA["C:\\Projetos\\workspace\\Ramazzini\\ramazzini\\web\\src\\main\\webapp\\resources\\img\\cliente\\"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="NOME_CLIENTE" class="java.lang.String"/>
 	<parameter name="ENDERECO_CLIENTE" class="java.lang.String"/>
@@ -92,8 +93,7 @@
 				<textElement>
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{FILTRO_FUNCAO}==null?"Função: sem filtro":"Função: " + $P{FILTRO_FUNCAO}.getNome()
-]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{FILTRO_FUNCAO}==null?"Função: sem filtro":"Função: " + $P{FILTRO_FUNCAO}.getNome()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
 				<reportElement x="43" y="87" width="512" height="12" uuid="db3f03c1-be21-4a46-af64-c17de160b871"/>
