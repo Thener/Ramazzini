@@ -9,8 +9,51 @@
 	
 		<h:panelGrid columns="4" cellpadding="3">
 		
-		
+			<p:dataTable id="gridProcedimentosAvClinica" 
+				value="#{anamneseController.procedimentosAvaliacao}" var="avClinProcedimento">
+			
+				<p:column headerText="#{msgs['label.procedimento']}">
+			    	<div style="float:left;padding-right:20px;">
+						<p:commandLink title="#{msgs['label.excluir']}" action="#{anamneseController.removerProcedimento(avClinProcedimento)}"
+							styleClass="ui-icon ui-icon-closethick" update="gridProcedimentosAvClinica" />
+					</div>				
+					<h:outputText value="#{avClinProcedimento.procedimento.nome}" />
+				</p:column>
+				
+				<p:column headerText="#{msgs['label.dataRealizacao']}" styleClass="colunaCentralizada">
+	       			<p:calendar locale="pt" showOn="button" 
+	       				value="#{avClinProcedimento.dataRealizacao}" 
+	       				pattern="#{msgs['pattern.calendar']}" mask="true" styleClass="data" required="false">
+	       			</p:calendar>				
+				</p:column>
+				
+				<p:column headerText="#{msgs['label.resultado']}" styleClass="colunaCentralizada">
+					<p:selectOneMenu value="#{avClinProcedimento.resultadoProcedimento}">
+						<f:selectItems value="#{combosEstaticos.resultadosProcedimento}" var="resultadoProcedimento"
+							itemLabel="#{resultadoProcedimento.stringChave}" itemValue="#{resultadoProcedimento.value}" />
+						<f:ajax render="tipoAlteracaoProcedimento" />
+					</p:selectOneMenu>				
+				</p:column>
+				
+				<p:column headerText="#{msgs['label.tipoAlteracao']}" styleClass="colunaCentralizada">
+					<p:selectOneMenu value="#{avClinProcedimento.tipoAlteracaoProcedimento}"
+						disabled="#{avClinProcedimento.resultadoProcedimento == 'NOR'
+							or avClinProcedimento.resultadoProcedimento == 'SOL'}"
+							id="tipoAlteracaoProcedimento">
+						<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
+							noSelectionOption="true" />							
+						<f:selectItems value="#{combosEstaticos.tiposAlteracaoProcedimento}" var="tipoAlteracao"
+							itemLabel="#{tipoAlteracao.stringChave}" itemValue="#{tipoAlteracao.value}" />
+					</p:selectOneMenu>
+				</p:column>
+			
+			</p:dataTable>
+					
 		</h:panelGrid>
+		
+	    <p:commandButton value="#{msgs['botao.incluirProcedimento']}" 
+	    	icon="ui-icon-circle-plus" onclick="PF('dialogIncluirProcedimento').show();" />			
+		
 	
 	</p:fieldset>
 		

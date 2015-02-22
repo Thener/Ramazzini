@@ -20,7 +20,7 @@
 				
 				<p:spacer width="5px" />
 				
-				<p:tabView>
+				<p:tabView id="tabViewAnamnese">
 		        	<p:tab title="#{msgs['label.atendimentoAtual']}">
 						<ui:include src="includes/ultimoTrabalho.xhtml" />
 						<ui:include src="includes/questionario.xhtml" />
@@ -39,7 +39,8 @@
 				<f:facet name="left">
 					<p:commandButton id="botaoVoltar" immediate="true"
 						icon="ui-icon-arrowreturnthick-1-w" title="#{msgs['botao.voltar']}"
-						action="#{anamneseController.voltar()}">
+						action="#{anamneseController.voltar()}"
+						disabled="#{anamneseController.anamnese.novo}">
 					</p:commandButton>
 					<p:commandButton id="salvar" action="#{anamneseController.gravarAnamnese()}"
 						value="#{msgs['botao.gravar']}" icon="ui-icon-disk" 
@@ -63,7 +64,9 @@
 				<p:commandButton value="#{msgs['label.confirmacaoNao']}" type="button"
 					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 			</p:confirmDialog>
-		</h:form> 		
+		</h:form> 	
+		
+		<ui:include src="includes/dialogIncluirProcedimento.xhtml" />	
 		
 	</ui:define>
 	

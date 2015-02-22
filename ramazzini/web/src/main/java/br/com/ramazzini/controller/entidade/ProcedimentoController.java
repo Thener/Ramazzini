@@ -20,7 +20,6 @@ public class ProcedimentoController extends AbstractBean implements Serializable
 
 	private static final long serialVersionUID = 1L;
 	
-	private static final String PAGINA_PESQUISAR_PROCEDIMENTO = "pesquisarProcedimento.jsf?faces-redirect=true";
 	private static final String PAGINA_CADASTRO_PROCEDIMENTO = "cadastroProcedimento.jsf?faces-redirect=true";
 
 	@Inject
@@ -43,7 +42,7 @@ public class ProcedimentoController extends AbstractBean implements Serializable
 		beginConversation();
 	}
 		
-    public void pesquisar() throws Exception {
+    public void pesquisar() {
 
     	if (nomeProcedimentoPesquisa.isEmpty()){
     		procedimentos = procedimentoService.recuperarTodos("nome");
@@ -82,18 +81,28 @@ public class ProcedimentoController extends AbstractBean implements Serializable
 	public String gravarProcedimento() {
 		
 		if (validar(procedimento)) {
+			
+			boolean inclusao = procedimento.isNovo();
 			procedimentoService.salvar(procedimento);
-			procedimentos = procedimentoService.recuperarTodos("nome");
-			return PAGINA_PESQUISAR_PROCEDIMENTO;
+			if (inclusao) {
+				UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeGravadaComSucesso","label.procedimento");
+				return "";
+			} else {
+				nomeProcedimentoPesquisa = procedimento.getNome();
+				pesquisar();
+				return voltar();
+			}			
+			
 		}
 		
-		return "";
+		return "";		
 	}    
     
     private String cadastroProcedimento(Procedimento procedimento, Boolean somenteLeitura) {
     	procedimentoCredenciadoController.setProcedimento(procedimento);
     	setProcedimento(procedimento);
     	setSomenteLeitura(somenteLeitura);
+    	setUriRequisicao(getControleAcesso().getUriRequisicao());
     	return PAGINA_CADASTRO_PROCEDIMENTO;    	
     } 
     
@@ -108,6 +117,10 @@ public class ProcedimentoController extends AbstractBean implements Serializable
     	return true;
     }
 
+    public String voltar() {				
+		return getUriRequisicao()+"?faces-redirect=true";
+	}
+    
 	public List<Procedimento> getProcedimentos() {
 		return procedimentos;
 	}

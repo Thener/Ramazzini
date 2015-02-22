@@ -43,11 +43,11 @@
 				
 					<p:commandButton id="botaoVoltar" immediate="true"
 						icon="ui-icon-arrowreturnthick-1-w" title="#{msgs['botao.voltar']}"
-						action="pesquisarProcedimento.jsf?faces-redirect=true">
+						action="#{procedimentoController.voltar()}">
 					</p:commandButton>
 					<p:commandButton id="salvar" action="#{procedimentoController.gravarProcedimento()}"
 						value="#{msgs['botao.gravar']}" icon="ui-icon-disk" title="#{msgs['botao.gravar']}"
-						styleClass="register" update="frmCadastroProcedimento"
+						update="frmCadastroProcedimento"
 						disabled="#{procedimentoController.somenteLeitura}" />
 				</f:facet>
 				

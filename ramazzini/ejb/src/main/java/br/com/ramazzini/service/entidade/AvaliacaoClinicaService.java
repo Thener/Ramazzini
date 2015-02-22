@@ -16,19 +16,26 @@
  */
 package br.com.ramazzini.service.entidade;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 
 import br.com.ramazzini.dao.avaliacaoClinica.AvaliacaoClinicaDao;
 import br.com.ramazzini.model.avaliacaoClinica.AvaliacaoClinica;
+import br.com.ramazzini.model.avaliacaoClinicaProcedimento.AvaliacaoClinicaProcedimento;
 import br.com.ramazzini.model.funcionario.Funcionario;
 import br.com.ramazzini.model.procedimento.Procedimento;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
+import br.com.ramazzini.util.TimeFactory;
 
 // The @Stateless annotation eliminates the need for manual transaction demarcation
 @Stateless
 public class AvaliacaoClinicaService extends AbstractServiceImpl<AvaliacaoClinica> {
+	
+	@Inject private AvaliacaoClinicaProcedimentoService avaliacaoClinicaProcedimentoService;
+	@Inject private FuncaoService funcaoService;
 
     public AvaliacaoClinica recuperarAvaliacaoClinicaEmAndamentoPor(Funcionario funcionario) {
     	return (!funcionario.isNovo()) ? ((AvaliacaoClinicaDao) getDao()).recuperarAvaliacaoClinicaEmAndamentoPor(funcionario) : null;
@@ -44,5 +51,42 @@ public class AvaliacaoClinicaService extends AbstractServiceImpl<AvaliacaoClinic
     
     public AvaliacaoClinica recuperarUltimaValidaPorFuncionario(Funcionario funcionario) {
     	return (!funcionario.isNovo()) ? ((AvaliacaoClinicaDao) getDao()).recuperarUltimaValidaPorFuncionario(funcionario) : null;
-    }    
+    }
+    
+    public Date calcularDataRetornoAvaliacaoClinica(AvaliacaoClinica avaliacaoClinica, List<AvaliacaoClinicaProcedimento> procedimentosAvClinica) {
+    	
+    	List<AvaliacaoClinicaProcedimento> procedimentos;
+    	
+    	if (procedimentosAvClinica != null && procedimentosAvClinica.size() > 0) {
+    		procedimentos = procedimentosAvClinica;
+    	} else {
+    		procedimentos = avaliacaoClinicaProcedimentoService.recuperarPorAvaliacaoClinica(avaliacaoClinica);
+    	}
+    	
+    	/*
+    	if (avaliacaoClinica.getProcedimentos() != null && avaliacaoClinica.getProcedimentos().size() > 0) {
+    		procedimentos = avaliacaoClinica.getProcedimentos(); 
+    	} else {
+    		procedimentos = avaliacaoClinicaProcedimentoService.recuperarPorAvaliacaoClinica(avaliacaoClinica);
+    	}
+    	*/
+    	
+    	Date menorData = null;
+    	
+    	if (procedimentos != null && procedimentos.size() > 0) {
+    		for (AvaliacaoClinicaProcedimento acp : procedimentos) {
+    			if (menorData == null || acp.getDataRetorno().before(menorData)) {
+    				menorData = acp.getDataRetorno();
+    			}
+    		}
+    	} else if (funcaoService.existeRiscoErgonomico(avaliacaoClinica.getFuncaoAtual())){
+    		menorData = TimeFactory.somarMeses(avaliacaoClinica.getDataRealizacao(), 12);
+    	} else {
+    		Integer idade = avaliacaoClinica.getFuncionario().getIdade();
+    		Integer retorno = (idade < 18 || idade > 44) ? 12 : 24; 
+   			menorData = TimeFactory.somarMeses(avaliacaoClinica.getDataRealizacao(), retorno);
+    	}
+    	
+    	return menorData;
+    }
 }

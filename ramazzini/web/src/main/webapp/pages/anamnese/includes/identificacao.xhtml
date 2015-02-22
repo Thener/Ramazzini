@@ -67,7 +67,7 @@
 					
 				<p:outputLabel value="#{msgs['label.avaliacaoClinica']}:" />
 				<p:selectOneMenu value="#{anamneseController.avaliacaoClinica.procedimento}"
-					converter="entityConverter" styleClass="nome50">
+					converter="entityConverter">
 					<f:selectItems value="#{combosDinamicos.procedimentosTipoExameClinicoOcupacional}" var="procedimento"
 						itemLabel="#{procedimento.nome}" />
 				</p:selectOneMenu>				

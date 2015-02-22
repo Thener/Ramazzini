@@ -124,5 +124,46 @@ public class AvaliacaoClinicaProcedimento extends AbstractEntidade implements Se
 
 	public void setTipoAlteracaoProcedimentoEnum(TipoAlteracaoProcedimento tipoAlteracaoProcedimento) {
 		setTipoAlteracaoProcedimento(tipoAlteracaoProcedimento.getValue());
-	}	
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime
+				* result
+				+ ((avaliacaoClinica == null) ? 0 : avaliacaoClinica.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result
+				+ ((procedimento == null) ? 0 : procedimento.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AvaliacaoClinicaProcedimento other = (AvaliacaoClinicaProcedimento) obj;
+		if (avaliacaoClinica == null) {
+			if (other.avaliacaoClinica != null)
+				return false;
+		} else if (!avaliacaoClinica.equals(other.avaliacaoClinica))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (procedimento == null) {
+			if (other.procedimento != null)
+				return false;
+		} else if (!procedimento.equals(other.procedimento))
+			return false;
+		return true;
+	}
+	
 }

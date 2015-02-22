@@ -32,5 +32,20 @@
 				by a.dataRealizacao desc
 		]]>
 	</query>
+	
+	<query name="Anamnese.recuperarAnamneseAnterior">
+		<![CDATA[
+			select 
+				a
+			from 
+				Anamnese a
+			where 
+				a.avaliacaoClinica.funcionario = :funcionario
+			and
+				a.dataRealizacao < :dataRealizacao
+			order 
+				by a.avaliacaoClinica.funcionario, a.dataRealizacao desc
+		]]>
+	</query>	
 
 </hibernate-mapping>

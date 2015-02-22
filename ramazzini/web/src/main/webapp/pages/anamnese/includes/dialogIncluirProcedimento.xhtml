@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui">
+   
+	<p:dialog header="#{msgs['label.procedimento']}" widgetVar="dialogIncluirProcedimento" 
+		modal="true" height="140" width="550" resizable="false">
+		
+		<h:form id="frmDialogIncluirProcedimento">
+		
+			<p:panel id="panelDialogIncluirProcedimento" header="#{msgs['label.incluir']}" style="min-height:80px;">
+			
+				<h:panelGrid columns="2" cellpadding="5">
+				
+					<p:outputLabel value="#{msgs['label.procedimento']}:" style="display:block; min-width:80px;"/>
+					<p:autoComplete id="completeProcedimento"
+						value="#{anamneseController.procedimento}"
+						completeMethod="#{autoComplete.completeProcedimento}"
+						var="procedimento" itemLabel="#{procedimento.nome}"
+						itemValue="#{procedimento}" converter="entityConverter"
+						forceSelection="true" styleClass="nome50"
+						required="true" requiredMessage="#{msgs['required.procedimento.obrigatorio']}">
+						<p:ajax event="change" process="@this" />
+					</p:autoComplete>
+					
+				</h:panelGrid>
+
+		    </p:panel>
+	    
+			<p:toolbar>
+				<f:facet name="left">					
+				   	<p:commandButton title="#{msgs['botao.voltar']}" type="button" 
+				   		 icon="ui-icon-arrowreturnthick-1-w" onclick="PF('dialogIncluirProcedimento').hide();"/>							
+								
+					<p:commandButton id="botaoIncluirProcedimento" ajax="true" 
+						value="#{msgs['botao.incluir']}" icon="ui-icon-disk" 
+						onclick="PF('dialogIncluirProcedimento').hide();"
+						actionListener="#{anamneseController.incluirProcedimento()}" 
+						update=":frmCadastroAnamnese:tabViewAnamnese:gridProcedimentosAvClinica, frmDialogIncluirProcedimento" />
+				</f:facet>
+			</p:toolbar>
+			
+		</h:form>	    
+	    
+	</p:dialog>	
+	
+	
+</ui:composition>

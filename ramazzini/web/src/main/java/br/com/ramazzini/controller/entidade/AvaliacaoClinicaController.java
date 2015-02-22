@@ -11,13 +11,9 @@ import javax.inject.Named;
 import br.com.ramazzini.controller.util.AbstractBean;
 import br.com.ramazzini.model.anamnese.Anamnese;
 import br.com.ramazzini.model.avaliacaoClinica.AvaliacaoClinica;
-import br.com.ramazzini.model.avaliacaoClinicaProcedimento.AvaliacaoClinicaProcedimento;
 import br.com.ramazzini.model.funcionario.Funcionario;
 import br.com.ramazzini.service.entidade.AnamneseService;
-import br.com.ramazzini.service.entidade.AvaliacaoClinicaProcedimentoService;
 import br.com.ramazzini.service.entidade.AvaliacaoClinicaService;
-import br.com.ramazzini.service.entidade.FuncaoService;
-import br.com.ramazzini.util.TimeFactory;
 import br.com.ramazzini.util.UtilMensagens;
 
 @Named
@@ -30,8 +26,6 @@ public class AvaliacaoClinicaController extends AbstractBean implements Serializ
 	
 	@Inject private AnamneseService anamneseService;
 	@Inject private AvaliacaoClinicaService avaliacaoClinicaService;
-	@Inject private AvaliacaoClinicaProcedimentoService avaliacaoClinicaProcedimentoService;
-	@Inject private FuncaoService funcaoService;
 	@Inject private AvaliacaoClinicaProcedimentoController avaliacaoClinicaProcedimentoController;
 	
 	private Date dataInicialSelecionada;
@@ -104,26 +98,7 @@ public class AvaliacaoClinicaController extends AbstractBean implements Serializ
     }
 	
     public void calcularRetorno() {
-    	
-    	List<AvaliacaoClinicaProcedimento> procedimentos = avaliacaoClinicaProcedimentoService.recuperarPorAvaliacaoClinica(avaliacaoClinica);
-    	
-    	Date menorData = null;
-    	
-    	if (procedimentos != null && procedimentos.size() > 0) {
-    		for (AvaliacaoClinicaProcedimento acp : procedimentos) {
-    			if (menorData == null || acp.getDataRetorno().before(menorData)) {
-    				menorData = acp.getDataRetorno();
-    			}
-    		}
-    	} else if (funcaoService.existeRiscoErgonomico(avaliacaoClinica.getFuncaoAtual())){
-    		menorData = TimeFactory.somarMeses(avaliacaoClinica.getDataRealizacao(), 12);
-    	} else {
-    		Integer idade = avaliacaoClinica.getFuncionario().getIdade();
-    		Integer retorno = (idade < 18 || idade > 44) ? 12 : 24; 
-   			menorData = TimeFactory.somarMeses(avaliacaoClinica.getDataRealizacao(), retorno);
-    	}
-    	
-    	avaliacaoClinica.setDataRetorno(menorData);
+    	avaliacaoClinica.setDataRetorno(avaliacaoClinicaService.calcularDataRetornoAvaliacaoClinica(avaliacaoClinica, null));
     }
     
     public String voltar() {				

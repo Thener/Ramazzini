@@ -38,8 +38,14 @@
 					</p:selectOneMenu>
 					
 	       			<p:outputLabel for="dataRealizacao" value="#{msgs['label.dataRealizacao']}" />
-	       			<p:calendar id="dataRealizacao" locale="pt" showOn="button" value="#{avaliacaoClinicaController.avaliacaoClinica.dataRealizacao}" 
-	       				pattern="#{msgs['pattern.calendar']}" mask="true" styleClass="data" required="false" />
+	       			<p:calendar id="dataRealizacao" locale="pt" showOn="button" 
+	       				value="#{avaliacaoClinicaController.avaliacaoClinica.dataRealizacao}" 
+	       				pattern="#{msgs['pattern.calendar']}" mask="true" styleClass="data" required="false">
+	       				<p:ajax event="change" update="tabViewCadastroAvClin:dtRetornoAvClinica" process="@this"
+	       					listener="#{avaliacaoClinicaController.calcularRetorno()}" />
+	       				<p:ajax event="dateSelect" update="tabViewCadastroAvClin:dtRetornoAvClinica" process="@this"
+	       					listener="#{avaliacaoClinicaController.calcularRetorno()}" />	       					
+	       			</p:calendar>
 				
 				</h:panelGrid>
 				
