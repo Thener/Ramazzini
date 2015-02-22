@@ -1,7 +1,6 @@
 package br.com.ramazzini.controller.entidade;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -45,7 +44,7 @@ public class AvaliacaoClinicaController extends AbstractBean implements Serializ
 	
 	private List<AvaliacaoClinica> avaliacoesClinicas;
 	
-	private List<Anamnese> anamneses = new ArrayList<Anamnese>();
+	private List<Anamnese> anamneses;
 	
 	private Integer tabAtiva;
 	
@@ -167,7 +166,7 @@ public class AvaliacaoClinicaController extends AbstractBean implements Serializ
 	}
 
 	public void setAvaliacaoClinica(AvaliacaoClinica avaliacaoClinica) {
-		this.anamneses.clear();
+		setAnamneses(null);
 		this.avaliacaoClinica = avaliacaoClinica;
 	}
 
