@@ -99,8 +99,7 @@ public class AvaliacaoClinica extends AbstractEntidade implements Serializable {
 			cascade = CascadeType.ALL, orphanRemoval=true)
 	private List<AvaliacaoClinicaProcedimento> procedimentos;	
 	
-	@OneToMany(mappedBy="avaliacaoClinica",
-			cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="avaliacaoClinica")
 	private List<Anamnese> anamneses;	
 
 	public Long getId() {

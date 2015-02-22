@@ -56,7 +56,7 @@
 				<p:commandLink title="#{msgs['label.editar']}" action="#{lotacaoController.alterarLotacao(lotacao)}"
 					disabled="#{empresaController.somenteLeitura}" styleClass="ui-icon ui-icon-pencil" />
 				<p:commandLink title="#{msgs['label.excluir']}" action="#{lotacaoController.removerLotacao(lotacao)}"
-					disabled="#{empresaController.somenteLeitura}" styleClass="ui-icon ui-icon-closethick" update="gridLotacoes, :frmIncluirEmpresa:growl">
+					disabled="#{empresaController.somenteLeitura}" styleClass="ui-icon ui-icon-closethick" update="gridLotacoes, :frmCadastroEmpresa:growl">
 					<p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['label.confirmacaoExclusao']}" icon="ui-icon-alert" />
 				</p:commandLink>	
 			</p:panelGrid>

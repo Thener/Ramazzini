@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui">
+   
+	<p:dataTable var="anamnese" value="#{avaliacaoClinicaController.anamneses}"
+		id="gridanamnesesAvClinica" emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}"
+		paginator="true" paginatorPosition="bottom" rows="5">
+		
+		<f:facet name="header"> #{msgs['label.anamneses']} </f:facet>
+
+		<p:column headerText="#{msgs['label.dataRealizacao']}" sortBy="#{anamnese.dataRealizacao}" 
+			styleClass="colunaCentralizada">
+			<h:outputText value="#{anamnese.dataRealizacao}">
+				<f:convertDateTime locale="pt,BR" pattern="#{msgs['pattern.calendar']}" />
+			</h:outputText>
+		</p:column>
+
+		<p:column headerText="#{msgs['label.medico']}" sortBy="#{anamnese.medico}" 
+			styleClass="colunaCentralizada">
+			<h:outputText value="#{anamnese.medico.nome}" />
+		</p:column>
+		
+		<p:column headerText="#{msgs['label.situacao']}" sortBy="#{anamnese.situacaoAvaliacaoClinica}" 
+			styleClass="colunaCentralizada">
+			<h:outputText value="#{anamnese.situacaoAvaliacaoClinicaEnum.stringChave}" />
+		</p:column>
+					
+	</p:dataTable>
+			
+</ui:composition>

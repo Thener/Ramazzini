@@ -18,7 +18,6 @@ import br.com.ramazzini.model.enquadramentoDeficiencia.EnquadramentoDeficienciaE
 import br.com.ramazzini.model.funcionario.Funcionario;
 import br.com.ramazzini.model.limitacoesDeficienciaMental.LimitacoesDeficienciaMental;
 import br.com.ramazzini.model.origemDeficiencia.OrigemDeficiencia;
-import br.com.ramazzini.model.profissional.Profissional;
 import br.com.ramazzini.service.entidade.EnquadramentoDeficienciaService;
 import br.com.ramazzini.service.entidade.FuncionarioService;
 import br.com.ramazzini.util.UtilMensagens;

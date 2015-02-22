@@ -1,6 +1,7 @@
 package br.com.ramazzini.controller.entidade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -9,9 +10,11 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.ramazzini.controller.util.AbstractBean;
+import br.com.ramazzini.model.anamnese.Anamnese;
 import br.com.ramazzini.model.avaliacaoClinica.AvaliacaoClinica;
 import br.com.ramazzini.model.avaliacaoClinicaProcedimento.AvaliacaoClinicaProcedimento;
 import br.com.ramazzini.model.funcionario.Funcionario;
+import br.com.ramazzini.service.entidade.AnamneseService;
 import br.com.ramazzini.service.entidade.AvaliacaoClinicaProcedimentoService;
 import br.com.ramazzini.service.entidade.AvaliacaoClinicaService;
 import br.com.ramazzini.service.entidade.FuncaoService;
@@ -26,6 +29,7 @@ public class AvaliacaoClinicaController extends AbstractBean implements Serializ
 	
 	private static final String PAGINA_CADASTRO_AVALIACAO_CLINICA = "/pages/avaliacaoClinica/cadastroAvaliacaoClinica.jsf?faces-redirect=true";
 	
+	@Inject private AnamneseService anamneseService;
 	@Inject private AvaliacaoClinicaService avaliacaoClinicaService;
 	@Inject private AvaliacaoClinicaProcedimentoService avaliacaoClinicaProcedimentoService;
 	@Inject private FuncaoService funcaoService;
@@ -40,6 +44,8 @@ public class AvaliacaoClinicaController extends AbstractBean implements Serializ
 	private Funcionario funcionario;
 	
 	private List<AvaliacaoClinica> avaliacoesClinicas;
+	
+	private List<Anamnese> anamneses = new ArrayList<Anamnese>();
 	
 	private Integer tabAtiva;
 	
@@ -125,6 +131,17 @@ public class AvaliacaoClinicaController extends AbstractBean implements Serializ
  		return getUriRequisicao()+"?faces-redirect=true";
  	}
     
+	public void setAnamneses(List<Anamnese> anamneses) {
+		this.anamneses = anamneses;
+	}
+
+	public List<Anamnese> getAnamneses() {
+		if (anamneses == null || anamneses.isEmpty()) {
+			anamneses = anamneseService.recuperarPor(avaliacaoClinica);
+		}
+		return anamneses;
+	}
+
 	public List<AvaliacaoClinica> getAvaliacoesClinicas() {
 		return avaliacoesClinicas;
 	}
@@ -150,6 +167,7 @@ public class AvaliacaoClinicaController extends AbstractBean implements Serializ
 	}
 
 	public void setAvaliacaoClinica(AvaliacaoClinica avaliacaoClinica) {
+		this.anamneses.clear();
 		this.avaliacaoClinica = avaliacaoClinica;
 	}
 

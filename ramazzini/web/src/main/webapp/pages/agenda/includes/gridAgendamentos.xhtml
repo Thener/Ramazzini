@@ -7,6 +7,9 @@
    
     <p:contextMenu for="gridAgendamentos">
         
+        <p:menuitem value="#{msgs['situacaoMarcacaoAgenda.Aguardando']}" update="frmAgenda, :messages" icon="ui-icon-clock" 
+        	actionListener="#{marcacaoAgendaController.alterarSituacaoAgenda('AG')}" />
+        	        
         <p:menuitem value="#{msgs['situacaoMarcacaoAgenda.NaoCompareceu']}" update="frmAgenda, :messages" icon="ui-icon-close" 
         	actionListener="#{marcacaoAgendaController.alterarSituacaoAgenda('NC')}" />
 
@@ -19,13 +22,14 @@
 	    <p:column headerText="#{msgs['label.acoes']}" styleClass="agendaColunaAcoes">
 					
 		    <p:commandButton title="#{msgs['label.editar']}" actionListener="#{marcacaoAgendaController.editarAgendamento(agenda)}"  
-		    	icon="ui-icon-pencil" onclick="PF('dialogEditarAgendamento').show();" update=":frmDialogEditarAgendamento"  />
+		    	icon="ui-icon-pencil" onclick="PF('dialogEditarAgendamento').show();" update=":frmDialogEditarAgendamento" 
+		    	disabled="#{agenda.situacaoMarcacaoAgenda == 'EA'}" />
 		    	
 		    <p:commandButton title="#{msgs['label.analiseEmissaoDocumentos']}" icon="ui-icon-print"
 		    	action="#{analiseEmissaoDocumentosController.init(agenda.funcionario, agenda.procedimento)}" />		    	
 
 		    <p:commandButton title="#{msgs['label.excluir']}" actionListener="#{marcacaoAgendaController.excluirAgendamento(agenda)}"  
-		    	icon="ui-icon-close" update="gridAgendamentos, :messages">
+		    	icon="ui-icon-close" update="gridAgendamentos, :messages" disabled="#{agenda.situacaoMarcacaoAgenda == 'EA'}">
 		    	<p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['label.confirmacaoExclusao']}" icon="ui-icon-alert" />
 		    </p:commandButton> 
 

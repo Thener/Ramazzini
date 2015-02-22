@@ -42,12 +42,28 @@
 						action="#{anamneseController.voltar()}">
 					</p:commandButton>
 					<p:commandButton id="salvar" action="#{anamneseController.gravarAnamnese()}"
-						value="#{msgs['botao.gravar']}" icon="ui-icon-disk" title="#{msgs['botao.gravar']}"
+						value="#{msgs['botao.gravar']}" icon="ui-icon-disk" 
 						disabled="#{anamneseController.somenteLeitura}" ajax="true" update="frmCadastroAnamnese" />
 				</f:facet>
+				<f:facet name="right">
+					<p:commandButton action="#{anamneseController.cancelarAtendimento()}"
+						value="#{msgs['botao.cancelarAtendimento']}" icon="ui-icon-transferthick-e-w" 
+						disabled="#{not anamneseController.anamnese.novo}">
+						<p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['confirmacao.cancelamentoAtendimento']}" icon="ui-icon-alert" />
+					</p:commandButton>
+				</f:facet>				
 			</p:toolbar>
 			
 		</h:form>
+		
+   		<h:form>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+				<p:commandButton value="#{msgs['label.confirmacaoSim']}" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="#{msgs['label.confirmacaoNao']}" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+		</h:form> 		
 		
 	</ui:define>
 	

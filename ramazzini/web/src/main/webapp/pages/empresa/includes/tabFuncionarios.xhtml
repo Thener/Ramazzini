@@ -58,7 +58,7 @@
 				<p:commandLink title="#{msgs['label.editar']}" action="#{funcionarioController.alterarFuncionario(funcionario)}"
 					disabled="#{empresaController.somenteLeitura}" styleClass="ui-icon ui-icon-pencil" />
 				<p:commandLink title="#{msgs['label.excluir']}" action="#{funcionarioController.removerFuncionario(funcionario)}"
-					disabled="#{empresaController.somenteLeitura}" styleClass="ui-icon ui-icon-closethick" update="gridFuncionarios, :frmIncluirEmpresa:growl">
+					disabled="#{empresaController.somenteLeitura}" styleClass="ui-icon ui-icon-closethick" update="gridFuncionarios, :frmCadastroEmpresa:growl">
 					<p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['label.confirmacaoExclusao']}" icon="ui-icon-alert" />
 				</p:commandLink>	
 			</p:panelGrid>

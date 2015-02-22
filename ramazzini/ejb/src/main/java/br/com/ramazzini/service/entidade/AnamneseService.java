@@ -16,6 +16,8 @@
  */
 package br.com.ramazzini.service.entidade;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 
 import br.com.ramazzini.dao.anamnese.AnamneseDao;
@@ -28,6 +30,10 @@ import br.com.ramazzini.service.util.AbstractServiceImpl;
 @Stateless
 public class AnamneseService extends AbstractServiceImpl<Anamnese> {
 
+    public List<Anamnese> recuperarPor(AvaliacaoClinica avaliacaoClinica) {
+    	return (!avaliacaoClinica.isNovo()) ? ((AnamneseDao) getDao()).recuperarPor(avaliacaoClinica) : null;
+    } 
+    
     public Anamnese recuperarAnamneseEmAndamentoPor(AvaliacaoClinica avaliacaoClinica, Profissional medico) {
     	return (!avaliacaoClinica.isNovo()) ? ((AnamneseDao) getDao()).recuperarAnamneseEmAndamentoPor(avaliacaoClinica, medico) : null;
     }   

@@ -67,7 +67,7 @@
 				<p:commandLink title="#{msgs['label.editar']}" action="#{empresaServicoController.alterarEmpresaServico(empresaServico)}"
 					disabled="#{empresaController.somenteLeitura}" styleClass="ui-icon ui-icon-pencil" />
 				<p:commandLink title="#{msgs['label.excluir']}" action="#{empresaServicoController.removerEmpresaServico(empresaServico)}"
-					disabled="#{empresaController.somenteLeitura}" styleClass="ui-icon ui-icon-closethick" update="gridServicos, :frmIncluirEmpresa:growl">
+					disabled="#{empresaController.somenteLeitura}" styleClass="ui-icon ui-icon-closethick" update="gridServicos, :frmCadastroEmpresa:growl">
 					<p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['label.confirmacaoExclusao']}" icon="ui-icon-alert" />
 				</p:commandLink>	
 			</p:panelGrid>

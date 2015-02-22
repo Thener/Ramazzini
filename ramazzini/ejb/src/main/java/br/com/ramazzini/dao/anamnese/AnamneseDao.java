@@ -1,5 +1,7 @@
 package br.com.ramazzini.dao.anamnese;
 
+import java.util.List;
+
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
@@ -11,8 +13,21 @@ import br.com.ramazzini.model.profissional.Profissional;
 
 public class AnamneseDao extends AbstractDao<Anamnese> {
 
+	private static final String QUERY_RECUPERAR_POR_AVALIACAO_CLINICA = 
+			"Anamnese.recuperarPorAvaliacaoClinica";	
 	private static final String QUERY_RECUPERAR_ANAMNESE_EM_ANDAMENTO_POR_AVCLINICA_MEDICO = 
 			"Anamnese.recuperarAnamneseEmAndamentoPorAvClinicaMedico";
+	
+	@SuppressWarnings("unchecked")
+	public List<Anamnese> recuperarPor(AvaliacaoClinica avaliacaoClinica) {
+		Query query = createNamedQuery(QUERY_RECUPERAR_POR_AVALIACAO_CLINICA);
+		query.setParameter("avaliacaoClinica", avaliacaoClinica);
+		try {
+			return query.getResultList();
+		} catch (NoResultException nr) {
+			return null;
+		}
+	}
 	
 	public Anamnese recuperarAnamneseEmAndamentoPor(AvaliacaoClinica avaliacaoClinica, Profissional medico) {
 		Query query = createNamedQuery(QUERY_RECUPERAR_ANAMNESE_EM_ANDAMENTO_POR_AVCLINICA_MEDICO);

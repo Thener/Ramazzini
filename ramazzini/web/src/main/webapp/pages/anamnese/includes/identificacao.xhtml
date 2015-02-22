@@ -66,7 +66,11 @@
 				<p:outputLabel value="#{anamneseController.anamnese.medico.nome}" styleClass="negrito" />
 					
 				<p:outputLabel value="#{msgs['label.avaliacaoClinica']}:" />
-				<p:outputLabel value="#{anamneseController.anamnese.avaliacaoClinica.procedimento.nome}" styleClass="negrito" />
+				<p:selectOneMenu value="#{anamneseController.avaliacaoClinica.procedimento}"
+					converter="entityConverter" styleClass="nome50">
+					<f:selectItems value="#{combosDinamicos.procedimentosTipoExameClinicoOcupacional}" var="procedimento"
+						itemLabel="#{procedimento.nome}" />
+				</p:selectOneMenu>				
 				
 				<p:outputLabel value="#{msgs['label.dataRealizacao']}:" />
 				<p:outputLabel value="#{anamneseController.anamnese.dataRealizacao}" styleClass="negrito">

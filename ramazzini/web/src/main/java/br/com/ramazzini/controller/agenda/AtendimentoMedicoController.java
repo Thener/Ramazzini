@@ -91,15 +91,29 @@ public class AtendimentoMedicoController extends AbstractBean implements Seriali
 	}
 	
 	public void alterarSituacaoAgenda(String situacao) {
-		if (medicoLogado.equals(agendaSelecionada.getProfissional())) {
+		
+		if (agendaSelecionada.getSituacaoMarcacaoAgendaEnum().equals(SituacaoMarcacaoAgenda.ATENDIDO)
+				|| agendaSelecionada.getSituacaoMarcacaoAgendaEnum().equals(SituacaoMarcacaoAgenda.NAO_COMPARECEU)
+				|| agendaSelecionada.getSituacaoMarcacaoAgendaEnum().equals(SituacaoMarcacaoAgenda.DESISTENCIA)
+				|| medicoLogado.equals(agendaSelecionada.getProfissional())) {
+			
 			agendaSelecionada.setSituacaoMarcacaoAgenda(situacao);
-			gravarAgenda(agendaSelecionada);			
+			gravarAgenda(agendaSelecionada);
+			
 		} else {
-			UtilMensagens.mensagemErroPorChave("mensagem.erro.agendamentoAtribuido", 
-				agendaSelecionada.getProfissional().getNome());
+			
+			if (agendaSelecionada.getProfissional() != null && !agendaSelecionada.getProfissional().equals(medicoLogado)) {
+				
+				UtilMensagens.mensagemErroPorChave("mensagem.erro.agendamentoAtribuido", 
+						agendaSelecionada.getProfissional().getNome());
+				
+			} else {
+				
+				UtilMensagens.mensagemErroPorChave("mensagem.erro.naoFoiPossivelAlterarSituacaoAgenda");
+			}
 		}
 	}
-	
+
 	public void atribuirme() {
 		
 		 if (agendaSelecionada.getProfissional() == null) {

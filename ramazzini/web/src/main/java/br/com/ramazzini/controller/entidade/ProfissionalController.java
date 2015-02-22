@@ -19,7 +19,6 @@ public class ProfissionalController extends AbstractBean implements Serializable
 
 	private static final long serialVersionUID = 1L;
 	
-	private static final String PAGINA_PESQUISAR_PROFISSIONAL = "pesquisarProfissional.jsf?faces-redirect=true";
 	private static final String PAGINA_CADASTRO_PROFISSIONAL = "cadastroProfissional.jsf?faces-redirect=true";
 
     @Inject
@@ -75,17 +74,29 @@ public class ProfissionalController extends AbstractBean implements Serializable
     
 	public String gravarProfissional() {
 		
+		boolean inclusao = profissional.isNovo();
 		profissionalService.salvar(profissional);
-		profissionais = profissionalService.recuperarTodos("nome");
-		return PAGINA_PESQUISAR_PROFISSIONAL;
+		if (inclusao) {
+			UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeGravadaComSucesso","label.profissional");
+			return "";
+		} else {
+			nomeProfissionalPesquisa = profissional.getNome();
+			pesquisar();
+			return voltar();
+		}		
 	}    
     
     private String cadastroProfissional(Profissional profissional, Boolean somenteLeitura) {
     	
     	setProfissional(profissional);
     	setSomenteLeitura(somenteLeitura);
+    	setUriRequisicao(getControleAcesso().getUriRequisicao());
     	return PAGINA_CADASTRO_PROFISSIONAL;    	
-    }     
+    }
+    
+    public String voltar() {				
+		return getUriRequisicao()+"?faces-redirect=true";
+	}    
 
 	public List<Profissional> getProfissionais() {
 		return profissionais;
