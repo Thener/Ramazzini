@@ -38,7 +38,7 @@ public class FuncaoProcedimentoService extends AbstractServiceImpl<FuncaoProcedi
     }
     
     public List<FuncaoProcedimento> recuperarPorFuncao(Funcao funcao) {
-    	return (!funcao.isNovo()) ? ((FuncaoProcedimentoDao) getDao()).recuperarPorFuncao(funcao) : null;
+    	return (funcao != null && !funcao.isNovo()) ? ((FuncaoProcedimentoDao) getDao()).recuperarPorFuncao(funcao) : null;
     }	
 
     public List<FuncaoProcedimento> recuperarPorFuncaoAnteriorAtual(Funcao funcaoAnterior, Funcao funcaoAtual) {

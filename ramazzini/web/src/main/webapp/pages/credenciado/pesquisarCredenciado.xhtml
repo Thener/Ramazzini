@@ -15,7 +15,8 @@
 			
 				<p:outputLabel for="nomeCredenciadoPesquisa" value="#{msgs['label.nome']}" />
 				<p:inputText id="nomeCredenciadoPesquisa" 
-					value="#{credenciadoController.nomeCredenciadoPesquisa}" required="false"/>
+					value="#{credenciadoController.nomeCredenciadoPesquisa}" required="false"
+					 styleClass="nome50"/>
 					
 				<p:commandButton action="#{credenciadoController.pesquisar()}"
 					id="botaoPesquisa" icon="ui-icon-search" title="#{msgs['botao.pesquisar']}"

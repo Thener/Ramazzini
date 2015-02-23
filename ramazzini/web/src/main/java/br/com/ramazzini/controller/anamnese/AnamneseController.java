@@ -16,19 +16,26 @@ import br.com.ramazzini.model.anamnese.Anamnese;
 import br.com.ramazzini.model.avaliacaoClinica.AvaliacaoClinica;
 import br.com.ramazzini.model.avaliacaoClinica.SituacaoAvaliacaoClinica;
 import br.com.ramazzini.model.avaliacaoClinicaProcedimento.AvaliacaoClinicaProcedimento;
+import br.com.ramazzini.model.funcao.Funcao;
 import br.com.ramazzini.model.funcaoProcedimento.FuncaoProcedimento;
 import br.com.ramazzini.model.funcionario.Funcionario;
 import br.com.ramazzini.model.funcionario.SituacaoFuncionario;
+import br.com.ramazzini.model.guia.Guia;
+import br.com.ramazzini.model.guiaProcedimento.GuiaProcedimento;
 import br.com.ramazzini.model.notificacao.Notificacao;
 import br.com.ramazzini.model.procedimento.Procedimento;
 import br.com.ramazzini.model.procedimento.TipoExameClinico;
 import br.com.ramazzini.model.profissional.Profissional;
+import br.com.ramazzini.model.riscoOcupacional.RiscoOcupacional;
 import br.com.ramazzini.service.entidade.AgendaService;
 import br.com.ramazzini.service.entidade.AnamneseService;
 import br.com.ramazzini.service.entidade.AvaliacaoClinicaProcedimentoService;
 import br.com.ramazzini.service.entidade.AvaliacaoClinicaService;
 import br.com.ramazzini.service.entidade.FuncaoProcedimentoService;
+import br.com.ramazzini.service.entidade.FuncaoService;
 import br.com.ramazzini.service.entidade.FuncionarioService;
+import br.com.ramazzini.service.entidade.GuiaProcedimentoService;
+import br.com.ramazzini.service.entidade.GuiaService;
 import br.com.ramazzini.util.TimeFactory;
 import br.com.ramazzini.util.UtilMensagens;
 
@@ -45,7 +52,10 @@ public class AnamneseController extends AbstractBean implements Serializable {
 	@Inject private AvaliacaoClinicaProcedimentoService avaliacaoClinicaProcedimentoService;
 	@Inject private AgendaService agendaService;
 	@Inject private FuncaoProcedimentoService funcaoProcedimentoService;
+	@Inject private FuncaoService funcaoService;
 	@Inject private FuncionarioService funcionarioService;
+	@Inject private GuiaService guiaService;
+	@Inject private GuiaProcedimentoService guiaProcedimentoService;
 	
 	private Anamnese anamnese;
 	
@@ -59,7 +69,9 @@ public class AnamneseController extends AbstractBean implements Serializable {
 	
 	private List<String> avisos = new ArrayList<String>();
 	
-	private Procedimento procedimento;
+	private Procedimento procedimentoSelecionado;
+	
+	private Funcao consultaFuncao;
 	
 	public String iniciarAtendimento(Funcionario funcionario, Profissional medico, Procedimento procedimento, Agenda agenda) {
 		
@@ -275,7 +287,18 @@ public class AnamneseController extends AbstractBean implements Serializable {
 		}
 	}
 	
-	public void incluirProcedimento() {
+	public void incluirProcedimentoSelecionado() {
+
+		incluirProcedimento(procedimentoSelecionado);
+		procedimentoSelecionado = null;
+	}
+	
+	public void incluirProcedimentoDaGuia(Procedimento procedimento) {
+
+		incluirProcedimento(procedimento);
+	}	
+	
+	private void incluirProcedimento(Procedimento procedimento) {
 		
 		if (procedimento != null) {
 			
@@ -285,13 +308,27 @@ public class AnamneseController extends AbstractBean implements Serializable {
 			acp.setProcedimento(procedimento);	
 			
 			procedimentosAvaliacao.add(acp);
-			
-			procedimento = null;
-		}
+		}		
 	}
 	
 	public void removerProcedimento(AvaliacaoClinicaProcedimento procedimento) {
 		procedimentosAvaliacao.remove(procedimento);	
+	}
+	
+	public List<Guia> getGuiasEmitidasParaFuncionario() {
+		return guiaService.recuperarPor(avaliacaoClinica.getFuncionario(), TimeFactory.createDataHora());
+	}
+	
+	public List<GuiaProcedimento> getProcedimentosGuiaEmitida(Guia guia) {
+		return guiaProcedimentoService.recuperarPor(guia);
+	}
+	
+	public List<RiscoOcupacional> getRiscosOcupacionaisConsultaFuncao() {
+		 return funcaoService.recuperarRiscosOcupacionais(consultaFuncao);
+	}
+
+	public List<FuncaoProcedimento> getProcedimentosConsultaFuncao() {
+		 return funcaoProcedimentoService.recuperarPorFuncao(consultaFuncao);
 	}
 	
     public String voltar() {	
@@ -340,12 +377,21 @@ public class AnamneseController extends AbstractBean implements Serializable {
 		this.procedimentosAvaliacao = procedimentosAvaliacao;
 	}
 
-	public Procedimento getProcedimento() {
-		return procedimento;
+	public Procedimento getProcedimentoSelecionado() {
+		return procedimentoSelecionado;
 	}
 
-	public void setProcedimento(Procedimento procedimento) {
-		this.procedimento = procedimento;
+	public void setProcedimentoSelecionado(Procedimento procedimento) {
+		this.procedimentoSelecionado = procedimento;
 	}
+
+	public Funcao getConsultaFuncao() {
+		return consultaFuncao;
+	}
+
+	public void setConsultaFuncao(Funcao consultaFuncao) {
+		this.consultaFuncao = consultaFuncao;
+	}
+
 	
 }

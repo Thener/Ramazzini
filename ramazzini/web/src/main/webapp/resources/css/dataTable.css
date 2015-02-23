@@ -38,3 +38,8 @@
 .coluna5 {
 	width: 100px;
 }
+
+.coluna50porCento {
+	width: 50%;	
+	padding: 0 !important;
+}

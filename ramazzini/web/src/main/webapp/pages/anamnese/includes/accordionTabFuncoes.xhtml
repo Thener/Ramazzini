@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui">
+   
+	<h:panelGrid columns="2" cellpadding="2">
+	
+		<p:outputLabel value="#{msgs['label.funcao']}:" />
+		<p:selectOneMenu value="#{anamneseController.consultaFuncao}"
+			converter="entityConverter">
+			<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
+				noSelectionOption="true" />			
+			<f:selectItems value="#{combosDinamicos.funcoes}" var="funcao"
+				itemLabel="#{funcao.nome}" itemValue="#{funcao}" />
+			<f:attribute name="empresaSelecionada" value="#{anamneseController.anamnese.avaliacaoClinica.funcionario.empresa}" />
+			<p:ajax event="change" update="pnlGridConsultaFuncao" process="@this" />
+		</p:selectOneMenu>
+		
+	</h:panelGrid>
+	
+	<h:panelGroup columns="2" id="pnlGridConsultaFuncao">
+	
+		<h:panelGrid columns="2" cellpadding="2" style="width:100%" 
+			rendered="#{anamneseController.consultaFuncao != null}"
+			columnClasses="coluna50porCento">
+		
+			<p:outputLabel value="#{msgs['label.riscoOcupacional']}:" />
+			
+			<p:outputLabel value="#{msgs['label.procedimentos']}:" />
+		
+			<ui:repeat var="riscoOcupacional" value="#{anamneseController.riscosOcupacionaisConsultaFuncao}">
+				<li class="anamneseCheck"><h:outputText value="#{riscoOcupacional.nome}" /></li>
+			</ui:repeat>
+			
+			<ui:repeat var="funcaoProcedimento" value="#{anamneseController.procedimentosConsultaFuncao}">
+				<li class="anamneseCheck"><h:outputText value="#{funcaoProcedimento.procedimento.nome}" /></li>
+			</ui:repeat>
+		
+		</h:panelGrid>
+	
+	</h:panelGroup>
+		
+</ui:composition>

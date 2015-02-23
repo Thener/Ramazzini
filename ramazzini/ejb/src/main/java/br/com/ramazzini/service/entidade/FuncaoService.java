@@ -57,6 +57,6 @@ public class FuncaoService extends AbstractServiceImpl<Funcao> {
     }     
 
     public List<RiscoOcupacional> recuperarRiscosOcupacionais(Funcao funcao) {
-    	return ((FuncaoDao) getDao()).recuperarRiscosOcupacionais(funcao);
+    	return (funcao != null && !funcao.isNovo()) ? ((FuncaoDao) getDao()).recuperarRiscosOcupacionais(funcao) : null;
     }    
 }

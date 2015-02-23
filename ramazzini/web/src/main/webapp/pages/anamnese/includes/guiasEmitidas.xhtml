@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui">
+	
+	<p:fieldset legend="#{msgs['label.guiasEmitidasHojeParaFuncionario']}"
+		rendered="#{anamneseController.guiasEmitidasParaFuncionario.size() > 0}">
+	
+		<p:dataTable id="gridGuiasEmitidas" var="guia" value="#{anamneseController.guiasEmitidasParaFuncionario}"
+			emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}">
+
+		    <p:column headerText="#{msgs['label.numeroGuia']}" styleClass="agendaGuiaSituacao_#{guia.situacaoGuia} colunaCentralizada">
+		        <h:outputText value="#{guia.numeroGuia}" />
+		        <p:rowToggler />
+		    </p:column>
+		    
+		    <p:column headerText="#{msgs['label.funcionario']}" styleClass="agendaGuiaSituacao_#{guia.situacaoGuia}">
+		        <h:outputText value="#{guia.funcionario.nome}" />
+		    </p:column>
+		    	    
+		    <p:column headerText="#{msgs['label.credenciado']}" styleClass="agendaGuiaSituacao_#{guia.situacaoGuia}">
+		        <h:outputText value="#{guia.credenciado.nome}" />
+		    </p:column>	    
+		    
+		    <p:column headerText="#{msgs['label.dataEmissao']}" styleClass="colunaCentralizada agendaGuiaSituacao_#{guia.situacaoGuia}">
+		        <h:outputText value="#{guia.dataEmissao}">
+		        	<f:convertDateTime locale="pt,BR" pattern="#{msgs['pattern.calendar']}" />
+		        </h:outputText>
+		    </p:column>
+		    
+		    <p:column headerText="#{msgs['label.situacao']}" styleClass="colunaCentralizada agendaGuiaSituacao_#{guia.situacaoGuia}">
+		        <h:outputText value="#{guia.situacaoGuiaEnum.stringChave}" />
+		    </p:column>	
+		    
+	        <p:rowExpansion>
+				
+				<ui:repeat var="guiaProcedimento" value="#{anamneseController.getProcedimentosGuiaEmitida(guia)}">
+					
+					<p:commandLink title="#{msgs['label.incluir']}"
+						value="#{guiaProcedimento.procedimento.nome}"
+						actionListener="#{anamneseController.incluirProcedimentoDaGuia(guiaProcedimento.procedimento)}" 
+						update=":frmCadastroAnamnese:tabViewAnamnese:gridProcedimentosAvClinica"
+						styleClass="anamneseLinkIncluirProcedimento" />
+				</ui:repeat>
+
+	        </p:rowExpansion>	    	    		    
+		    	    	    
+		</p:dataTable>	
+	
+	</p:fieldset>
+								
+</ui:composition>

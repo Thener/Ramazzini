@@ -16,7 +16,7 @@
 				
 					<p:outputLabel value="#{msgs['label.procedimento']}:" style="display:block; min-width:80px;"/>
 					<p:autoComplete id="completeProcedimento"
-						value="#{anamneseController.procedimento}"
+						value="#{anamneseController.procedimentoSelecionado}"
 						completeMethod="#{autoComplete.completeProcedimento}"
 						var="procedimento" itemLabel="#{procedimento.nome}"
 						itemValue="#{procedimento}" converter="entityConverter"
@@ -37,7 +37,7 @@
 					<p:commandButton id="botaoIncluirProcedimento" ajax="true" 
 						value="#{msgs['botao.incluir']}" icon="ui-icon-disk" 
 						onclick="PF('dialogIncluirProcedimento').hide();"
-						actionListener="#{anamneseController.incluirProcedimento()}" 
+						actionListener="#{anamneseController.incluirProcedimentoSelecionado()}" 
 						update=":frmCadastroAnamnese:tabViewAnamnese:gridProcedimentosAvClinica, frmDialogIncluirProcedimento" />
 				</f:facet>
 			</p:toolbar>

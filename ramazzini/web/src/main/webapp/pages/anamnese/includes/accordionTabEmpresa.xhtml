@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui">
+   
+	<h:panelGrid columns="2" cellpadding="2">
+	
+		<p:outputLabel value="#{msgs['label.nome']}:" />
+		<p:outputLabel value="#{anamneseController.avaliacaoClinica.funcionario.empresa.nome}" styleClass="negrito" />
+
+		<p:outputLabel value="#{msgs['label.endereco']}:" />
+		<p:outputLabel value="#{anamneseController.avaliacaoClinica.funcionario.empresa.endereco.logradouroNumeroComplemento}" />
+		
+		<p:outputLabel value="" />
+		<p:outputLabel value="#{anamneseController.avaliacaoClinica.funcionario.empresa.endereco.bairroCidadeUf}" />
+		
+		<p:outputLabel value="#{msgs['label.telefone']}:" />
+		<p:outputLabel value="#{anamneseController.avaliacaoClinica.funcionario.empresa.telefone1}" />
+
+		<p:outputLabel value="" />
+		<p:outputLabel value="#{anamneseController.avaliacaoClinica.funcionario.empresa.telefone2}" />
+		
+		<p:outputLabel value="#{msgs['label.contato']}:" />
+		<p:outputLabel value="#{anamneseController.avaliacaoClinica.funcionario.empresa.pessoaContato}" />
+
+		<p:outputLabel value="" />
+		<p:outputLabel value="#{anamneseController.avaliacaoClinica.funcionario.empresa.email}" />
+				
+	</h:panelGrid>
+		
+</ui:composition>
