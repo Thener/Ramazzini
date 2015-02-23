@@ -20,17 +20,23 @@ import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 
 import br.com.ramazzini.dao.avaliacaoClinicaProcedimento.AvaliacaoClinicaProcedimentoDao;
 import br.com.ramazzini.model.avaliacaoClinica.AvaliacaoClinica;
 import br.com.ramazzini.model.avaliacaoClinicaProcedimento.AvaliacaoClinicaProcedimento;
+import br.com.ramazzini.model.funcaoProcedimento.FuncaoProcedimento;
 import br.com.ramazzini.model.funcionario.Funcionario;
 import br.com.ramazzini.model.procedimento.Procedimento;
+import br.com.ramazzini.model.procedimento.TipoExameClinico;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
+import br.com.ramazzini.util.TimeFactory;
 
 // The @Stateless annotation eliminates the need for manual transaction demarcation
 @Stateless
 public class AvaliacaoClinicaProcedimentoService extends AbstractServiceImpl<AvaliacaoClinicaProcedimento> {
+	
+	@Inject private FuncaoProcedimentoService funcaoProcedimentoService;
 
     public AvaliacaoClinicaProcedimento recuperarMaisRecentePor(Funcionario funcionario, Procedimento procedimento) {
     	return (!funcionario.isNovo()) ? 
@@ -50,5 +56,40 @@ public class AvaliacaoClinicaProcedimentoService extends AbstractServiceImpl<Ava
     public boolean verificaValidadeDoProcedimento(Funcionario funcionario, Procedimento procedimento, Date dataReferencia) {
     	return (!funcionario.isNovo()) ? 
     		((AvaliacaoClinicaProcedimentoDao) getDao()).verificaValidadeDoProcedimento(funcionario, procedimento, dataReferencia) : null;
-    }    
+    } 
+    
+    public Date calcularDataRetornoProcedimento(AvaliacaoClinica avaliacaoClinica, 
+    		AvaliacaoClinicaProcedimento avaliacaoClinicaProcedimento) {
+    
+    	if (avaliacaoClinicaProcedimento.getDataRealizacao() == null) {
+    		return null;
+    	}
+    	
+    	TipoExameClinico tpe = avaliacaoClinica.getProcedimento().getTipoExameClinicoEnum();
+    	
+    	if (tpe.equals(TipoExameClinico.DEMISSIONAL)) {
+    		return null;
+    	}
+    	
+    	FuncaoProcedimento funcaoProcedimento = 
+    			funcaoProcedimentoService.recuperarPor(avaliacaoClinica.getFuncaoAtual(), avaliacaoClinicaProcedimento.getProcedimento());
+    	
+    	Integer retorno;
+    	
+    	if (tpe.equals(TipoExameClinico.ADMISSIONAL)) {
+    		retorno = funcaoProcedimento.getRetornoAdmissional();
+    	} else if (tpe.equals(TipoExameClinico.PERIODICO)) {
+    		retorno = funcaoProcedimento.getRetornoPeriodico();
+    	} else if (tpe.equals(TipoExameClinico.RETORNO_TRABALHO)) {
+    		retorno = funcaoProcedimento.getRetornoRetornoTrabalho();
+    	} else {
+    		retorno = funcaoProcedimento.getRetornoMudancaFuncao();
+    	}
+    	
+    	if (retorno == null || retorno == 0) {
+    		retorno = 6;
+    	}
+    	
+    	return TimeFactory.somarMeses(avaliacaoClinicaProcedimento.getDataRealizacao(), retorno);
+    }
 }

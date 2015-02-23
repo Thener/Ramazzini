@@ -2,6 +2,7 @@ package br.com.ramazzini.controller.anamnese;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.enterprise.context.ConversationScoped;
@@ -20,6 +21,7 @@ import br.com.ramazzini.model.funcionario.Funcionario;
 import br.com.ramazzini.model.funcionario.SituacaoFuncionario;
 import br.com.ramazzini.model.notificacao.Notificacao;
 import br.com.ramazzini.model.procedimento.Procedimento;
+import br.com.ramazzini.model.procedimento.TipoExameClinico;
 import br.com.ramazzini.model.profissional.Profissional;
 import br.com.ramazzini.service.entidade.AgendaService;
 import br.com.ramazzini.service.entidade.AnamneseService;
@@ -55,6 +57,8 @@ public class AnamneseController extends AbstractBean implements Serializable {
 	
 	private List<String> alertas = new ArrayList<String>();
 	
+	private List<String> avisos = new ArrayList<String>();
+	
 	private Procedimento procedimento;
 	
 	public String iniciarAtendimento(Funcionario funcionario, Profissional medico, Procedimento procedimento, Agenda agenda) {
@@ -70,6 +74,7 @@ public class AnamneseController extends AbstractBean implements Serializable {
 		}
 
 		alertas.clear();
+		avisos.clear();
 		
 		//---- definindo Avaliação Clínica e Anamnese:
 		
@@ -154,6 +159,8 @@ public class AnamneseController extends AbstractBean implements Serializable {
 
 	public void gravarAnamnese() {
 		
+		avisos.clear();
+		
 		if (anamnese.getSituacaoAvaliacaoClinicaEnum().equals(SituacaoAvaliacaoClinica.EM_ANDAMENTO)) {
 			UtilMensagens.mensagemErroPorChave("mensagem.erro.situacaoAvaliacaoClinicaNaoPodeSerEmAndamento");
 			return;
@@ -165,19 +172,15 @@ public class AnamneseController extends AbstractBean implements Serializable {
 			gravarAgenda(agenda);
 		}
 		
+		calcularDataRetornoProcedimentos(); // precisa estar antes do calculo da data de retorno da ac
+		
+		avaliacaoClinica.setProcedimentos(procedimentosAvaliacao);
+		
 		avaliacaoClinica.setDataRetorno(avaliacaoClinicaService.calcularDataRetornoAvaliacaoClinica(avaliacaoClinica, procedimentosAvaliacao));
 		avaliacaoClinica.setSituacaoAvaliacaoClinica(anamnese.getSituacaoAvaliacaoClinica());
 		avaliacaoClinicaService.salvar(avaliacaoClinica);
 		
-		if (avaliacaoClinica.getFuncionario().getSituacaoFuncionarioEnum().equals(SituacaoFuncionario.AGENDADO)) {
-			Funcionario funcionario = avaliacaoClinica.getFuncionario();
-			funcionario.setSituacaoFuncionarioEnum(SituacaoFuncionario.ATIVO);
-			funcionarioService.salvar(funcionario);
-		}
-		
-		if (procedimentosAvaliacao != null && procedimentosAvaliacao.size() > 0) {
-			avaliacaoClinicaProcedimentoService.salvarLista(procedimentosAvaliacao);
-		}
+		atualizarFuncionario();
 		
 		anamneseService.salvar(anamnese);
 		
@@ -188,6 +191,51 @@ public class AnamneseController extends AbstractBean implements Serializable {
 		
 		agendaService.salvar(agenda);
 		Notificacao.notificarModificacaoAgenda();
+	}
+	
+	private void atualizarFuncionario() {
+		
+		boolean salvarFuncionario = Boolean.FALSE;
+		
+		Funcionario funcionario = avaliacaoClinica.getFuncionario();
+		TipoExameClinico tipoExame = avaliacaoClinica.getProcedimento().getTipoExameClinicoEnum();
+		
+		if (funcionario.getSituacaoFuncionarioEnum().equals(SituacaoFuncionario.AGENDADO)) {
+			funcionario.setSituacaoFuncionarioEnum(SituacaoFuncionario.ATIVO);
+			salvarFuncionario = Boolean.TRUE;
+			
+			avisos.add(getValorChaveMsg("mensagem.info.situacaoFuncionarioAlteradaPara", 
+					SituacaoFuncionario.ATIVO.getStringChave()));			
+		}
+		
+		if (!funcionario.getFuncao().equals(avaliacaoClinica.getFuncaoAtual())) {
+			funcionario.setFuncao(avaliacaoClinica.getFuncaoAtual());
+			salvarFuncionario = Boolean.TRUE;
+			
+			avisos.add(getValorChaveMsg("mensagem.info.funcaoFuncionarioAlterada"));
+		}
+		
+		if (tipoExame.equals(TipoExameClinico.DEMISSIONAL) 
+				&& (anamnese.getSituacaoAvaliacaoClinicaEnum().equals(SituacaoAvaliacaoClinica.APTO) 
+						|| anamnese.getSituacaoAvaliacaoClinicaEnum().equals(SituacaoAvaliacaoClinica.APTO_COM_RESTRICAO)
+						|| anamnese.getSituacaoAvaliacaoClinicaEnum().equals(SituacaoAvaliacaoClinica.APTO_INCLUINDO_TRABALHO_ALTURA))) {
+			
+			funcionario.setSituacaoFuncionarioEnum(SituacaoFuncionario.DEMITIDO);
+			salvarFuncionario = Boolean.TRUE;
+			avisos.add(getValorChaveMsg("mensagem.info.situacaoFuncionarioAlteradoPara",
+					SituacaoFuncionario.DEMITIDO.getStringChave()));
+			
+		} else if (funcionario.getSituacaoFuncionarioEnum().equals(SituacaoFuncionario.DEMITIDO)) {
+			
+			funcionario.setSituacaoFuncionarioEnum(SituacaoFuncionario.ATIVO);
+			salvarFuncionario = Boolean.TRUE;
+			avisos.add(getValorChaveMsg("mensagem.info.situacaoFuncionarioAlteradaPara",
+					SituacaoFuncionario.ATIVO.getStringChave()));			
+		}
+		
+		if (salvarFuncionario) {
+			funcionarioService.salvar(funcionario);
+		}		
 	}
 	
 	private void carregarProcedimentosAvaliacao(AvaliacaoClinica avaliacaoClinica) {
@@ -213,6 +261,17 @@ public class AnamneseController extends AbstractBean implements Serializable {
 				procedimentosAvaliacao.add(acp);
 			}
 		
+		}
+	}
+	
+	private void calcularDataRetornoProcedimentos() {
+		
+		if (procedimentosAvaliacao.size() > 0) {
+			
+			for (AvaliacaoClinicaProcedimento acp : procedimentosAvaliacao) {
+				Date dtRetorno = avaliacaoClinicaProcedimentoService.calcularDataRetornoProcedimento(avaliacaoClinica, acp);
+				acp.setDataRetorno(dtRetorno);
+			}
 		}
 	}
 	
@@ -262,6 +321,14 @@ public class AnamneseController extends AbstractBean implements Serializable {
 
 	public void setAlertas(List<String> alertas) {
 		this.alertas = alertas;
+	}
+	
+	public List<String> getAvisos() {
+		return avisos;
+	}
+
+	public void setAvisos(List<String> avisos) {
+		this.avisos = avisos;
 	}
 
 	public List<AvaliacaoClinicaProcedimento> getProcedimentosAvaliacao() {

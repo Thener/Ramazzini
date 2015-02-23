@@ -128,6 +128,7 @@ public class AtendimentoMedicoController extends AbstractBean implements Seriali
 	public void desatribuirme() {
 		
 		if (medicoLogado.equals(agendaSelecionada.getProfissional())) {
+			agendaSelecionada.setSituacaoMarcacaoAgendaEnum(SituacaoMarcacaoAgenda.AGUARDANDO);
 			agendaSelecionada.setProfissional(null);
 			gravarAgenda(agendaSelecionada);
 		} else if (agendaSelecionada.getProfissional() == null) {

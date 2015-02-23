@@ -11,7 +11,7 @@
 	
 			<h:panelGrid columns="2" cellpadding="2">
 	
-				<p:outputLabel value="#{msgs['label.empresa']}:" />
+				<p:outputLabel value="#{msgs['label.empresa']}:" style="min-width:90px;display:block;" />
 				<h:panelGroup>
 					<div class="agendaLinksVisualizarEditar">
 						<h:commandLink title="#{msgs['label.visualizar']}" action="#{empresaController.visualizarEmpresa(anamneseController.anamnese.avaliacaoClinica.funcionario.empresa)}"
@@ -24,6 +24,7 @@
 							immediate="true" target="_blank" />
 			    	</div>				
 					<p:outputLabel value="#{anamneseController.anamnese.avaliacaoClinica.funcionario.empresa.nome}" styleClass="negrito" />
+					<p:outputLabel value=" (#{anamneseController.anamnese.avaliacaoClinica.funcionario.empresa.situacaoEmpresaEnum.stringChave})" />
 				</h:panelGroup>
 			
 				<p:outputLabel value="#{msgs['label.funcionario']}:" />
@@ -39,23 +40,33 @@
 							immediate="true" target="_blank" />
 			    	</div>
 					<p:outputLabel value="#{anamneseController.anamnese.avaliacaoClinica.funcionario.nome}" styleClass="negrito" />
+					<p:outputLabel value=" (#{anamneseController.anamnese.avaliacaoClinica.funcionario.situacaoFuncionarioEnum.stringChave})" />
 				</h:panelGroup>
 								
-				<p:outputLabel value="#{msgs['label.funcao']}:" />
-				<h:panelGroup>
-					<div class="agendaLinksVisualizarEditar">
-						<h:commandLink title="#{msgs['label.visualizar']}" action="#{funcaoController.visualizarFuncao(anamneseController.anamnese.avaliacaoClinica.funcaoAtual)}"
-							styleClass="ui-icon ui-icon-search" rendered="#{anamneseController.controleAcesso.acaoAutorizada('funcao','pesquisarFuncao.jsf','visualizarFuncao')}"
-							disabled="#{anamneseController.anamnese.avaliacaoClinica.funcaoAtual == null}"
-							immediate="true" target="_blank" />
-			    	</div>
-					<div class="agendaLinksVisualizarEditar">
-						<h:commandLink title="#{msgs['label.editar']}" action="#{funcaoController.alterarFuncao(anamneseController.anamnese.avaliacaoClinica.funcaoAtual)}"
-							styleClass="ui-icon ui-icon-pencil" rendered="#{anamneseController.controleAcesso.acaoAutorizada('funcao','pesquisarFuncao.jsf','alterarFuncao')}" 
-							disabled="#{anamneseController.anamnese.avaliacaoClinica.funcaoAtual == null}"
-							immediate="true" target="_blank" />
-			    	</div>
-					<p:outputLabel value="#{anamneseController.anamnese.avaliacaoClinica.funcaoAtual.nome}" styleClass="negrito" />
+				<p:outputLabel value="#{msgs['label.funcaoAtual']}:" />
+				<p:selectOneMenu value="#{anamneseController.anamnese.avaliacaoClinica.funcaoAtual}"
+					converter="entityConverter" required="true" 
+					requiredMessage="#{msgs['required.funcaoAtual.obrigatorio']}">
+					<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
+						noSelectionOption="true" />			
+					<f:selectItems value="#{combosDinamicos.funcoes}" var="funcao"
+						itemLabel="#{funcao.nome}" itemValue="#{funcao}" />
+					<f:attribute name="empresaSelecionada" value="#{anamneseController.anamnese.avaliacaoClinica.funcionario.empresa}" />
+				</p:selectOneMenu>
+				
+				<h:panelGroup id="lblFuncaoAnterior">
+					<p:outputLabel value="#{msgs['label.funcaoAnterior']}:"
+						rendered="#{anamneseController.avaliacaoClinica.procedimento.tipoExameClinico == 'MUD'}" />
+				</h:panelGroup>
+				<h:panelGroup id="funcaoAnterior">
+					<p:selectOneMenu value="#{anamneseController.anamnese.avaliacaoClinica.funcaoAnterior}"
+						converter="entityConverter" rendered="#{anamneseController.avaliacaoClinica.procedimento.tipoExameClinico == 'MUD'}">
+						<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
+							noSelectionOption="true" />			
+						<f:selectItems value="#{combosDinamicos.funcoes}" var="funcao"
+							itemLabel="#{funcao.nome}" itemValue="#{funcao}" />
+						<f:attribute name="empresaSelecionada" value="#{anamneseController.anamnese.avaliacaoClinica.funcionario.empresa}" />
+					</p:selectOneMenu>
 				</h:panelGroup>
 								
 			</h:panelGrid>
@@ -70,13 +81,13 @@
 					converter="entityConverter">
 					<f:selectItems value="#{combosDinamicos.procedimentosTipoExameClinicoOcupacional}" var="procedimento"
 						itemLabel="#{procedimento.nome}" />
+					<p:ajax event="change" update="funcaoAnterior, lblFuncaoAnterior, tabViewAnamnese:pnlGroupUltimoTrabalho" process="@this" />
 				</p:selectOneMenu>				
 				
 				<p:outputLabel value="#{msgs['label.dataRealizacao']}:" />
 				<p:outputLabel value="#{anamneseController.anamnese.dataRealizacao}" styleClass="negrito">
 					<f:convertDateTime locale="pt,BR" pattern="#{msgs['pattern.calendar']}" />
 				</p:outputLabel>					
-	
 			
 			</h:panelGrid>					
 		

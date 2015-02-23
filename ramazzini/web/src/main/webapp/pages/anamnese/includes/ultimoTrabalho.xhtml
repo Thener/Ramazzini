@@ -5,54 +5,58 @@
    xmlns:h="http://java.sun.com/jsf/html"
    xmlns:p="http://primefaces.org/ui">
    
-	<p:fieldset legend="#{msgs['label.ultimoTrabalho']}" 
-		rendered="#{anamneseController.avaliacaoClinica.procedimento.tipoExameClinico == 'ADM'}">
-	
-		<h:panelGrid columns="8" cellpadding="5">
+   <h:panelGroup id="pnlGroupUltimoTrabalho" >
+   
+		<p:fieldset legend="#{msgs['label.ultimoTrabalho']}" 
+			rendered="#{anamneseController.avaliacaoClinica.procedimento.tipoExameClinico == 'ADM'}">
 		
-			<p:outputLabel value="#{msgs['label.ultimoTrabalho']}:" />
-			<p:inputText value="#{anamneseController.anamnese.ultimoTrabalho}" 
-				maxlength="100" styleClass="nome20"/>	
-				
-			<p:outputLabel value="#{msgs['label.ultimoCargo']}:" />
-			<p:inputText value="#{anamneseController.anamnese.ultimoCargo}" 
-				maxlength="100" styleClass="nome20"/>
-				
-			<p:outputLabel value="#{msgs['label.insalubre']}:" />
-			<p:selectOneMenu value="#{anamneseController.anamnese.ultimoCargoInsalubre}">
-				<f:selectItems value="#{combosEstaticos.simNao}" var="simNao"
-					itemLabel="#{simNao.stringChave}" itemValue="#{simNao.valueBoolean}" />
-				<f:ajax render="ultimoCargoTempo" />
-			</p:selectOneMenu>
+			<h:panelGrid columns="8" cellpadding="3">
 			
-			<p:outputLabel value="#{msgs['label.tempo']}:" />
-			<p:inputText id="ultimoCargoTempo" value="#{anamneseController.anamnese.ultimoCargoTempo}" 
-				maxlength="20" styleClass="nome10" disabled="#{anamneseController.anamnese.ultimoCargoInsalubre == false}"/>
-		
-		</h:panelGrid>
-		
-		<h:panelGrid columns="3" cellpadding="5">
-		
-			<p:outputLabel value="#{msgs['label.antecedenteInsalubre']}:" />
-			<p:selectOneMenu value="#{anamneseController.anamnese.antecedenteInsalubre}">
-				<f:selectItems value="#{combosEstaticos.simNao}" var="simNao"
-					itemLabel="#{simNao.stringChave}" itemValue="#{simNao.valueBoolean}" />
-				<f:ajax render="descricaoAntecedenteInsalubre" />
-			</p:selectOneMenu>	
-			<p:inputText id="descricaoAntecedenteInsalubre" value="#{anamneseController.anamnese.descricaoAntecedenteInsalubre}" 
-				maxlength="100" styleClass="nome100" disabled="#{anamneseController.anamnese.antecedenteInsalubre == false}"/>
+				<p:outputLabel value="#{msgs['label.ultimoTrabalho']}:" />
+				<p:inputText value="#{anamneseController.anamnese.ultimoTrabalho}" 
+					maxlength="100" styleClass="nome20"/>	
+					
+				<p:outputLabel value="#{msgs['label.ultimoCargo']}:" />
+				<p:inputText value="#{anamneseController.anamnese.ultimoCargo}" 
+					maxlength="100" styleClass="nome20"/>
+					
+				<p:outputLabel value="#{msgs['label.insalubre']}:" />
+				<p:selectOneMenu value="#{anamneseController.anamnese.ultimoCargoInsalubre}">
+					<f:selectItems value="#{combosEstaticos.simNao}" var="simNao"
+						itemLabel="#{simNao.stringChave}" itemValue="#{simNao.valueBoolean}" />
+					<f:ajax render="ultimoCargoTempo" />
+				</p:selectOneMenu>
 				
-			<p:outputLabel value="#{msgs['label.antecedenteMorbidos']}:" />
-			<p:selectOneMenu value="#{anamneseController.anamnese.antecedenteMorbido}">
-				<f:selectItems value="#{combosEstaticos.simNao}" var="simNao"
-					itemLabel="#{simNao.stringChave}" itemValue="#{simNao.valueBoolean}" />
-				<f:ajax render="descricaoAntecedenteMorbido" />
-			</p:selectOneMenu>	
-			<p:inputText id="descricaoAntecedenteMorbido" value="#{anamneseController.anamnese.descricaoAntecedenteMorbido}" 
-				maxlength="100" styleClass="nome100"  disabled="#{anamneseController.anamnese.antecedenteMorbido == false}"/>				
+				<p:outputLabel value="#{msgs['label.tempo']}:" />
+				<p:inputText id="ultimoCargoTempo" value="#{anamneseController.anamnese.ultimoCargoTempo}" 
+					maxlength="20" styleClass="nome10" disabled="#{anamneseController.anamnese.ultimoCargoInsalubre == false}"/>
+			
+			</h:panelGrid>
+			
+			<h:panelGrid columns="3" cellpadding="3">
+			
+				<p:outputLabel value="#{msgs['label.antecedenteInsalubre']}:" />
+				<p:selectOneMenu value="#{anamneseController.anamnese.antecedenteInsalubre}">
+					<f:selectItems value="#{combosEstaticos.simNao}" var="simNao"
+						itemLabel="#{simNao.stringChave}" itemValue="#{simNao.valueBoolean}" />
+					<f:ajax render="descricaoAntecedenteInsalubre" />
+				</p:selectOneMenu>	
+				<p:inputText id="descricaoAntecedenteInsalubre" value="#{anamneseController.anamnese.descricaoAntecedenteInsalubre}" 
+					maxlength="100" styleClass="nome100" disabled="#{anamneseController.anamnese.antecedenteInsalubre == false}"/>
+					
+				<p:outputLabel value="#{msgs['label.antecedenteMorbidos']}:" />
+				<p:selectOneMenu value="#{anamneseController.anamnese.antecedenteMorbido}">
+					<f:selectItems value="#{combosEstaticos.simNao}" var="simNao"
+						itemLabel="#{simNao.stringChave}" itemValue="#{simNao.valueBoolean}" />
+					<f:ajax render="descricaoAntecedenteMorbido" />
+				</p:selectOneMenu>	
+				<p:inputText id="descricaoAntecedenteMorbido" value="#{anamneseController.anamnese.descricaoAntecedenteMorbido}" 
+					maxlength="100" styleClass="nome100"  disabled="#{anamneseController.anamnese.antecedenteMorbido == false}"/>				
+			
+			</h:panelGrid>
 		
-		</h:panelGrid>
+		</p:fieldset>
 	
-	</p:fieldset>
+	</h:panelGroup>
 		
 </ui:composition>
