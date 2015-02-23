@@ -234,7 +234,7 @@ public class AnamneseController extends AbstractBean implements Serializable {
 			
 			funcionario.setSituacaoFuncionarioEnum(SituacaoFuncionario.DEMITIDO);
 			salvarFuncionario = Boolean.TRUE;
-			avisos.add(getValorChaveMsg("mensagem.info.situacaoFuncionarioAlteradoPara",
+			avisos.add(getValorChaveMsg("mensagem.info.situacaoFuncionarioAlteradaPara",
 					SituacaoFuncionario.DEMITIDO.getStringChave()));
 			
 		} else if (funcionario.getSituacaoFuncionarioEnum().equals(SituacaoFuncionario.DEMITIDO)) {
