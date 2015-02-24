@@ -79,14 +79,36 @@ public class EmpresaDao extends AbstractDao<Empresa> {
 	
 	@SuppressWarnings("unchecked")
 	public List<Empresa> gridRecuperarRegistros(FiltroEmpresa filtroEmpresa) {
+				
+		Query query = gridMontarQuery(filtroEmpresa, true);
+
+		try {
+			return query.getResultList();
+		} catch (NoResultException nr) {
+			return null;
+		}        		
+	}
+	
+	public int gridContarRegistros(FiltroEmpresa filtroEmpresa) {
+
+		Query query = gridMontarQuery(filtroEmpresa, false);
+				
+		try {
+			return ((Number) query.getSingleResult()).intValue();
+		} catch (NoResultException nr) {
+			return 0;
+		}
+	}
+	
+	private Query gridMontarQuery(FiltroEmpresa filtroEmpresa, boolean queryRecuperar) {
 		
-		String consulta = "SELECT e FROM Empresa e WHERE 1=1 ";
+		String consulta = queryRecuperar ? "SELECT e FROM Empresa e WHERE 1=1 " : "SELECT count(e) FROM Empresa e WHERE 1=1 ";
 		
 		if (!StringUtils.isEmpty(filtroEmpresa.getNome())) {
 			consulta += " AND lower(e.nome) like lower(:nome) ";
 		}
 
-		if (!StringUtils.isEmpty(filtroEmpresa.getPropriedadeOrdenacao())) {
+		if (queryRecuperar && !StringUtils.isEmpty(filtroEmpresa.getPropriedadeOrdenacao())) {
 			consulta += " ORDER BY e." + filtroEmpresa.getPropriedadeOrdenacao();
 			consulta += filtroEmpresa.isAscendente() ? " asc " : " desc ";
 		}
@@ -97,35 +119,13 @@ public class EmpresaDao extends AbstractDao<Empresa> {
 			query.setParameter("nome", "%"+filtroEmpresa.getNome()+"%");
 		}
 		
-		query.setFirstResult(filtroEmpresa.getPrimeiroRegistro());
-		query.setMaxResults(filtroEmpresa.getQuantidadeRegistros());
-		
-		try {
-			return query.getResultList();
-		} catch (NoResultException nr) {
-			return null;
-		}        		
-	}
-	
-	public int gridContarRegistros(FiltroEmpresa filtroEmpresa) {
-
-		String consulta = "SELECT count(e) FROM Empresa e WHERE 1=1 ";
-		
-		if (!StringUtils.isEmpty(filtroEmpresa.getNome())) {
-			consulta += " AND lower(e.nome) like lower(:nome) ";
+		if (queryRecuperar) {
+			query.setFirstResult(filtroEmpresa.getPrimeiroRegistro());
+			query.setMaxResults(filtroEmpresa.getQuantidadeRegistros());
 		}
 		
-		Query query = createQuery(consulta);
+		return query;
 		
-		if (!StringUtils.isEmpty(filtroEmpresa.getNome())) {
-			query.setParameter("nome", "%"+filtroEmpresa.getNome()+"%");
-		}
-				
-		try {
-			return ((Number) query.getSingleResult()).intValue();
-		} catch (NoResultException nr) {
-			return 0;
-		}
 	}
 	
 	//===================================================== FIM

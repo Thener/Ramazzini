@@ -10,23 +10,27 @@
 	<p:panel id="panelPesquisaEmpresa" header="#{msgs['label.empresa']}" style="margin-bottom:20px">
 	
 		<h:form id="frmFiltrosEmpresa">
+		
+			<p:fieldset legend="#{msgs['label.filtros']}">
 				
-			<h:panelGrid columns="4" cellpadding="10">
-			
-				<p:outputLabel for="nomeEmpresaPesquisa" value="#{msgs['label.nome']}" />
-				<p:inputText id="nomeEmpresaPesquisa" value="#{empresaController.filtroEmpresa.nome}" 
-					styleClass="nome100" required="false">
-					<p:focus />
-				</p:inputText>
+				<h:panelGrid columns="4" cellpadding="10">
+				
+					<p:outputLabel for="nomeEmpresaPesquisa" value="#{msgs['label.nome']}" />
+					<p:inputText id="nomeEmpresaPesquisa" value="#{empresaController.filtroEmpresa.nome}" 
+						styleClass="nome100" required="false">
+						<p:focus />
+					</p:inputText>
+						
+					<p:commandButton icon="ui-icon-search" title="#{msgs['botao.pesquisar']}"
+						process="@form" update=":frmGridEmpresa" />
 					
-				<p:commandButton icon="ui-icon-search" title="#{msgs['botao.pesquisar']}"
-					process="@form" update=":frmGridEmpresa" />
-				
-				<p:commandButton 
-					id="botaoIncluirEmpresa" icon="ui-icon-circle-plus" value="#{msgs['botao.incluir']}"
-					action="#{empresaController.incluirEmpresa()}" />					
-				
-			</h:panelGrid>
+					<p:commandButton 
+						id="botaoIncluirEmpresa" icon="ui-icon-circle-plus" value="#{msgs['botao.incluir']}"
+						action="#{empresaController.incluirEmpresa()}" />					
+					
+				</h:panelGrid>
+			
+			</p:fieldset>
 			
 		</h:form>
 
@@ -34,7 +38,7 @@
 		
 			<p:dataTable var="empresa" value="#{empresaController.lazyDataModelEmpresa}" lazy="true"
 				id="gridEmpresas" emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}"
-				paginator="true" paginatorPosition="bottom" rows="10">
+				paginator="true" paginatorPosition="bottom" rows="4" sortBy="#{empresa.nome}">
 				
 				<f:facet name="header"> #{msgs['label.empresas']} </f:facet>
 
