@@ -51,7 +51,7 @@ public class ListagemEmpresaController extends AbstractBean implements Serializa
     	empresas = empresaService.recuperarPor(situacoes, grupo, dataSelecionada);
     	if (!empresas.isEmpty()){
 	    	File relatorio = getFileRelatorio(PATH_DIRECTORY_LISTAGEM_EMPRESAS, JASPER_EMPRESAS);
-	    	ExportarPdfController export = new ExportarPdfController(carregaParametros(), new JRBeanCollectionDataSource(empresas), "Listagem_Empresas", relatorio);
+	    	ExportarPdfController export = new ExportarPdfController(carregaParametros(), new JRBeanCollectionDataSource(empresas, false), "Listagem_Empresas", relatorio);
 			export.download();
     	} else{
 			UtilMensagens.mensagemInformacaoPorChave("mensagem.info.nenhumRegistroLocalizado");

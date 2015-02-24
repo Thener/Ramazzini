@@ -15,7 +15,9 @@
 	<field name="nome" class="java.lang.String"/>
 	<field name="grupo" class="br.com.ramazzini.model.grupo.Grupo"/>
 	<field name="dataInclusao" class="java.util.Date"/>
-	<field name="situacaoEmpresa" class="java.lang.String"/>
+	<field name="situacaoEmpresa" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<variable name="numeroLinha" class="java.math.BigDecimal" calculation="Count">
 		<variableExpression><![CDATA[$V{numeroLinha}.add(new BigDecimal(1))]]></variableExpression>
 		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
@@ -215,9 +217,9 @@
 				<textElement>
 					<font fontName="Arial" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{situacaoEmpresa}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[br.com.ramazzini.model.empresa.SituacaoEmpresa.parse($F{situacaoEmpresa}).getStringChave()]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="224" y="0" width="141" height="20" uuid="96406606-7cc9-488a-96ab-15ca3608c946"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid"/>

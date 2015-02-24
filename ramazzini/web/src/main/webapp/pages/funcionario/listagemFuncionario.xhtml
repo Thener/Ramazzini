@@ -17,7 +17,7 @@
 				<h:panelGrid columns="2" cellpadding="10">
 					<p:outputLabel for="situacaoFuncionario" value="#{msgs['label.situacao']}:" />
 					<p:selectManyCheckbox id="situacaoFuncionario"
-						value="#{listagemFuncionarioController.situacoes}">
+						value="#{listagemFuncionarioController.situacoes}" required="true">
 						<f:selectItems value="#{combosEstaticos.situacoesFuncionario}"
 							var="situacaoFuncionario"
 							itemLabel="#{situacaoFuncionario.stringChave}"
@@ -27,7 +27,8 @@
 					<p:outputLabel for="empresaFuncionario" value="#{msgs['label.empresa']}:" />
 					<p:selectOneMenu id="empresaFuncionario"
 						value="#{listagemFuncionarioController.empresa}"
-						converter="entityConverter">
+						converter="entityConverter"
+						required="true">
 						<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue=""
 							noSelectionOption="true" />
 						<f:selectItems

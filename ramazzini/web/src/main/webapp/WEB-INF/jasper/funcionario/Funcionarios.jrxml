@@ -185,7 +185,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="365" y="0" width="135" height="20" uuid="0cdab66b-38c8-44f1-9626-a970cecf668a"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid"/>
@@ -216,7 +216,7 @@
 				<textElement>
 					<font fontName="Arial" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{situacaoFuncionario}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[br.com.ramazzini.model.funcionario.SituacaoFuncionario.parse($F{situacaoFuncionario}).getStringChave()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="224" y="0" width="141" height="20" uuid="96406606-7cc9-488a-96ab-15ca3608c946"/>

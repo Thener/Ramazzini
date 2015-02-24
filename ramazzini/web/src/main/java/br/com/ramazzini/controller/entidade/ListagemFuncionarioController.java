@@ -51,7 +51,7 @@ public class ListagemFuncionarioController extends AbstractBean implements Seria
     	funcionarios = funcionarioService.recuperarPor(funcao, situacoes, empresa);
     	if (!funcionarios.isEmpty()){
 	    	File relatorio = getFileRelatorio(PATH_DIRECTORY_LISTAGEM_FUNCIONARIOS, JASPER_FUNCIONARIOS);
-	    	ExportarPdfController export = new ExportarPdfController(carregaParametros(), new JRBeanCollectionDataSource(funcionarios), "Listagem_Funcionarios", relatorio);
+	    	ExportarPdfController export = new ExportarPdfController(carregaParametros(), new JRBeanCollectionDataSource(funcionarios, false), "Listagem_Funcionarios", relatorio);
 			export.download();
     	} else{
 			UtilMensagens.mensagemInformacaoPorChave("mensagem.info.nenhumRegistroLocalizado");
