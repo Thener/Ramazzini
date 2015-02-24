@@ -23,6 +23,7 @@ import javax.ejb.Stateless;
 
 import br.com.ramazzini.dao.empresa.EmpresaDao;
 import br.com.ramazzini.model.empresa.Empresa;
+import br.com.ramazzini.model.empresa.FiltroEmpresa;
 import br.com.ramazzini.model.grupo.Grupo;
 import br.com.ramazzini.service.util.AbstractServiceImpl;
 
@@ -36,5 +37,17 @@ public class EmpresaService extends AbstractServiceImpl<Empresa> {
     
     public List<Empresa> recuperarPor(List<String> situacoes, Grupo grupo, Date dataSelecionada) {
     	return ((EmpresaDao) getDao()).recuperarPor(situacoes, grupo, dataSelecionada);
-    }	
+    }
+    
+    //===================================================== MÉTODOS ESPECÍFICOS PARA O GRID DE EMPRESA:
+    
+    public List<Empresa> gridRecuperarRegistros(FiltroEmpresa filtroEmpresa) {
+    	return ((EmpresaDao) getDao()).gridRecuperarRegistros(filtroEmpresa);
+    } 
+    
+    public int gridContarRegistros(FiltroEmpresa filtroEmpresa) {
+    	return ((EmpresaDao) getDao()).gridContarRegistros(filtroEmpresa);
+    }
+    
+    //===================================================== FIM
 }

@@ -7,33 +7,34 @@
    template="/WEB-INF/templates/default.xhtml">
    <ui:define name="content">
    
-	<h:form id="frmEmpresa">
+	<p:panel id="panelPesquisaEmpresa" header="#{msgs['label.empresa']}" style="margin-bottom:20px">
 	
-		<p:panel id="panelPesquisaEmpresa" header="#{msgs['label.empresa']}" style="margin-bottom:20px">
-		
+		<h:form id="frmFiltrosEmpresa">
+				
 			<h:panelGrid columns="4" cellpadding="10">
 			
 				<p:outputLabel for="nomeEmpresaPesquisa" value="#{msgs['label.nome']}" />
-				<p:inputText id="nomeEmpresaPesquisa" value="#{empresaController.nomeEmpresaPesquisa}" 
+				<p:inputText id="nomeEmpresaPesquisa" value="#{empresaController.filtroEmpresa.nome}" 
 					styleClass="nome100" required="false">
 					<p:focus />
 				</p:inputText>
 					
-				<p:commandButton action="#{empresaController.pesquisar()}"
-					id="botaoPesquisa" icon="ui-icon-search" title="#{msgs['botao.pesquisar']}"
-					update="frmEmpresa">
-					<f:ajax execute="nomeEmpresaPesquisa" render="gridEmpresas"/>
-				</p:commandButton>
+				<p:commandButton icon="ui-icon-search" title="#{msgs['botao.pesquisar']}"
+					process="@form" update=":frmGridEmpresa" />
 				
 				<p:commandButton 
 					id="botaoIncluirEmpresa" icon="ui-icon-circle-plus" value="#{msgs['botao.incluir']}"
 					action="#{empresaController.incluirEmpresa()}" />					
 				
-			</h:panelGrid>		
+			</h:panelGrid>
+			
+		</h:form>
 
-			<p:dataTable var="empresa" value="#{empresaController.empresas}"
+		<h:form id="frmGridEmpresa">
+		
+			<p:dataTable var="empresa" value="#{empresaController.lazyDataModelEmpresa}" lazy="true"
 				id="gridEmpresas" emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}"
-				paginator="true" paginatorPosition="bottom" rows="5">
+				paginator="true" paginatorPosition="bottom" rows="10">
 				
 				<f:facet name="header"> #{msgs['label.empresas']} </f:facet>
 
@@ -63,16 +64,19 @@
 
 			</p:dataTable>
 			
-			<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-				<p:commandButton value="#{msgs['label.confirmacaoSim']}" type="button"
-					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-				<p:commandButton value="#{msgs['label.confirmacaoNao']}" type="button"
-					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-			</p:confirmDialog>			
+		</h:form>
 			
-		</p:panel>
+	</p:panel>
 
-	</h:form>
+	<h:form>
+		<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+			<p:commandButton value="#{msgs['label.confirmacaoSim']}" type="button"
+				styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+			<p:commandButton value="#{msgs['label.confirmacaoNao']}" type="button"
+				styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+		</p:confirmDialog>			
+	</h:form>	
 	
 	</ui:define>
+	
 </ui:composition>

@@ -15,8 +15,11 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.apache.commons.lang3.StringUtils;
+
 import br.com.ramazzini.dao.util.AbstractDao;
 import br.com.ramazzini.model.empresa.Empresa;
+import br.com.ramazzini.model.empresa.FiltroEmpresa;
 import br.com.ramazzini.model.funcao.Funcao;
 import br.com.ramazzini.model.grupo.Grupo;
 
@@ -71,5 +74,60 @@ public class EmpresaDao extends AbstractDao<Empresa> {
         
 		return query.getResultList();        
 	}	
+	
+	//===================================================== MÉTODOS ESPECÍFICOS PARA O GRID DE EMPRESA:
+	
+	@SuppressWarnings("unchecked")
+	public List<Empresa> gridRecuperarRegistros(FiltroEmpresa filtroEmpresa) {
+		
+		String consulta = "SELECT e FROM Empresa e WHERE 1=1 ";
+		
+		if (!StringUtils.isEmpty(filtroEmpresa.getNome())) {
+			consulta += " AND lower(e.nome) like lower(:nome) ";
+		}
+
+		if (!StringUtils.isEmpty(filtroEmpresa.getPropriedadeOrdenacao())) {
+			consulta += " ORDER BY e." + filtroEmpresa.getPropriedadeOrdenacao();
+			consulta += filtroEmpresa.isAscendente() ? " asc " : " desc ";
+		}
+		
+		Query query = createQuery(consulta);
+		
+		if (!StringUtils.isEmpty(filtroEmpresa.getNome())) {
+			query.setParameter("nome", "%"+filtroEmpresa.getNome()+"%");
+		}
+		
+		query.setFirstResult(filtroEmpresa.getPrimeiroRegistro());
+		query.setMaxResults(filtroEmpresa.getQuantidadeRegistros());
+		
+		try {
+			return query.getResultList();
+		} catch (NoResultException nr) {
+			return null;
+		}        		
+	}
+	
+	public int gridContarRegistros(FiltroEmpresa filtroEmpresa) {
+
+		String consulta = "SELECT count(e) FROM Empresa e WHERE 1=1 ";
+		
+		if (!StringUtils.isEmpty(filtroEmpresa.getNome())) {
+			consulta += " AND lower(e.nome) like lower(:nome) ";
+		}
+		
+		Query query = createQuery(consulta);
+		
+		if (!StringUtils.isEmpty(filtroEmpresa.getNome())) {
+			query.setParameter("nome", "%"+filtroEmpresa.getNome()+"%");
+		}
+				
+		try {
+			return ((Number) query.getSingleResult()).intValue();
+		} catch (NoResultException nr) {
+			return 0;
+		}
+	}
+	
+	//===================================================== FIM
 		
 }

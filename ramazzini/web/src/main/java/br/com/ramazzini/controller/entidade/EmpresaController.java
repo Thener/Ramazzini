@@ -2,15 +2,20 @@ package br.com.ramazzini.controller.entidade;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
+
 import br.com.ramazzini.controller.util.AbstractBean;
 import br.com.ramazzini.model.cnae.Cnae;
 import br.com.ramazzini.model.empresa.Empresa;
+import br.com.ramazzini.model.empresa.FiltroEmpresa;
 import br.com.ramazzini.model.empresa.SituacaoEmpresa;
 import br.com.ramazzini.model.empresa.TipoPcmso;
 import br.com.ramazzini.model.empresa.TipoPessoa;
@@ -42,24 +47,37 @@ public class EmpresaController extends AbstractBean implements Serializable {
 	
 	private List<Cnae> cnaes;
 	
-	private String nomeEmpresaPesquisa;
-	
 	private Integer tabAtiva;
+	
+	private FiltroEmpresa filtroEmpresa = new FiltroEmpresa();
+	private LazyDataModel<Empresa> lazyDataModelEmpresa;
 	
 	@PostConstruct
 	public void init() {
 
 		beginConversation();
 	}
+	
+	public EmpresaController() {
 		
-    public void pesquisar() {
-		
-    	if (nomeEmpresaPesquisa == null || nomeEmpresaPesquisa.isEmpty()){
-    		empresas = empresaService.recuperarTodos("nome");
-		} else {
-			empresas = empresaService.recuperarPorNome(nomeEmpresaPesquisa);
-		}      
-    }  	
+		lazyDataModelEmpresa = new LazyDataModel<Empresa>() {
+			private static final long serialVersionUID = 1L;
+			@Override
+			public List<Empresa> load(int first, int pageSize,
+					String sortField, SortOrder sortOrder,
+					Map<String, Object> filters) {
+				
+				filtroEmpresa.setPrimeiroRegistro(first);
+				filtroEmpresa.setQuantidadeRegistros(pageSize);
+				filtroEmpresa.setAscendente(SortOrder.ASCENDING.equals(sortOrder));
+				filtroEmpresa.setPropriedadeOrdenacao(sortField);
+				
+				setRowCount(empresaService.gridContarRegistros(filtroEmpresa));
+				
+				return empresaService.gridRecuperarRegistros(filtroEmpresa);
+			}
+		};
+	}
         
 	public String incluirEmpresa() {
 		
@@ -110,8 +128,6 @@ public class EmpresaController extends AbstractBean implements Serializable {
 			UtilMensagens.mensagemInformacaoPorChaveAposRedirect("mensagem.info.entidadeGravadaComSucesso","label.empresa");
 			return "";
 		} else {
-			nomeEmpresaPesquisa = empresa.getNome();
-			pesquisar();
 			return voltar();
 		}		
 	}    
@@ -122,14 +138,6 @@ public class EmpresaController extends AbstractBean implements Serializable {
       
 	public List<Empresa> getEmpresas() {
 		return empresas;
-	}
-
-	public String getNomeEmpresaPesquisa() {
-		return nomeEmpresaPesquisa;
-	}
-
-	public void setNomeEmpresaPesquisa(String nomeEmpresaPesquisa) {
-		this.nomeEmpresaPesquisa = nomeEmpresaPesquisa;
 	}
     
 	public TipoPessoa[] getTiposPessoa() {
@@ -185,6 +193,18 @@ public class EmpresaController extends AbstractBean implements Serializable {
 
     public void setTabActiveIndex(Integer tabActiveIndex) {
         this.tabAtiva = tabActiveIndex;
-    }	
+    }
+
+	public FiltroEmpresa getFiltroEmpresa() {
+		return filtroEmpresa;
+	}
+
+	public void setFiltroEmpresa(FiltroEmpresa filtroEmpresa) {
+		this.filtroEmpresa = filtroEmpresa;
+	}
+
+	public LazyDataModel<Empresa> getLazyDataModelEmpresa() {
+		return lazyDataModelEmpresa;
+	}
 	
 }
