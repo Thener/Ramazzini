@@ -7,6 +7,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import br.com.ramazzini.dao.util.AbstractDao;
+import br.com.ramazzini.model.profissional.PapelProfissional;
 import br.com.ramazzini.model.profissional.Profissional;
 import br.com.ramazzini.model.usuario.Usuario;
 import br.com.ramazzini.util.TimeFactory;
@@ -18,6 +19,7 @@ public class ProfissionalDao extends AbstractDao<Profissional> {
 	private static final String QUERY_RECUPERAR_POR_NOME = "Profissional.recuperarPorNome";
 	private static final String QUERY_RECUPERAR_POR_PAPEL_PROFISSIONAL = "Profissional.recuperarPorPapelProfissional";
 	private static final String QUERY_RECUPERAR_POR_USUARIO = "Profissional.recuperarPorUsuario";
+	private static final String QUERY_RECUPERAR_POR_USUARIO_PAPEL_PROFISSIONAL = "Profissional.recuperarPorUsuarioPapelProfissional";
 
 	@SuppressWarnings("unchecked")
 	public List<Profissional> recuperarPorDiaAtendimento(Date data) {
@@ -60,6 +62,18 @@ public class ProfissionalDao extends AbstractDao<Profissional> {
 	public Profissional recuperarPorUsuario(Usuario usuario) {
 		Query query = createNamedQuery(QUERY_RECUPERAR_POR_USUARIO);
 		query.setParameter("usuario", usuario);
+		try {
+			return (Profissional) query.getSingleResult();
+		} catch (NoResultException nr) {
+			return null;
+		}
+	}	
+	
+	public Profissional recuperarPorUsuarioPapelProfissional(Usuario usuario, PapelProfissional papelProfissional) {
+		Query query = createNamedQuery(QUERY_RECUPERAR_POR_USUARIO_PAPEL_PROFISSIONAL);
+		query.setParameter("usuario", usuario);
+		query.setParameter("papelProfissional", papelProfissional.getValue());
+		query.setParameter("ativo", true);
 		try {
 			return (Profissional) query.getSingleResult();
 		} catch (NoResultException nr) {

@@ -61,6 +61,7 @@ public class LoginController extends AbstractBean implements Serializable {
 	public String logout() {
 
 		session.invalidate();
+		endConversation();
 		return "/index.jsf?faces-redirect=true";
 	}
 

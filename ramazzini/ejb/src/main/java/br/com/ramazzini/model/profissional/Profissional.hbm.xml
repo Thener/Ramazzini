@@ -61,6 +61,23 @@
 			order 
 				by p.nome
 		]]>
-	</query>	
+	</query>
+	
+	<query name="Profissional.recuperarPorUsuarioPapelProfissional">
+		<![CDATA[
+			select 
+				p			
+			from 
+				Profissional p 				
+			where 
+				p.usuario = :usuario
+			and
+				p.papelProfissional = :papelProfissional
+			and
+				p.ativo = :ativo
+			order 
+				by p.nome
+		]]>
+	</query>
 
 </hibernate-mapping>

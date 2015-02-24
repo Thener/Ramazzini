@@ -19,6 +19,7 @@ import br.com.ramazzini.model.agenda.Agenda;
 import br.com.ramazzini.model.agenda.SituacaoMarcacaoAgenda;
 import br.com.ramazzini.model.notificacao.Notificacao;
 import br.com.ramazzini.model.parametro.ParametroSistema;
+import br.com.ramazzini.model.profissional.PapelProfissional;
 import br.com.ramazzini.model.profissional.Profissional;
 import br.com.ramazzini.service.entidade.AgendaService;
 import br.com.ramazzini.service.entidade.ParametroService;
@@ -242,7 +243,7 @@ public class AtendimentoMedicoController extends AbstractBean implements Seriali
 
 	public Profissional getMedicoLogado() {
 		if (medicoLogado == null) {
-			medicoLogado = profissionalService.recuperarPorUsuario(getUsuarioLogado());
+			medicoLogado = profissionalService.recuperarPorUsuarioPapelProfissional(getUsuarioLogado(), PapelProfissional.MEDICO);
 		}
 		return medicoLogado;
 	}

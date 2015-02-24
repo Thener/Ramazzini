@@ -45,5 +45,9 @@ public class ProfissionalService extends AbstractServiceImpl<Profissional> {
 
     public Profissional recuperarPorUsuario(Usuario usuario) {
     	return ((ProfissionalDao) getDao()).recuperarPorUsuario(usuario);
-    }      
+    } 
+    
+    public Profissional recuperarPorUsuarioPapelProfissional(Usuario usuario, PapelProfissional papelProfissional) {
+    	return ((ProfissionalDao) getDao()).recuperarPorUsuarioPapelProfissional(usuario, papelProfissional);
+    }    
 }
