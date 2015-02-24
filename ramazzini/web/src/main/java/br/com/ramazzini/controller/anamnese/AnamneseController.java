@@ -63,6 +63,8 @@ public class AnamneseController extends AbstractBean implements Serializable {
 	
 	private List<AvaliacaoClinicaProcedimento> procedimentosAvaliacao = new ArrayList<AvaliacaoClinicaProcedimento>();
 	
+	private List<AvaliacaoClinica> historicosAvaliacaoClinica;
+	
 	private Agenda agenda;
 	
 	private List<String> alertas = new ArrayList<String>();
@@ -331,7 +333,22 @@ public class AnamneseController extends AbstractBean implements Serializable {
 		 return funcaoProcedimentoService.recuperarPorFuncao(consultaFuncao);
 	}
 	
-    public String voltar() {	
+    public List<AvaliacaoClinica> getHistoricosAvaliacaoClinica() {
+    	if (historicosAvaliacaoClinica == null || historicosAvaliacaoClinica.isEmpty()) {
+    		historicosAvaliacaoClinica = avaliacaoClinicaService.recuperarPorFuncionario(avaliacaoClinica.getFuncionario());
+    	}
+		return historicosAvaliacaoClinica;
+	}
+
+	public List<Anamnese> getHistoricosAnamnese(AvaliacaoClinica avaliacaoClinica) {
+		return anamneseService.recuperarPor(avaliacaoClinica);
+	}
+	
+	public List<AvaliacaoClinicaProcedimento> getProcedimentosAvClinica(AvaliacaoClinica avaliacaoClinica) {
+		return avaliacaoClinicaProcedimentoService.recuperarPorAvaliacaoClinica(avaliacaoClinica);
+	}
+
+	public String voltar() {	
     	endConversation();
 		return getUriRequisicao()+"?faces-redirect=true";
 	}

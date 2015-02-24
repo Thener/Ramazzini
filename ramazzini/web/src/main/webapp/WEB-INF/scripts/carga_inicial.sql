@@ -76,7 +76,7 @@ insert into usuario (cd_usuario, ts_alteracao, ts_inclusao, ic_ativo, nm_login, 
 values (nextval('seq_usuario'), null, current_timestamp, true, 'gerente@ramazzini.com.br', 'Gerente', md5('zini'), null, null);
 
 insert into usuario (cd_usuario, ts_alteracao, ts_inclusao, ic_ativo, nm_login, nm_usuario, nm_senha, cd_usuario_alteracao, cd_usuario_inclusao)
-values (nextval('seq_usuario'), null, current_timestamp, true, 'medico@ramazzini.com.br', 'Gerente', md5('zini'), null, null);
+values (nextval('seq_usuario'), null, current_timestamp, true, 'medico@ramazzini.com.br', 'Médico', md5('zini'), null, null);
 
 ------------------------ CARGA DA TABELA: USUARIO_PERFIL
 
@@ -85,6 +85,8 @@ insert into usuario_perfil (cd_usuario, cd_perfil) values ( (select cd_usuario f
 insert into usuario_perfil (cd_usuario, cd_perfil) values ( (select cd_usuario from usuario where nm_login = 'thenerbh@gmail.com'), (select cd_perfil from perfil where nm_perfil = 'administrador') );
 
 insert into usuario_perfil (cd_usuario, cd_perfil) values ( (select cd_usuario from usuario where nm_login = 'gerente@ramazzini.com.br'), (select cd_perfil from perfil where nm_perfil = 'gerente') );
+
+insert into usuario_perfil (cd_usuario, cd_perfil) values ( (select cd_usuario from usuario where nm_login = 'medico@ramazzini.com.br'), (select cd_perfil from perfil where nm_perfil = 'medico') );
 
 ------------------------ CARGA DA TABELA: PROCEDIMENTOS DO TIPO EXAME CLINICO
 

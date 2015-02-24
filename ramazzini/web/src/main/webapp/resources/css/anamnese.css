@@ -49,3 +49,15 @@
 	padding-left: 23px;
 	padding-bottom: 6px;
 }
+
+.anamneseSeparador {
+    background-color: powderblue;
+    border-top-left-radius: 11px;
+    border-top-right-radius: 11px;
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    padding: 5px 0;
+    text-align: center;
+    width: 100%;
+}

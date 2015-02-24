@@ -44,7 +44,7 @@ public class AvaliacaoClinicaProcedimentoService extends AbstractServiceImpl<Ava
     } 
     
     public List<AvaliacaoClinicaProcedimento> recuperarPorAvaliacaoClinica(AvaliacaoClinica avaliacaoClinica) {
-    	return (!avaliacaoClinica.isNovo()) ? 
+    	return (avaliacaoClinica != null && !avaliacaoClinica.isNovo()) ? 
     		((AvaliacaoClinicaProcedimentoDao) getDao()).recuperarPorAvaliacaoClinica(avaliacaoClinica) : null;
     }	
  

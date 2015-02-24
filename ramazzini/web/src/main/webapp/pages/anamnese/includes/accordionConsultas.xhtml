@@ -5,7 +5,10 @@
    xmlns:h="http://java.sun.com/jsf/html"
    xmlns:p="http://primefaces.org/ui">
    
-    <p:accordionPanel dynamic="true" cache="true">
+    <p:accordionPanel dynamic="true" cache="true" activeIndex="-1">
+        <p:tab title="#{msgs['label.avaliacoesClinicas']}">
+			<ui:include src="accordionTabAvClinicas.xhtml" />
+        </p:tab>    
         <p:tab title="#{msgs['label.empresa']}">
 			<ui:include src="accordionTabEmpresa.xhtml" />
         </p:tab>

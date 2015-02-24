@@ -17,7 +17,8 @@
 				forceSelection="true" styleClass="nome50"/>		
 		
 			<p:commandButton action="#{funcaoController.incluirRiscoOcupacional()}" value="#{msgs['botao.incluir']}"
-				icon="ui-icon-check" ajax="true" update="gridRiscosOcupacionais, completeRiscoOcupacional" process="@this, completeRiscoOcupacional" 
+				icon="ui-icon-check" ajax="true" update="gridRiscosOcupacionais, completeRiscoOcupacional" 
+				process="@this, completeRiscoOcupacional" 
 				disabled="#{funcaoController.somenteLeitura or funcaoController.funcao.novo}"/>
 			
 		</h:panelGrid>   

@@ -33,7 +33,7 @@ import br.com.ramazzini.service.util.AbstractServiceImpl;
 public class AnamneseService extends AbstractServiceImpl<Anamnese> {
 
     public List<Anamnese> recuperarPor(AvaliacaoClinica avaliacaoClinica) {
-    	return (!avaliacaoClinica.isNovo()) ? ((AnamneseDao) getDao()).recuperarPor(avaliacaoClinica) : null;
+    	return (avaliacaoClinica != null && !avaliacaoClinica.isNovo()) ? ((AnamneseDao) getDao()).recuperarPor(avaliacaoClinica) : null;
     } 
     
     public Anamnese recuperarAnamneseEmAndamentoPor(AvaliacaoClinica avaliacaoClinica, Profissional medico) {

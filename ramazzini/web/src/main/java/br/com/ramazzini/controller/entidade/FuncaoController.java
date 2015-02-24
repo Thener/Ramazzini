@@ -1,6 +1,7 @@
 package br.com.ramazzini.controller.entidade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.ConversationScoped;
@@ -35,7 +36,7 @@ public class FuncaoController extends AbstractBean implements Serializable {
     
     private RiscoOcupacional riscoOcupacionalSelecionado;
     
-    private List<RiscoOcupacional> riscosOcupacionais;
+    private List<RiscoOcupacional> riscosOcupacionais = new ArrayList<RiscoOcupacional>();
     
     private Integer tabAtiva;
     
@@ -71,7 +72,7 @@ public class FuncaoController extends AbstractBean implements Serializable {
     private String cadastroFuncao(Funcao funcao, Boolean somenteLeitura) {
 
     	if (funcao.isNovo()) {
-    		setRiscosOcupacionais(null);
+    		setRiscosOcupacionais(new ArrayList<RiscoOcupacional>());
     	} else {
     		riscosOcupacionais = funcaoService.recuperarRiscosOcupacionais(funcao);
     		funcao.setRiscosOcupacionais(riscosOcupacionais);
@@ -88,6 +89,7 @@ public class FuncaoController extends AbstractBean implements Serializable {
 	public String gravarFuncao() {
 		
 		boolean inclusao = funcao.isNovo();
+		funcao.setRiscosOcupacionais(riscosOcupacionais);
 		funcaoService.salvar(funcao);
 		if (inclusao) {
 			UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeGravadaComSucesso","label.funcao");
@@ -120,14 +122,13 @@ public class FuncaoController extends AbstractBean implements Serializable {
     public void incluirRiscoOcupacional() {
     	
     	if (riscoOcupacionalSelecionado != null) {
-    		funcao.getRiscosOcupacionais().add(riscoOcupacionalSelecionado);
+    		riscosOcupacionais.add(riscoOcupacionalSelecionado);
     		riscoOcupacionalSelecionado = null;
     	}
     }    
     
     public void removerRiscoOcupacional(RiscoOcupacional riscoOcupacional) {
     	riscosOcupacionais.remove(riscoOcupacional);
-    	funcao.getRiscosOcupacionais().remove(riscoOcupacional);
     }
     
     public String voltar() {				

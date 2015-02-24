@@ -38,7 +38,7 @@
 		
 			<p:dataTable var="empresa" value="#{empresaController.lazyDataModelEmpresa}" lazy="true"
 				id="gridEmpresas" emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}"
-				paginator="true" paginatorPosition="bottom" rows="4" sortBy="#{empresa.nome}">
+				paginator="true" paginatorPosition="bottom" rows="10" sortBy="#{empresa.nome}">
 				
 				<f:facet name="header"> #{msgs['label.empresas']} </f:facet>
 
