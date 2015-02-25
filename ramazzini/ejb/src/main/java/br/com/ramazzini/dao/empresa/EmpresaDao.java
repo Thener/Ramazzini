@@ -26,18 +26,18 @@ import br.com.ramazzini.model.grupo.Grupo;
 
 public class EmpresaDao extends AbstractDao<Empresa> {
 
-	private static final String QUERY_RECUPERAR_POR_NOME = "Empresa.recuperarPorNome";
+//	private static final String QUERY_RECUPERAR_POR_NOME = "Empresa.recuperarPorNome";
 	
-	@SuppressWarnings("unchecked")
-	public List<Empresa> recuperarPorNome(String nome) {
-		Query query = createNamedQuery(QUERY_RECUPERAR_POR_NOME);
-		query.setParameter("nome", "%"+nome+"%");
-		try {
-			return query.getResultList();
-		} catch (NoResultException nr) {
-			return null;
-		}
-	}	
+//	@SuppressWarnings("unchecked")
+//	public List<Empresa> recuperarPorNome(String nome) {
+//		Query query = createNamedQuery(QUERY_RECUPERAR_POR_NOME);
+//		query.setParameter("nome", "%"+nome+"%");
+//		try {
+//			return query.getResultList();
+//		} catch (NoResultException nr) {
+//			return null;
+//		}
+//	}	
 	
 	public List<Empresa> recuperarPor(List<String> situacoes, Grupo grupo, Date dataSelecionada) {
 		CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();

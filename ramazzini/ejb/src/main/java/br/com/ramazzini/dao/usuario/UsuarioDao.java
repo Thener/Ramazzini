@@ -13,7 +13,7 @@ public class UsuarioDao extends AbstractDao<Usuario> {
 
 	private static final String QUERY_RECUPERAR_POR_LOGIN = "Usuario.recuperarPorLogin";
 	private static final String QUERY_RECUPERAR_POR_LIKE_LOGIN = "Usuario.recuperarPorLikeLogin";
-	private static final String QUERY_RECUPERAR_POR_NOME = "Usuario.recuperarPorNome";
+//	private static final String QUERY_RECUPERAR_POR_NOME = "Usuario.recuperarPorNome";
 	
 	/**
 	 * Recupera o usuário pelo login
@@ -46,14 +46,14 @@ public class UsuarioDao extends AbstractDao<Usuario> {
 		}
 	}	
 	
-	@SuppressWarnings("unchecked")
-	public List<Usuario> recuperarPorNome(String nome) {
-		Query query = createNamedQuery(QUERY_RECUPERAR_POR_NOME);
-		query.setParameter("nome", "%"+nome+"%");
-		try {
-			return query.getResultList();
-		} catch (NoResultException nr) {
-			return null;
-		}
-	}		
+//	@SuppressWarnings("unchecked")
+//	public List<Usuario> recuperarPorNome(String nome) {
+//		Query query = createNamedQuery(QUERY_RECUPERAR_POR_NOME);
+//		query.setParameter("nome", "%"+nome+"%");
+//		try {
+//			return query.getResultList();
+//		} catch (NoResultException nr) {
+//			return null;
+//		}
+//	}		
 }

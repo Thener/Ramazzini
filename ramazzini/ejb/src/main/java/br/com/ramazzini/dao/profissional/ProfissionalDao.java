@@ -16,7 +16,7 @@ import br.com.ramazzini.util.TimeFactory;
 public class ProfissionalDao extends AbstractDao<Profissional> {
 
 	private static final String QUERY_RECUPERAR_POR_DIA_ATENDIMENTO = "Profissional.recuperarPorDiaAtendimento";
-	private static final String QUERY_RECUPERAR_POR_NOME = "Profissional.recuperarPorNome";
+//	private static final String QUERY_RECUPERAR_POR_NOME = "Profissional.recuperarPorNome";
 	private static final String QUERY_RECUPERAR_POR_PAPEL_PROFISSIONAL = "Profissional.recuperarPorPapelProfissional";
 	private static final String QUERY_RECUPERAR_POR_USUARIO = "Profissional.recuperarPorUsuario";
 	private static final String QUERY_RECUPERAR_POR_USUARIO_PAPEL_PROFISSIONAL = "Profissional.recuperarPorUsuarioPapelProfissional";
@@ -36,16 +36,16 @@ public class ProfissionalDao extends AbstractDao<Profissional> {
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
-	public List<Profissional> recuperarPorNome(String nome) {
-		Query query = createNamedQuery(QUERY_RECUPERAR_POR_NOME);
-		query.setParameter("nome", "%"+nome+"%");
-		try {
-			return query.getResultList();
-		} catch (NoResultException nr) {
-			return null;
-		}
-	}	
+//	@SuppressWarnings("unchecked")
+//	public List<Profissional> recuperarPorNome(String nome) {
+//		Query query = createNamedQuery(QUERY_RECUPERAR_POR_NOME);
+//		query.setParameter("nome", "%"+nome+"%");
+//		try {
+//			return query.getResultList();
+//		} catch (NoResultException nr) {
+//			return null;
+//		}
+//	}	
 	
 	@SuppressWarnings("unchecked")
 	public List<Profissional> recuperarPorPapelProfissional(String papelProfissional, boolean ativo) {

@@ -19,7 +19,7 @@ public class FuncaoDao extends AbstractDao<Funcao> {
 	private static final String QUERY_REALIZA_PROCEDIMENTOS = "Funcao.realizaProcedimentos";
 	private static final String QUERY_RECUPERAR_POR_EMPRESA = "Funcao.recuperarPorEmpresa";
 	private static final String QUERY_RECUPERAR_POR_NOME_EMPRESA = "Funcao.recuperarPorNomeEmpresa";
-	private static final String QUERY_RECUPERAR_POR_NOME = "Funcao.recuperarPorNome";
+//	private static final String QUERY_RECUPERAR_POR_NOME = "Funcao.recuperarPorNome";
 	private static final String QUERY_RECUPERAR_PROCEDIMENTOS_POR_FUNCAO = "Funcao.recuperarProcedimentosPorFuncao";
 	private static final String QUERY_RECUPERAR_RISCOS_OCUPACIONAIS = "Funcao.recuperarRiscosOcupacionais";
 	
@@ -69,16 +69,16 @@ public class FuncaoDao extends AbstractDao<Funcao> {
 		}
 	}	
 	
-	@SuppressWarnings("unchecked")
-	public List<Funcao> recuperarPorNome(String nomeFuncao) {
-		Query query = createNamedQuery(QUERY_RECUPERAR_POR_NOME);
-		query.setParameter("nomeFuncao", "%"+nomeFuncao+"%");
-		try {
-			return query.getResultList();
-		} catch (NoResultException nr) {
-			return null;
-		}
-	}
+//	@SuppressWarnings("unchecked")
+//	public List<Funcao> recuperarPorNome(String nomeFuncao) {
+//		Query query = createNamedQuery(QUERY_RECUPERAR_POR_NOME);
+//		query.setParameter("nomeFuncao", "%"+nomeFuncao+"%");
+//		try {
+//			return query.getResultList();
+//		} catch (NoResultException nr) {
+//			return null;
+//		}
+//	}
 	
 	@SuppressWarnings("unchecked")
 	public List<Procedimento> recuperarProcedimentosPor(Funcao funcao) {

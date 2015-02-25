@@ -164,3 +164,14 @@ values (nextval('seq_limitacoes_deficiencia_mental'), null, current_timestamp, '
 
 insert into limitacoes_deficiencia_mental (cd_limitacoes_deficiencia_mental, ts_alteracao, ts_inclusao, tp_limitacoes_deficiencia_mental, cd_usuario_alteracao, cd_usuario_inclusao)
 values (nextval('seq_limitacoes_deficiencia_mental'), null, current_timestamp, 'TB', null, null);  
+
+------------------------ CARGA DE FUNÇÃO: SEM ACENTO
+
+CREATE OR REPLACE FUNCTION SEM_ACENTO(text)
+RETURNS text AS
+$BODY$
+select
+translate($1,'áàâãäéèêëíìïóòôõöúùûüÁÀÂÃÄÉÈÊËÍÌÏÓÒÔÕÖÚÙÛÜçÇ',
+        'aaaaaeeeeiiiooooouuuuAAAAAEEEEIIIOOOOOUUUUcC');
+$BODY$
+LANGUAGE 'sql' IMMUTABLE STRICT;

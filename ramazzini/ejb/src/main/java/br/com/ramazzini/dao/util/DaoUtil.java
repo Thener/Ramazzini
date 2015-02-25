@@ -1,12 +1,15 @@
 package br.com.ramazzini.dao.util;
 
+import java.text.Normalizer;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.criteria.Order;
 
+import br.com.ramazzini.model.credenciado.Credenciado;
 import br.com.ramazzini.model.usuario.Usuario;
 import br.com.ramazzini.model.util.AbstractEntidade;
 
@@ -83,6 +86,32 @@ public class DaoUtil {
 				+ adicionaOrderByHql(ordenacoes));		
 		retorno = q.getResultList();		
 		return retorno;
+	}
+	
+	/**
+	 * Recuperar por nome ignorando acento e maiuscula e minuscula
+	 * 
+	 * @return entidade
+	 */
+	@SuppressWarnings("unchecked")
+	public static final List recuperarPorNome(EntityManager entityManager, Class classePersistente,
+			String nome) {
+		String nomeTabela = classePersistente.getSimpleName();
+		nome = removeAcentos(nome);
+		String sql = "SELECT c.* FROM "+nomeTabela+" c "+  
+	            "WHERE lower(sem_acento(c.nm_"+nomeTabela+")) LIKE '%"+nome.toLowerCase()+"%' ";  
+	    Query query = entityManager.createNativeQuery(sql, classePersistente);  
+		try {
+			return query.getResultList();
+		} catch (NoResultException nr) {
+			return null;
+		}
+	}
+	
+	protected static final String removeAcentos(String nome) {
+		nome = Normalizer.normalize(nome, Normalizer.Form.NFD);
+		nome = nome.replaceAll("[^\\p{ASCII}]", "");
+		return nome;
 	}
 	
 	/**

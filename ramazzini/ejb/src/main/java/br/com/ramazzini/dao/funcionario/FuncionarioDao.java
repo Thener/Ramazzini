@@ -23,7 +23,7 @@ public class FuncionarioDao extends AbstractDao<Funcionario> {
 
 	private static final String QUERY_RECUPERAR_POR_EMPRESA = "Funcionario.recuperarPorEmpresa";
 	private static final String QUERY_RECUPERAR_POR_NOME_EMPRESA = "Funcionario.recuperarPorNomeEmpresa";
-	private static final String QUERY_RECUPERAR_POR_NOME = "Funcionario.recuperarPorNome";
+//	private static final String QUERY_RECUPERAR_POR_NOME = "Funcionario.recuperarPorNome";
 	
 	@SuppressWarnings("unchecked")
 	public List<Funcionario> recuperarPorEmpresa(Empresa empresa) {
@@ -47,16 +47,16 @@ public class FuncionarioDao extends AbstractDao<Funcionario> {
 			return null;
 		}
 	}
-	@SuppressWarnings("unchecked")
-	public List<Funcionario> recuperarPorNome(String nomeFuncionario) {
-		Query query = createNamedQuery(QUERY_RECUPERAR_POR_NOME);
-		query.setParameter("nomeFuncionario", "%"+nomeFuncionario+"%");
-		try {
-			return query.getResultList();
-		} catch (NoResultException nr) {
-			return null;
-		}
-	}	
+//	@SuppressWarnings("unchecked")
+//	public List<Funcionario> recuperarPorNome(String nomeFuncionario) {
+//		Query query = createNamedQuery(QUERY_RECUPERAR_POR_NOME);
+//		query.setParameter("nomeFuncionario", "%"+nomeFuncionario+"%");
+//		try {
+//			return query.getResultList();
+//		} catch (NoResultException nr) {
+//			return null;
+//		}
+//	}	
 	
 	public List<Funcionario> recuperarPor(Funcao funcao, List<String> situacoes, Empresa empresa) {
 		CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();

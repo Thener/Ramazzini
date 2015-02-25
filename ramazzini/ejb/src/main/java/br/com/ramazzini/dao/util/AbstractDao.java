@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.Normalizer;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -179,6 +180,7 @@ public abstract class AbstractDao<T extends AbstractEntidade> {
 		retorno = q.getResultList();
 		return retorno;
 	}
+	
 	/**
 	 * Adiciona o orderBy no final da query a ser utilizada.
 	 * 
@@ -206,6 +208,20 @@ public abstract class AbstractDao<T extends AbstractEntidade> {
 	public final List<T> recuperarTodos(Order... ordenacoes) {
 		return (List<T>) DaoUtil.recuperarTodos(entityManager, getClassePersistente(), ordenacoes);
 	}
+	/**
+	 * 
+	 * @param nome
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public final List<T> recuperarPorNome(String nome) {
+		return (List<T>) DaoUtil.recuperarPorNome(entityManager, getClassePersistente(), nome);
+	}
 	
+	public static final String removeAcentos(String nome) {
+		nome = Normalizer.normalize(nome, Normalizer.Form.NFD);
+		nome = nome.replaceAll("[^\\p{ASCII}]", "");
+		return nome;
+	}
 	
 }

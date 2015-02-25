@@ -13,20 +13,20 @@ import br.com.ramazzini.model.procedimento.TipoProcedimento;
 
 public class ProcedimentoDao extends AbstractDao<Procedimento> {
 
-	private static final String QUERY_RECUPERAR_POR_NOME = "Procedimento.recuperarPorNome";
+//	private static final String QUERY_RECUPERAR_POR_NOME = "Procedimento.recuperarPorNome";
 	private static final String QUERY_RECUPERAR_POR_TIPO_PROCEDIMENTO = "Procedimento.recuperarPorTipoProcedimento";
 	private static final String QUERY_RECUPERAR_POR_TIPO_EXAME_CLINICO = "Procedimento.recuperarPorTipoExameClinico";
 	
-	@SuppressWarnings("unchecked")
-	public List<Procedimento> recuperarPorNome(String nome) {
-		Query query = createNamedQuery(QUERY_RECUPERAR_POR_NOME);
-		query.setParameter("nome", "%"+nome+"%");
-		try {
-			return query.getResultList();
-		} catch (NoResultException nr) {
-			return null;
-		}
-	}	
+//	@SuppressWarnings("unchecked")
+//	public List<Procedimento> recuperarPorNome(String nome) {
+//		Query query = createNamedQuery(QUERY_RECUPERAR_POR_NOME);
+//		query.setParameter("nome", "%"+nome+"%");
+//		try {
+//			return query.getResultList();
+//		} catch (NoResultException nr) {
+//			return null;
+//		}
+//	}	
 	
 	@SuppressWarnings("unchecked")
 	public List<Procedimento> recuperarPorTipoProcedimento(TipoProcedimento tipoProcedimento) {
