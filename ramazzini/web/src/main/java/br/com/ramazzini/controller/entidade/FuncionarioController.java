@@ -10,7 +10,12 @@ import javax.inject.Named;
 import br.com.ramazzini.controller.util.AbstractBean;
 import br.com.ramazzini.model.empresa.Empresa;
 import br.com.ramazzini.model.funcionario.Funcionario;
+import br.com.ramazzini.model.guia.Guia;
+import br.com.ramazzini.model.guiaProcedimento.GuiaProcedimento;
 import br.com.ramazzini.service.entidade.FuncionarioService;
+import br.com.ramazzini.service.entidade.GuiaProcedimentoService;
+import br.com.ramazzini.service.entidade.GuiaService;
+import br.com.ramazzini.util.TimeFactory;
 import br.com.ramazzini.util.UtilMensagens;
 
 @Named
@@ -24,6 +29,8 @@ public class FuncionarioController extends AbstractBean implements Serializable 
     @Inject private FuncionarioService funcionarioService;
     @Inject private AvaliacaoClinicaController avaliacaoClinicaController;
     @Inject private DeficienciaController deficienciaController;
+    @Inject private GuiaService guiaService;
+    @Inject private GuiaProcedimentoService guiaProcedimentoService;
     
     private List<Funcionario> funcionarios;
     
@@ -103,6 +110,14 @@ public class FuncionarioController extends AbstractBean implements Serializable 
 			UtilMensagens.mensagemInformacaoPorChave("mensagem.info.nomePesquisaNaoInformado", "label.funcionario");
 		}
     }    
+    
+    public List<Guia> getGuiasEmitidasParaFuncionario() {
+		return guiaService.recuperarPorFuncionario(funcionario);
+	}
+    
+    public List<GuiaProcedimento> getProcedimentosGuiaEmitida(Guia guia) {
+		return guiaProcedimentoService.recuperarPor(guia);
+	}
     
     public String voltar() {				
 		return getUriRequisicao()+"?faces-redirect=true";

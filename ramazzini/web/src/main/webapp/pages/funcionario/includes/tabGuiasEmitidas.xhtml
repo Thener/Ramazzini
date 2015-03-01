@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui">
+   
+   <p:dataTable id="gridGuiasEmitidas" var="guia" value="#{funcionarioController.guiasEmitidasParaFuncionario}"
+		emptyMessage="#{msgs['mensagem.info.nenhumRegistroLocalizado']}">
+	    
+	    <p:column headerText="#{msgs['label.acoes']}" styleClass="agendaColunaAcoes">
+
+		    <p:commandButton title="#{msgs['label.imprimir']}" 
+		    	icon="ui-icon-print" update="gridGuiasEmitidas"
+		    	disabled="#{guia.situacaoGuia == 'CA'}"
+		    	actionListener="#{analiseEmissaoDocumentosController.imprimirGuia(guia)}">
+		    	<p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['confirmacao.impressaoGuia']}" icon="ui-icon-alert" />
+		    </p:commandButton>
+		    
+		   	<p:commandButton title="#{msgs['label.cancelar']}" 
+		    	icon="ui-icon-circle-close" update="gridGuiasEmitidas"
+		    	disabled="#{guia.situacaoGuia != 'EM'}"
+		    	actionListener="#{analiseEmissaoDocumentosController.cancelarGuia(guia)}">
+		    	<p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['confirmacao.cancelamentoGuia']}" icon="ui-icon-alert" />
+		    </p:commandButton>
+		    
+	    </p:column>	
+
+	    <p:column headerText="#{msgs['label.numeroGuia']}" styleClass="agendaGuiaSituacao_#{guia.situacaoGuia} colunaCentralizada">
+	        <h:outputText value="#{guia.numeroGuia}" />
+	        <p:rowToggler />
+	    </p:column>
+	    
+	    <p:column headerText="#{msgs['label.funcionario']}" styleClass="agendaGuiaSituacao_#{guia.situacaoGuia}">
+	        <h:outputText value="#{guia.funcionario.nome}" />
+	    </p:column>
+	    	    
+	    <p:column headerText="#{msgs['label.credenciado']}" styleClass="agendaGuiaSituacao_#{guia.situacaoGuia}">
+	        <h:outputText value="#{guia.credenciado.nome}" />
+	    </p:column>	    
+	    
+	    <p:column headerText="#{msgs['label.dataEmissao']}" styleClass="colunaCentralizada agendaGuiaSituacao_#{guia.situacaoGuia}">
+	        <h:outputText value="#{guia.dataEmissao}">
+	        	<f:convertDateTime locale="pt,BR" pattern="#{msgs['pattern.calendar']}" />
+	        </h:outputText>
+	    </p:column>
+	    
+	    <p:column headerText="#{msgs['label.situacao']}" styleClass="colunaCentralizada agendaGuiaSituacao_#{guia.situacaoGuia}">
+	        <h:outputText value="#{guia.situacaoGuiaEnum.stringChave}" />
+	    </p:column>	
+	    
+        <p:rowExpansion>
+
+		    <p:dataList value="#{analiseEmissaoDocumentosController.getProcedimentosGuiaEmitida(guia)}" 
+		    	var="guiaProcedimento" type="ordered">
+		        <f:facet name="header">
+		            #{msgs['label.procedimentos']}
+		        </f:facet>
+		        #{guiaProcedimento.procedimento.nome}
+		    </p:dataList>			
+
+        </p:rowExpansion>	    	    		    
+	    	    	    
+	</p:dataTable>	
+		
+</ui:composition>

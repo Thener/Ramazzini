@@ -17,5 +17,18 @@
 				by g.id
 		]]>
 	</query>	
+	
+	<query name="Guia.recuperarPorFuncionario">
+		<![CDATA[
+			select 
+				g			
+			from 
+				Guia g
+			where 
+				g.funcionario = :funcionario
+			order 
+				by g.id
+		]]>
+	</query>
 
 </hibernate-mapping>

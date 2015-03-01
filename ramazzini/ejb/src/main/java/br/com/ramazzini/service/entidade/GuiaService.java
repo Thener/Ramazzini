@@ -34,4 +34,7 @@ public class GuiaService extends AbstractServiceImpl<Guia> {
     	return ((GuiaDao) getDao()).recuperarPor(funcionario, dataEmissao);
     }	
 	
+    public List<Guia> recuperarPorFuncionario(Funcionario funcionario) {
+    	return ((GuiaDao) getDao()).recuperarPorFuncionario(funcionario);
+    }	
 }
