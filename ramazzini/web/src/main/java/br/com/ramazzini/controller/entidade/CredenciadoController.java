@@ -11,6 +11,7 @@ import javax.inject.Named;
 import br.com.ramazzini.controller.util.AbstractBean;
 import br.com.ramazzini.model.credenciado.Credenciado;
 import br.com.ramazzini.service.entidade.CredenciadoService;
+import br.com.ramazzini.util.TratarExcecao;
 import br.com.ramazzini.util.UtilMensagens;
 
 @Named
@@ -95,10 +96,10 @@ public class CredenciadoController extends AbstractBean implements Serializable 
     		credenciados.remove(credenciado);
     		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeExcluidaComSucesso","label.credenciado");
     	} catch (Exception e) {
-    		UtilMensagens.mensagemErroPorChave("mensagem.erro.naoFoiPossivelExcluirRegistro", "label.credenciado");
-        }
+    		UtilMensagens.mensagemErro(new TratarExcecao(e).getExceptionMessage());
+    	}
     }  
-
+    
 	public Credenciado getCredenciado() {
 		return credenciado;
 	}

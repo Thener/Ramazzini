@@ -43,5 +43,17 @@ public class TratarExcecao {
 		
 	    return "";
 	}
-
+	/**
+	 * Retorna a causa raiz da exceção
+	 * @return
+	 */
+	public String getExceptionMessage() {
+		String errorMessage="";
+        Throwable t = e;
+        while (t != null) {
+            errorMessage = t.getLocalizedMessage();
+            t = t.getCause();
+        }
+        return errorMessage;
+    }
 }

@@ -7,8 +7,9 @@
    template="/WEB-INF/templates/default.xhtml">
    <ui:define name="content">
    
+   		<p:growl id="growl" showDetail="false" sticky="true" />
+   	
 	<h:form id="frmCredenciado">
-	
 		<p:panel id="panelPesquisaCredenciado" header="#{msgs['label.credenciado']}" style="margin-bottom:20px">
 		
 			<h:panelGrid columns="4" cellpadding="10">
@@ -52,7 +53,7 @@
 							styleClass="ui-icon ui-icon-pencil" 
 							rendered="#{credenciadoController.controleAcesso.acaoAutorizada('credenciado','pesquisarCredenciado.jsf','alterarCredenciado')}" />
 						<p:commandLink title="#{msgs['label.excluir']}" action="#{credenciadoController.remover(credenciado)}"
-							styleClass="ui-icon ui-icon-closethick" update="gridCredenciados"
+							styleClass="ui-icon ui-icon-closethick" update="gridCredenciados, :growl"
 							rendered="#{credenciadoController.controleAcesso.acaoAutorizada('credenciado','pesquisarEmpresa.jsf','excluirCredenciado')}">
 							<p:confirm header="#{msgs['label.confirmacao']}" message="#{msgs['label.confirmacaoExclusao']}" icon="ui-icon-alert" />
 						</p:commandLink>	
