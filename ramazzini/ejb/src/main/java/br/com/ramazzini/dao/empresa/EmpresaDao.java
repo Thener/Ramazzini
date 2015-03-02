@@ -105,7 +105,7 @@ public class EmpresaDao extends AbstractDao<Empresa> {
 		String consulta = queryRecuperar ? "SELECT e FROM Empresa e WHERE 1=1 " : "SELECT count(e) FROM Empresa e WHERE 1=1 ";
 		
 		if (!StringUtils.isEmpty(filtroEmpresa.getNome())) {
-			consulta += " AND lower(e.nome) like lower(:nome) ";
+			consulta += " AND sem_acento(lower(e.nome)) like sem_acento(lower(:nome)) ";
 		}
 
 		if (queryRecuperar && !StringUtils.isEmpty(filtroEmpresa.getPropriedadeOrdenacao())) {
