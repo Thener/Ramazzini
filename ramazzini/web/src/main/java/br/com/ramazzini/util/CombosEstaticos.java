@@ -8,6 +8,7 @@ import br.com.ramazzini.model.agenda.StatusNotificacaoAgenda;
 import br.com.ramazzini.model.agenda.TempoAtualizacaoAgenda;
 import br.com.ramazzini.model.anamnese.SituacaoACV;
 import br.com.ramazzini.model.anamnese.SituacaoAR;
+import br.com.ramazzini.model.anamnese.Romberg;
 import br.com.ramazzini.model.anamnese.TipoHabito;
 import br.com.ramazzini.model.avaliacaoClinica.SituacaoAvaliacaoClinica;
 import br.com.ramazzini.model.avaliacaoClinicaProcedimento.ResultadoProcedimento;
@@ -77,7 +78,11 @@ public class CombosEstaticos {
 	
 	public SituacaoFuncionario[] getSituacoesFuncionario() {
 		return SituacaoFuncionario.values();
-	}	
+	}
+	
+	public Romberg[] getRomberg() {
+		return Romberg.values();
+	}
 	
 	public OrigemDeficienciaEnum[] getOrigemDeficiencia() {
 		return OrigemDeficienciaEnum.values();

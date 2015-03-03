@@ -27,7 +27,7 @@
 			where 
 				emp = :empresa
 			and
-				lower(f.nome) like lower(:nomeFuncionario)
+				sem_acento(lower(f.nome)) like sem_acento(lower(:nomeFuncionario))
 			order 
 				by f.nome
 		]]>

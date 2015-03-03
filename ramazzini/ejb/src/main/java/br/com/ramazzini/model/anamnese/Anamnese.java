@@ -181,6 +181,9 @@ public class Anamnese extends AbstractEntidade implements Serializable {
 	@Column(name = "ic_alerta_proximo_atendimento")
 	private boolean alertaProximoAtendimento = Boolean.FALSE;	
 	
+	@Column(name = "ic_romberg", length = 3)
+	private String romberg;	
+	
 	public Long getId() {
 		return id;
 	}	
@@ -584,7 +587,22 @@ public class Anamnese extends AbstractEntidade implements Serializable {
 
 	public void setDescricaoQueixaPrincipal(String descricaoQueixaPrincipal) {
 		this.descricaoQueixaPrincipal = descricaoQueixaPrincipal;
-	}	
+	}
+
+	public String getRomberg() {
+		return romberg;
+	}
+
+	public void setRomberg(String romberg) {
+		this.romberg = romberg;
+	}
 	
+	public Romberg getRombergEnum() {
+		return (this.romberg != null) ? Romberg.parse(this.romberg) : null;
+	}
+
+	public void setRombergEnum(Romberg romberg) {
+		setRomberg(romberg.getValue());
+	}	
 	
 }

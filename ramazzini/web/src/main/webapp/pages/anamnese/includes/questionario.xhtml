@@ -179,7 +179,7 @@
 		
 		<p:separator />
 					
-		<h:panelGrid columns="11" cellpadding="3" columnClasses="colunaAlinhadaDireita">
+		<h:panelGrid columns="13" cellpadding="3" columnClasses="colunaAlinhadaDireita">
 		
 			<p:outputLabel value="#{msgs['label.situacaoAR']}:" />
 			<p:selectOneMenu value="#{anamneseController.anamnese.situacaoAR}">
@@ -208,6 +208,13 @@
 			</p:selectOneMenu>
 			<p:inputText value="#{anamneseController.anamnese.temperatura}" 
 				maxlength="5" styleClass="nome5"/>
+				
+			<p:outputLabel value="#{msgs['label.romberg']}:" />
+			<p:selectOneMenu value="#{anamneseController.anamnese.romberg}">
+				<f:selectItem itemLabel="" itemValue="" />
+				<f:selectItems value="#{combosEstaticos.romberg}" var="romberg"
+					itemLabel="#{romberg.stringChave}" itemValue="#{romberg.value}" />
+			</p:selectOneMenu>					
 									
 		</h:panelGrid>
 	
