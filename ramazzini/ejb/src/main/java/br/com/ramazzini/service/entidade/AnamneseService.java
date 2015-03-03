@@ -16,7 +16,6 @@
  */
 package br.com.ramazzini.service.entidade;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -37,10 +36,17 @@ public class AnamneseService extends AbstractServiceImpl<Anamnese> {
     } 
     
     public Anamnese recuperarAnamneseEmAndamentoPor(AvaliacaoClinica avaliacaoClinica, Profissional medico) {
-    	return (!avaliacaoClinica.isNovo()) ? ((AnamneseDao) getDao()).recuperarAnamneseEmAndamentoPor(avaliacaoClinica, medico) : null;
+    	return (avaliacaoClinica != null && !avaliacaoClinica.isNovo()) ? 
+    		((AnamneseDao) getDao()).recuperarAnamneseEmAndamentoPor(avaliacaoClinica, medico) : null;
     } 
     
-    public Anamnese recuperarAnamneseAnterior(Funcionario funcionario, Date dt) {
-    	return (!funcionario.isNovo()) ? ((AnamneseDao) getDao()).recuperarAnamneseAnterior(funcionario, dt) : null;
+    public Anamnese recuperarAnamneseAnterior(Funcionario funcionario, Anamnese anamnese) {
+    	if (funcionario == null || anamnese == null || funcionario.isNovo()) {
+    		return null;
+    	} else if (anamnese.isNovo()) {
+    		return ((AnamneseDao) getDao()).recuperarAnamneseAnteriorPor(funcionario, anamnese.getDataRealizacao());
+    	} else {
+    		return ((AnamneseDao) getDao()).recuperarAnamneseAnteriorPor(funcionario, anamnese);
+    	}
     }    
 }

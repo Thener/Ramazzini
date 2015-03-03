@@ -38,7 +38,8 @@ public class AvaliacaoClinicaService extends AbstractServiceImpl<AvaliacaoClinic
 	@Inject private FuncaoService funcaoService;
 
     public AvaliacaoClinica recuperarAvaliacaoClinicaEmAndamentoPor(Funcionario funcionario) {
-    	return (!funcionario.isNovo()) ? ((AvaliacaoClinicaDao) getDao()).recuperarAvaliacaoClinicaEmAndamentoPor(funcionario) : null;
+    	return (funcionario != null && !funcionario.isNovo()) ? 
+    		((AvaliacaoClinicaDao) getDao()).recuperarAvaliacaoClinicaEmAndamentoPor(funcionario) : null;
     }
     
     public List<AvaliacaoClinica> recuperarPorFuncionario(Funcionario funcionario) {

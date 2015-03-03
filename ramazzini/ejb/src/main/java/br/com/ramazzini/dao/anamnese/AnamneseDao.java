@@ -19,8 +19,10 @@ public class AnamneseDao extends AbstractDao<Anamnese> {
 			"Anamnese.recuperarPorAvaliacaoClinica";	
 	private static final String QUERY_RECUPERAR_ANAMNESE_EM_ANDAMENTO_POR_AVCLINICA_MEDICO = 
 			"Anamnese.recuperarAnamneseEmAndamentoPorAvClinicaMedico";
-	private static final String QUERY_RECUPERAR_ANAMNESE_ANTERIOR = 
-			"Anamnese.recuperarAnamneseAnterior";	
+	private static final String QUERY_RECUPERAR_ANAMNESE_ANTERIOR_POR_DATA_REALIZACAO = 
+			"Anamnese.recuperarAnamneseAnteriorPorDataRealizacao";	
+	private static final String QUERY_RECUPERAR_ANAMNESE_ANTERIOR_POR_ANAMNESE = 
+			"Anamnese.recuperarAnamneseAnteriorPorAnamnese";	
 	
 	@SuppressWarnings("unchecked")
 	public List<Anamnese> recuperarPor(AvaliacaoClinica avaliacaoClinica) {
@@ -45,10 +47,22 @@ public class AnamneseDao extends AbstractDao<Anamnese> {
 		}
 	}
 	
-	public Anamnese recuperarAnamneseAnterior(Funcionario funcionario, Date dt) {
-		Query query = createNamedQuery(QUERY_RECUPERAR_ANAMNESE_ANTERIOR);
+	public Anamnese recuperarAnamneseAnteriorPor(Funcionario funcionario, Date dataRealizacao) {
+		Query query = createNamedQuery(QUERY_RECUPERAR_ANAMNESE_ANTERIOR_POR_DATA_REALIZACAO);
 		query.setParameter("funcionario", funcionario);
-		query.setParameter("dataRealizacao", dt);
+		query.setParameter("dataRealizacao", dataRealizacao);
+		query.setMaxResults(1);
+		try {
+			return (Anamnese) query.getSingleResult();
+		} catch (NoResultException nr) {
+			return null;
+		}
+	}
+	
+	public Anamnese recuperarAnamneseAnteriorPor(Funcionario funcionario, Anamnese anamnese) {
+		Query query = createNamedQuery(QUERY_RECUPERAR_ANAMNESE_ANTERIOR_POR_ANAMNESE);
+		query.setParameter("funcionario", funcionario);
+		query.setParameter("idAnamnese", anamnese.getId());
 		query.setMaxResults(1);
 		try {
 			return (Anamnese) query.getSingleResult();

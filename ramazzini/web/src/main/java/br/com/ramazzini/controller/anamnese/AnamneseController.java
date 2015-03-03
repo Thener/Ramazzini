@@ -79,12 +79,11 @@ public class AnamneseController extends AbstractBean implements Serializable {
 		
 		beginConversation();
 		
-		this.agenda = agenda;
-		
 		if (agenda != null) {
 			agenda.setSituacaoMarcacaoAgendaEnum(SituacaoMarcacaoAgenda.EM_ATENDIMENTO);
 			agenda.setProfissional(medico);
-			gravarAgenda(agenda);			
+			gravarAgenda(agenda);
+			this.agenda = agenda;
 		}
 
 		alertas.clear();
@@ -137,7 +136,7 @@ public class AnamneseController extends AbstractBean implements Serializable {
 		
 		//--- Verificando alerta deixado no último atendimento:
 		
-		Anamnese anamneseAnterior = anamneseService.recuperarAnamneseAnterior(funcionario, anamnese.getDataRealizacao());
+		Anamnese anamneseAnterior = anamneseService.recuperarAnamneseAnterior(funcionario, anamnese);
 		
 		if (anamneseAnterior != null && anamneseAnterior.isAlertaProximoAtendimento()) {
 			alertas.add(getValorChaveMsg("mensagem.info.alertaProximoAtendimento",
