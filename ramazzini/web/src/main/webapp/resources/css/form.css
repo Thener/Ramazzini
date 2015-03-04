@@ -85,6 +85,10 @@ textarea.tam100 {
 	font-weight: bold;
 } 
 
+.italico {
+	font-style: italic;	
+}
+
 .caixaAlta {
 	font-variant: small-caps;	
 }

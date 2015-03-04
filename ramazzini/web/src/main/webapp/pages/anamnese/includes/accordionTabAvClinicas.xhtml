@@ -34,55 +34,38 @@
 	    	    	    	    
         <p:rowExpansion>
 			
-			<h:outputText value="#{msgs['label.procedimentos']}:" styleClass="anamneseSeparador" />
+			<h:panelGroup rendered="#{anamneseController.getProcedimentosAvClinica(avaliacaoClinica).size() > 0}">
 			
-			<ui:repeat var="avClinicaProcedimento" value="#{anamneseController.getProcedimentosAvClinica(avaliacaoClinica)}">
-			
-				<li class="anamneseCheck">
-					<h:outputText value="#{avClinicaProcedimento.procedimento.nome}" />
-					
-					<h:outputText value=" :: #{msgs['label.realizadoEm']}: " 
-						rendered="#{avClinicaProcedimento.dataRealizacao != null}" />
-					<h:outputText value="#{avClinicaProcedimento.dataRealizacao}" styleClass="negrito"
-						rendered="#{avClinicaProcedimento.dataRealizacao != null}">
-						<f:convertDateTime locale="pt,BR" pattern="#{msgs['pattern.calendar']}" />
-					</h:outputText>	
-					 
-					<h:outputText value=" :: #{msgs['label.retornoEm']}: " 
-						rendered="#{avClinicaProcedimento.dataRetorno != null}"/>
-					<h:outputText value="#{avClinicaProcedimento.dataRetorno}" styleClass="negrito"
-						rendered="#{avClinicaProcedimento.dataRetorno != null}">
-						<f:convertDateTime locale="pt,BR" pattern="#{msgs['pattern.calendar']}" />
-					</h:outputText>
- 
-					<h:outputText value=" :: #{msgs['label.resultado']}: " />
-					<h:outputText value="#{avClinicaProcedimento.resultadoProcedimentoEnum.stringChave}" styleClass="negrito" />				
-				</li>
-			
-			</ui:repeat>
-			
-			<h:outputText value="#{msgs['label.anamneses']}:" styleClass="anamneseSeparador" />
-			
-			<ui:repeat var="anamnese" value="#{anamneseController.getHistoricosAnamnese(avaliacaoClinica)}">
-			
-				<h:outputText value="#{msgs['label.dataRealizacao']}: " />
-				<h:outputText value="#{anamnese.dataRealizacao}" styleClass="negrito">
-					<f:convertDateTime locale="pt,BR" pattern="#{msgs['pattern.calendar']}" />
-				</h:outputText>
-				::
-				<h:outputText value="#{msgs['label.medico']}: " />	
-				<h:outputText value="#{anamnese.medico.nome}" styleClass="negrito" />
-				::
-				<h:outputText value="#{msgs['label.resultado']}: " />	
-				<h:outputText value="#{anamnese.situacaoAvaliacaoClinicaEnum.stringChave}" styleClass="negrito" />
+				<h:outputText value="#{msgs['label.procedimentos']}:" styleClass="anamneseSeparador" />
 				
-				<br />
-				<h:outputText value="#{msgs['label.parecer']}: " />	
-				<h:outputText value="#{anamnese.parecer}" style="font-style: italic;" />
+				<ui:repeat var="avClinicaProcedimento" value="#{anamneseController.getProcedimentosAvClinica(avaliacaoClinica)}">
 				
-				<p:separator />
-
-			</ui:repeat>			
+					<li class="anamneseCheck">
+						<h:outputText value="#{avClinicaProcedimento.procedimento.nome}" />
+						
+						<h:outputText value=" :: #{msgs['label.realizadoEm']}: " 
+							rendered="#{avClinicaProcedimento.dataRealizacao != null}" />
+						<h:outputText value="#{avClinicaProcedimento.dataRealizacao}" styleClass="negrito"
+							rendered="#{avClinicaProcedimento.dataRealizacao != null}">
+							<f:convertDateTime locale="pt,BR" pattern="#{msgs['pattern.calendar']}" />
+						</h:outputText>	
+						 
+						<h:outputText value=" :: #{msgs['label.retornoEm']}: " 
+							rendered="#{avClinicaProcedimento.dataRetorno != null}"/>
+						<h:outputText value="#{avClinicaProcedimento.dataRetorno}" styleClass="negrito"
+							rendered="#{avClinicaProcedimento.dataRetorno != null}">
+							<f:convertDateTime locale="pt,BR" pattern="#{msgs['pattern.calendar']}" />
+						</h:outputText>
+	 
+						<h:outputText value=" :: #{msgs['label.resultado']}: " />
+						<h:outputText value="#{avClinicaProcedimento.resultadoProcedimentoEnum.stringChave}" styleClass="negrito" />				
+					</li>
+				
+				</ui:repeat>
+				
+			</h:panelGroup>
+			
+			<ui:include src="accordionTabAvClinicasAnamnese.xhtml" />
 
         </p:rowExpansion>	    	    		    
 	    	    	    

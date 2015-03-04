@@ -61,3 +61,11 @@
     text-align: center;
     width: 100%;
 }
+
+.anamneseTextoVermelhoTrue_true {
+	color: red;
+}
+
+.anamneseTextoVermelhoFalse_false {
+	color: red;
+}

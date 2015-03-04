@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui">
+			
+	<h:outputText value="#{msgs['label.anamneses']}:" styleClass="anamneseSeparador" />
+	
+	<ui:repeat var="anamnese" value="#{anamneseController.getHistoricosAnamnese(avaliacaoClinica)}">
+	
+		<!-- 
+		=========================== Ú L T I M O   T R A B A L H O ============================== 
+		-->
+	
+		<p:fieldset legend="#{msgs['label.ultimoTrabalho']}">
+		
+			<h:panelGrid columns="4" styleClass="sem_borda">
+			
+				<h:column>
+					<h:outputText value="#{msgs['label.ultimoTrabalho']}: " />
+					<h:outputText value="#{anamnese.ultimoTrabalho}" styleClass="negrito" />
+				</h:column>	
+					
+				<h:column>
+					<h:outputText value="#{msgs['label.ultimoCargo']}: " />
+					<h:outputText value="#{anamnese.ultimoCargo}" styleClass="negrito" />
+				</h:column>
+					
+				<h:column>
+					<h:outputText value="#{msgs['label.insalubre']}: " />
+					<h:outputText value="#{anamnese.ultimoCargoInsalubre ? 'Sim' : 'Não'}" 
+						styleClass="negrito anamneseTextoVermelhoTrue_#{anamnese.ultimoCargoInsalubre}" />
+				</h:column>
+				
+				<h:column>
+					<h:outputText value="#{msgs['label.tempo']}: " />
+					<h:outputText value="#{anamnese.ultimoCargoTempo}" styleClass="negrito" />
+				</h:column>
+			
+			</h:panelGrid>
+			
+			<h:panelGrid columns="2" styleClass="sem_borda">
+				
+				<h:column>
+					<h:outputText value="#{msgs['label.antecedenteInsalubre']}: " />
+					<h:outputText value="#{anamnese.antecedenteInsalubre ? 'Sim' : 'Não'}" 
+						styleClass="negrito anamneseTextoVermelhoTrue_#{anamnese.antecedenteInsalubre}" />
+				</h:column>
+				<h:column>
+					<h:outputText value="#{msgs['label.descricao']}: " />
+					<h:outputText value="#{anamnese.descricaoAntecedenteInsalubre}" styleClass="negrito" />
+				</h:column>
+				
+				<h:column>
+					<h:outputText value="#{msgs['label.antecedenteMorbidos']}: " />
+					<h:outputText value="#{anamnese.antecedenteMorbido ? 'Sim' : 'Não'}" 
+						styleClass="negrito anamneseTextoVermelhoTrue_#{anamnese.antecedenteMorbido}" />
+				</h:column>
+				<h:column>
+					<h:outputText value="#{msgs['label.descricao']}: " />
+					<h:outputText value="#{anamnese.descricaoAntecedenteMorbido}" styleClass="negrito" />
+				</h:column>				
+			
+			</h:panelGrid>
+		
+		</p:fieldset>
+		
+		<!-- 
+		=================================== Q U E S T I O N Á R I O ======================================== 
+		-->		
+		
+		<p:fieldset legend="#{msgs['label.questionario']}">
+		
+			<h:panelGrid columns="2" styleClass="sem_borda">
+			
+				<h:column>
+					<h:outputText value="#{msgs['label.acidenteTrabalho']}: " />
+					<h:outputText value="#{anamnese.acidenteTrabalho ? 'Sim' : 'Não'}" 
+						styleClass="negrito anamneseTextoVermelhoTrue_#{anamnese.acidenteTrabalho}"/>
+				</h:column>
+				<h:column>
+					<h:outputText value="#{msgs['label.descricao']}: " />
+					<h:outputText value="#{anamnese.descricaoAcidenteTrabalho}" styleClass="negrito" />
+				</h:column>
+					
+				<h:column>
+					<h:outputText value="#{msgs['label.doencaOcupacional']}: " />
+					<h:outputText value="#{anamnese.doencaOcupacional ? 'Sim' : 'Não'}" 
+						styleClass="negrito anamneseTextoVermelhoTrue_#{anamnese.doencaOcupacional}" />
+				</h:column>
+				<h:column>
+					<h:outputText value="#{msgs['label.descricao']}: " />
+					<h:outputText value="#{anamnese.descricaoDoencaOcupacional}" styleClass="negrito" />
+				</h:column>
+					
+				<h:column>
+					<h:outputText value="#{msgs['label.queixaPrincipal']}: " />
+					<h:outputText value="#{anamnese.queixaPrincipal ? 'Sim' : 'Não'}" 
+						styleClass="negrito anamneseTextoVermelhoTrue_#{anamnese.queixaPrincipal}" />
+				</h:column>
+				<h:column>
+					<h:outputText value="#{msgs['label.descricao']}: " />
+					<h:outputText value="#{anamnese.descricaoQueixaPrincipal}" styleClass="negrito" />
+				</h:column>
+			
+				<h:column>
+					<h:outputText value="#{msgs['label.deficienteFisico']}: " />
+					<h:outputText value="#{anamnese.deficienteFisico ? 'Sim' : 'Não'}" 
+						styleClass="negrito anamneseTextoVermelhoTrue_#{anamnese.deficienteFisico}" />
+				</h:column>
+				<h:column>
+					<h:outputText value="#{msgs['label.descricao']}: " />
+					<h:outputText value="#{anamnese.descricaoDeficienciaFisica}" styleClass="negrito" />
+				</h:column>
+							
+			</h:panelGrid>
+			
+			<p:separator />
+			
+			<h:panelGrid columns="4"  styleClass="sem_borda">
+			
+				<h:panelGrid columns="1"  styleClass="sem_borda" columnClasses="colunaAlinhadaDireita">
+				
+					<h:column>
+						<h:outputText value="#{msgs['label.alimentacaoBoa']}: "/>
+						<h:outputText value="#{anamnese.alimentacaoBoa ? 'Sim' : 'Não'}" 
+							styleClass="negrito anamneseTextoVermelhoFalse_#{anamnese.alimentacaoBoa}" />
+					</h:column>
+					
+					<h:column>
+						<h:outputText value="#{msgs['label.lombalgia']}: " />
+						<h:outputText value="#{anamnese.lombalgia ? 'Sim' : 'Não'}" 
+							styleClass="negrito anamneseTextoVermelhoTrue_#{anamnese.lombalgia}" />
+					</h:column>
+					
+					<h:column>
+						<h:outputText value="#{msgs['label.varizes']}: " />
+						<h:outputText value="#{anamnese.varizes ? 'Sim' : 'Não'}" 
+							styleClass="negrito anamneseTextoVermelhoTrue_#{anamnese.varizes}" />
+					</h:column>
+					
+					<h:column>
+						<h:outputText value="#{msgs['label.adaptadoMaquinaFerramentaTrabalho']}: " />
+						<h:outputText value="#{anamnese.adaptadoFerramentaTrabalho ? 'Sim' : 'Não'}" 
+							styleClass="negrito anamneseTextoVermelhoFalse_#{anamnese.adaptadoFerramentaTrabalho}" />
+					</h:column>
+					
+				</h:panelGrid>
+				
+				<h:panelGrid columns="1" styleClass="sem_borda" columnClasses="colunaAlinhadaDireita">			
+					
+					<h:column>
+						<h:outputText value="#{msgs['label.aspectoGeralBom']}: " />
+						<h:outputText value="#{anamnese.aspectoGeralBom ? 'Sim' : 'Não'}" 
+							styleClass="negrito anamneseTextoVermelhoFalse_#{anamnese.aspectoGeralBom}" />
+					</h:column>
+					
+					<h:column>
+						<h:outputText value="#{msgs['label.afastadoDoenca']}: " />
+						<h:outputText value="#{anamnese.afastadoDoenca ? 'Sim' : 'Não'}" 
+							styleClass="negrito anamneseTextoVermelhoTrue_#{anamnese.afastadoDoenca}" />
+					</h:column>
+					
+					<h:column>
+						<h:outputText value="#{msgs['label.edemas']}: " />
+						<h:outputText value="#{anamnese.edemas ? 'Sim' : 'Não'}" 
+							styleClass="negrito anamneseTextoVermelhoTrue_#{anamnese.edemas}" />
+					</h:column>
+					
+					<h:column>
+						<h:outputText value="#{msgs['label.adaptadoHoraLocalTrabalho']}: " />
+						<h:outputText value="#{anamnese.adaptadoLocalTrabalho ? 'Sim' : 'Não'}" 
+							styleClass="negrito anamneseTextoVermelhoFalse_#{anamnese.adaptadoLocalTrabalho}" />
+					</h:column>
+					
+				</h:panelGrid>
+					
+				<h:panelGrid columns="1" styleClass="sem_borda" columnClasses="colunaAlinhadaDireita">			
+					
+					<h:column>
+						<h:outputText value="#{msgs['label.habitos']}: " />
+						<h:outputText value="#{anamnese.tipoHabitoEnum.stringChave}" styleClass="negrito" />
+					</h:column>
+					
+					<h:column>
+						<h:outputText value="#{msgs['label.alergia']}: " />
+						<h:outputText value="#{anamnese.alergia ? 'Sim' : 'Não'}" 
+							styleClass="negrito anamneseTextoVermelhoTrue_#{anamnese.alergia}" />
+					</h:column>
+					
+					<h:column>
+						<h:outputText value="#{msgs['label.tonturas']}: " />
+						<h:outputText value="#{anamnese.tonturas ? 'Sim' : 'Não'}" 
+							styleClass="negrito anamneseTextoVermelhoTrue_#{anamnese.tonturas}" />
+					</h:column>
+					
+					<h:column>
+						<h:outputText value="#{msgs['label.cirurgia']}: " />
+						<h:outputText value="#{anamnese.cirurgia ? 'Sim' : 'Não'}" 
+							styleClass="negrito anamneseTextoVermelhoTrue_#{anamnese.cirurgia}" />
+					</h:column>
+					
+				</h:panelGrid>
+					
+				<h:panelGrid columns="1" styleClass="sem_borda" columnClasses="colunaAlinhadaDireita">			
+					
+					<h:column>
+						<h:outputText value="#{msgs['label.dort']}: " />
+						<h:outputText value="#{anamnese.dort ? 'Sim' : 'Não'}" 
+							styleClass="negrito anamneseTextoVermelhoTrue_#{anamnese.dort}" />
+					</h:column>
+								
+					<h:column>
+						<h:outputText value="#{msgs['label.dermatite']}: " />
+						<h:outputText value="#{anamnese.dermatite ? 'Sim' : 'Não'}" 
+							styleClass="negrito anamneseTextoVermelhoTrue_#{anamnese.dermatite}" />
+					</h:column>
+					
+					<h:column>
+						<h:outputText value="#{msgs['label.usoMedicamentos']}: " />
+						<h:outputText value="#{anamnese.usoMedicamentos ? 'Sim' : 'Não'}" 
+							styleClass="negrito anamneseTextoVermelhoTrue_#{anamnese.usoMedicamentos}" />
+					</h:column>
+					
+					<h:column>
+						<h:outputText value="#{msgs['label.hernia']}: " />
+						<h:outputText value="#{anamnese.hernia ? 'Sim' : 'Não'}" 
+							styleClass="negrito anamneseTextoVermelhoTrue_#{anamnese.hernia}" />
+					</h:column>
+		
+				</h:panelGrid>
+	
+			</h:panelGrid>
+			
+			<p:separator />
+						
+			<h:panelGrid columns="6" styleClass="sem_borda" columnClasses="colunaAlinhadaDireita">
+			
+				<h:column>
+					<h:outputText value="#{msgs['label.situacaoAR']}: " />
+					<h:outputText value="#{anamnese.situacaoAREnum.stringChave}" styleClass="negrito" />
+				</h:column>
+				
+				<h:column>
+					<h:outputText value="#{msgs['label.situacaoACV']}: " />
+					<h:outputText value="#{anamnese.situacaoACVEnum.stringChave}" styleClass="negrito" />
+				</h:column>
+				
+				<h:column>
+					<h:outputText value="#{msgs['label.pulso']}: " />	
+					<h:outputText value="#{anamnese.pulso}" styleClass="negrito" />
+				</h:column>			
+							
+				<h:column>		
+					<h:outputText value="#{msgs['label.pa']}: " />	
+					<h:outputText value="#{anamnese.pressaoArterial}" styleClass="negrito"/>
+				</h:column>
+	
+				<h:column>
+					<h:outputText value="#{msgs['label.temperaturaNormal']}: " />
+					<h:outputText value="#{anamnese.temperaturaNormal ? 'Sim' : 'Não'}" 
+						styleClass="negrito anamneseTextoVermelhoFalse_#{anamnese.temperaturaNormal}" />
+					<h:outputText value=" #{anamnese.temperatura}" styleClass="negrito" />
+				</h:column>
+					
+				<h:column>
+					<h:outputText value="#{msgs['label.romberg']}: " />
+					<h:outputText value="#{anamnese.rombergEnum.stringChave}" styleClass="negrito" />
+				</h:column>
+										
+			</h:panelGrid>
+		
+		</p:fieldset>
+		
+		<!-- 
+		======================================== P A R E C E R ======================================== 
+		-->		
+		
+		<p:fieldset legend="#{msgs['label.anotacoes']}">
+		
+			<h:panelGrid columns="1" styleClass="sem_borda">
+			
+				<h:column>
+					<h:outputText value="#{msgs['label.parecer']}: " />
+					<h:outputText value="#{anamnese.parecer}" styleClass="negrito italico" />
+				</h:column>
+				
+				<h:column>
+					<h:outputText value="#{msgs['label.restricoesAptidao']}: " />
+					<h:outputText value="#{anamnese.restricoesAptidao}" styleClass="negrito italico" />
+				</h:column>
+				
+				<h:column>
+					<h:outputText value="#{msgs['label.motivoInaptidao']}: " />
+					<h:outputText value="#{anamnese.motivoInaptidao}" styleClass="negrito italico" />
+				</h:column>
+				
+			</h:panelGrid>
+		
+		</p:fieldset>				
+	
+	</ui:repeat>			
+
+</ui:composition>

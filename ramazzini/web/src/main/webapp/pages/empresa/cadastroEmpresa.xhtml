@@ -17,7 +17,9 @@
 					
 					<p:outputLabel for="nome" value="#{msgs['label.nome']}:" />
 					<p:inputText id="nome" value="#{empresaController.empresa.nome}" 
-						required="true" maxlength="100" styleClass="nome100"/>
+						required="true" maxlength="100" styleClass="nome100">
+						<p:focus />
+					</p:inputText>
 						
 					<p:outputLabel for="situacaoEmpresa" value="#{msgs['label.situacao']}:" />
 					<p:selectOneMenu id="situacaoEmpresa"
