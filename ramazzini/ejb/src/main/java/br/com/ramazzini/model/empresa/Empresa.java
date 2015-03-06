@@ -149,7 +149,11 @@ public class Empresa extends AbstractEntidade implements Serializable {
 	private List<Lotacao> lotacoes;	
 	
 	@OneToMany(mappedBy="empresa")
-	private List<Funcionario> funcionarios;	
+	private List<Funcionario> funcionarios;
+	
+	@Deprecated
+    @Column(name = "cd_sistema_anterior", length = 20)
+    private String idSistemaAnterior;	
 
 	public Long getId() {
 		return id;

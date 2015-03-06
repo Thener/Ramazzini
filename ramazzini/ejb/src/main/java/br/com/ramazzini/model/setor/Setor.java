@@ -25,7 +25,7 @@ import br.com.ramazzini.model.util.AbstractEntidade;
 @SequenceGenerator(name = "seq_setor", sequenceName = "seq_setor", allocationSize = 1)
 @Entity
 @XmlRootElement
-@Table(name = "setor", uniqueConstraints = @UniqueConstraint(columnNames = "nm_setor"))
+@Table(name = "setor")
 public class Setor extends AbstractEntidade implements Serializable {
     
     private static final long serialVersionUID = 1L;
@@ -46,7 +46,11 @@ public class Setor extends AbstractEntidade implements Serializable {
 	private Empresa empresa;
 	
 	@OneToMany(mappedBy="setor")
-	private List<Funcao> funcoes;	
+	private List<Funcao> funcoes;
+	
+	@Deprecated
+    @Column(name = "cd_sistema_anterior", length = 20)
+    private String idSistemaAnterior;	
 
 	public Long getId() {
 		return id;
