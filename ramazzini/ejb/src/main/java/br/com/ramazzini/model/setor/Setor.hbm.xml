@@ -9,9 +9,8 @@
 				s
 			from 
 				Setor s
-			left join s.empresa emp
 			where 
-				emp = :empresa
+				s.empresa = :empresa
 			order 
 				by s.nome
 		]]>
@@ -23,9 +22,8 @@
 				s
 			from 
 				Setor s
-			left join s.empresa emp
 			where 
-				emp = :empresa
+				s.empresa = :empresa
 			and
 				lower(s.nome) like lower(:nomeSetor)
 			order 

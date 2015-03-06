@@ -49,9 +49,8 @@
 				f
 			from 
 				Funcao f
-			left join f.empresa emp
 			where 
-				emp = :empresa
+				f.empresa = :empresa
 			order 
 				by f.nome
 		]]>
@@ -63,9 +62,8 @@
 				f
 			from 
 				Funcao f
-			left join f.empresa emp
 			where 
-				emp = :empresa
+				f.empresa = :empresa
 			and
 				lower(f.nome) like lower(:nomeFuncao)
 			order 

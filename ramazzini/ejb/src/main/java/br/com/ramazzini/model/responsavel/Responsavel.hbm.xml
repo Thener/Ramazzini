@@ -9,10 +9,10 @@
 				resp
 			from 
 				Responsavel resp
-			left join resp.empresa emp
-			left join resp.profissional prof
+			left join 
+				resp.profissional prof
 			where 
-				emp = :empresa
+				resp.empresa = :empresa
 			order 
 				by prof.nome
 		]]>
@@ -24,10 +24,10 @@
 				resp
 			from 
 				Responsavel resp
-			left join resp.empresa emp
-			left join resp.profissional prof
+			left join 
+				resp.profissional prof
 			where 
-				emp = :empresa
+				resp.empresa = :empresa
 			and
 				lower(prof.nome) like lower(:nomeProfissional)
 			order 

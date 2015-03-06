@@ -9,9 +9,8 @@
 				f
 			from 
 				Funcionario f
-			left join f.empresa emp
 			where 
-				emp = :empresa
+				f.empresa = :empresa
 			order 
 				by f.nome
 		]]>
@@ -23,9 +22,8 @@
 				f
 			from 
 				Funcionario f
-			left join f.empresa emp
 			where 
-				emp = :empresa
+				f.empresa = :empresa
 			and
 				sem_acento(lower(f.nome)) like sem_acento(lower(:nomeFuncionario))
 			order 
@@ -39,7 +37,8 @@
 				f
 			from 
 				Funcionario f
-			left join f.empresa emp
+			left join 
+				f.empresa emp
 			where
 				lower(f.nome) like lower(:nomeFuncionario)
 			order 

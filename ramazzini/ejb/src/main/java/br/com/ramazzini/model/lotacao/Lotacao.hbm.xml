@@ -9,9 +9,8 @@
 				lot
 			from 
 				Lotacao lot
-			left join lot.empresa emp
 			where 
-				emp = :empresa
+				lot.empresa = :empresa
 			order 
 				by lot.nome
 		]]>
@@ -23,9 +22,8 @@
 				lot
 			from 
 				Lotacao lot
-			left join lot.empresa emp
 			where 
-				emp = :empresa
+				lot.empresa = :empresa
 			and
 				lower(lot.nome) like lower(:nomeLotacao)
 			order 
