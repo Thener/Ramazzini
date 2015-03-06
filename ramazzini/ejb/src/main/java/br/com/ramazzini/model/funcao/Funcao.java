@@ -18,7 +18,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -33,7 +32,7 @@ import br.com.ramazzini.model.util.AbstractEntidade;
 @SequenceGenerator(name = "seq_funcao", sequenceName = "seq_funcao", allocationSize = 1)
 @Entity
 @XmlRootElement
-@Table(name = "funcao", uniqueConstraints = @UniqueConstraint(columnNames = "nm_funcao"))
+@Table(name = "funcao")
 public class Funcao extends AbstractEntidade implements Serializable {
     
     private static final long serialVersionUID = 1L;
@@ -76,7 +75,11 @@ public class Funcao extends AbstractEntidade implements Serializable {
 	private List<FuncaoProcedimento> funcoesProcedimentos;
 	
 	@OneToMany(mappedBy="funcao")
-	private List<Funcionario> funcionarios;		
+	private List<Funcionario> funcionarios;	
+	
+	@Deprecated
+    @Column(name = "cd_sistema_anterior", length = 20)
+    private String idSistemaAnterior;	
 
 	public Long getId() {
 		return id;
