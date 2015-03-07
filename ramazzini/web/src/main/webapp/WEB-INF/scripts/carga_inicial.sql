@@ -90,6 +90,10 @@ insert into usuario_perfil (cd_usuario, cd_perfil) values ( (select cd_usuario f
 
 ------------------------ CARGA DA TABELA: PROCEDIMENTOS DO TIPO EXAME CLINICO
 
+/*
+ * estão sendo incluidos junto com a migração
+ * 
+ * 
 insert into procedimento (cd_procedimento, nm_procedimento, sg_procedimento, ic_sistema, tp_exame_clinico, tp_procedimento)
 values (nextval('seq_procedimento'), 'EXAME ADMISSIONAL', 'ADM', true, 'ADM', 'EXCLI');
 
@@ -104,7 +108,7 @@ values (nextval('seq_procedimento'), 'EXAME RETORNO AO TRABALHO', 'RT', true, 'R
 
 insert into procedimento (cd_procedimento, nm_procedimento, sg_procedimento, ic_sistema, tp_exame_clinico, tp_procedimento)
 values (nextval('seq_procedimento'), 'EXAME DEMISSIONAL', 'DEM', true, 'DEM', 'EXCLI');
-
+*/
 ------------------------ CARGA DA TABELA: ORIGEM DEFICIENCIA
 
 insert into origem_deficiencia (cd_origem_deficiencia, ts_alteracao, ts_inclusao, tp_origem_deficiencia, cd_usuario_alteracao, cd_usuario_inclusao)

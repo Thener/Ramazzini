@@ -14,7 +14,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -26,7 +25,7 @@ import br.com.ramazzini.model.util.AbstractEntidade;
 @SequenceGenerator(name = "seq_profissional", sequenceName = "seq_profissional", allocationSize = 1)
 @Entity
 @XmlRootElement
-@Table(name = "profissional", uniqueConstraints = @UniqueConstraint(columnNames = "nm_profissional"))
+@Table(name = "profissional")
 public class Profissional extends AbstractEntidade implements Serializable {
     
     private static final long serialVersionUID = 1L;
@@ -51,13 +50,13 @@ public class Profissional extends AbstractEntidade implements Serializable {
 	@NotNull
 	private boolean ativo = Boolean.TRUE;
 	
-	@Column(name = "no_nit", length = 10)
+	@Column(name = "no_nit", length = 20)
 	private String nit;
 	
 	@Column(name = "nm_titulacao", length = 50)
 	private String titulacao;
 	
-	@Column(name = "no_registro", length = 10)
+	@Column(name = "no_registro", length = 20)
 	private String registro;
 	
 	@Column(name = "no_telefone", length = 20)
@@ -73,6 +72,10 @@ public class Profissional extends AbstractEntidade implements Serializable {
 	
 	@OneToMany(mappedBy="profissional")
 	private List<Responsavel> responsaveis; 	
+	
+	@Deprecated
+    @Column(name = "cd_sistema_anterior", length = 20)
+    private String idSistemaAnterior;	
 	
 	public Long getId() {
 		return id;

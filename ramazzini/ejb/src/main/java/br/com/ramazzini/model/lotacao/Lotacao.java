@@ -86,7 +86,11 @@ public class Lotacao extends AbstractEntidade implements Serializable {
     private String orientacoesEspecificas; 
     
 	@OneToMany(mappedBy="lotacao")
-	private List<Funcionario> funcionarios;    
+	private List<Funcionario> funcionarios;  
+	
+	@Deprecated
+    @Column(name = "cd_sistema_anterior", length = 20)
+    private String idSistemaAnterior;	
 
 	public Long getId() {
 		return id;
