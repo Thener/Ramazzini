@@ -61,7 +61,7 @@ public class Procedimento extends AbstractEntidade implements Serializable {
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "procedimento",
 			cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
-	private List<ProcedimentoCredenciado> procedimentosCredenciados;    
+	private List<ProcedimentoCredenciado> procedimentosCredenciados;
 
 	public Long getId() {
 		return id;
