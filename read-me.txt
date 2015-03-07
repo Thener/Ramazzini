@@ -28,3 +28,6 @@ iReport Designer 5.6.0
 - Setar a porta LPT1 do DosPrint para a impressora intalada
 - Verificar o nome do compartilhamento da impressora
 - executar o cmd com o nome do compartilhamento - net use lpt1: \\localhost\compartilhamento /yes 
+
+4. Applet 
+Liberar página específica, quando não houver assinatura do applet:  Painel de Controle\Todos os Itens do Painel de Controle> Java > Segurança > Lista de Exceção de sites > Adicionar a url do applet
