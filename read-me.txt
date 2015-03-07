@@ -8,7 +8,7 @@ Jboss (jboss-as-7.1.1.Final)
 iReport Designer 5.6.0
 
 
-2. Instalação:
+2. Configuração do Ambiente:
 
 - Faça o clone do projeto: https://github.com/Thener/Ramazzini.git
 - Abra o eclipse e use a opção: File > Import > Existing Maven Projects
@@ -22,3 +22,9 @@ iReport Designer 5.6.0
 - Abra o pgAdmin e crie a base do sistema (ramazzini)
 - rode o projeto para criação das tabelas (caso o banco não seja criado, verifique o arquivo persistence.xml, a opção: <property name="hibernate.hbm2ddl.auto" value="validate" />
 - Após a instalação do ireport, configurar a JDK 1.7 no arquivo C:\Program Files (x86)\Jaspersoft\iReport-5.6.0\etc\ireport.conf . Adicionar a linha jdkhome="C:\Program Files\Java\jdk1.7.0_71"  
+
+3. Impressão na LPT via USB
+- Instalação da impressora local, Generic File Printer
+- Setar a porta LPT1 do DosPrint para a impressora intalada
+- Verificar o nome do compartilhamento da impressora
+- executar o cmd com o nome do compartilhamento - net use lpt1: \\localhost\compartilhamento /yes 

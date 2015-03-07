@@ -59,3 +59,9 @@ b) incluir no web.xml:
 Neste site, existe este comentário: http://blog.eisele.net/2012/09/primefaces-push-with-atmosphere-on.html
 
 13. http://pontusmunck.com/2010/01/19/fixing-the-missing-icons-in-tortoisesvn/
+
+14. LPT -> USB -  http://www.guj.com.br/java/260858-resolvidoimpressora-termica-usb
+
+15. DosPrintUI - https://mega.co.nz/#!9YVSmI7D!JmlxEk23easeFiH4k4l1mGJ-vgJ1QyxSdXkl5aTVNeQ
+
+16. DosPRint instruções - http://www.gransoft.net/Tutoriais.aspx/ac/2/id/33
