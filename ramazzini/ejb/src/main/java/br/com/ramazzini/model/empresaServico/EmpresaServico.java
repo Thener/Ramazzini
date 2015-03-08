@@ -43,7 +43,7 @@ public class EmpresaServico extends AbstractEntidade implements Serializable {
     private Servico servico;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "ts_data_servico", columnDefinition = "Date")
+	@Column(name = "ts_data_servico", columnDefinition = "timestamp without time zone")
 	private Date dataServico;	
 	
 	@Column(name = "ds_servico", length=200)

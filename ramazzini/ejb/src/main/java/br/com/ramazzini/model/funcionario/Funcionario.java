@@ -64,7 +64,6 @@ public class Funcionario extends AbstractEntidade implements Serializable {
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name = "dt_nascimento", columnDefinition = "Date")
-	@NotNull
 	private Date dataNascimento;	
 	
 	@Column(name = "no_ctps", length = 20)
@@ -93,6 +92,10 @@ public class Funcionario extends AbstractEntidade implements Serializable {
 	
 	@Transient
 	private String idadeTexto;
+	
+	@Deprecated
+    @Column(name = "cd_sistema_anterior", length = 20)
+    private String idSistemaAnterior;	
 	
 	public Long getId() {
 		return id;

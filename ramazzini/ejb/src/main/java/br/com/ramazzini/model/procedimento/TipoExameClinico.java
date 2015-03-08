@@ -13,6 +13,7 @@ public enum TipoExameClinico {
     MUDANCA_FUNCAO("MUD", "tipoExameClinico.MudancaFuncao"),
     RETORNO_TRABALHO("RET", "tipoExameClinico.RetornoTrabalho"),
     DEMISSIONAL("DEM", "tipoExameClinico.Demissional"),
+    RET_TRAB_MUD_FUNCAO("RMF", "tipoExameClinico.RetornoTrabalhoComMudancaFuncao"),
     OUTROS("OUT", "tipoExameClinico.Outros");
 
     private static final ResourceBundle bundle = ResourceBundle.getBundle("messages");

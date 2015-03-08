@@ -76,9 +76,9 @@ public class AvaliacaoClinica extends AbstractEntidade implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name="cd_funcao_atual")
-	@NotNull
 	private Funcao funcaoAtual;	
 	
+	/*
     @Column(name = "te_anamnese", columnDefinition="TEXT")
     private String anamnese;
     
@@ -90,6 +90,7 @@ public class AvaliacaoClinica extends AbstractEntidade implements Serializable {
     
 	@Column(name = "ic_alerta_proxima_avaliacao")
 	private boolean alertaProximaAvaliacao = Boolean.FALSE; 
+	*/
 	
 	@Column(name = "st_avaliacao_clinica", length = 3)
     @NotNull 
@@ -170,6 +171,7 @@ public class AvaliacaoClinica extends AbstractEntidade implements Serializable {
 		this.funcaoAtual = funcaoAtual;
 	}
 
+	/*
 	public String getAnamnese() {
 		return anamnese;
 	}
@@ -201,7 +203,8 @@ public class AvaliacaoClinica extends AbstractEntidade implements Serializable {
 	public void setAlertaProximaAvaliacao(boolean alertaProximaAvaliacao) {
 		this.alertaProximaAvaliacao = alertaProximaAvaliacao;
 	}
-
+	*/
+	
 	public String getSituacaoAvaliacaoClinica() {
 		return situacaoAvaliacaoClinica;
 	}
