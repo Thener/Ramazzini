@@ -65,3 +65,5 @@ Neste site, existe este comentário: http://blog.eisele.net/2012/09/primefaces-pu
 15. DosPrintUI - https://mega.co.nz/#!9YVSmI7D!JmlxEk23easeFiH4k4l1mGJ-vgJ1QyxSdXkl5aTVNeQ
 
 16. DosPRint instruções - http://www.gransoft.net/Tutoriais.aspx/ac/2/id/33
+
+17. http://gcseg.das.ufsc.br/jacoweb/restrito/documentos/assinatura/index.htm
