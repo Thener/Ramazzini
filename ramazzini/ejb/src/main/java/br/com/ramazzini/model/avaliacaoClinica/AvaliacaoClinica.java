@@ -48,7 +48,6 @@ public class AvaliacaoClinica extends AbstractEntidade implements Serializable {
 	private Funcionario funcionario;
 	
 	@ManyToOne
-	@NotNull
 	@JoinColumn(name="cd_profissional")
 	private Profissional medico;
 	
