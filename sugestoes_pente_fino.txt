@@ -1,19 +1,13 @@
-1. implementar lazy model nos grids
-
-2. padronizar para 10 registros por exibição
-
-3. colocar order default, acrescentado no cabeçalho do dataTable: sortBy="#{empresa.nome}" por exemplo
-
-4. colocar o foco no campo de pesquisa ao abrir a tela
-
-5. envolver os filtros com um fieldset e legend "Filtros"
-
-6. caso exista grid dentro do cadastro, a exclusão deve:
+1. Passar todos os relacionamentos para lazy
+2. implementar lazy model nos grids
+3. padronizar para 10 registros por exibição
+4. colocar order default, acrescentado no cabeçalho do dataTable: sortBy="#{empresa.nome}" por exemplo
+5. colocar o foco no campo de pesquisa ao abrir a tela
+6. envolver os filtros com um fieldset e legend "Filtros"
+7. caso exista grid dentro do cadastro, a exclusão deve:
 	a) se apenas retira da lista em memória, não exibir pergunta de exclusão (será removido ao gravar o cadastro)
 	b) se exclui definitivamente, então colocar alerta com a palavra "definitivamente" na pergunta
-
-7. acertar pesquisa com acentuação
-
-8. tratar exceção de exclusão com restrição de integridade
-
-9. caso exista tab dentro do cadastro que redirecionam para outra página, colocar tabIndex para voltar na mesma tab
+8. acertar pesquisa com acentuação
+9. tratar exceção de exclusão com restrição de integridade, criando modal genérico com msg genérica e botão para mostrar erro.
+10. caso exista tab dentro do cadastro que redirecionam para outra página, colocar tabIndex para voltar na mesma tab
+11. Criar troca rápida
