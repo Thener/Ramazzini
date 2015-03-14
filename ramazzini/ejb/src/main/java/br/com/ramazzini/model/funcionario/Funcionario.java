@@ -45,16 +45,16 @@ public class Funcionario extends AbstractEntidade implements Serializable {
     @NotNull
     private String nome;
     
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@NotNull
 	@JoinColumn(name="cd_empresa")
 	private Empresa empresa;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="cd_funcao")
 	private Funcao funcao;	
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="cd_lotacao")
 	private Lotacao lotacao;
 	
@@ -83,7 +83,7 @@ public class Funcionario extends AbstractEntidade implements Serializable {
     @NotNull 
     private String situacaoFuncionario = SituacaoFuncionario.ATIVO.getValue();
 	
-	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@OneToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn(name="cd_deficiencia")
 	private Deficiencia deficiencia;
 	

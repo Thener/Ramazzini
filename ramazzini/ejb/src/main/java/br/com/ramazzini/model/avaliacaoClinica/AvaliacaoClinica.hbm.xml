@@ -24,6 +24,10 @@
 				ac
 			from 
 				AvaliacaoClinica ac
+			left join fetch 
+				ac.procedimento
+			left join fetch 
+				ac.medico				
 			where 
 				ac.funcionario = :funcionario
 			order 

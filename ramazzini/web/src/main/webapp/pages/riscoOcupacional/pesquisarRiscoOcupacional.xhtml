@@ -17,7 +17,7 @@
 			
 				<p:outputLabel for="nomeRiscoOcupacionalPesquisa" value="#{msgs['label.nome']}:" />
 				<p:inputText id="nomeRiscoOcupacionalPesquisa" value="#{riscoOcupacionalController.nomeRiscoOcupacionalPesquisa}" 
-					styleClass="nome100" required="false"/>
+					styleClass="nome100" maxlength="200" required="false"/>
 					
 				<p:commandButton action="#{riscoOcupacionalController.pesquisar()}"
 					id="botaoPesquisa" icon="ui-icon-search" title="#{msgs['label.pesquisa']}"

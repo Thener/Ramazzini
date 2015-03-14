@@ -45,7 +45,7 @@ public class Lotacao extends AbstractEntidade implements Serializable {
     @Size(min = 1, max = 100)
     private String nome;
     
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@NotNull
 	@JoinColumn(name="cd_empresa")
 	private Empresa empresa;	    

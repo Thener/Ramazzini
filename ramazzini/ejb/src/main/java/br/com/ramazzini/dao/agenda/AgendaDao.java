@@ -13,9 +13,23 @@ import br.com.ramazzini.model.profissional.Profissional;
 
 public class AgendaDao extends AbstractDao<Agenda> {
 
+	private static final String QUERY_LOAD = "Agenda.load";
 	private static final String QUERY_RECUPERAR_POR_DATA_AGENDA = "Agenda.recuperarPorDataAgenda";
 	private static final String QUERY_RECUPERAR_POR_DATA_AGENDA_SITUACAO = "Agenda.recuperarPorDataAgendaEsituacao";
 	private static final String QUERY_RECUPERAR_PROFISSIONAIS_POR_DATA = "Agenda.recuperarProfissionaisPorData";
+	
+	/*
+	 * Método responsável por carregar a agenda e todos os seus relacionamentos
+	 */
+	public Agenda load(Long id) {
+		Query query = createNamedQuery(QUERY_LOAD);
+		query.setParameter("id", id);
+		try {
+			return (Agenda) query.getSingleResult();
+		} catch (NoResultException nr) {
+			return null;
+		}
+	}	
 	
 	@SuppressWarnings("unchecked")
 	public List<Agenda> recuperarPorDataAgenda(Date data) {
@@ -42,7 +56,13 @@ public class AgendaDao extends AbstractDao<Agenda> {
 	
 	@SuppressWarnings("unchecked")
 	public List<Agenda> recuperarPorFiltros(Date data, String situacaoMarcacaoAgenda, Profissional profissional) {
-		String consulta = "select a from Agenda a where 1=1 ";
+		String consulta = "select a from Agenda a "
+				+ "left join fetch a.funcionario f "
+				+ "left join fetch f.funcao funcao "
+				+ "left join fetch a.profissional p "
+				+ "left join fetch a.procedimento proc "
+				+ "left join fetch f.empresa e "
+				+ "where 1=1 ";
 		
 		if (data != null) { consulta += " and a.dataAgenda = :data"; }
 		if (!situacaoMarcacaoAgenda.isEmpty()) { consulta += " and a.situacaoMarcacaoAgenda = :situacaoMarcacaoAgenda"; }	

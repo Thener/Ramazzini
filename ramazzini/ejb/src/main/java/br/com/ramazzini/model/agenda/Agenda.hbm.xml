@@ -3,6 +3,27 @@
 		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	
+	<query name="Agenda.load">
+		<![CDATA[
+			select 
+				a		
+			from 
+				Agenda a
+			left join fetch 
+				a.procedimento p				
+			left join fetch 
+				a.funcionario f
+			left join fetch 
+				f.empresa empresa
+			left join fetch 
+				f.funcao funcao
+			left join fetch 
+				a.profissional p				
+			where 
+				a.id = :id
+		]]>
+	</query>
+		
 	<query name="Agenda.recuperarPorDataAgenda">
 		<![CDATA[
 			select 

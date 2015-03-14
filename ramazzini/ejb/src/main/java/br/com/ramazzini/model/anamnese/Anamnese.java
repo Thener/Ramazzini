@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,13 +37,12 @@ public class Anamnese extends AbstractEntidade implements Serializable {
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "seq_anamnese")
     private Long id;
     
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@NotNull
 	@JoinColumn(name="cd_avaliacao_clinica")
 	private AvaliacaoClinica avaliacaoClinica;
 	
-	@ManyToOne
-	@NotNull
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="cd_profissional")
 	private Profissional medico;	
 	

@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -42,16 +43,16 @@ public class AvaliacaoClinica extends AbstractEntidade implements Serializable {
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "seq_avaliacao_clinica")
     private Long id;
     	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@NotNull
 	@JoinColumn(name="cd_funcionario")
 	private Funcionario funcionario;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="cd_profissional")
 	private Profissional medico;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@NotNull
 	@JoinColumn(name="cd_procedimento")
 	private Procedimento procedimento;	
@@ -69,11 +70,11 @@ public class AvaliacaoClinica extends AbstractEntidade implements Serializable {
 	@Column(name = "dt_retorno", columnDefinition = "Date")
 	private Date dataRetorno;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="cd_funcao_anterior")
 	private Funcao funcaoAnterior;	
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="cd_funcao_atual")
 	private Funcao funcaoAtual;	
 	

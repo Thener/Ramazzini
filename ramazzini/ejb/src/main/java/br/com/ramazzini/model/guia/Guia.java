@@ -8,6 +8,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -42,12 +43,12 @@ public class Guia extends AbstractEntidade implements Serializable {
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "seq_guia")
     private Long id;
     
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@NotNull
 	@JoinColumn(name="cd_funcionario")
 	private Funcionario funcionario;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@NotNull
 	@JoinColumn(name="cd_credenciado")
 	private Credenciado credenciado;

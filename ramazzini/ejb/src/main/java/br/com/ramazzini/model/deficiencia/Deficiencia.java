@@ -37,21 +37,21 @@ public class Deficiencia extends AbstractEntidade implements Serializable {
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "seq_deficiencia")
     private Long id;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
 	name="deficiencia_origem",
 	joinColumns={@JoinColumn(name="cd_deficiencia")},
 	inverseJoinColumns={@JoinColumn(name="cd_origem_deficiencia")})
     private Set<OrigemDeficiencia> origensDeficiencia = new HashSet<OrigemDeficiencia>();	
     
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
 	name="deficiencia_enquadramento",
 	joinColumns={@JoinColumn(name="cd_deficiencia")},
 	inverseJoinColumns={@JoinColumn(name="cd_enquadramento_deficiencia")})
     private Set<EnquadramentoDeficiencia> enquadramentoDeficiencia = new HashSet<EnquadramentoDeficiencia>();
     
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
 	name="deficiencia_limitacoes",
 	joinColumns={@JoinColumn(name="cd_deficiencia")},
@@ -64,7 +64,7 @@ public class Deficiencia extends AbstractEntidade implements Serializable {
     @Column(name = "ds_limitacoes_funcionais", length = 200)
     private String limitacoesFuncionais;
     
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="cd_profissional")
 	private Profissional medicoExaminador;
     

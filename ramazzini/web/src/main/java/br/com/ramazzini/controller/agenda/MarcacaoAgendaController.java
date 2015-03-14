@@ -122,7 +122,7 @@ public class MarcacaoAgendaController extends AbstractBean implements Serializab
 	
 	public void editarAgendamento(Agenda agenda) {
 		this.agenda = new Agenda();
-		this.agenda = agendaService.recuperarPorId(agenda.getId());
+		this.agenda = agendaService.load(agenda.getId());
 		if (agenda.getFuncionario() != null) {
 			empresaSelecionada = agenda.getFuncionario().getEmpresa();
 		}

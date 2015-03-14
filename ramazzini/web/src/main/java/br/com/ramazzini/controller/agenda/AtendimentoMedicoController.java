@@ -155,7 +155,7 @@ public class AtendimentoMedicoController extends AbstractBean implements Seriali
 		 * 			o botão de atender faz o questionamento; então não é preciso testar aqui.
 		 */
 		
-		Agenda agenda = agendaService.recuperarPorId(id);
+		Agenda agenda = agendaService.load(id);
 		
 		if (SituacaoMarcacaoAgenda.AGUARDANDO.equals(agenda.getSituacaoMarcacaoAgendaEnum())
 				|| (SituacaoMarcacaoAgenda.EM_ATENDIMENTO.equals(agenda.getSituacaoMarcacaoAgendaEnum())

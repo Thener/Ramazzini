@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,12 +31,12 @@ public class ProcedimentoCredenciado extends AbstractEntidade implements Seriali
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_procedimento_credenciado")	
 	private Long id;
     
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     @NotNull
     @JoinColumn(name="cd_procedimento")
     private Procedimento procedimento;
  
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@NotNull
     @JoinColumn(name="cd_credenciado")
     private Credenciado credenciado;

@@ -13,7 +13,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import br.com.ramazzini.model.funcao.Funcao;
@@ -32,9 +31,8 @@ public class RiscoOcupacional extends AbstractEntidade implements Serializable {
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "seq_risco_ocupacional")
     private Long id;
     
-    @Column(name = "nm_risco_ocupacional")
+    @Column(name = "nm_risco_ocupacional", length = 200)
     @NotNull
-    @Size(min = 1, max = 100)
     private String nome;
     
 	@Column(name = "tp_risco_ocupacional", length = 3)

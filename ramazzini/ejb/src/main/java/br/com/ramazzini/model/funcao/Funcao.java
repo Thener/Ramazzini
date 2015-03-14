@@ -50,20 +50,20 @@ public class Funcao extends AbstractEntidade implements Serializable {
 	@NotNull
 	private boolean ativa = true;    
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@NotNull
 	@JoinColumn(name="cd_empresa")
 	private Empresa empresa;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="cd_setor")
 	private Setor setor;	
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="cd_cbo")
 	private Cbo cbo;
 	
-	@ManyToMany
+	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(
 	name="funcao_risco_ocupacional",
 	joinColumns={@JoinColumn(name="cd_funcao")},

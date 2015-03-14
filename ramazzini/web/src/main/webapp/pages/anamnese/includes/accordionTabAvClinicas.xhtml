@@ -23,10 +23,6 @@
 	    <p:column headerText="#{msgs['label.procedimento']}" styleClass="colunaCentralizada">
 	        <h:outputText value="#{avaliacaoClinica.procedimento.nome}" />
 	    </p:column>	    
-	    
-	    <p:column headerText="#{msgs['label.alertaProximoAtendimento']}" styleClass="colunaCentralizada">
-	        <h:outputText value="#{avaliacaoClinica.alertaProximaAvaliacao == true ? 'Sim' : ''}" />
-	    </p:column>		    
 
 	    <p:column headerText="#{msgs['label.resultado']}" styleClass="colunaCentralizada">
 	        <h:outputText value="#{avaliacaoClinica.situacaoAvaliacaoClinicaEnum.stringChave}" />

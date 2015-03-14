@@ -30,6 +30,10 @@ import br.com.ramazzini.service.util.AbstractServiceImpl;
 @Stateless
 public class AgendaService extends AbstractServiceImpl<Agenda> {
 
+	public Agenda load(Long id) {
+		return ((AgendaDao) getDao()).load(id);
+	}
+	
     public List<Agenda> recuperarPorDataAgenda(Date data) {
     	return ((AgendaDao) getDao()).recuperarPorDataAgenda(data);
     }    

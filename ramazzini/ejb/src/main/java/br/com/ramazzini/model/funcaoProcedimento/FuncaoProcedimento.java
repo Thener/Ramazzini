@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,12 +30,12 @@ public class FuncaoProcedimento extends AbstractEntidade implements Serializable
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_funcao_procedimento")	
 	private Long id;
     
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     @NotNull
     @JoinColumn(name="cd_funcao")
     private Funcao funcao;
  
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@NotNull
     @JoinColumn(name="cd_procedimento")
     private Procedimento procedimento;

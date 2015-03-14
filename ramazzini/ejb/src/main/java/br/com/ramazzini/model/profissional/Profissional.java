@@ -62,11 +62,11 @@ public class Profissional extends AbstractEntidade implements Serializable {
 	@Column(name = "no_telefone", length = 20)
 	private String telefone;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="cd_usuario")
 	private Usuario usuario;	
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="cd_horario_atendimento")
 	private HorarioAtendimento horarioAtendimento;	
 	
