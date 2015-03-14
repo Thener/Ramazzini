@@ -9,6 +9,8 @@
 				es
 			from 
 				EmpresaServico es
+			left join fetch
+				es.servico				
 			where 
 				es.empresa = :empresa
 			order 
@@ -22,6 +24,8 @@
 				es
 			from 
 				EmpresaServico es
+			left join fetch
+				es.servico				
 			where 
 				es.empresa = :empresa
 			and

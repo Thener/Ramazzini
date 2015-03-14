@@ -27,7 +27,17 @@
 			left join fetch 
 				ac.procedimento
 			left join fetch 
-				ac.medico				
+				ac.medico
+			left join fetch 
+				ac.funcaoAtual
+			left join fetch 
+				ac.funcaoAnterior				
+			left join fetch 
+				ac.funcionario f
+			left join fetch 
+				f.empresa
+			left join fetch 
+				f.funcao funcao
 			where 
 				ac.funcionario = :funcionario
 			order 

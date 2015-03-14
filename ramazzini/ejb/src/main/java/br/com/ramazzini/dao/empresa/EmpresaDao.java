@@ -102,7 +102,16 @@ public class EmpresaDao extends AbstractDao<Empresa> {
 	
 	private Query gridMontarQuery(FiltroEmpresa filtroEmpresa, boolean queryRecuperar) {
 		
-		String consulta = queryRecuperar ? "SELECT e FROM Empresa e WHERE 1=1 " : "SELECT count(e) FROM Empresa e WHERE 1=1 ";
+		String consulta;
+		
+		if (!queryRecuperar) {
+			consulta = "SELECT count(e) FROM Empresa e WHERE 1=1 ";
+		} else {
+			consulta = "SELECT e FROM Empresa e "
+					+ "left join fetch e.grupo "
+					+ "left join fetch e.cnae "
+					+ "WHERE 1=1 ";			
+		}
 		
 		if (!StringUtils.isEmpty(filtroEmpresa.getNome())) {
 			consulta += " AND sem_acento(lower(e.nome)) like sem_acento(lower(:nome)) ";

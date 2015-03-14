@@ -9,6 +9,12 @@
 				acp
 			from 
 				AvaliacaoClinicaProcedimento acp
+			left join fetch
+				acp.procedimento
+			left join fetch
+				acp.avaliacaoClinica ac
+			left join fetch
+				ac.procedimento
 			where 
 				acp.avaliacaoClinica = :avaliacaoClinica
 			order 
@@ -22,6 +28,12 @@
 				acp
 			from 
 				AvaliacaoClinicaProcedimento acp
+			left join fetch
+				acp.procedimento	
+			left join fetch
+				acp.avaliacaoClinica ac
+			left join fetch
+				ac.procedimento				
 			where 
 				acp.avaliacaoClinica = :avaliacaoClinica
 			and

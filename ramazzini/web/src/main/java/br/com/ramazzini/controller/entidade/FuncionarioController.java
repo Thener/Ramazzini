@@ -15,7 +15,6 @@ import br.com.ramazzini.model.guiaProcedimento.GuiaProcedimento;
 import br.com.ramazzini.service.entidade.FuncionarioService;
 import br.com.ramazzini.service.entidade.GuiaProcedimentoService;
 import br.com.ramazzini.service.entidade.GuiaService;
-import br.com.ramazzini.util.TimeFactory;
 import br.com.ramazzini.util.UtilMensagens;
 
 @Named

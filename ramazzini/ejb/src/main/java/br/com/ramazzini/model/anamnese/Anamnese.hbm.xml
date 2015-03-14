@@ -9,6 +9,8 @@
 				a
 			from 
 				Anamnese a
+			left join fetch
+				a.medico
 			where 
 				a.avaliacaoClinica = :avaliacaoClinica
 			order 

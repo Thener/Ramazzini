@@ -9,6 +9,10 @@
 				f
 			from 
 				Funcionario f
+			left join fetch
+				f.empresa
+			left join fetch
+				f.funcao
 			where 
 				f.empresa = :empresa
 			order 
@@ -22,6 +26,10 @@
 				f
 			from 
 				Funcionario f
+			left join fetch
+				f.empresa				
+			left join fetch
+				f.funcao				
 			where 
 				f.empresa = :empresa
 			and
@@ -37,7 +45,9 @@
 				f
 			from 
 				Funcionario f
-			left join 
+			left join fetch
+				f.funcao				
+			left join fetch
 				f.empresa emp
 			where
 				lower(f.nome) like lower(:nomeFuncionario)

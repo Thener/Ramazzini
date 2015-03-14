@@ -10,7 +10,7 @@
 		
 			<p:outputLabel for="nomeFuncionarioPesquisa" value="#{msgs['label.funcionario']}" />
 			<p:inputText id="nomeFuncionarioPesquisa" value="#{funcionarioController.nomeFuncionarioPesquisa}" 
-				required="false"  styleClass="nome100"/>
+				required="false" styleClass="nome100"/>
 							
 			<p:commandButton action="#{funcionarioController.pesquisar()}" 
 				icon="ui-icon-search" ajax="true" update="panelGridFuncionarioPesquisa, gridFuncionarios" 
