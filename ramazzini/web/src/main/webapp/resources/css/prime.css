@@ -37,3 +37,8 @@ fieldset legend {
 .ui-selectonemenu-label {
 	width: 200px;	
 }
+
+.ui-autocomplete-panel  {
+	overflow-y: scroll !important;
+	height: 250px !important;
+}

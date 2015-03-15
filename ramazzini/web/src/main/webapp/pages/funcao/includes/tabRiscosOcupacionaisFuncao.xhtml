@@ -14,7 +14,7 @@
 				completeMethod="#{autoComplete.completeRiscoOcupacional}"
 				var="riscoOcupacional" itemLabel="#{riscoOcupacional.nome}"
 				itemValue="#{riscoOcupacional}" converter="entityConverter"
-				forceSelection="true" styleClass="nome50"/>		
+				forceSelection="true" styleClass="nome50" size="10"/>		
 		
 			<p:commandButton action="#{funcaoController.incluirRiscoOcupacional()}" value="#{msgs['botao.incluir']}"
 				icon="ui-icon-check" ajax="true" update="gridRiscosOcupacionais, completeRiscoOcupacional" 

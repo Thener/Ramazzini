@@ -11,9 +11,9 @@
 	width: 110px;
 }
 
-.ui-datatable .colunaAcoesPesqVisExcluir {
+.ui-datatable .colunaCom3Acoes {
 	text-align: center;
-	width: 42px;
+	width: 55px;
 }
 
 .ui-datatable .colunaData {
@@ -32,8 +32,9 @@
 
 .dataTableLinks {
   float: left;
-  width: 40px;
-  height: 25px;	
+  width: 17px;
+  height: 18px;
+  margin: 5px 10px;	
 }
 
 .coluna1 {  
