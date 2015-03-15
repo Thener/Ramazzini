@@ -10,7 +10,7 @@
 			from 
 				RiscoOcupacional r
 			where 
-				lower(r.nome) like lower(:nome)
+				sem_acento(lower(r.nome)) like sem_acento(lower(:nome))
 			order 
 				by r.nome
 		]]>

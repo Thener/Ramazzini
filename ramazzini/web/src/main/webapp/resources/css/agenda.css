@@ -53,6 +53,7 @@
 	min-height: 130px;
 	padding: 0px;
 }
+
 .agendaGridAgendamentos tr:hover {
     background: #C6E2FF;
 }

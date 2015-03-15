@@ -214,7 +214,7 @@ public abstract class AbstractDao<T extends AbstractEntidade> {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public final List<T> recuperarPorNome(String nome) {
+	public List<T> recuperarPorNome(String nome) {
 		return (List<T>) DaoUtil.recuperarPorNome(entityManager, getClassePersistente(), nome);
 	}
 	

@@ -51,6 +51,10 @@
 				Funcao f
 			left join fetch
 				f.setor
+			left join fetch
+				f.cbo
+			left join fetch
+				f.empresa
 			where 
 				f.empresa = :empresa
 			order 
@@ -65,7 +69,11 @@
 			from 
 				Funcao f
 			left join fetch
-				f.setor				
+				f.setor	
+			left join fetch
+				f.cbo
+			left join fetch 
+				f.empresa emp				
 			where 
 				f.empresa = :empresa
 			and
@@ -84,7 +92,9 @@
 			left join fetch 
 				f.empresa emp
 			left join fetch
-				f.setor				
+				f.setor	
+			left join fetch
+				f.cbo
 			where 
 				lower(f.nome) like lower(:nomeFuncao)
 			order 

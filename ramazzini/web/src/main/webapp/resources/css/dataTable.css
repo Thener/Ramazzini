@@ -1,3 +1,7 @@
+.ui-datatable tr:hover {
+    background: #C6E2FF;
+}
+
 .ui-datatable .colunaCentralizada {
 	text-align: center;
 }
@@ -5,6 +9,11 @@
 .ui-datatable .colunaAcoes {
 	text-align: center;
 	width: 110px;
+}
+
+.ui-datatable .colunaAcoesPesqVisExcluir {
+	text-align: center;
+	width: 42px;
 }
 
 .ui-datatable .colunaData {
@@ -19,6 +28,12 @@
 
 .ui-datatable .ui-row-toggler {
 	float: left;
+}
+
+.dataTableLinks {
+  float: left;
+  width: 40px;
+  height: 25px;	
 }
 
 .coluna1 {  
