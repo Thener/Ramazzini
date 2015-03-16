@@ -1,6 +1,6 @@
-1. Passar todos os relacionamentos para lazy
-2. implementar lazy model nos grids
-3. padronizar para 10 registros por exibição
+1. verificar se todos os relacionamentos estão setados como lazy
+2. implementar lazy model nos grids (para consulta, ver o grid de pesquisa do cadastro de empresa)
+3. padronizar os grids (de pesquisa do cadastro e aqueles internos) para 10 registros por exibição
 4. colocar order default, acrescentado no cabeçalho do dataTable: sortBy="#{empresa.nome}" por exemplo
 5. colocar o foco no campo de pesquisa ao abrir a tela
 6. envolver os filtros com um fieldset e legend "Filtros"
