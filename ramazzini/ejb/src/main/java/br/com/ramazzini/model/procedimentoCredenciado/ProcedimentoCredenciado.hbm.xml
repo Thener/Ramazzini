@@ -9,7 +9,10 @@
 				pc
 			from 
 				ProcedimentoCredenciado pc
-			left join pc.credenciado c
+			left join fetch
+				pc.credenciado c
+			left join fetch
+				pc.procedimento p				
 			where 
 				c = :credenciado
 			order 
@@ -23,7 +26,8 @@
 				pc
 			from 
 				ProcedimentoCredenciado pc
-			left join pc.procedimento p
+			left join fetch
+				pc.procedimento p
 			where 
 				p = :procedimento
 			order 
@@ -50,8 +54,10 @@
 				pc
 			from 
 				ProcedimentoCredenciado pc
-			left join pc.credenciado c
-			left join pc.procedimento p
+			left join fetch
+				pc.credenciado c
+			left join fetch
+				pc.procedimento p
 			where 
 				c = :credenciado
 			and
@@ -67,8 +73,10 @@
 				pc
 			from 
 				ProcedimentoCredenciado pc
-			left join pc.credenciado c
-			left join pc.procedimento p
+			left join fetch
+				pc.credenciado c
+			left join fetch
+				pc.procedimento p
 			where 
 				p = :procedimento
 			and
