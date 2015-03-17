@@ -49,6 +49,9 @@ public class DeficienciaController extends AbstractBean implements Serializable 
     }
     
 	public String gravarDeficiencia() {
+		if(!doencaMentalSelecionada()) {
+			funcionario.getDeficiencia().getLimitacoesDeficienciaMental().clear();
+		}
 		funcionarioService.salvar(funcionario);
 		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeGravadaComSucesso","label.deficiencia");
 		return "";

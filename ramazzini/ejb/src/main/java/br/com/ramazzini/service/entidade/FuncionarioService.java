@@ -46,4 +46,8 @@ public class FuncionarioService extends AbstractServiceImpl<Funcionario> {
     public List<Funcionario> recuperarPor(Funcao funcao, List<String> situacoes, Empresa empresa) {
     	return ((FuncionarioDao) getDao()).recuperarPor(funcao, situacoes, empresa);    
     }
+    
+    public Funcionario load(Long id) {
+		return ((FuncionarioDao) getDao()).load(id);
+	}
 }

@@ -54,6 +54,33 @@
 			order 
 				by f.nome
 		]]>
+	</query>
+	
+	<query name="Funcionario.load">
+		<![CDATA[
+			select 
+				f		
+			from 
+				Funcionario f
+			left join fetch 
+				f.empresa e				
+			left join fetch 
+				f.funcao fc
+			left join fetch
+				f.lotacao l
+			left join fetch
+				f.deficiencia d
+			left join fetch
+				d.origensDeficiencia
+			left join fetch
+				d.enquadramentoDeficiencia
+			left join fetch
+				d.limitacoesDeficienciaMental
+			left join fetch
+			 	d.medicoExaminador
+			where 
+				f.id = :id
+		]]>
 	</query>		
 
 </hibernate-mapping>

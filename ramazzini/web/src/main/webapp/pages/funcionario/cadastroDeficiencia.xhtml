@@ -53,36 +53,36 @@
 				</h:panelGrid>
 				<p:separator />
 				<h:panelGrid columns="1" cellpadding="10">
-					<p:outputLabel value="#{msgs['label.conclusao']}"
-						styleClass="negrito" />
-					<p:outputLabel for="enquadramentoDeficiencia"
-						value="#{msgs['label.enquadramentoDeficiencia']}" />
-					<p:selectManyCheckbox id="enquadramentoDeficiencia"
-						value="#{deficienciaController.funcionario.deficiencia.enquadramentoDeficiencia}"
-						converter="entityConverter">
-						<f:selectItems value="#{combosDinamicos.enquadramentoDeficiencia}"
-							var="enquadramentoDeficiencia"
-							itemLabel="#{enquadramentoDeficiencia.enquadramentoDeficienciaEnum.stringChave}"
-							itemValue="#{enquadramentoDeficiencia}" />
-						<f:attribute name="collectionType" value="java.util.HashSet" />
-						<f:ajax execute="limitacoesDeficienciaMental" render="panelDadosDeficiencia"/>
-					</p:selectManyCheckbox>
-
-					<p:outputLabel for="limitacoesDeficienciaMental"
-						value="#{msgs['label.deficienciaMental']}"
-						rendered="#{deficienciaController.doencaMentalSelecionada()}" />
-					<p:selectManyCheckbox id="limitacoesDeficienciaMental"
-						rendered="#{deficienciaController.doencaMentalSelecionada()}"
-						value="#{deficienciaController.funcionario.deficiencia.limitacoesDeficienciaMental}"
-						converter="entityConverter">
-						<f:selectItems
-							value="#{combosDinamicos.limitacoesDeficienciaMental}"
-							var="limitacoesDeficienciaMental"
-							itemLabel="#{limitacoesDeficienciaMental.limitacoesDeficienciaMentalEnum.stringChave}"
-							itemValue="#{limitacoesDeficienciaMental}" />
-						<f:attribute name="collectionType" value="java.util.HashSet" />
-					</p:selectManyCheckbox>
-					
+					<h:panelGrid id="pnlGroupAmparoLegal" cellpadding="10">
+						<p:outputLabel value="#{msgs['label.conclusao']}"
+							styleClass="negrito" />
+						<p:outputLabel for="enquadramentoDeficiencia"
+							value="#{msgs['label.enquadramentoDeficiencia']}" />
+						<p:selectManyCheckbox id="enquadramentoDeficiencia"
+							value="#{deficienciaController.funcionario.deficiencia.enquadramentoDeficiencia}"
+							converter="entityConverter">
+							<f:selectItems value="#{combosDinamicos.enquadramentoDeficiencia}"
+								var="enquadramentoDeficiencia"
+								itemLabel="#{enquadramentoDeficiencia.enquadramentoDeficienciaEnum.stringChave}"
+								itemValue="#{enquadramentoDeficiencia}" />
+							<f:attribute name="collectionType" value="java.util.HashSet" />
+							<f:ajax execute="limitacoesDeficienciaMental" render="pnlGroupAmparoLegal"/>
+						</p:selectManyCheckbox>
+						<p:outputLabel for="limitacoesDeficienciaMental" 
+							value="#{msgs['label.deficienciaMental']}"
+							rendered="#{deficienciaController.doencaMentalSelecionada()}" />
+						<p:selectManyCheckbox id="limitacoesDeficienciaMental"
+							rendered="#{deficienciaController.doencaMentalSelecionada()}"
+							value="#{deficienciaController.funcionario.deficiencia.limitacoesDeficienciaMental}"
+							converter="entityConverter">
+							<f:selectItems
+								value="#{combosDinamicos.limitacoesDeficienciaMental}"
+								var="limitacoesDeficienciaMental"
+								itemLabel="#{limitacoesDeficienciaMental.limitacoesDeficienciaMentalEnum.stringChave}"
+								itemValue="#{limitacoesDeficienciaMental}" />
+							<f:attribute name="collectionType" value="java.util.HashSet" />
+						</p:selectManyCheckbox>
+					</h:panelGrid>
 					<p:separator />
 					
 					<p:outputLabel for="medico" value="#{msgs['label.medicoExaminador']}:" />

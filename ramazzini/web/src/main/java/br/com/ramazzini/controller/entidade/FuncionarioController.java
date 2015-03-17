@@ -15,6 +15,7 @@ import br.com.ramazzini.model.guiaProcedimento.GuiaProcedimento;
 import br.com.ramazzini.service.entidade.FuncionarioService;
 import br.com.ramazzini.service.entidade.GuiaProcedimentoService;
 import br.com.ramazzini.service.entidade.GuiaService;
+import br.com.ramazzini.util.TratarExcecao;
 import br.com.ramazzini.util.UtilMensagens;
 
 @Named
@@ -41,6 +42,10 @@ public class FuncionarioController extends AbstractBean implements Serializable 
     
     private Integer tabAtiva;
     
+    private String exceptionMessage;
+    
+    private boolean showModalException = Boolean.FALSE;
+    
 	public String incluirFuncionario() {
 		
 		funcionario = new Funcionario();
@@ -66,10 +71,13 @@ public class FuncionarioController extends AbstractBean implements Serializable 
     		UtilMensagens.mensagemInformacaoPorChave("mensagem.info.entidadeExcluidaComSucesso", "label.funcionario");
     	} catch (Exception e) {
     		UtilMensagens.mensagemErroPorChave("mensagem.erro.naoFoiPossivelExcluirRegistro", "label.funcionario");
+    		exceptionMessage = new TratarExcecao(e).getExceptionMessage();
+    		showModalException = Boolean.TRUE;
         }
     }    
     
     private String cadatroFuncionario(Funcionario funcionario, Boolean somenteLeitura) {
+    	funcionario=funcionarioService.load(funcionario.getId());
     	setEmpresa(funcionario.getEmpresa());
     	setFuncionario(funcionario);
     	avaliacaoClinicaController.setFuncionario(funcionario);
@@ -166,4 +174,24 @@ public class FuncionarioController extends AbstractBean implements Serializable 
 	public String getIdadeFuncionario() {
 		return funcionario.getIdadeTexto();
 	}
+
+	public String getExceptionMessage() {
+		return exceptionMessage;
+	}
+
+	public void setExceptionMessage(String exceptionMessage) {
+		this.exceptionMessage = exceptionMessage;
+	}
+
+	public boolean isShowModalException() {
+		return showModalException;
+	}
+
+	public void setShowModalException(boolean showModalException) {
+		this.showModalException = showModalException;
+	}	
+	
+	public void hideModalException() {
+		this.showModalException = false;
+	}	
 }

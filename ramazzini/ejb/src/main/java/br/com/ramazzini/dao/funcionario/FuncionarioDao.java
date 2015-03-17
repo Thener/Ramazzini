@@ -23,8 +23,21 @@ public class FuncionarioDao extends AbstractDao<Funcionario> {
 
 	private static final String QUERY_RECUPERAR_POR_EMPRESA = "Funcionario.recuperarPorEmpresa";
 	private static final String QUERY_RECUPERAR_POR_NOME_EMPRESA = "Funcionario.recuperarPorNomeEmpresa";
+	private static final String QUERY_LOAD = "Funcionario.load";
 //	private static final String QUERY_RECUPERAR_POR_NOME = "Funcionario.recuperarPorNome";
 	
+	/*
+	 * Método responsável por carregar o funcionário e todos os seus relacionamentos
+	 */
+	public Funcionario load(Long id) {
+		Query query = createNamedQuery(QUERY_LOAD);
+		query.setParameter("id", id);
+		try {
+			return (Funcionario) query.getSingleResult();
+		} catch (NoResultException nr) {
+			return null;
+		}
+	}	
 	@SuppressWarnings("unchecked")
 	public List<Funcionario> recuperarPorEmpresa(Empresa empresa) {
 		Query query = createNamedQuery(QUERY_RECUPERAR_POR_EMPRESA);
