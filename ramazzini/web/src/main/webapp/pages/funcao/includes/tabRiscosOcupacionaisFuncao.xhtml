@@ -36,6 +36,10 @@
 			<h:outputText value="#{riscoOcupacional.nome}" />
 		</p:column>
 	
+		<p:column headerText="#{msgs['label.tipo']}" styleClass="colunaCentralizada">
+			<h:outputText value="#{riscoOcupacional.tipoRiscoOcupacionalEnum.stringChave}" />
+		</p:column>
+			
 		<p:column headerText="#{msgs['label.acoes']}" styleClass="colunaAcoes">
 			<p:panelGrid columns="1">
 				<p:commandLink title="#{msgs['label.excluir']}" disabled="#{funcaoController.somenteLeitura}"

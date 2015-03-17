@@ -24,6 +24,8 @@
 				fp
 			from 
 				FuncaoProcedimento fp
+			left join fetch
+				fp.procedimento
 			where 
 				fp.funcao = :funcao
 			order 
@@ -50,6 +52,8 @@
 				fp
 			from 
 				FuncaoProcedimento fp
+			left join fetch
+				fp.procedimento				
 			where 
 				fp.funcao = :funcao
 			and

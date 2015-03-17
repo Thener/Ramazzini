@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -21,7 +20,7 @@ import br.com.ramazzini.model.util.AbstractEntidade;
 @SequenceGenerator(name = "seq_risco_ocupacional", sequenceName = "seq_risco_ocupacional", allocationSize = 1)
 @Entity
 @XmlRootElement
-@Table(name = "risco_ocupacional", uniqueConstraints = @UniqueConstraint(columnNames = "nm_risco_ocupacional"))
+@Table(name = "risco_ocupacional")
 public class RiscoOcupacional extends AbstractEntidade implements Serializable {
     
     private static final long serialVersionUID = 1L;
